@@ -15,13 +15,13 @@
 
 	if(isset($_SESSION['id'])){
 	    echo "<br>";
-        $sql="SHOW COLUMNS FROM inventory";
+        $sql="SHOW COLUMNS FROM inventory"; //gets headers for page
         $result = mysqli_query($conn, $sql);
         while($row = mysqli_fetch_array($result)) {
             array_push($columnNames, $row['Field']);
         }
 
-	    $sql="SELECT * FROM inventory";
+	    $sql="SELECT * FROM inventory"; //displays headers for page
         $result = mysqli_query($conn, $sql);
         echo "<table class ='inventory'>";
         for($count = 0; $count< count($columnNames); $count++){
@@ -35,7 +35,7 @@
                 WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
                 $result2 = mysqli_query($conn, $sql2);
                 $rowType = mysqli_fetch_array($result2);
-                if($rowType['DATA_TYPE'] == "tinyint"){
+                if($rowType['DATA_TYPE'] == "tinyint"){ //if column is a boolean
                     if($row[$columnNames[$count]] == 0 && $row[$columnNames[$count]] !== null){
                         echo '<td>No</td>';
                     }
@@ -46,7 +46,7 @@
                         echo '<td></td>';
                     }
                 }
-                else{
+                else{ //if column is a varchar
                     echo '<td> '.$row[$columnNames[$count]].'</td>';
                 }
             }

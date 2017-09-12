@@ -31,7 +31,7 @@ if(isset($_SESSION['id'])) {
                 else {
                     $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=";
                 }
-                if (strpos($columnName, ' ')) {
+                if (strpos($columnName, ' ')) { //changes column name for includes file
                     $columnName = str_replace(" ", "", $columnName);
                 }
                 if($isSelect){

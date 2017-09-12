@@ -11,64 +11,93 @@
     include 'header.php';
 	include 'dbh.php';
 
-	$columnNames= array();
+	$firstColumnNames= array();
+	$secondColumnNames = array();
+    $columnNames= array();
 	$outerCount = 0;
 
 	if(isset($_SESSION['id'])) {
         echo "<br>";
+        echo "<table class ='inventory'>";
+
         $sql = "SHOW COLUMNS FROM inventory"; //gets headers for page
         $result = mysqli_query($conn, $sql);
+        $innerCount = 0;
         while ($row = mysqli_fetch_array($result)) {
-            array_push($columnNames, $row['Field']);
+            if ($innerCount < 4) {
+                $innerCount++;
+                array_push($columnNames, $row['Field']);
+            }
         }
-
-        echo "<table class ='inventory'>";
-        for ($count = 0; $count < count($columnNames); $count++) {
-            echo "<th>$columnNames[$count]</th>";
-        }
-
-        if($outerCount < 4){
-            $outerCount++;
-        $sql = "SELECT * FROM inventory"; //displays headers for page
-        //$sql="SELECT inv_id, Item, inventory.Type, types.Subtype FROM inventory JOIN types ON inventory.Subtype = types.subtype ORDER BY inv_id"; //displays headers for page
-        $result = mysqli_query($conn, $sql);
-
-        while($row = mysqli_fetch_array($result)) {
-            echo "<tr>";
-
-                for($count = 0; $count< count($columnNames); $count++){
-                    $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS 
-                    WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
-                    $result2 = mysqli_query($conn, $sql2);
-                    $rowType = mysqli_fetch_array($result2);
-
-                    if($rowType['DATA_TYPE'] == "tinyint"){ //if column is a boolean
-                        if($row[$columnNames[$count]] == 0 && $row[$columnNames[$count]] !== null){
-                            echo '<td>No</td>';
-                        }
-                        elseif($row[$columnNames[$count]] !== null){
-                            echo '<td>Yes</td>';
-                        }
-                        else{
-                            echo '<td></td>';
-                        }
-                    }
-                    else{ //if column is a varchar
-                        echo '<td> '.$row[$columnNames[$count]].'</td>';
+        for ($bigCount; $bigCount < count($columnNames); $bigCount++) {
+            if ($outerCount < 4) {
+                $outerCount++;
+                echo $outerCount;
+                $sql = "SHOW COLUMNS FROM inventory"; //gets headers for page
+                $result = mysqli_query($conn, $sql);
+                $innerCount = 0;
+                while ($row = mysqli_fetch_array($result)) {
+                    if ($innerCount < 4) {
+                        $innerCount++;
+                        array_push($firstColumnNames, $row['Field']);
                     }
                 }
-            }
+
+                for ($count = 0; $count < count($firstColumnNames); $count++) {
+                    echo "<th>$firstColumnNames[$count]</th>";
+                }
+
+                $sql = "SELECT inv_id, Item, inventory.Type, types.Subtype FROM inventory JOIN types ON inventory.Subtype = types.subtype ORDER BY inv_id"; //displays headers for page
+                $result = mysqli_query($conn, $sql);
+
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<tr>";
+
+                    for ($count = 0; $count < count($firstColumnNames); $count++) {
+                        $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS 
+                                WHERE table_name = 'inventory' AND COLUMN_NAME = '$firstColumnNames[$count]';";
+                        $result2 = mysqli_query($conn, $sql2);
+                        $rowType = mysqli_fetch_array($result2);
+
+                        if ($rowType['DATA_TYPE'] == "tinyint") { //if column is a boolean
+                            if ($row[$firstColumnNames[$count]] == 0 && $row[$firstColumnNames[$count]] !== null) {
+                                echo '<td>No</td>';
+                            } elseif ($row[$firstColumnNames[$count]] !== null) {
+                                echo '<td>Yes</td>';
+                            } else {
+                                echo '<td></td>';
+                            }
+                        } else { //if column is a varchar
+                            echo '<td> ' . $row[$firstColumnNames[$count]] . '</td>';
+                        }
+                    }
+                }
 
                 echo "<td> <a href='QRCode.php?text=$row[Item]'>Show QR Code<br></td>
-                <td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>
-                <td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td>
-                
-            </tr>";
-            $count++;
-        }
-        else{
+                        <td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>
+                        <td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td>";
 
+                $count++;
+            } else {
+                $sql = "SHOW COLUMNS FROM inventory"; //gets headers for page
+                $result = mysqli_query($conn, $sql);
+                $innerCount = 0;
+                while ($row = mysqli_fetch_array($result)) {
+                    if ($innerCount < 4) {
+                        $innerCount++;
+                    } else {
+                        array_push($secondColumnNames, $row['Field']);
+                        echo "Pushing " . $row['Field'];
+                    }
+                }
+
+                for ($count = 0; $count < count($secondColumnNames); $count++) {
+                    echo "<th>$secondColumnNames[$count]</th>";
+                }
+            }
         }
+
+        echo "</tr>";
 
         echo "&nbsp&nbsp<form action='usersTable.php'>
                <input type='submit' value='See Users'/>

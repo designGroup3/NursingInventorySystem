@@ -47,11 +47,13 @@
                     }
                 }
                 else{
-                echo '<td> '.$row[$columnNames[$count]].'</td>';
+                    echo '<td> '.$row[$columnNames[$count]].'</td>';
                 }
             }
-                echo "<td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>
+                echo "<td> <a href='QRCode.php?text=$row[Item]'>Show QR Code<br></td>
+                <td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>
                 <td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td>
+                
             </tr>";
             $count++;
         }

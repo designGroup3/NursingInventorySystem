@@ -52,6 +52,11 @@ if(isset($_SESSION['id'])) {
                 echo $inputs;
             }
             echo "&nbsp&nbsp<button type='submit'>Submit</button></form>";
+
+    $retrievedData = $row[$columnNames[1]];
+
+    echo '<br><img src=QRCode.php?text='.$retrievedData.' width="135" height="125" title="QR Code" alt="QR Code">';
+
 }
 else{
     echo "<br> Please log in to manipulate the database";

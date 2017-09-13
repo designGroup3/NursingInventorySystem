@@ -11,9 +11,7 @@
     include 'header.php';
 	include 'dbh.php';
 
-    $bigCount =0 ;
     $columnNames= array();
-	$outerCount = 0;
 
 	if(isset($_SESSION['id'])) {
         echo "<br>";
@@ -43,74 +41,29 @@
             echo "<th>$columnNames[$count]</th>";
         }
 
-        echo "<tr>";
-
         $sql = "SELECT inv_id, Item, inventory.Type, types.Subtype FROM inventory JOIN types ON inventory.Type = types.Type ORDER BY inv_id"; //display first four columns
         $result = mysqli_query($conn, $sql);
 
-        //for($bigCount = 0; $bigCount < count($columnNames); $bigCount++){
-
+        $columnNumber = 1;
         while ($row = mysqli_fetch_array($result)) {
-            if($bigCount <4){
-                for($innerCount = 0; $innerCount <4; $innerCount++){
-                    echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
+            echo "<tr>";
+            for($innerCount = 0; $innerCount <4; $innerCount++){
+                echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
+            }
+
+            $sql2 = "SELECT * FROM inventory WHERE inv_id = " . $columnNumber; //display later columns
+            $columnNumber++;
+            $result2 = mysqli_query($conn, $sql2);
+
+            while ($row2 = mysqli_fetch_array($result2)) {
+                for($whileCount = 4; $whileCount < count($columnNames); $whileCount++){
+                    echo '<td> ' . $row2[$columnNames[$whileCount]] . '</td>';
                 }
             }
 
-            $sql = "SELECT * FROM inventory"; //display later columns
-            $result = mysqli_query($conn, $sql);
-
-            while ($row = mysqli_fetch_array($result)) {
-                for($innerCount = 0; $innerCount < count($columnNames); $innerCount++){
-                    if($innerCount > 3){
-                        echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
-                    }
-                }
-
-//                for ($whileCount = 0; $whileCount <count($columnNames); $whileCount++) {
-//                    if($bigCount >= 4){
-//                        echo '<td> ' . $row[$columnNames[$bigCount]] . '</td>';
-//                    }
-//                }
-            }
-            //}
-//                else if($bigCount >= 4){
-//                    $sql = "SELECT * FROM inventory"; //display later columns
-//                    $result = mysqli_query($conn, $sql);
-//
-//                    while ($row = mysqli_fetch_array($result)) {
-//                        for ($innerCount = 0; $innerCount <count($columnNames); $innerCount++) {
-//                            if($bigCount >= 4){
-//                                echo '<td> ' . $row[$columnNames[$bigCount]] . '</td>';
-//                            }
-//                        }
-//                    }
-//                }
             echo "</tr>";
         }
 
-        //}
-
-//            else{
-//                $sql = "SELECT * FROM inventory"; //display later columns
-//                $result = mysqli_query($conn, $sql);
-//
-//                while ($row = mysqli_fetch_array($result)) {
-//                    for ($count = 0; $count <count($columnNames); $count++) {
-//                        if($count >= 4){
-//                            echo '<td> ' . $row[$columnNames[$count]] . '</td>';
-//                            echo "</tr>";
-//                        }
-//                    }
-//                }
-//            }
-
-
-    //        echo "<td> <a href='QRCode.php?text=$row[Item]'>Show QR Code<br></td>
-    //                <td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>
-    //                <td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td>";
-    //        }
-    //
         echo "&nbsp&nbsp<form action='usersTable.php'>
                <input type='submit' value='See Users'/>
               </form>";

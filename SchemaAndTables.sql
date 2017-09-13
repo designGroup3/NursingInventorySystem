@@ -12,7 +12,6 @@ CREATE TABLE loginsystem.inventory (
   inv_id INT NOT NULL AUTO_INCREMENT,
   Item VARCHAR(100) NOT NULL,
   Type VARCHAR(100) NOT NULL,
-  Subtype VARCHAR(100) NOT NULL,
   Consumable TINYINT(1) NOT NULL,
   Checkoutable TINYINT(1) NOT NULL,
   `Number in Stock (Minimum)` INT NOT NULL,

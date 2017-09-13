@@ -57,11 +57,31 @@
 
             while ($row2 = mysqli_fetch_array($result2)) {
                 for($whileCount = 4; $whileCount < count($columnNames); $whileCount++){
-                    echo '<td> ' . $row2[$columnNames[$whileCount]] . '</td>';
+                        $sql3 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS 
+                        WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$whileCount]';";
+                        $result3 = mysqli_query($conn, $sql3);
+                        $rowType = mysqli_fetch_array($result3);
+                        if($rowType['DATA_TYPE'] == "tinyint"){
+                            if($row2[$columnNames[$whileCount]] == 0 && $row2[$columnNames[$whileCount]] !== null){
+                                echo '<td>No</td>';
+                            }
+                            elseif($row2[$columnNames[$whileCount]] !== null){
+                                echo '<td>Yes</td>';
+                            }
+                            else{
+                                echo '<td></td>';
+                            }
+                        }
+                        else{
+                            echo '<td> '.$row2[$columnNames[$whileCount]].'</td>';
+                        }
+
                 }
             }
 
-            echo "</tr>";
+            echo "<td> <a href='QRCode.php?text=$row[Item]'>Show QR Code<br></td>
+                    <td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>
+                   <td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td></tr>";
         }
 
         echo "&nbsp&nbsp<form action='usersTable.php'>

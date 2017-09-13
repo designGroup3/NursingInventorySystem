@@ -11,8 +11,7 @@
     include 'header.php';
 	include 'dbh.php';
 
-	//$firstColumnNames= array();
-	//$secondColumnNames = array();
+    $bigCount =0 ;
     $columnNames= array();
 	$outerCount = 0;
 
@@ -43,39 +42,54 @@
         for ($count = 0; $count < count($columnNames); $count++) {
             echo "<th>$columnNames[$count]</th>";
         }
-        for($bigCount = 0; $bigCount < count($columnNames); $bigCount++){
-            echo "<tr>";
 
-            $sql = "SELECT inv_id, Item, inventory.Type, types.Subtype FROM inventory JOIN types ON inventory.Type = types.Type ORDER BY inv_id"; //display first four columns
+        echo "<tr>";
+
+        $sql = "SELECT inv_id, Item, inventory.Type, types.Subtype FROM inventory JOIN types ON inventory.Type = types.Type ORDER BY inv_id"; //display first four columns
+        $result = mysqli_query($conn, $sql);
+
+        //for($bigCount = 0; $bigCount < count($columnNames); $bigCount++){
+
+        while ($row = mysqli_fetch_array($result)) {
+            if($bigCount <4){
+                for($innerCount = 0; $innerCount <4; $innerCount++){
+                    echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
+                }
+            }
+
+            $sql = "SELECT * FROM inventory"; //display later columns
             $result = mysqli_query($conn, $sql);
 
             while ($row = mysqli_fetch_array($result)) {
-                $done = false;
-                $done2 = false;
-                for ($count = 0; $count <count($columnNames); $count++) {
-                    if($bigCount < 4 && !$done) {
-                        for($innerCount = 0; $innerCount < 4; $innerCount++){
-                            echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
-                            $done = true;
-                        }
-                    }
-                    else if($count >= 4 && !$done2){
-                        echo " Count >4: ". $count;
-                        $sql = "SELECT * FROM inventory"; //display later columns
-                        $result = mysqli_query($conn, $sql);
-
-                        while ($row = mysqli_fetch_array($result)) {
-                            for ($innerCount = 0; $innerCount <count($columnNames); $innerCount++) {
-                                if($count >= 4){
-                                    echo '<td> ' . $row[$columnNames[$count]] . '</td>';
-                                    $done2 = true;
-                                }
-                            }
-                        }
+                for($innerCount = 0; $innerCount < count($columnNames); $innerCount++){
+                    if($innerCount > 3){
+                        echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
                     }
                 }
-                echo "</tr>";
+
+//                for ($whileCount = 0; $whileCount <count($columnNames); $whileCount++) {
+//                    if($bigCount >= 4){
+//                        echo '<td> ' . $row[$columnNames[$bigCount]] . '</td>';
+//                    }
+//                }
             }
+            //}
+//                else if($bigCount >= 4){
+//                    $sql = "SELECT * FROM inventory"; //display later columns
+//                    $result = mysqli_query($conn, $sql);
+//
+//                    while ($row = mysqli_fetch_array($result)) {
+//                        for ($innerCount = 0; $innerCount <count($columnNames); $innerCount++) {
+//                            if($bigCount >= 4){
+//                                echo '<td> ' . $row[$columnNames[$bigCount]] . '</td>';
+//                            }
+//                        }
+//                    }
+//                }
+            echo "</tr>";
+        }
+
+        //}
 
 //            else{
 //                $sql = "SELECT * FROM inventory"; //display later columns
@@ -97,7 +111,6 @@
     //                <td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td>";
     //        }
     //
-        }
         echo "&nbsp&nbsp<form action='usersTable.php'>
                <input type='submit' value='See Users'/>
               </form>";

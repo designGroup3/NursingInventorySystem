@@ -2,14 +2,14 @@ INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`) VALUES (
 
 INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`) VALUES ('2', 'Craig', 'Johnson', 'Craig', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO');
 
-INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Type`, `Consumable`, `Checkoutable`, `Number in Stock (Minimum)`) VALUES (1, 'Bolt', 'Fake', 0, 1, 0);
+INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Consumable`, `Checkoutable`, `Number in Stock (Minimum)`) VALUES (1, 'Bolt', 'Bogus', 0, 1, 0);
 
-INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Type`, `Consumable`, `Checkoutable`, `Number in Stock (Minimum)`) VALUES (2, 'Screw', 'Not', 0, 1, 0);
+INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Consumable`, `Checkoutable`, `Number in Stock (Minimum)`) VALUES (2, 'Screw', 'Real', 0, 1, 0);
 
-INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Type`, `Consumable`, `Checkoutable`, `Number in Stock (Minimum)`) VALUES (3, 'Nut', 'Dummy', 0, 1, 0);
+INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Consumable`, `Checkoutable`, `Number in Stock (Minimum)`) VALUES (3, 'Nut', 'Data', 0, 1, 0);
 
-INSERT INTO `loginsystem`.`types` (`Type`, `Subtype`) VALUES ('Fake', 'Bogus');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('Bogus', 'Fake');
 
-INSERT INTO `loginsystem`.`types` (`Type`, `Subtype`) VALUES ('Not', 'Real');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('Real', 'Not');
 
-INSERT INTO `loginsystem`.`types` (`Type`, `Subtype`) VALUES ('Dummy', 'Data');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('Data', 'Dummy');

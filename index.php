@@ -21,18 +21,18 @@
         $result = mysqli_query($conn, $sql);
         $innerCount = 0;
         while ($row = mysqli_fetch_array($result)) {
-            if ($innerCount < 3) {
+            if ($innerCount < 2) {
                 $innerCount++;
                 array_push($columnNames, $row['Field']);
             }
         }
-        array_push($columnNames,"Subtype"); //from Type table
+        array_push($columnNames,"Type"); //from Subtype table
         $sql = "SHOW COLUMNS FROM inventory"; //gets second headers for page
         $result = mysqli_query($conn, $sql);
         $innerCount = 0;
         while ($row = mysqli_fetch_array($result)) {
             $innerCount++;
-            if ($innerCount > 3) {
+            if ($innerCount > 2) {
                 array_push($columnNames, $row['Field']);
             }
         }
@@ -41,7 +41,7 @@
             echo "<th>$columnNames[$count]</th>";
         }
 
-        $sql = "SELECT inv_id, Item, inventory.Type, types.Subtype FROM inventory JOIN types ON inventory.Type = types.Type ORDER BY inv_id"; //display first four columns
+        $sql = "SELECT inv_id, Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY inv_id"; //display first four columns
         $result = mysqli_query($conn, $sql);
 
         $columnNumber = 1;

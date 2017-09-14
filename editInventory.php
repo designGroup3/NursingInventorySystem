@@ -10,23 +10,23 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
     $innerCount = 0;
     while ($row = mysqli_fetch_array($result)) {
-        if ($innerCount < 3) {
+        if ($innerCount < 2) {
             $innerCount++;
             array_push($columnNames, $row['Field']);
         }
     }
-    array_push($columnNames,"Subtype"); //from Type table
+    array_push($columnNames,"Type"); //from Subtype table
     $sql = "SHOW COLUMNS FROM inventory"; //gets second headers for page
     $result = mysqli_query($conn, $sql);
     $innerCount = 0;
     while ($row = mysqli_fetch_array($result)) {
         $innerCount++;
-        if ($innerCount > 3) {
+        if ($innerCount > 2) {
             array_push($columnNames, $row['Field']);
         }
     }
 
-    $sql="SELECT Item, inventory.Type, Subtype FROM inventory JOIN types ON inventory.Type = types.Type WHERE inv_id = ".$inv_id.";";
+    $sql="SELECT Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE inv_id = ".$inv_id.";";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
     echo "<form action ='includes/editInventory.inc.php' method ='POST'><br>
@@ -34,6 +34,7 @@ if(isset($_SESSION['id'])) {
             for($count = 1; $count < 4; $count++){
                 echo "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=".$columnNames[$count]." value=".$row[$columnNames[$count]]."><br><br>";
             }
+
     $sql="SELECT * FROM inventory WHERE inv_id = ".$inv_id.";";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);

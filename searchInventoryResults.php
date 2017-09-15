@@ -13,6 +13,7 @@ if(isset($_SESSION['id'])) {
 
     $columnNames = array();
     $receivedValues = array();
+    error_reporting(E_ALL ^ E_NOTICE);
 
     $sql="SHOW COLUMNS FROM inventory";
     $result = mysqli_query($conn, $sql);
@@ -116,7 +117,7 @@ if(isset($_SESSION['id'])) {
             }
         }
         echo "<td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>
-                <td> <a href='includes/deleteInventory.inc.php?delete=$row[inv_id]'>Delete<br></td>
+                <td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td>
             </tr>";
     }
 

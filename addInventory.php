@@ -40,13 +40,7 @@
                     $inputs .= "</select><br><br>";
                 }
                 else {
-                    //$inputs .= "<option value= 0>No</option><option value= 1>Yes</option></select><br><br>";
-                    if($row[$columnNames[$count]] == 0){
-                        $inputs .= "<option value= 0>No</option><option value= 1>Yes</option></select><br><br>";
-                    }
-                    else{
-                        $inputs .= "<option value= 1>Yes</option><option value= 0>No</option></select><br><br>";
-                    }
+                    $inputs .= "<option value= 0>No</option><option value= 1>Yes</option></select><br><br>";
                 }
             }
             else{

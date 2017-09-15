@@ -15,7 +15,6 @@ if(isset($_SESSION['id'])) {
             array_push($columnNames, $row['Field']);
         }
     }
-    array_push($columnNames,"Type"); //from Subtype table
     $sql = "SHOW COLUMNS FROM inventory"; //gets second headers for page
     $result = mysqli_query($conn, $sql);
     $innerCount = 0;
@@ -26,26 +25,20 @@ if(isset($_SESSION['id'])) {
         }
     }
 
-    $sql="SELECT Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE inv_id = ".$inv_id.";";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_array($result);
     echo "<form action ='includes/editInventory.inc.php' method ='POST'><br>
             <input type='hidden' name='inv_id' value = $inv_id>";
-            for($count = 1; $count < 4; $count++){
-                echo "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=".$columnNames[$count]." value=".$row[$columnNames[$count]]."><br><br>";
-            }
 
     $sql="SELECT * FROM inventory WHERE inv_id = ".$inv_id.";";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
-    for($count = 4; $count < (count($columnNames)); $count++){ //inv_id is not editable since it's the primary key
+    for($count = 1; $count < (count($columnNames)); $count++){ //inv_id is not editable since it's the primary key
         $isSelect = false;
         $columnName = $columnNames[$count];
         $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
         WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
         $result2 = mysqli_query($conn, $sql2);
         $rowType = mysqli_fetch_array($result2);
-        if($rowType['DATA_TYPE'] == "tinyint"){
+        if($rowType['DATA_TYPE'] == "tinyint" || $count == 2){
             $isSelect = true;
             $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<select name=";
         }
@@ -57,14 +50,34 @@ if(isset($_SESSION['id'])) {
         }
         if($isSelect){
             $inputs .= $columnName . ">";
-            if($row[$columnNames[$count]] == 0 && $row[$columnNames[$count]] !== null){
-                $inputs .= "<option value=0>No</option><option value=1>Yes</option></select><br><br>";
-            }
-            elseif($row[$columnNames[$count]] !== null){
-                $inputs .= "<option value=1>Yes</option><option value=0>No</option></select><br><br>";
+            if($count == 2){
+                $sqlSubtype = "SELECT Subtype FROM inventory WHERE inv_id =". $inv_id;
+                $resultSubtype = mysqli_query($conn, $sqlSubtype);
+                $subRow = mysqli_fetch_array($resultSubtype);
+                $Subtype = $subRow['Subtype'];
+
+                $sql3 = "SELECT Subtype FROM subtypes";
+                $result3 = mysqli_query($conn, $sql3);
+                while($SubtypeRow = mysqli_fetch_array($result3)){
+                    if($Subtype === $SubtypeRow['Subtype']){
+                        $inputs .= "<option selected=\"selected\" value= ". $SubtypeRow['Subtype'].">".$SubtypeRow['Subtype']."</option>";
+                    }
+                    else{
+                        $inputs .= "<option value= ". $SubtypeRow['Subtype'].">".$SubtypeRow['Subtype']."</option>";
+                    }
+                }
+                $inputs .= "</select><br><br>";
             }
             else{
-                $inputs .= "<option value=''></option><option value=1>Yes</option><option value=0>No</option></select><br><br>";
+                if($row[$columnNames[$count]] == 0 && $row[$columnNames[$count]] !== null){
+                    $inputs .= "<option value=0>No</option><option value=1>Yes</option></select><br><br>";
+                }
+                elseif($row[$columnNames[$count]] !== null){
+                    $inputs .= "<option value=1>Yes</option><option value=0>No</option></select><br><br>";
+                }
+                else{
+                    $inputs .= "<option value=''></option><option value=1>Yes</option><option value=0>No</option></select><br><br>";
+                }
             }
         }
         else{
@@ -75,7 +88,7 @@ if(isset($_SESSION['id'])) {
     echo "&nbsp&nbsp<button type='submit'>Submit</button></form>";
     $retrievedData = $row[$columnNames[1]];
 
-    echo '<br><img src=QRCode.php?text='.$retrievedData.' width="135" height="125" title="QR Code" alt="QR Code">';
+    echo '<br><br><img src=QRCode.php?text='.$retrievedData.' width="135" height="125" title="QR Code" alt="QR Code">';
 }
 else{
     echo "<br> Please log in to manipulate the database";

@@ -32,10 +32,6 @@ $sql .= "WHERE inv_id = '$inv_id';";
 
 $result = mysqli_query($conn, $sql);
 
-//$sql = "UPDATE subtypes SET type = ". $_POST['Type']; //type can be read from subtype
-//
-//$result = mysqli_query($conn, $sql);
-
 header("Location: ../index.php");
 
 ?>

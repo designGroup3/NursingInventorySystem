@@ -47,13 +47,33 @@ if(isset($_SESSION['id'])) {
 
     $sql .= ";";
 
-    if($sql == "SELECT * FROM inventory WHERE;"){
+    if($sql == "SELECT * FROM inventory WHERE;"){ // for if no fields are filled in
         echo "<br> Please fill out at least 1 search field.";
         echo "<br><br><form action='searchInventoryForm.php'>
                    <input type='submit' value='Search Inventory'/>
               </form>";
         exit();
     }
+
+    if(strpos($sql, "WHERE AND") !== false){ //for if only type is searched on
+        $subtypes = array();
+        $typeSql = "SELECT Subtype FROM subtypes WHERE type = '". $_POST['Type']."';";
+        $typeResult = mysqli_query($conn, $typeSql);
+        while($typeRow = mysqli_fetch_array($typeResult)){
+            array_push($subtypes, $typeRow['Subtype']);
+        }
+        $sql = "SELECT * FROM inventory WHERE Subtype IN (";
+        for($count = 0; $count < count($subtypes); $count++){
+            if($count !== (count($subtypes)-1)){
+                $sql .= "'". $subtypes[$count]. "', ";
+            }
+            else{
+                $sql .= "'". $subtypes[$count]. "'";
+            }
+        }
+        $sql .= ");";
+    }
+
     $result = mysqli_query($conn, $sql);
     while($row = mysqli_fetch_array($result)) {
         if($tableHeadNeeded){
@@ -78,7 +98,7 @@ if(isset($_SESSION['id'])) {
                 echo '<td>'. $innerRow['Type'].'</td>';
             }
             else{
-                $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS 
+                $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
                 WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
                 $result2 = mysqli_query($conn, $sql2);
                 $rowType = mysqli_fetch_array($result2);
@@ -103,7 +123,6 @@ if(isset($_SESSION['id'])) {
     if($outerCount == 0) {
         echo "&nbsp<br> No Items Found That Match All of Those Criteria.<br>";
     }
-
 }
 else{
     echo "<br> Please log in to manipulate the database";

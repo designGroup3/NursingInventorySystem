@@ -3,6 +3,7 @@ include 'header.php';
 include 'dbh.php';
 
 $columnNames = array();
+$Types = array();
 
 if(isset($_SESSION['id'])) {
     $sql="SHOW COLUMNS FROM inventory";
@@ -20,7 +21,10 @@ if(isset($_SESSION['id'])) {
                     $sql2 = "SELECT Type FROM subtypes;";
                     $result2 = mysqli_query($conn, $sql2);
                     while($TypeRow = mysqli_fetch_array($result2)){
-                        echo "<option value= ". $TypeRow['Type'].">".$TypeRow['Type']."</option>";
+                        if(!in_array($TypeRow['Type'], $Types)){
+                            array_push($Types, $TypeRow['Type']);
+                            echo "<option value= ". $TypeRow['Type'].">".$TypeRow['Type']."</option>";
+                        }
                     }
                     echo "</select><br><br>";
                 }

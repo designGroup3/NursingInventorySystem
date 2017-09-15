@@ -20,10 +20,10 @@
 <header>
 	<nav>
 		<ul>
-			<li>&nbsp<a href="index.php">Home</a></li>
             <?php
                 if(isset($_SESSION['id'])){
-                    echo "<li><a href=\"addInventory.php\">Add to Inventory</a></li>
+                    echo "<li>&nbsp<a href=\"index.php\">Home</a></li>
+                          <li><a href=\"addInventory.php\">Add to Inventory</a></li>
                           <li><a href=\"searchInventoryForm.php\">Search Inventory</a></li>
                           <li><a href=\"signup.php\">Create New User</a></li>
                           <li><a href='includes/logout.inc.php'>Log Out</a></li>";

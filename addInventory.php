@@ -19,7 +19,7 @@
                 WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
             $result2 = mysqli_query($conn, $sql2);
             $rowType = mysqli_fetch_array($result2);
-            if($rowType['DATA_TYPE'] == "tinyint"){
+            if($rowType['DATA_TYPE'] == "tinyint" || $count == 2){
                 $isSelect = true;
                 $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<select name=";
             }
@@ -31,15 +31,26 @@
             }
             if($isSelect){
                 $inputs .= $columnName . ">";
-                if($row[$columnNames[$count]] == 0){
-                    $inputs .= "<option value=0>No</option><option value=1>Yes</option></select><br><br>";
+                if($count == 2){
+                    $sql3 = "SELECT Subtype FROM subtypes";
+                    $result3 = mysqli_query($conn, $sql3);
+                    while($SubtypeRow = mysqli_fetch_array($result3)){
+                        $inputs .= "<option value= ". $SubtypeRow['Subtype'].">".$SubtypeRow['Subtype']."</option>";
+                    }
+                    $inputs .= "</select><br><br>";
                 }
-                else{
-                    $inputs .= "<option value=1>Yes</option><option value=0>No</option></select><br><br>";
+                else {
+                    //$inputs .= "<option value= 0>No</option><option value= 1>Yes</option></select><br><br>";
+                    if($row[$columnNames[$count]] == 0){
+                        $inputs .= "<option value= 0>No</option><option value= 1>Yes</option></select><br><br>";
+                    }
+                    else{
+                        $inputs .= "<option value= 1>Yes</option><option value= 0>No</option></select><br><br>";
+                    }
                 }
             }
             else{
-                $inputs .= $columnName . " value=" . $row[$columnNames[$count]] . "><br><br>";
+                $inputs .= $columnName . " value=" . $row[$columnNames[$count]] ."><br><br>";
             }
             echo $inputs;
         }

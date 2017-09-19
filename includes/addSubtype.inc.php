@@ -14,15 +14,24 @@ while($row = mysqli_fetch_array($result)) {
     array_push($currentTypes, $row['Subtype']);
 }
 
-if(in_array($subtype, $currentTypes)){
+if(in_array($subtype, $currentTypes) && $subtype !== ""){
     header("Location: ../addSubtype.php?error=exists");
     exit();
 }
-else{
-    $sql = "INSERT INTO `subtypes` (`Subtype`, `Type`) VALUES ('".$subtype."', '".$type."');";
-    $result = mysqli_query($conn, $sql);
-    header("Location: ../addSubtype.php?success");
+
+if($subtype === ""){
+    header("Location: ../addSubtype.php?error=emptySubtype");
     exit();
 }
+elseif($type === ""){
+    header("Location: ../addSubtype.php?error=emptyType");
+    exit();
+}
+
+$sql = "INSERT INTO `subtypes` (`Subtype`, `Type`) VALUES ('".$subtype."', '".$type."');";
+$result = mysqli_query($conn, $sql);
+header("Location: ../addSubtype.php?success");
+exit();
+
 
 ?>

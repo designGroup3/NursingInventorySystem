@@ -1,11 +1,16 @@
 <?php
 
 include 'header.php';
-include 'dbh.php';
 
 $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 if(strpos($url, 'error=exists') !== false){
     echo "<br>&nbsp&nbspThat subtype already exists.<br>";
+}
+elseif(strpos($url, 'emptySubtype') !== false){
+    echo "<br>&nbsp&nbspPlease name the new subtype.<br>";
+}
+elseif(strpos($url, 'emptyType') !== false){
+    echo "<br>&nbsp&nbspNew subtypes must be given an associated type.<br>";
 }
 elseif(strpos($url, 'success') !== false){
     echo "<br>&nbsp&nbspNew subtype added successfully.<br>";

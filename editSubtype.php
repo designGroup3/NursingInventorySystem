@@ -8,8 +8,6 @@ if(strpos($url, 'success') !== false){
     echo "<br>&nbsp&nbspSubtype changed successfully.<br>";
 }
 
-$currentTypes = array();
-
 $sql = "SELECT Subtype FROM subtypes";
 $result = mysqli_query($conn, $sql);
 

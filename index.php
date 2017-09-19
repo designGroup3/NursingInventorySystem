@@ -111,6 +111,10 @@
                <input type='submit' value='Edit Subtype'/>
               </form>";
 
+        echo "&nbsp&nbsp<form action='deleteSubtype.php'>
+               <input type='submit' value='Delete Subtype'/>
+              </form>";
+
     } else {
         $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         if(strpos($url, 'error=input') !== false){

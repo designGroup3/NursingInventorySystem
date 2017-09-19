@@ -4,10 +4,7 @@ include 'header.php';
 include 'dbh.php';
 
 $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-if(strpos($url, 'error=exists') !== false){
-    echo "<br>&nbsp&nbspThat subtype already exists.<br>";
-}
-elseif(strpos($url, 'success') !== false){
+if(strpos($url, 'success') !== false){
     echo "<br>&nbsp&nbspSubtype changed successfully.<br>";
 }
 

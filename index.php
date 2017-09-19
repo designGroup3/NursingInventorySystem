@@ -103,6 +103,14 @@
                <input type='submit' value='Add Column'/>
               </form>";
 
+        echo "&nbsp&nbsp<form action='addSubtype.php'>
+               <input type='submit' value='Add Subtype'/>
+              </form>";
+
+        echo "&nbsp&nbsp<form action='editSubtype.php'>
+               <input type='submit' value='Edit Subtype'/>
+              </form>";
+
     } else {
         $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         if(strpos($url, 'error=input') !== false){

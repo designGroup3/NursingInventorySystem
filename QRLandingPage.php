@@ -1,6 +1,6 @@
 <?php
 
-include 'header.php';
+include 'QRHeader.php';
 include 'dbh.php';
 
 $inv_id = $_GET['show'];

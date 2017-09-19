@@ -10,17 +10,23 @@ if (strpos($oldSubtype, '%20')) {
 $newSubtype = $_POST['newSubtype'];
 $type = $_POST['type'];
 
-$currentTypes = array();
+$currentSubtypes = array();
 
-$sql = "SELECT Subtype FROM subtypes WHERE Subtype = '".$oldSubtype."'";
+$sql = "SELECT Subtype FROM subtypes"; //checks if new subtype already exists
 $result = mysqli_query($conn, $sql);
 while($row = mysqli_fetch_array($result)) {
-    array_push($currentTypes, $row['Subtype']);
+    array_push($currentSubtypes, $row['Subtype']);
 }
-    $sql = "UPDATE `subtypes` SET `Subtype` = '".$newSubtype."', `Type` = '".$type."' WHERE `subtypes`.`Subtype` = '".$oldSubtype."';";
-    $result = mysqli_query($conn, $sql);
-    $sql = "UPDATE `inventory` SET `Subtype` = '".$newSubtype."' WHERE `Subtype` = '".$oldSubtype."';";
-    $result = mysqli_query($conn, $sql);
-    header("Location: ../editSubtype.php?success");
+
+if(in_array($newSubtype, $currentSubtypes)){
+    header("Location: ../editSubtype.php?error=exists");
     exit();
+}
+
+$sql = "UPDATE `subtypes` SET `Subtype` = '".$newSubtype."', `Type` = '".$type."' WHERE `subtypes`.`Subtype` = '".$oldSubtype."';";
+$result = mysqli_query($conn, $sql);
+$sql = "UPDATE `inventory` SET `Subtype` = '".$newSubtype."' WHERE `Subtype` = '".$oldSubtype."';";
+$result = mysqli_query($conn, $sql);
+header("Location: ../editSubtype.php?success");
+exit();
 ?>

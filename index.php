@@ -85,8 +85,25 @@
 //                    }
 //                }
 //            }
+        $results_per_page = 5;
 
-        $sql = "SELECT inv_id, Item, inventory.Subtype, subtypes.Type, Checkoutable, `Number in Stock (Minimum)` FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY inv_id"; //display first four columns
+        $sql='SELECT * FROM inventory';
+        $result = mysqli_query($conn, $sql);
+        $number_of_results = mysqli_num_rows($result); //gets row count, like COUNT(*) in SQL.
+
+        $number_of_pages = ceil($number_of_results/$results_per_page);
+
+        if (!isset($_GET['page'])) {
+            $page = 1;
+        } else {
+            $page = $_GET['page'];
+        }
+
+        $this_page_first_result = ($page-1)*$results_per_page;
+
+
+
+        $sql = "SELECT inv_id, Item, inventory.Subtype, subtypes.Type, Checkoutable, `Number in Stock (Minimum)` FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY inv_id LIMIT " . $this_page_first_result . "," .  $results_per_page.";"; //display first four columns
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr>";
@@ -142,6 +159,15 @@
         echo "&nbsp&nbsp<form action='editType.php'>
                <input type='submit' value='Edit Type'/>
               </form>";
+
+        echo "</table>";
+
+        echo "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPage: ";
+        for ($page=1; $page<=$number_of_pages; $page++) {
+            echo '<a href="index.php?page=' . $page . '">' . $page . '&nbsp</a> ';
+        }
 
     } else {
         $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];

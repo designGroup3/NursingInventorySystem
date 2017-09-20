@@ -17,79 +17,103 @@
         echo "<br>";
         echo "<table class ='inventory'>";
 
-        $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page
-        $result = mysqli_query($conn, $sql);
-        $innerCount = 0;
-        while ($row = mysqli_fetch_array($result)) {
-            if ($innerCount < 2) {
-                $innerCount++;
-                array_push($columnNames, $row['Field']);
-            }
-        }
-        array_push($columnNames,"Type"); //from Subtype table
-        $sql = "SHOW COLUMNS FROM inventory"; //gets second headers for page
-        $result = mysqli_query($conn, $sql);
-        $innerCount = 0;
-        while ($row = mysqli_fetch_array($result)) {
-            $innerCount++;
-            if ($innerCount > 2) {
-                array_push($columnNames, $row['Field']);
-            }
-        }
+//        $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page
+//        $result = mysqli_query($conn, $sql);
+//        $innerCount = 0;
+//        while ($row = mysqli_fetch_array($result)) {
+//            if ($innerCount < 2) {
+//                $innerCount++;
+//                array_push($columnNames, $row['Field']);
+//            }
+//        }
+//        array_push($columnNames,"Type"); //from Subtype table
+//        $sql = "SHOW COLUMNS FROM inventory"; //gets second headers for page
+//        $result = mysqli_query($conn, $sql);
+//        $innerCount = 0;
+//        while ($row = mysqli_fetch_array($result)) {
+//            $innerCount++;
+//            if ($innerCount > 2) {
+//                array_push($columnNames, $row['Field']);
+//            }
+//        }
+
+        array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock (Minimum)");
 
         for ($count = 0; $count < count($columnNames); $count++) {
             echo "<th>$columnNames[$count]</th>";
         }
 
-        $sql = "SELECT inv_id, Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY inv_id"; //display first four columns
+//        $sql = "SELECT inv_id, Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY inv_id"; //display first four columns
+//        $result = mysqli_query($conn, $sql);
+//
+//        $IDs = array();
+//        $sqlColumns = "SELECT inv_id FROM inventory"; //needed to show later columns if inv_id skips
+//        $columnResult = mysqli_query($conn, $sqlColumns);
+//        while($columnRow = mysqli_fetch_array($columnResult)){
+//            array_push($IDs, $columnRow['inv_id']);
+//        }
+//        $columnNumber = 0;
+//
+//        while ($row = mysqli_fetch_array($result)) {
+//            echo "<tr>";
+//            for($innerCount = 0; $innerCount <4; $innerCount++){
+//                echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
+//            }
+//
+//            $sql2 = "SELECT * FROM inventory WHERE inv_id = " . $IDs[$columnNumber]; //display later columns
+//            $result2 = mysqli_query($conn, $sql2);
+//
+//            while ($row2 = mysqli_fetch_array($result2)) {
+//                for($whileCount = 4; $whileCount < count($columnNames); $whileCount++){
+//                    $sql3 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
+//                    WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$whileCount]';";
+//                    $result3 = mysqli_query($conn, $sql3);
+//                    $rowType = mysqli_fetch_array($result3);
+//                    if($rowType['DATA_TYPE'] == "tinyint"){
+//                        if($row2[$columnNames[$whileCount]] == 0 && $row2[$columnNames[$whileCount]] !== null){
+//                            echo '<td>No</td>';
+//                        }
+//                        elseif($row2[$columnNames[$whileCount]] !== null){
+//                            echo '<td>Yes</td>';
+//                        }
+//                        else{
+//                            echo '<td></td>';
+//                        }
+//                    }
+//                    else{
+//                        echo '<td> '.$row2[$columnNames[$whileCount]].'</td>';
+//                    }
+//                }
+//            }
+
+        $sql = "SELECT inv_id, Item, inventory.Subtype, subtypes.Type, Checkoutable, `Number in Stock (Minimum)` FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY inv_id"; //display first four columns
         $result = mysqli_query($conn, $sql);
-
-        $IDs = array();
-        $sqlColumns = "SELECT inv_id FROM inventory"; //needed to show later columns if inv_id skips
-        $columnResult = mysqli_query($conn, $sqlColumns);
-        while($columnRow = mysqli_fetch_array($columnResult)){
-            array_push($IDs, $columnRow['inv_id']);
-        }
-        $columnNumber = 0;
-
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr>";
-            for($innerCount = 0; $innerCount <4; $innerCount++){
-                echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
-            }
-
-            $sql2 = "SELECT * FROM inventory WHERE inv_id = " . $IDs[$columnNumber]; //display later columns
-            $result2 = mysqli_query($conn, $sql2);
-
-            while ($row2 = mysqli_fetch_array($result2)) {
-                for($whileCount = 4; $whileCount < count($columnNames); $whileCount++){
-                    $sql3 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
+            for ($whileCount = 0; $whileCount < count($columnNames); $whileCount++) {
+                $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
                     WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$whileCount]';";
-                    $result3 = mysqli_query($conn, $sql3);
-                    $rowType = mysqli_fetch_array($result3);
-                    if($rowType['DATA_TYPE'] == "tinyint"){
-                        if($row2[$columnNames[$whileCount]] == 0 && $row2[$columnNames[$whileCount]] !== null){
-                            echo '<td>No</td>';
-                        }
-                        elseif($row2[$columnNames[$whileCount]] !== null){
-                            echo '<td>Yes</td>';
-                        }
-                        else{
-                            echo '<td></td>';
-                        }
+                $result2 = mysqli_query($conn, $sql2);
+                $rowType = mysqli_fetch_array($result2);
+                if ($rowType['DATA_TYPE'] == "tinyint") {
+                    if ($row[$columnNames[$whileCount]] == 0 && $row[$columnNames[$whileCount]] !== null) {
+                        echo '<td>No</td>';
+                    } elseif ($row[$columnNames[$whileCount]] !== null) {
+                        echo '<td>Yes</td>';
+                    } else {
+                        echo '<td></td>';
                     }
-                    else{
-                        echo '<td> '.$row2[$columnNames[$whileCount]].'</td>';
-                    }
+                } else {
+                    echo '<td> ' . $row[$columnNames[$whileCount]] . '</td>';
                 }
+
             }
 
             echo "<td> <a href='QRCode.php?text=$row[inv_id]'>Show QR Code<br></td>
                     <td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>
                    <td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td></tr>";
-
-            $columnNumber++;
         }
+//            $columnNumber++;
 
         echo "&nbsp&nbsp<form action='usersTable.php'>
                <input type='submit' value='See Users'/>

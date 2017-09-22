@@ -4,6 +4,11 @@ include 'header.php';
 include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    if(strpos($url, 'error=self') !== false){
+        echo "<br>&nbsp&nbspYou cannot delete yourself.<br>";
+    }
+
     $sql = "SELECT * FROM users";
     $result = mysqli_query($conn, $sql);
     echo "<table cellspacing='10'><tr><th>First Name</th>

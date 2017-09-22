@@ -36,3 +36,12 @@ CREATE TABLE loginsystem.consumables (
   `Minimum Stock` INT,
   PRIMARY KEY (id),
   FOREIGN KEY (Subtype) REFERENCES subtypes(Subtype));
+
+CREATE TABLE `loginsystem`.`clients` (
+  `Number` INT NOT NULL AUTO_INCREMENT,
+  `Last` VARCHAR(100) NOT NULL ,
+  `First` VARCHAR(100) NOT NULL ,
+  `Ext` INT NOT NULL ,
+  `Email` VARCHAR(100) NOT NULL ,
+  `Office` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`Number`));

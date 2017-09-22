@@ -179,6 +179,10 @@
                <input type='submit' value='Consumables'/>
               </form>";
 
+        echo "&nbsp&nbsp<form action='clients.php'>
+               <input type='submit' value='See Clients'/>
+              </form>";
+
         echo "</table>";
 
         echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp

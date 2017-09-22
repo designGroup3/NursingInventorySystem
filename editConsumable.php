@@ -2,11 +2,11 @@
 include 'header.php';
 include 'dbh.php';
 
-$inv_id = $_GET['edit'];
+$id = $_GET['edit'];
 $columnNames = array();
 
 if(isset($_SESSION['id'])) {
-    $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page
+    $sql = "SHOW COLUMNS FROM consumables"; //gets first headers for page
     $result = mysqli_query($conn, $sql);
     $innerCount = 0;
     while ($row = mysqli_fetch_array($result)) {
@@ -15,7 +15,7 @@ if(isset($_SESSION['id'])) {
             array_push($columnNames, $row['Field']);
         }
     }
-    $sql = "SHOW COLUMNS FROM inventory"; //gets second headers for page
+    $sql = "SHOW COLUMNS FROM consumables"; //gets second headers for page
     $result = mysqli_query($conn, $sql);
     $innerCount = 0;
     while ($row = mysqli_fetch_array($result)) {
@@ -25,17 +25,17 @@ if(isset($_SESSION['id'])) {
         }
     }
 
-    echo "<form action ='includes/editInventory.inc.php' method ='POST'><br>
-            <input type='hidden' name='inv_id' value = $inv_id>";
+    echo "<form action ='includes/editConsumable.inc.php' method ='POST'><br>
+            <input type='hidden' name='id' value = $id>";
 
-    $sql="SELECT * FROM inventory WHERE inv_id = ".$inv_id.";";
+    $sql="SELECT * FROM consumables WHERE id = ".$id.";";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
-    for($count = 1; $count < (count($columnNames)); $count++){ //inv_id is not editable since it's the primary key
+    for($count = 1; $count < (count($columnNames)); $count++){ //id is not editable since it's the primary key
         $isSelect = false;
         $columnName = $columnNames[$count];
         $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
+        WHERE table_name = 'consumables' AND COLUMN_NAME = '$columnNames[$count]';";
         $result2 = mysqli_query($conn, $sql2);
         $rowType = mysqli_fetch_array($result2);
         if($rowType['DATA_TYPE'] == "tinyint" || $count == 2){
@@ -51,7 +51,7 @@ if(isset($_SESSION['id'])) {
         if($isSelect){
             $inputs .= $columnName . ">";
             if($count == 2){
-                $sqlSubtype = "SELECT Subtype FROM inventory WHERE inv_id =". $inv_id;
+                $sqlSubtype = "SELECT Subtype FROM consumables WHERE id =". $id;
                 $resultSubtype = mysqli_query($conn, $sqlSubtype);
                 $subRow = mysqli_fetch_array($resultSubtype);
                 $Subtype = $subRow['Subtype'];
@@ -86,9 +86,6 @@ if(isset($_SESSION['id'])) {
         echo $inputs;
     }
     echo "&nbsp&nbsp<button type='submit'>Submit</button></form>";
-    $retrievedData = $row[$columnNames[1]];
-
-    echo '<br><br><img src=QRCode.php?text='.$retrievedData.' width="135" height="125" title="QR Code" alt="QR Code">';
 }
 else{
     echo "<br> Please log in to manipulate the database";

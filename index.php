@@ -175,6 +175,10 @@
                <input type='submit' value='Edit Type'/>
               </form>";
 
+        echo "&nbsp&nbsp<form action='consumables.php'>
+               <input type='submit' value='Consumables'/>
+              </form>";
+
         echo "</table>";
 
         echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp

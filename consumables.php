@@ -154,6 +154,10 @@ if(isset($_SESSION['id'])) {
                <input type='submit' value='Search Consumables'/>
               </form>";
 
+    echo "&nbsp&nbsp<form action='addConsumableColumn.php'>
+               <input type='submit' value='Add Column'/>
+              </form>";
+
     echo "</table>";
 
     echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp

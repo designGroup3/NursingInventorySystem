@@ -155,7 +155,7 @@
                    <input type='submit' value='Change My Password'/>
                   </form>";
 
-        echo "&nbsp&nbsp<form action='addColumn.php'>
+        echo "&nbsp&nbsp<form action='addInventoryColumn.php'>
                <input type='submit' value='Add Column'/>
               </form>";
 

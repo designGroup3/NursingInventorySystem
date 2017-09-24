@@ -12,7 +12,7 @@
         }
     </style>
 <meta charset="UTF-8">
-<title>Login Page</title>
+<title>Nursing Inventory System</title>
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>

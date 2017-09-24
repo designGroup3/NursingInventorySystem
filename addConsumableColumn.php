@@ -5,8 +5,7 @@ include 'header.php';
 include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
-    echo "
-            <form action ='includes/addColumn.inc.php' method = 'POST'><br>
+    echo "<form action ='includes/addConsumableColumn.inc.php' method = 'POST'><br>
                 &nbsp&nbsp<label>Name: </label><br>&nbsp&nbsp<input type='text' name='name'><br><br>
                 &nbsp&nbsp<label>Data Type: </label><br>&nbsp&nbsp<select name ='type'>
                 <option value='varchar'>Letters & Numbers</option>

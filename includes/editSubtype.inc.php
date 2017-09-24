@@ -18,7 +18,7 @@ while($row = mysqli_fetch_array($result)) {
     array_push($currentSubtypes, $row['Subtype']);
 }
 
-if(in_array($newSubtype, $currentSubtypes)){
+if(in_array($newSubtype, $currentSubtypes) && $newSubtype !== $oldSubtype){
     header("Location: ../editSubtype.php?error=exists");
     exit();
 }

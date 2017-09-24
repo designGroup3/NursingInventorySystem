@@ -24,8 +24,7 @@ CREATE TABLE loginsystem.inventory (
   Checkoutable TINYINT(1) NOT NULL,
   `Number in Stock` INT NOT NULL,
   `Minimum Stock` INT,
-  PRIMARY KEY (inv_id),
-  FOREIGN KEY (Subtype) REFERENCES subtypes(Subtype));
+  PRIMARY KEY (inv_id));
 
 CREATE TABLE loginsystem.consumables (
   id INT NOT NULL AUTO_INCREMENT,
@@ -34,8 +33,7 @@ CREATE TABLE loginsystem.consumables (
   Location VARCHAR(100) NOT NULL,
   `Number in Stock` INT NOT NULL,
   `Minimum Stock` INT,
-  PRIMARY KEY (id),
-  FOREIGN KEY (Subtype) REFERENCES subtypes(Subtype));
+  PRIMARY KEY (id));
 
 CREATE TABLE `loginsystem`.`clients` (
   `Number` INT NOT NULL AUTO_INCREMENT,

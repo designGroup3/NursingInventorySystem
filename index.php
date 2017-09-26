@@ -159,6 +159,10 @@
                <input type='submit' value='Add Column'/>
               </form>";
 
+        echo "&nbsp&nbsp<form action='editInventoryColumn.php'>
+               <input type='submit' value='Edit Column'/>
+              </form>";
+
         echo "&nbsp&nbsp<form action='addSubtype.php'>
                <input type='submit' value='Add Subtype'/>
               </form>";

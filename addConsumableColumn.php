@@ -4,6 +4,14 @@
 include 'header.php';
 include 'dbh.php';
 
+$url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+if(strpos($url, 'error=exists') !== false){
+    echo "<br>&nbsp&nbspA column already exists by that name.<br>";
+}
+elseif(strpos($url, 'success') !== false){
+    echo "<br>&nbsp&nbspColumn added successfully.<br>";
+}
+
 if(isset($_SESSION['id'])) {
     echo "<form action ='includes/addConsumableColumn.inc.php' method = 'POST'><br>
                 &nbsp&nbsp<label>Name: </label><br>&nbsp&nbsp<input type='text' name='name'><br><br>

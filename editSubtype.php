@@ -14,7 +14,7 @@ elseif(strpos($url, 'success') !== false){
 $sql = "SELECT Subtype FROM subtypes";
 $result = mysqli_query($conn, $sql);
 
-echo '<br>&nbsp&nbspWhich subtype to you want to edit?
+echo '<br>&nbsp&nbspWhich subtype do you want to edit?
 
 <form method="post">
     <label>

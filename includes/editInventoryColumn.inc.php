@@ -31,6 +31,10 @@ if(in_array($newColumn, $currentColumns) && $newColumn !== $oldColumn){
     header("Location: ../editInventoryColumn.php?error=exists");
     exit();
 }
+if($newColumn == ""){
+    header("Location: ../editInventoryColumn.php?error=empty");
+    exit();
+}
 
 if($oldType != $newType){
     $sql = "UPDATE inventory SET ".$oldColumn. " = NULL;";

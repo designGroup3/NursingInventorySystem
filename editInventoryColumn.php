@@ -7,6 +7,9 @@ $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 if(strpos($url, 'error=exists') !== false){
     echo "<br>&nbsp&nbspA column already exists by that name.<br>";
 }
+elseif(strpos($url, 'empty') !== false){
+    echo "<br>&nbsp&nbspYou must name the column.<br>";
+}
 elseif(strpos($url, 'success') !== false){
     echo "<br>&nbsp&nbspColumn changed successfully.<br>";
 }

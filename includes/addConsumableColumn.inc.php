@@ -18,7 +18,10 @@ if(in_array($name, $currentColumns)){
     header("Location: ../addConsumableColumn.php?error=exists");
     exit();
 }
-
+if($name == ""){
+    header("Location: ../addConsumableColumn.php?error=empty");
+    exit();
+}
 
 if($type == "varchar"){
     $sql = "ALTER TABLE consumables ADD `$name` VARCHAR(100);";

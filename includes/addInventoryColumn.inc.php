@@ -18,6 +18,10 @@ if(in_array($name, $currentColumns)){
     header("Location: ../addInventoryColumn.php?error=exists");
     exit();
 }
+if($name == ""){
+    header("Location: ../addInventoryColumn.php?error=empty");
+    exit();
+}
 
 if($type == "varchar"){
     $sql = "ALTER TABLE inventory ADD `$name` VARCHAR(100);";

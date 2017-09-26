@@ -158,6 +158,14 @@ if(isset($_SESSION['id'])) {
                <input type='submit' value='Add Column'/>
               </form>";
 
+    echo "&nbsp&nbsp<form action='editConsumableColumn.php'>
+               <input type='submit' value='Edit Column'/>
+              </form>";
+
+    echo "&nbsp&nbsp<form action='deleteConsumableColumn.php'>
+               <input type='submit' value='Delete Column'/>
+              </form>";
+
     echo "</table>";
 
     echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp

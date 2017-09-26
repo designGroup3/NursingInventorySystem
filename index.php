@@ -163,6 +163,10 @@
                <input type='submit' value='Edit Column'/>
               </form>";
 
+        echo "&nbsp&nbsp<form action='deleteInventoryColumn.php'>
+               <input type='submit' value='Delete Column'/>
+              </form>";
+
         echo "&nbsp&nbsp<form action='addSubtype.php'>
                <input type='submit' value='Add Subtype'/>
               </form>";

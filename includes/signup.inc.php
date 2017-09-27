@@ -33,8 +33,8 @@ else{
         exit();
     }
     $encrypted_password = password_hash($pwd, PASSWORD_DEFAULT);
-    $sql = "INSERT INTO users (first, last, uid, pwd, dateAdded) 
-    VALUES ('$first', '$last', '$uid', '$encrypted_password', '". date('Y/m/d')."');";
+    $sql = "INSERT INTO users (first, last, uid, pwd, acctType, dateAdded) 
+    VALUES ('$first', '$last', '$uid', '$encrypted_password', 'Standard User', '". date('Y/m/d')."');";
 
     $result = mysqli_query($conn, $sql);
 

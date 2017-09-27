@@ -9,6 +9,9 @@ if(isset($_SESSION['id'])) {
         echo "<br>&nbsp&nbspUsername already in use.<br>";
         exit();
     }
+    elseif(strpos($url, 'error=noAdmin') !== false){
+        echo "<br>&nbsp&nbspThere must be at least 1 admin in the system.<br>";
+    }
 
     $id = $_GET['edit'];
 
@@ -18,11 +21,17 @@ if(isset($_SESSION['id'])) {
 
     echo "<form action ='includes/editUser.inc.php' method ='POST'><br>
             <input type='hidden' name='id' value = $id>
-            &nbsp&nbsp<label>First Name:</label> <br>&nbsp&nbsp<input type='text' name='first' value=".$row['first']."><br><br>
-            &nbsp&nbsp<label>Last Name:</label> <br>&nbsp&nbsp<input type='text' name='last' value=".$row['last']."><br><br>
-            &nbsp&nbsp<label>User Name:</label> <br>&nbsp&nbsp<input type='text' name='uid' value=".$row['uid']."><br><br>
-            &nbsp&nbsp<button type='submit'>Submit</button>";
-
+            &nbsp&nbsp<label>First Name:</label> <br>&nbsp&nbsp<input type='text' name='first' value='".$row['first']."'><br><br>
+            &nbsp&nbsp<label>Last Name:</label> <br>&nbsp&nbsp<input type='text' name='last' value='".$row['last']."'><br><br>
+            &nbsp&nbsp<label>User Name:</label> <br>&nbsp&nbsp<input type='text' name='uid' value='".$row['uid']."'><br><br>
+            &nbsp&nbsp<label>Account Type:</label> <br>&nbsp&nbsp<select name='type'>";
+    if($row['acctType'] == "Standard User"){
+        echo "<option selected value='Standard User'>Standard User</option><option value='Admin'>Admin</option>";
+    }
+    elseif($row['acctType'] == "Admin"){
+        echo "<option value='Standard User'>Standard User</option><option selected value='Admin'>Admin</option>";
+    }
+    echo "</select><br><br>&nbsp&nbsp<button type='submit'>Submit</button>";
 }
 
 else{

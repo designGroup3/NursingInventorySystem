@@ -148,8 +148,13 @@
             }
             $namesCount++;
             echo "<td> <a href='QRCode.php?text=$row[inv_id]'>Show QR Code<br></td>
-                    <td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>
-                   <td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td></tr>";
+                    <td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>";
+            if ($acctType == "Admin") {
+                echo "<td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td></tr>";
+            }
+            else{
+                echo "</tr>";
+            }
         }
 //            $columnNumber++;
 

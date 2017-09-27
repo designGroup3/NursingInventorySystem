@@ -10,6 +10,7 @@
         while($row = mysqli_fetch_array($result)) {
             array_push($columnNames, $row['Field']);
         }
+        $columnNames = array_diff($columnNames, ["Last Processing Date", "Last Processing Person", "Checkout Status"]);
 
         echo "<form action ='includes/addInventory.inc.php' method = 'POST'><br>";
         for($count = 1; $count< count($columnNames); $count++){

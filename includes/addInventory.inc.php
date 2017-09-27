@@ -19,6 +19,7 @@ while($row = mysqli_fetch_array($result)) {
         array_push($receivedValues, $_POST[$row['Field']]);
     }
 }
+$columnNames = array_diff($columnNames, ["Last Processing Date", "Last Processing Person", "Checkout Status"]);
 
 $sql = "INSERT INTO inventory (";
 

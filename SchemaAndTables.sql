@@ -25,6 +25,9 @@ CREATE TABLE loginsystem.inventory (
   Checkoutable TINYINT(1) NOT NULL,
   `Number in Stock` INT NOT NULL,
   `Minimum Stock` INT,
+  `Last Processing Date` DATE,
+  `Last Processing Person` VARCHAR(100),
+  `Checkout Status` VARCHAR(100),
   PRIMARY KEY (inv_id));
 
 CREATE TABLE loginsystem.consumables (

@@ -24,6 +24,7 @@ if(isset($_SESSION['id'])) {
             array_push($columnNames, $row['Field']);
         }
     }
+    $columnNames = array_diff($columnNames, ["Last Processing Date", "Last Processing Person", "Checkout Status"]);
 
     echo "<form action ='includes/editInventory.inc.php' method ='POST'><br>
             <input type='hidden' name='inv_id' value = $inv_id>";

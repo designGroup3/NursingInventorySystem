@@ -16,13 +16,13 @@ if(isset($_SESSION['id'])) {
     $columnNames = array();
 
     echo "<table class ='inventory'>";
-    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock (Minimum)");
+    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock", "Minimum Stock");
 
     for ($count = 0; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
     }
 
-    $sql = "SELECT inv_id, Item, inventory.Subtype, subtypes.Type, Checkoutable, `Number in Stock (Minimum)` FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE inv_id = ".$inv_id;
+    $sql = "SELECT inv_id, Item, inventory.Subtype, subtypes.Type, Checkoutable, `Number in Stock`, `Minimum Stock` FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE inv_id = ".$inv_id;
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr>";

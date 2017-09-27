@@ -12,7 +12,7 @@ $hash_pwd = $row['pwd'];
 $hash = password_verify($pwd, $hash_pwd);
 
 if($hash == 0){
-    header("Location: ../index.php?error=empty");
+    header("Location: ../login.php?error=input");
     exit();
 
 } else {
@@ -26,11 +26,8 @@ if($hash == 0){
     $result = $stmt->get_result();
 
     $stmt->close();
-    if (!$row = mysqli_fetch_assoc($result)) {
-        header("Location: ../index.php?error=input");
-    } else {
-        $_SESSION['id'] = $row['id'];
-        header("Location: ../index.php");
-    }
+
+    $_SESSION['id'] = $row['id'];
+    header("Location: ../index.php");
 }
 ?>

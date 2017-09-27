@@ -1,6 +1,6 @@
-INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `dateAdded`) VALUES ('1', 'Gene', 'Casey', 'admin', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO', '2017-08-22');
+INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `acctType`, `dateAdded`) VALUES ('1', 'Gene', 'Casey', 'admin', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO', 'Admin', '2017-08-22');
 
-INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `dateAdded`) VALUES ('2', 'Craig', 'Johnson', 'Craig', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO', '2017-08-22');
+INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `acctType`, `dateAdded`) VALUES ('2', 'Craig', 'Johnson', 'Craig', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO', 'Standard User', '2017-08-22');
 
 INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('1', '1');
 

@@ -21,6 +21,12 @@
     }
 
 	if(isset($_SESSION['id'])) {
+        $currentID = $_SESSION['id'];
+        $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+        $result = mysqli_query($conn, $sql);
+        $row = $result->fetch_assoc();
+        $acctType = $row['acctType'];
+
         echo "<br>";
         echo "<table class ='inventory'>";
 
@@ -155,17 +161,22 @@
                    <input type='submit' value='Change My Password'/>
                   </form>";
 
-        echo "&nbsp&nbsp<form action='addInventoryColumn.php'>
-               <input type='submit' value='Add Column'/>
-              </form>";
-
-        echo "&nbsp&nbsp<form action='editInventoryColumn.php'>
+        if ($acctType == "Admin") {
+            echo "&nbsp&nbsp<form action='addInventoryColumn.php'>
+                   <input type='submit' value='Add Column'/>
+                  </form>";
+        }
+        if ($acctType == "Admin") {
+            echo "&nbsp&nbsp<form action='editInventoryColumn.php'>
                <input type='submit' value='Edit Column'/>
               </form>";
+        }
 
-        echo "&nbsp&nbsp<form action='deleteInventoryColumn.php'>
+        if ($acctType == "Admin") {
+            echo "&nbsp&nbsp<form action='deleteInventoryColumn.php'>
                <input type='submit' value='Delete Column'/>
               </form>";
+        }
 
         echo "&nbsp&nbsp<form action='addSubtype.php'>
                <input type='submit' value='Add Subtype'/>
@@ -201,13 +212,8 @@
         }
 
     } else {
-        $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-        if(strpos($url, 'error=input') !== false){
-            echo "<br> &nbsp Your username or password is incorrect!";
-        } else {
-            echo "<br> &nbsp Welcome to the PHP System! Please log in or create an account.";
-            echo '<br><br>&nbsp<img src="http://www.pngall.com/wp-content/uploads/2016/07/Success-Free-Download-PNG.png"
-            width="280" height="125" title="Logo of a company" alt="Logo of a company"/>';
-        }
+        echo "<br> &nbsp Welcome to the PHP System! Please log in or create an account.";
+        echo '<br><br>&nbsp<img src="http://www.pngall.com/wp-content/uploads/2016/07/Success-Free-Download-PNG.png"
+        width="280" height="125" title="Logo of a company" alt="Logo of a company"/>';
     }
 ?>

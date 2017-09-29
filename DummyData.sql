@@ -22,17 +22,17 @@ INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('D', '4');
 
 INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('E', '5');
 
-INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`, `Checkout Status`) VALUES (1, 'Bolt', '1', 'XU338026956', 'Joe Johnson', 'Nursing 162', 1, 5, 3, '2017-09-29', 'Tester', 'Checked-In');
+INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (1, 'Bolt', '1', 'XU338026956', 'Joe Johnson', 'Nursing 162', 1, 5, 3, '2017-09-29', 'Tester');
 
-INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`, `Checkout Status`) VALUES (2, 'Screw', '2', 'YW425757483', 'Mary Sue', 'Checkout', 0, 1, 1, '2017-09-30', 'John', 'Checked-Out');
+INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (2, 'Screw', '2', 'YW425757483', 'Mary Sue', 'Checkout', 0, 1, 1, '2017-09-30', 'John');
 
-INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`, `Checkout Status`) VALUES (3, 'Nut', '3', 'ET474374601', 'Drew Hills', 'Nursing 161', 1, 4, 2, '2017-09-20', 'Tester', 'Checked-In');
+INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (3, 'Nut', '3', 'ET474374601', 'Drew Hills', 'Nursing 161', 1, 4, 2, '2017-09-20', 'Tester');
 
-INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`, `Checkout Status`) VALUES (4, 'Wrench', 'A', 'CJ763287594', 'Joe Johnson', 'Nursing 162', 0, 5, 0, '2017-08-29', 'Frank', 'Checked-In');
+INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (4, 'Wrench', 'A', 'CJ763287594', 'Joe Johnson', 'Nursing 162', 0, 5, 0, '2017-08-29', 'Frank');
 
-INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`, `Checkout Status`) VALUES (5, 'Hammer', 'B', 'IP472802749', 'Drew Hills', 'Checkout', 0, 2, 1, '2016-09-29', 'Bob', 'Checked-In');
+INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (5, 'Hammer', 'B', 'IP472802749', 'Drew Hills', 'Checkout', 0, 2, 1, '2016-09-29', 'Bob');
 
-INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`, `Checkout Status`) VALUES (6, 'Nail', 'C', 'TM852187346', 'Mary Sue', 'Nursing 162', 1, 0, 0, '2012-02-22', 'Joe', 'Checked-In');
+INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (6, 'Nail', 'C', 'TM852187346', 'Mary Sue', 'Nursing 162', 1, 0, 0, '2012-02-22', 'Joe');
 
 INSERT INTO `loginsystem`.`consumables`(`id`, `Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES (1, 'HP LaserJet 1012,1018,1022 Toner', 'D', 'Surplus', 4, 1);
 

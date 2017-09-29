@@ -27,7 +27,6 @@ CREATE TABLE loginsystem.inventory (
   `Minimum Stock` INT,
   `Last Processing Date` DATE,
   `Last Processing Person` VARCHAR(100),
-  `Checkout Status` VARCHAR(100),
   PRIMARY KEY (inv_id));
 
 CREATE TABLE loginsystem.consumables (
@@ -41,9 +40,23 @@ CREATE TABLE loginsystem.consumables (
 
 CREATE TABLE `loginsystem`.`clients` (
   `Number` INT NOT NULL AUTO_INCREMENT,
-  `Last` VARCHAR(100) NOT NULL ,
-  `First` VARCHAR(100) NOT NULL ,
-  `Ext` INT NOT NULL ,
-  `Email` VARCHAR(100) NOT NULL ,
+  `Last` VARCHAR(100) NOT NULL,
+  `First` VARCHAR(100) NOT NULL,
+  `Ext` INT NOT NULL,
+  `Email` VARCHAR(100) NOT NULL,
   `Office` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`Number`));
+
+CREATE TABLE `loginsystem`.`checkouts` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Item` VARCHAR(100) NOT NULL,
+  `Subtype` VARCHAR(100) NOT NULL,
+  `Quantity Borrowed` INT NOT NULL,
+  `Serial Number` VARCHAR(100),
+  `Person` VARCHAR(100) NOT NULL,
+  `Reason` VARCHAR(500) NOT NULL,
+  `Notes` VARCHAR(1000),
+  `Due Date` DATE NOT NULL,
+  `Checkout Date` DATE NOT NULL,
+  `Update Person` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`Id`));

@@ -166,6 +166,10 @@
                    <input type='submit' value='Change My Password'/>
                   </form>";
 
+        echo "&nbsp&nbsp<form action='checkout.php'>
+                   <input type='submit' value='Check-out/Consume'/>
+                  </form>";
+
         if ($acctType == "Admin") {
             echo "&nbsp&nbsp<form action='addInventoryColumn.php'>
                    <input type='submit' value='Add Column'/>

@@ -196,7 +196,7 @@ if(isset($_SESSION['id'])) {
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr><td>".$row['Item']."</td><td>".$row['Type']."</td><td>".$row['Subtype']."</td><td>".$row['Quantity Borrowed']."</td>
         <td>".$row['Person']."</td><td>".$row['Update Person']."</td><td>".$row['Checkout Date']."</td><td>".$row['Due Date']."</td>
-        <td> <a href='includes/checkin.inc.php?Id=$row[Id]'>Check-In<br></td></tr>";
+        <td><a href='includes/checkin.inc.php?Id=$row[Id]'>Check-In<br></td></tr>";
     }
 
     echo "</table>";

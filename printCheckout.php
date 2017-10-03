@@ -1,6 +1,6 @@
 <?php
 
-ini_set('memory_limit','500M');
+//ini_set('memory_limit','500M');
 require('vendor/setasign/fpdf/fpdf.php');
 
 include 'dbh.php';

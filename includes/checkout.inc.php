@@ -18,7 +18,6 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT uid FROM users WHERE id = ". $id.";";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
-
     $uid = $row['uid'];
 
     //check if borrowed amount exceeds stock
@@ -59,5 +58,8 @@ if(isset($_SESSION['id'])) {
 
     header("Location: ../checkout.php?success");
     exit();
+}
+else{
+    echo "<br> Please log in to manipulate the database";
 }
 ?>

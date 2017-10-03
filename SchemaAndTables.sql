@@ -13,6 +13,8 @@ CREATE TABLE loginsystem.users (
 CREATE TABLE loginsystem.subtypes (
   Subtype VARCHAR(100) NOT NULL,
   Type VARCHAR(100) NOT NULL,
+  IsCheckoutable BOOLEAN NOT NULL,
+  IsConsumable BOOLEAN NOT NULL,
   PRIMARY KEY (Subtype));
 
 CREATE TABLE loginsystem.inventory (

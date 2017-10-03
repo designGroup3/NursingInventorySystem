@@ -28,7 +28,7 @@ elseif($type === ""){
     exit();
 }
 
-$sql = "INSERT INTO `subtypes` (`Subtype`, `Type`) VALUES ('".$subtype."', '".$type."');";
+$sql = "INSERT INTO `subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('".$subtype."', '".$type."' ,0 ,0);";
 $result = mysqli_query($conn, $sql);
 header("Location: ../addSubtype.php?success");
 exit();

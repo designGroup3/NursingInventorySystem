@@ -29,7 +29,7 @@ if(isset($_SESSION['id'])) {
         echo "<br>&nbsp&nbspItem checked-out.<br>";
     }
 
-    $sql = "SELECT Type FROM subtypes;";
+    $sql = "SELECT Type FROM subtypes WHERE isCheckoutable = '1';";
     $result = mysqli_query($conn, $sql);
 
     echo '<br><p>&nbsp&nbspWhich item would you like to checkout?</p>

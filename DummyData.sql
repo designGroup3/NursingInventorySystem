@@ -2,25 +2,25 @@ INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `acctTyp
 
 INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `acctType`, `dateAdded`) VALUES ('2', 'Craig', 'Johnson', 'Craig', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO', 'Standard User', '2017-08-22');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('1', '1');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('1', '1', '1', '0');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('2', '2');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('2', '2', '1', '0');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('3', '3');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('3', '3', '0', '0');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('4', '4');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('4', '4', '0', '1');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('5', '5');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('5', '5', '0', '0');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('A', '1');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('A', '1', '1', '0');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('B', '2');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('B', '2', '1', '0');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('C', '3');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('C', '3', '0', '0');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('D', '4');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('D', '4', '0', '1');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`) VALUES ('E', '5');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('E', '5', '0', '0');
 
 INSERT INTO `loginsystem`.`inventory` (`inv_id`, `Item`, `Subtype`, `Serial Number`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (1, 'Bolt', '1', 'XU338026956', 'Joe Johnson', 'Nursing 162', 1, 5, 3, '2017-09-29', 'Tester');
 
@@ -52,14 +52,14 @@ INSERT INTO `loginsystem`.`clients` (`Number`, `Last`, `First`, `Ext`, `Email`, 
 
 INSERT INTO `loginsystem`.`clients` (`Number`, `Last`, `First`, `Ext`, `Email`, `Office`) VALUES ('3', 'Reid', 'Roxanne', '8610', 'reidr@umsl.edu', '218 SC');
 
-INSERT INTO `checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('1', 'Bolt', '1', '1', 'XU338026956', 'Douglas Hughey', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
+INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('1', 'Bolt', '1', '1', 'XU338026956', 'Douglas Hughey', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
 
-INSERT INTO `checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('2', 'Screw', '2', '1', 'YW425757483', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
+INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('2', 'Screw', '2', '1', 'YW425757483', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
 
-INSERT INTO `checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('3', 'Nut', '3', '1', 'ET474374601', 'Roxanne Reid', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
+INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('3', 'Nut', '3', '1', 'ET474374601', 'Roxanne Reid', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
 
-INSERT INTO `checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('A', 'Wrench', 'A', '1', 'CJ763287594', 'Douglas Hughey', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
+INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('4', 'Wrench', 'A', '1', 'CJ763287594', 'Douglas Hughey', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
 
-INSERT INTO `checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('B', 'Hammer', 'B', '1', 'IP472802749', 'Roxanne Reid', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
+INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('5', 'Hammer', 'B', '1', 'IP472802749', 'Roxanne Reid', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
 
-INSERT INTO `checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('C', 'Nail', 'C', '1', 'TM852187346', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
+INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('6', 'Nail', 'C', '1', 'TM852187346', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');

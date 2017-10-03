@@ -167,7 +167,7 @@
                   </form>";
 
         echo "&nbsp&nbsp<form action='checkout.php'>
-                   <input type='submit' value='Check-out/Consume'/>
+                   <input type='submit' value='Check-out'/>
                   </form>";
 
         if ($acctType == "Admin") {

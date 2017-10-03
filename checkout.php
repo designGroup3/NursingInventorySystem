@@ -171,7 +171,7 @@ if(isset($_SESSION['id'])) {
     echo "<br><br><h2>Current Checked-Out Inventories</h2><br>";
     echo "<table class ='inventory'>";
 
-    echo "<th>Item</th><th>Type</th><th>Subtype</th><th>Quantity Borrowed</th><th>Person</th>
+    echo "<th>Print</th><th>Item</th><th>Type</th><th>Subtype</th><th>Quantity Borrowed</th><th>Person</th>
     <th>Update Person</th><th>Checkout Date</th><th>Due Date</th>";
 
     $results_per_page = 5; //for pagination
@@ -194,7 +194,7 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
     $namesCount = 0;
     while ($row = mysqli_fetch_array($result)) {
-        echo "<tr><td>".$row['Item']."</td><td>".$row['Type']."</td><td>".$row['Subtype']."</td><td>".$row['Quantity Borrowed']."</td>
+        echo "<tr><td><a href='printCheckout.php?Id=$row[Id]'>Print<br></td><td>".$row['Item']."</td><td>".$row['Type']."</td><td>".$row['Subtype']."</td><td>".$row['Quantity Borrowed']."</td>
         <td>".$row['Person']."</td><td>".$row['Update Person']."</td><td>".$row['Checkout Date']."</td><td>".$row['Due Date']."</td>
         <td><a href='includes/checkin.inc.php?Id=$row[Id]'>Check-In<br></td></tr>";
     }

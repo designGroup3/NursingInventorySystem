@@ -14,7 +14,7 @@ if(isset($_SESSION['id'])) {
 
     echo "<br>&nbsp&nbspEnter what criteria you would like to see any matching items for.
         <form action ='searchInventoryResults.php' method ='POST'><br>";
-            for($count = 0; $count < 4; $count++){
+            for($count = 1; $count < 4; $count++){
                 $columnName = $columnNames[$count];
                 if($count == 2){
                     echo "&nbsp&nbsp<label>Type</label> <br>&nbsp&nbsp<select name='Type'><option value=''></option>";
@@ -23,7 +23,7 @@ if(isset($_SESSION['id'])) {
                     while($TypeRow = mysqli_fetch_array($result2)){
                         if(!in_array($TypeRow['Type'], $Types)){
                             array_push($Types, $TypeRow['Type']);
-                            echo "<option value= ". $TypeRow['Type'].">".$TypeRow['Type']."</option>";
+                            echo "<option value= '". $TypeRow['Type']."'>".$TypeRow['Type']."</option>";
                         }
                     }
                     echo "</select><br><br>";
@@ -33,13 +33,13 @@ if(isset($_SESSION['id'])) {
                     $result3 = mysqli_query($conn, $sql3);
                     echo "&nbsp&nbsp<label>Subtype</label> <br>&nbsp&nbsp<select name='Subtype'><option value=''></option>";
                     while($SubtypeRow = mysqli_fetch_array($result3)){
-                        echo "<option value= ". $SubtypeRow['Subtype'].">".$SubtypeRow['Subtype']."</option>";
+                        echo "<option value= '". $SubtypeRow['Subtype']."'>".$SubtypeRow['Subtype']."</option>";
                     }
                     echo "</select>";
                 }
                 else{
                     echo "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=".$columnName
-                        . " value=" . $row[$columnNames[$count]] . "><br><br>";
+                        . " value='" . $row[$columnNames[$count]] . "'><br><br>";
                 }
             }
             echo "<br><br>";
@@ -57,6 +57,9 @@ if(isset($_SESSION['id'])) {
                 elseif($rowType['DATA_TYPE'] == "date"){
                     $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='date' name=";
                 }
+                elseif($rowType['DATA_TYPE'] == "int"){
+                    $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='number' name=";
+                }
                 else {
                     $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=";
                 }
@@ -68,11 +71,11 @@ if(isset($_SESSION['id'])) {
                             <option value=1>Yes</option><option value=0>No</option></select><br><br>";
                 }
                 else{
-                    $inputs .= $columnName . " value=" . $row[$columnNames[$count]] . "><br><br>";
+                    $inputs .= $columnName . " value='" . $row[$columnNames[$count]] . "'><br><br>";
                 }
                 echo $inputs;
             }
-            echo "&nbsp&nbsp<button type='submit'>Submit</button></form>";
+            echo "&nbsp&nbsp<button type='submit'>Submit</button></form><br><br>";
 }
 else{
     echo "<br> Please log in to manipulate the database";

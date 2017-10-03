@@ -38,6 +38,8 @@ CREATE TABLE loginsystem.consumables (
   Location VARCHAR(100) NOT NULL,
   `Number in Stock` INT NOT NULL,
   `Minimum Stock` INT,
+  `Last Processing Date` DATE,
+  `Last Processing Person` VARCHAR(100),
   PRIMARY KEY (id));
 
 CREATE TABLE `loginsystem`.`clients` (

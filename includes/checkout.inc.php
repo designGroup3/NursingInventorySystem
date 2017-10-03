@@ -22,10 +22,11 @@ if(isset($_SESSION['id'])) {
     $uid = $row['uid'];
 
     //check if borrowed amount exceeds stock
-    $sql = "SELECT `Number in Stock` FROM inventory WHERE Item = '".$item."';";
+    $sql = "SELECT `Number in Stock`, `Minimum Stock` FROM inventory WHERE Item = '".$item."';";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
     $stock = $row['Number in Stock'];
+    $minimum = $row['Minimum Stock'];
     $remaining = $stock - $numBorrowed;
 
     if($numBorrowed > $stock){
@@ -34,6 +35,10 @@ if(isset($_SESSION['id'])) {
     }
     if($numBorrowed == 0){
         header("Location: ../checkout.php?type=".$type."&subtype=".$subType."&item=".$item."&error=zero");
+        exit();
+    }
+    if($remaining < $minimum){
+        header("Location: ../checkout.php?type=".$type."&subtype=".$subType."&item=".$item."&error=breakMin");
         exit();
     }
 

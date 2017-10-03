@@ -21,6 +21,12 @@ while ($minimumRow = mysqli_fetch_array($minimumResult)) {
 }
 
 if(isset($_SESSION['id'])) {
+    $currentID = $_SESSION['id'];
+    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    $acctType = $row['acctType'];
+
     echo "<br>";
     echo "<table class ='inventory'>";
 
@@ -154,17 +160,23 @@ if(isset($_SESSION['id'])) {
                <input type='submit' value='Search Consumables'/>
               </form>";
 
-    echo "&nbsp&nbsp<form action='addConsumableColumn.php'>
+    echo "&nbsp&nbsp<form action='consume.php'>
+                   <input type='submit' value='Consume'/>
+                  </form>";
+
+    if ($acctType == "Admin") {
+        echo "&nbsp&nbsp<form action='addConsumableColumn.php'>
                <input type='submit' value='Add Column'/>
               </form>";
 
-    echo "&nbsp&nbsp<form action='editConsumableColumn.php'>
+        echo "&nbsp&nbsp<form action='editConsumableColumn.php'>
                <input type='submit' value='Edit Column'/>
               </form>";
 
-    echo "&nbsp&nbsp<form action='deleteConsumableColumn.php'>
+        echo "&nbsp&nbsp<form action='deleteConsumableColumn.php'>
                <input type='submit' value='Delete Column'/>
               </form>";
+    }
 
     echo "</table>";
 

@@ -174,14 +174,11 @@
             echo "&nbsp&nbsp<form action='addInventoryColumn.php'>
                    <input type='submit' value='Add Column'/>
                   </form>";
-        }
-        if ($acctType == "Admin") {
+
             echo "&nbsp&nbsp<form action='editInventoryColumn.php'>
                <input type='submit' value='Edit Column'/>
               </form>";
-        }
 
-        if ($acctType == "Admin") {
             echo "&nbsp&nbsp<form action='deleteInventoryColumn.php'>
                <input type='submit' value='Delete Column'/>
               </form>";

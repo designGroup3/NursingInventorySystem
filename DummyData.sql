@@ -51,3 +51,15 @@ INSERT INTO `loginsystem`.`clients` (`Number`, `Last`, `First`, `Ext`, `Email`, 
 INSERT INTO `loginsystem`.`clients` (`Number`, `Last`, `First`, `Ext`, `Email`, `Office`) VALUES ('2', 'Bai', 'Mei', '6066', 'baimei@umsl.edu', '306 SC');
 
 INSERT INTO `loginsystem`.`clients` (`Number`, `Last`, `First`, `Ext`, `Email`, `Office`) VALUES ('3', 'Reid', 'Roxanne', '8610', 'reidr@umsl.edu', '218 SC');
+
+INSERT INTO `checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('1', 'Bolt', '1', '1', 'XU338026956', 'Douglas Hughey', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
+
+INSERT INTO `checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('2', 'Screw', '2', '1', 'YW425757483', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
+
+INSERT INTO `checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('3', 'Nut', '3', '1', 'ET474374601', 'Roxanne Reid', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
+
+INSERT INTO `checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('A', 'Wrench', 'A', '1', 'CJ763287594', 'Douglas Hughey', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
+
+INSERT INTO `checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('B', 'Hammer', 'B', '1', 'IP472802749', 'Roxanne Reid', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
+
+INSERT INTO `checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('C', 'Nail', 'C', '1', 'TM852187346', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');

@@ -74,5 +74,4 @@ CREATE TABLE `loginsystem`.`reports` (
   `Quantity` INT NOT NULL,
   `Timestamp` VARCHAR(100) NOT NULL,
   `Update Person` VARCHAR(100) NOT NULL,
-  `Borrower` VARCHAR(100),
   PRIMARY KEY (`Id`));

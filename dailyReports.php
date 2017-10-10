@@ -11,7 +11,7 @@ if(isset($_SESSION['id'])) {
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $date = $_POST['date'];
 
-        $sql = "SELECT `Activity Type`, Item, reports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person`, Borrower FROM reports JOIN subtypes ON subtypes.Subtype = reports.Subtype WHERE Timestamp BETWEEN '".$date." 00:00:00' AND '".$date." 23:59:59';";
+        $sql = "SELECT `Activity Type`, Item, reports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM reports JOIN subtypes ON subtypes.Subtype = reports.Subtype WHERE Timestamp BETWEEN '".$date." 00:00:00' AND '".$date." 23:59:59';";
         $result = mysqli_query($conn, $sql);
         $resultCheck = mysqli_num_rows($result);
 
@@ -33,8 +33,9 @@ if(isset($_SESSION['id'])) {
                 <td> " . $row['Timestamp'] . "</td>
                 <td> " . $row['Update Person'] . "</td>";
             }
-            echo "<form action='excel.php' method = 'post'>
-                <input type='submit' value='Export to Excel'/>
+            echo "<form action='dailyReportsExcel.php' method = 'post'>
+                <input type='hidden' name='date' value = " .$date.">
+                <input type='submit' name ='export' value='Export to Excel'/>
                 </form>";
         }
         else{

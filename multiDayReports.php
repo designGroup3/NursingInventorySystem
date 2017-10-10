@@ -13,7 +13,7 @@ if(isset($_SESSION['id'])) {
         $startDate = $_POST['startDate'];
         $endDate = $_POST['endDate'];
 
-        $sql = "SELECT `Activity Type`, Item, reports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person`, Borrower FROM reports JOIN subtypes ON subtypes.Subtype = reports.Subtype WHERE Timestamp BETWEEN '".$startDate." 00:00:00' AND '".$endDate." 23:59:59';";
+        $sql = "SELECT `Activity Type`, Item, reports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM reports JOIN subtypes ON subtypes.Subtype = reports.Subtype WHERE Timestamp BETWEEN '".$startDate." 00:00:00' AND '".$endDate." 23:59:59';";
         $result = mysqli_query($conn, $sql);
         $resultCheck = mysqli_num_rows($result);
 
@@ -24,8 +24,7 @@ if(isset($_SESSION['id'])) {
             <th>Subtype</th>
             <th>Quantity Changed</th>
             <th>Timestamp</th>
-            <th>Update Person</th>
-            <th>Borrower</th>";
+            <th>Update Person</th>";
 
             while ($row = mysqli_fetch_array($result)) {
                 echo "<tr><td> " . $row['Activity Type'] . "</td>
@@ -34,9 +33,13 @@ if(isset($_SESSION['id'])) {
                 <td> " . $row['Subtype'] . "</td>
                 <td> " . $row['Quantity'] . "</td>
                 <td> " . $row['Timestamp'] . "</td>
-                <td> " . $row['Update Person'] . "</td>
-                <td> " . $row['Borrower'] . "</td>";
+                <td> " . $row['Update Person'] . "</td>";
             }
+            echo "<form action='multiDayReportsExcel.php' method = 'post'>
+                <input type='hidden' name='startDate' value = " .$startDate.">
+                <input type='hidden' name='endDate' value = " .$endDate.">
+                <input type='submit' name ='export' value='Export to Excel'/>
+                </form>";
         }
         else{
             echo "<br><p>&nbsp&nbspThere are no activities at the date you selected.</p>";

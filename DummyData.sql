@@ -63,3 +63,15 @@ INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrow
 INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('5', 'Adobe PhotoShop CS', 'Adobe', '1', 'IP472802749', 'Roxanne Reid', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
 
 INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('6', 'HP PhotoSmart D7560 Printer', 'HP Printer', '1', 'TM852187346', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
+
+INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('1', 'Add inventory', '0', 'Canon PowerShot A710 IS', 'Still Camera', '5', '2017-10-10 10:06:10', 'Craig');
+
+INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('2', 'Edit inventory', '0', 'Apple MAC OS X 10.4', 'Apple', '4', '2017-10-11 12:36:16', 'admin');
+
+INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('3', 'Delete inventory', '0', 'Brother HL-2270DW Printer', 'Brother 2000 Series', '3', '2017-10-10 15:05:00', 'admin');
+
+INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('4', 'Add consumable', '1', 'HP LaserJet 1012,1018,1022 Toner', 'Black Toner', '5', '2017-10-10 08:51:32', 'admin');
+
+INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('5', 'Edit consumable', '1', 'Verbatim PinStrip USB Drive', 'Flash Drive', '1', '2017-10-11 17:42:12', 'Craig');
+
+INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('6', 'Delete consumable', '1', 'Staples 16GB Flash Drive', 'Flash Drive', '1', '2017-10-11 13:14:16', 'admin');

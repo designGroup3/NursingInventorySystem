@@ -64,6 +64,12 @@ INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrow
 
 INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('6', 'HP PhotoSmart D7560 Printer', 'HP Printer', '1', 'TM852187346', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
 
+INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) VALUES ('1', 'HP LaserJet 1012,1018,1022 Toner', 'Black Toner', '1', 'Douglas Hughey', 'Printer\'s out', '2017-10-10', 'admin');
+
+INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) VALUES ('2', 'Sandisk Cruzer 16GB', 'Flash Drive', '2', 'Mei Bai', 'Needed for storage', '2017-10-11', 'admin');
+
+INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) VALUES ('3', 'HP P3005 Toner', 'Black Toner', '1', 'Roxanne Reid', 'Printer\'s out', '2017-10-10', 'admin');
+
 INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('1', 'Add inventory', '0', 'Canon PowerShot A710 IS', 'Still Camera', '5', '2017-10-10 10:06:10', 'Craig');
 
 INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('2', 'Edit inventory', '0', 'Apple MAC OS X 10.4', 'Apple', '4', '2017-10-11 12:36:16', 'admin');

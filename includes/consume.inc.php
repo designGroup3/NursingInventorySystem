@@ -40,6 +40,10 @@ if(isset($_SESSION['id'])) {
         exit();
     }
 
+    $sql = "INSERT INTO consumptions(`Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) 
+    VALUES('".$item."','".$subType."','".$numBorrowed."','". $person."','". $reason."','".date('Y/m/d')."','".$uid."');";
+    $result = mysqli_query($conn, $sql);
+
     $sql = "UPDATE consumables SET `Number in Stock` = ".$remaining.", `Last Processing Date` = '".date('Y/m/d')."', `Last Processing Person` = '".$uid."' WHERE `Item` = '".$item."';";
     $result = mysqli_query($conn, $sql);
 

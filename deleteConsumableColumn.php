@@ -24,7 +24,7 @@ echo '<br>&nbsp&nbspWhich column do you want to delete?
             <option selected value=""></option>';
 
 for($columnsCount = 0; $columnsCount < count($columnNames); $columnsCount++) {
-    if($columnsCount > 5){
+    if($columnsCount > 7){
         echo '<option value = "'.$columnNames[$columnsCount].'">'.$columnNames[$columnsCount].'</option>';
     }
 }

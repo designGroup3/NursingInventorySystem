@@ -13,6 +13,7 @@ if(isset($_SESSION['id'])) {
     $uid = $row['uid'];
     $columnNames = array();
     $receivedValues = array();
+    $consumableNames = array();
 
     $sql = "SHOW COLUMNS FROM consumables";
     $result = mysqli_query($conn, $sql);
@@ -26,7 +27,20 @@ if(isset($_SESSION['id'])) {
         }
     }
 
-    print_r($receivedValues);
+    $sql = "SELECT Item FROM consumables"; //checks if new consumable already exists
+    $result = mysqli_query($conn, $sql);
+    while($row = mysqli_fetch_array($result)) {
+        array_push($consumableNames, $row['Item']);
+    }
+
+    if(in_array($receivedValues[1], $consumableNames)){
+        header("Location: ../addConsumable.php?error=exists");
+        exit();
+    }
+    if($receivedValues[1] == ""){
+        header("Location: ../addConsumable.php?error=empty");
+        exit();
+    }
 
     $sql = "INSERT INTO consumables (";
 

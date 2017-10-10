@@ -13,6 +13,7 @@ if(isset($_SESSION['id'])) {
     error_reporting(E_ALL ^ E_NOTICE);
     $columnNames = array();
     $receivedValues = array();
+    $inventoryNames = array();
 
     $sql = "SHOW COLUMNS FROM inventory";
     $result = mysqli_query($conn, $sql);
@@ -24,6 +25,21 @@ if(isset($_SESSION['id'])) {
         } else {
             array_push($receivedValues, $_POST[$row['Field']]);
         }
+    }
+
+    $sql = "SELECT Item FROM inventory"; //checks if new item already exists
+    $result = mysqli_query($conn, $sql);
+    while($row = mysqli_fetch_array($result)) {
+        array_push($inventoryNames, $row['Item']);
+    }
+
+    if(in_array($receivedValues[1], $inventoryNames)){
+        header("Location: ../addInventory.php?error=exists");
+        exit();
+    }
+    if($receivedValues[1] == ""){
+        header("Location: ../addInventory.php?error=empty");
+        exit();
     }
 
     $sql = "INSERT INTO inventory (";

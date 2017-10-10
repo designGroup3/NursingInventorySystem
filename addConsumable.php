@@ -5,6 +5,14 @@ include 'dbh.php';
 $columnNames = array();
 
 if(isset($_SESSION['id'])) {
+    $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    if(strpos($url, 'error=exists') !== false){
+        echo "<br>&nbsp&nbspAn item already exists by that name.<br>";
+    }
+    elseif(strpos($url, 'empty') !== false){
+        echo "<br>&nbsp&nbspYou must name the item.<br>";
+    }
+
     $sql="SHOW COLUMNS FROM consumables";
     $result = mysqli_query($conn, $sql);
     while($row = mysqli_fetch_array($result)) {

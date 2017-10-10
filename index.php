@@ -212,6 +212,10 @@
                <input type='submit' value='Daily Reports'/>
               </form>";
 
+        echo "&nbsp&nbsp<form action='multiDayReports.php'>
+               <input type='submit' value='Other Reports'/>
+              </form>";
+
         echo "</table>";
 
         echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp

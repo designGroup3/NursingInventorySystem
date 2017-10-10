@@ -60,9 +60,9 @@ if(isset($_SESSION['id'])) {
                     $result3 = mysqli_query($conn, $sql3);
                     while ($SubtypeRow = mysqli_fetch_array($result3)) {
                         if ($Subtype === $SubtypeRow['Subtype']) {
-                            $inputs .= "<option selected=\"selected\" value= " . $SubtypeRow['Subtype'] . ">" . $SubtypeRow['Subtype'] . "</option>";
+                            $inputs .= "<option selected=\"selected\" value= '" . $SubtypeRow['Subtype'] . "'>" . $SubtypeRow['Subtype'] . "</option>";
                         } else {
-                            $inputs .= "<option value= " . $SubtypeRow['Subtype'] . ">" . $SubtypeRow['Subtype'] . "</option>";
+                            $inputs .= "<option value= '" . $SubtypeRow['Subtype'] . "'>" . $SubtypeRow['Subtype'] . "</option>";
                         }
                     }
                     $inputs .= "</select><br><br>";

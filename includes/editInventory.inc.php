@@ -53,7 +53,6 @@ if(isset($_SESSION['id'])) {
     $current_quantity = $row2['Number in Stock'];
 
     $quantity = $inventoryValues[7] - $current_quantity;
-    echo $inventoryValues[7] . " - " . $current_quantity. "<br><br>";
     $reportSql .= $quantity .", ";
 
     $sql3 = "SELECT CURRENT_TIMESTAMP;";
@@ -63,8 +62,6 @@ if(isset($_SESSION['id'])) {
 
     $reportSql .= "'" . $time . "'" . ", ";
     $reportSql .= "'" . $uid . "'" . ");";
-
-    echo $reportSql;
 
     $result = mysqli_query($conn, $sql); // Can't be executed until prior quantity is gotten
 

@@ -208,6 +208,10 @@
                <input type='submit' value='See Clients'/>
               </form>";
 
+        echo "&nbsp&nbsp<form action='reports.php'>
+               <input type='submit' value='Reports'/>
+              </form>";
+
         echo "</table>";
 
         echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp

@@ -31,6 +31,8 @@
                 if ($rowType['DATA_TYPE'] == "tinyint" || $count == 2) {
                     $isSelect = true;
                     $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<select name=";
+                } elseif ($rowType['DATA_TYPE'] == "int") {
+                    $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='number' name=";
                 } else {
                     $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=";
                 }

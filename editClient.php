@@ -19,6 +19,6 @@ if(isset($_SESSION['id'])) {
             &nbsp&nbsp<button type='submit'>Submit</button>";
 }
 else{
-    echo "<br> Please log in to manipulate the database";
+    header("Location: ./login.php");
 }
 ?>

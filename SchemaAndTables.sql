@@ -64,3 +64,25 @@ CREATE TABLE `loginsystem`.`checkouts` (
   `Checkout Date` DATE NOT NULL,
   `Update Person` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`Id`));
+
+CREATE TABLE `loginsystem`.`consumptions` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Item` VARCHAR(100) NOT NULL,
+  `Subtype` VARCHAR(100) NOT NULL,
+  `Quantity` INT NOT NULL,
+  `Person` VARCHAR(100) NOT NULL,
+  `Reason` VARCHAR(500) NOT NULL,
+  `Consume Date` DATE NOT NULL,
+  `Update Person` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`Id`));
+
+CREATE TABLE `loginsystem`.`reports` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Activity Type` VARCHAR(100) NOT NULL,
+  `IsConsumable` BOOLEAN NOT NULL,
+  `Item` VARCHAR(100) NOT NULL,
+  `Subtype` VARCHAR(100) NOT NULL,
+  `Quantity` INT NOT NULL,
+  `Timestamp` VARCHAR(100) NOT NULL,
+  `Update Person` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`Id`));

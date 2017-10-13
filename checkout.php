@@ -210,6 +210,6 @@ if(isset($_SESSION['id'])) {
     echo "<br><br><br>";
 }
 else{
-    echo "<br> Please log in to manipulate the database";
+    header("Location: ./login.php");
 }
 ?>

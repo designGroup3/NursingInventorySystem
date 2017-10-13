@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+//unused
+
 include '../dbh.php';
 
 if(isset($_SESSION['id'])) {
@@ -40,6 +42,6 @@ if(isset($_SESSION['id'])) {
     exit();
 }
 else{
-    echo "<br> Please log in to manipulate the database";
+    header("Location: ./login.php");
 }
 ?>

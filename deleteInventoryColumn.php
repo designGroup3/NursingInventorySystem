@@ -38,7 +38,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type='hidden' name='column' value = \"$column\">
             &nbsp&nbsp<button type='submit'>Delete</button>
         </form><br>
-        <form action='index.php'>
+        <form action='inventory.php'>
             &nbsp&nbsp<input type='submit' value='Cancel' />
          </form>";
 }

@@ -24,7 +24,6 @@ if(isset($_SESSION['id'])) {
             array_push($columnNames, $row['Field']);
         }
     }
-    //$columnNames = array_diff($columnNames, ["Last Processing Date", "Last Processing Person", "Checkout Status"]);
 
     echo "<form action ='includes/editInventory.inc.php' method ='POST'><br>
             <input type='hidden' name='inv_id' value = $inv_id>";
@@ -62,10 +61,10 @@ if(isset($_SESSION['id'])) {
                     $result3 = mysqli_query($conn, $sql3);
                     while($SubtypeRow = mysqli_fetch_array($result3)){
                         if($Subtype === $SubtypeRow['Subtype']){
-                            $inputs .= "<option selected=\"selected\" value= ". $SubtypeRow['Subtype'].">".$SubtypeRow['Subtype']."</option>";
+                            $inputs .= "<option selected=\"selected\" value= '". $SubtypeRow['Subtype']."'>".$SubtypeRow['Subtype']."</option>";
                         }
                         else{
-                            $inputs .= "<option value= ". $SubtypeRow['Subtype'].">".$SubtypeRow['Subtype']."</option>";
+                            $inputs .= "<option value= '". $SubtypeRow['Subtype']."'>".$SubtypeRow['Subtype']."</option>";
                         }
                     }
                     $inputs .= "</select><br><br>";
@@ -94,6 +93,6 @@ if(isset($_SESSION['id'])) {
     echo '<br><br><img src=QRCode.php?text='.$retrievedData.' width="135" height="125" title="QR Code" alt="QR Code">';
 }
 else{
-    echo "<br> Please log in to manipulate the database";
+    header("Location: ./login.php");
 }
 ?>

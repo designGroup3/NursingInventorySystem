@@ -60,9 +60,9 @@ if(isset($_SESSION['id'])) {
                     $result3 = mysqli_query($conn, $sql3);
                     while ($SubtypeRow = mysqli_fetch_array($result3)) {
                         if ($Subtype === $SubtypeRow['Subtype']) {
-                            $inputs .= "<option selected=\"selected\" value= " . $SubtypeRow['Subtype'] . ">" . $SubtypeRow['Subtype'] . "</option>";
+                            $inputs .= "<option selected=\"selected\" value= '" . $SubtypeRow['Subtype'] . "'>" . $SubtypeRow['Subtype'] . "</option>";
                         } else {
-                            $inputs .= "<option value= " . $SubtypeRow['Subtype'] . ">" . $SubtypeRow['Subtype'] . "</option>";
+                            $inputs .= "<option value= '" . $SubtypeRow['Subtype'] . "'>" . $SubtypeRow['Subtype'] . "</option>";
                         }
                     }
                     $inputs .= "</select><br><br>";
@@ -84,6 +84,6 @@ if(isset($_SESSION['id'])) {
     echo "&nbsp&nbsp<button type='submit'>Submit</button></form>";
 }
 else{
-    echo "<br> Please log in to manipulate the database";
+    header("Location: ./login.php");
 }
 ?>

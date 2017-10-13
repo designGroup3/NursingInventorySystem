@@ -5,10 +5,43 @@ include '../dbh.php';
 
 $id = $_POST['id'];
 
-$sql = "DELETE FROM consumables WHERE id = '$id'";
+if(isset($_SESSION['id'])) {
+    $currentID = $_SESSION['id'];
+    $sql = "SELECT uid FROM users WHERE id='$currentID'";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    $uid = $row['uid'];
 
-$result = mysqli_query($conn, $sql);
+    $sql = "DELETE FROM consumables WHERE id = '$id'";
 
-header("Location: ../consumables.php");
+    //Reports
+    $reportSql = "INSERT INTO reports (`Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Consumable','1',";
 
+    $sql2 = "SELECT Item, Subtype, `Number in Stock` FROM consumables WHERE id = ". $id.";";
+    $result2 = mysqli_query($conn, $sql2);
+    $row2 = $result2->fetch_assoc();
+
+    $reportSql .= "'" . $row2['Item'] . "'" . ", ";
+    $reportSql .= "'" . $row2['Subtype'] . "'" . ", ";
+    $reportSql .= "'" . $row2['Number in Stock'] . "'" . ", ";
+
+    $sql3 = "SELECT CURRENT_TIMESTAMP;";
+    $result3 = mysqli_query($conn, $sql3);
+    $row3 = $result3->fetch_assoc();
+    $time = $row3['CURRENT_TIMESTAMP'];
+
+    $reportSql .= "'" . $time . "'" . ", ";
+    $reportSql .= "'" . $uid . "'" . ");";
+
+    echo $reportSql;
+
+    $result = mysqli_query($conn, $sql); //Cannot be executed until needed info. is gotten.
+
+    $result = mysqli_query($conn, $reportSql);
+
+    header("Location: ../consumables.php");
+}
+else{
+    header("Location: ./login.php");
+}
 ?>

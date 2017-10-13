@@ -47,6 +47,6 @@ if(isset($_SESSION['id'])) {
     }
 }
 else{
-    echo "<br> Please log in to manipulate the database";
+    header("Location: ./login.php");
 }
 ?>

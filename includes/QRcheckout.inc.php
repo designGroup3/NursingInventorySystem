@@ -13,6 +13,6 @@ if(isset($_SESSION['id'])) {
     header("Location: ../checkout.php?type=" . $row['Type'] . "&subtype=" . $row['Subtype'] . "&item=" . $row['Item']);
 }
 else{
-    echo "<br> Please log in to manipulate the database";
+    header("Location: ./login.php");
 }
 ?>

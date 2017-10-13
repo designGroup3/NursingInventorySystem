@@ -11,11 +11,11 @@ if(isset($_SESSION['id'])) {
             <input type='hidden' name='inv_id' value = $inv_id>
             <button type='submit'>Delete</button>
         </form><br>
-        <form action='index.php'>
+        <form action='inventory.php'>
             <input type='submit' value='Cancel' />
          </form>";
 }
 else{
-    echo "<br> Please log in to manipulate the database";
+    header("Location: ./login.php");
 }
 ?>

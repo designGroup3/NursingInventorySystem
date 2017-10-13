@@ -68,6 +68,6 @@ if(isset($_SESSION['id'])) {
     header("Location: ../consumables.php");
 }
 else{
-    echo "<br> Please log in to manipulate the database";
+    header("Location: ./login.php");
 }
 ?>

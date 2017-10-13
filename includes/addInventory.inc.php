@@ -80,9 +80,9 @@ if(isset($_SESSION['id'])) {
     $sql .= "'" . $uid . "'" . ");";
 
     $result = mysqli_query($conn, $sql);
-    header("Location: ../index.php");
+    header("Location: ../inventory.php");
 }
 else{
-    echo "<br> Please log in to manipulate the database";
+    header("Location: ./login.php");
 }
 ?>

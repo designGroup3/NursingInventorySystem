@@ -10,7 +10,10 @@ if(isset($_POST["export"]))
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0)
     {
-        $output = '<table class="table" bordered="1">
+        $start = date_create($startDate); //converts string to date
+        $end = date_create($endDate);
+        $output = '<h2><b>Activities for ('.date_format($start, "m/d/Y").' - '.date_format($end, "m/d/Y").')</b></h2>
+            <table class="table" bordered="1">
                     <tr><th>Activity Type</th>
                         <th>Item</th>
                         <th>Type</th>

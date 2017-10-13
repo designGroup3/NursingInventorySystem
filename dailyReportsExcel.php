@@ -5,11 +5,13 @@ include 'dbh.php';
 if(isset($_POST["export"]))
 {
     $date = $_POST['date'];
+    $dateTitle = date_create($date);
     $sql = "SELECT `Activity Type`, Item, reports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM reports JOIN subtypes ON subtypes.Subtype = reports.Subtype WHERE Timestamp BETWEEN '".$date." 00:00:00' AND '".$date." 23:59:59';";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0)
     {
-        $output = '<table class="table" bordered="1">
+        $output = '<h2><b>Activities for '.date_format($dateTitle, "m/d/Y").'</b></h2>
+                    <table class="table" bordered="1">
                     <tr><th>Activity Type</th>
                         <th>Item</th>
                         <th>Type</th>

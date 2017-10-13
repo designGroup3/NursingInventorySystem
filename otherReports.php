@@ -9,6 +9,10 @@ if(isset($_SESSION['id'])) {
         <br>&nbsp&nbspEnd Date: <input type='date' name='endDate'>
         <br><br>&nbsp&nbsp<button type='submit'>Submit</button></form>";
 
+    echo "<form action='checkoutsReportExcel.php' method = 'post'>
+                <br>&nbsp&nbsp<input type='submit' name ='export' value='Check-out History (Excel)'/>
+                </form>";
+
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $startDate = $_POST['startDate'];
         $endDate = $_POST['endDate'];
@@ -18,7 +22,10 @@ if(isset($_SESSION['id'])) {
         $resultCheck = mysqli_num_rows($result);
 
         if($resultCheck > 0) {
-            echo "<br><table cellspacing='15'><tr><th>Activity Type</th>
+            $start = date_create($startDate); //converts string to date
+            $end = date_create($endDate);
+            echo "<br><h2><b>&nbsp&nbspActivities for (".date_format($start, 'm/d/Y')." - ".date_format($end, 'm/d/Y').")</b></h2>
+            <br><table cellspacing='15'><tr><th>Activity Type</th>
             <th>Item</th>
             <th>Type</th>
             <th>Subtype</th>

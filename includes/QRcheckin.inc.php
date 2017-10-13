@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+//unused
+
 include '../dbh.php';
 
 if(isset($_SESSION['id'])) {

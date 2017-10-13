@@ -19,6 +19,7 @@ if(isset($_SESSION['id'])) {
     $acctType = $row['acctType'];
 
     $inv_id = $_GET['show'];
+    $name;
     $columnNames = array();
 
     echo "<table class ='inventory'>";
@@ -31,6 +32,7 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT inv_id, Item, inventory.Subtype, subtypes.Type, Checkoutable, `Number in Stock`, `Minimum Stock` FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE inv_id = ".$inv_id;
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_array($result)) {
+        $name = $row['Item'];
         echo "<tr>";
         for ($whileCount = 0; $whileCount < count($columnNames); $whileCount++) {
             $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
@@ -51,16 +53,28 @@ if(isset($_SESSION['id'])) {
 
         }
 
-        echo "<td><a href='includes/QRcheckout.inc.php?id=$row[inv_id]'>Check-out<br></td>
-              <td><a href='includes/QRcheckin.inc.php?id=$row[inv_id]'>Check-in<br></td>
-              <td><a href='QRCode.php?text=$row[inv_id]'>Show QR Code<br></td>
-              <td><a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>";
-              if ($acctType == "Admin") {
-                  echo "<td><a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td></tr>";
-              }
-              else{
-                  echo "</tr>";
-              }
+        $sql2 = "SELECT `Number in Stock` , Checkoutable FROM inventory WHERE inv_id = ".$inv_id;
+        $result2 = mysqli_query($conn, $sql2);
+        $row2 = mysqli_fetch_array($result2);
+        if($row2['Number in Stock'] > 0 && $row2['Checkoutable'] == 1){
+            echo "<td><a href='includes/QRcheckout.inc.php?id=$row[inv_id]'>Check-out<br></td>";
+        }
+
+        $sql3 = "SELECT Item FROM checkouts WHERE Item = '".$name."';";
+        $result3 = mysqli_query($conn, $sql3);
+        $row3 = mysqli_num_rows($result3);
+        if($row3 > 0 && $row2['Checkoutable'] == 1){
+            echo "<td><a href='includes/checkin.inc.php?Id=$row[inv_id]'>Check-in<br></td>";
+        }
+
+        echo "<td><a href='QRCode.php?text=$row[inv_id]'>Show QR Code<br></td>
+         <td><a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>";
+        if ($acctType == "Admin") {
+            echo "<td><a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td></tr>";
+        }
+        else{
+            echo "</tr>";
+        }
     }
 }
 

@@ -56,12 +56,6 @@ INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrow
 
 INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('2', 'Apple MAC OS X 10.4', 'Apple', '1', 'YW425757483', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
 
-INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('3', 'Brother HL-2270DW Printer', 'Brother 2000 Series', '1', 'ET474374601', 'Roxanne Reid', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
-
-INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('4', 'Canon Rebel EOS T5i', 'Digital Camera', '1', 'CJ763287594', 'Douglas Hughey', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
-
-INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('5', 'Adobe PhotoShop CS', 'Adobe', '1', 'IP472802749', 'Roxanne Reid', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
-
 INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('6', 'HP PhotoSmart D7560 Printer', 'HP Printer', '1', 'TM852187346', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
 
 INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) VALUES ('1', 'HP LaserJet 1012,1018,1022 Toner', 'Black Toner', '1', 'Douglas Hughey', 'Printer\'s out', '2017-10-10', 'admin');

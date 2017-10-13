@@ -13,6 +13,10 @@ if(isset($_SESSION['id'])) {
                 <br>&nbsp&nbsp<input type='submit' name ='export' value='Check-out History (Excel)'/>
                 </form>";
 
+    echo "<form action='consumptionsReportExcel.php' method = 'post'>
+                <br>&nbsp&nbsp<input type='submit' name ='export' value='Consumable History (Excel)'/>
+                </form>";
+
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $startDate = $_POST['startDate'];
         $endDate = $_POST['endDate'];

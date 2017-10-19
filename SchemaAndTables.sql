@@ -18,10 +18,9 @@ CREATE TABLE loginsystem.subtypes (
   PRIMARY KEY (Subtype));
 
 CREATE TABLE loginsystem.inventory (
-  inv_id INT NOT NULL AUTO_INCREMENT,
+  `Serial Number` VARCHAR(100),
   Item VARCHAR(100) NOT NULL,
   Subtype VARCHAR(100) NOT NULL,
-  `Serial Number` VARCHAR(100),
   `Assigned to` VARCHAR(100) NOT NULL,
   Location VARCHAR(100) NOT NULL,
   Checkoutable TINYINT(1) NOT NULL,
@@ -29,7 +28,7 @@ CREATE TABLE loginsystem.inventory (
   `Minimum Stock` INT,
   `Last Processing Date` DATE,
   `Last Processing Person` VARCHAR(100),
-  PRIMARY KEY (inv_id));
+  PRIMARY KEY (`Serial Number`));
 
 CREATE TABLE loginsystem.consumables (
   id INT NOT NULL AUTO_INCREMENT,

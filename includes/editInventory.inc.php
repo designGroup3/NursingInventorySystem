@@ -3,7 +3,7 @@ session_start();
 
 include '../dbh.php';
 
-$inv_id = $_POST['inv_id'];
+$originalSerialNumber = $_POST['originalSerialNumber'];
 $inventoryColumns = array();
 $inventoryValues = array();
 
@@ -32,13 +32,13 @@ if(isset($_SESSION['id'])) {
     for($count = 0; $count< count($inventoryColumns); $count++){
         if($inventoryColumns[$count] != "Last Processing Date" && $inventoryColumns[$count] != "Last Processing Person") {
             $sql .= "`" . $inventoryColumns[$count] . "`" . " = '" . $inventoryValues[$count] . "' ";
-            if ($count !== count($inventoryColumns) - 1) {
+            if ($count !== count($inventoryColumns) - 3) {
                 $sql .= ", ";
             }
         }
     }
 
-    $sql .= "WHERE inv_id = '$inv_id';";
+    $sql .= "WHERE `Serial Number` = '$originalSerialNumber';";
 
     //Reports
     $reportSql = "INSERT INTO reports (`Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Inventory','0',";

@@ -14,7 +14,7 @@
 $columnNames= array();
 $Minimums = array();
 
-$minimumSQL = "SELECT `Minimum Stock` FROM inventory"; //Gets each item's Minimum Stock separately since that isn't its own row.
+$minimumSQL = "SELECT `Minimum Stock` FROM inventory ORDER BY Item"; //Gets each item's Minimum Stock separately since that isn't its own row.
 $minimumResult = mysqli_query($conn, $minimumSQL);
 while ($minimumRow = mysqli_fetch_array($minimumResult)) {
     array_push($Minimums, $minimumRow['Minimum Stock']);
@@ -119,7 +119,7 @@ if(isset($_SESSION['id'])) {
 
     $this_page_first_result = ($page-1)*$results_per_page; //for pagination
 
-    $sql = "SELECT inv_id, Item, inventory.Subtype, subtypes.Type, Checkoutable, `Number in Stock` FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY inv_id LIMIT " . $this_page_first_result . "," .  $results_per_page.";"; //limit rows shown
+    $sql = "SELECT `Serial Number`, Item, inventory.Subtype, subtypes.Type, Checkoutable, `Number in Stock` FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY Item LIMIT " . $this_page_first_result . "," .  $results_per_page.";"; //limit rows shown
     $result = mysqli_query($conn, $sql);
     $namesCount = 0;
     while ($row = mysqli_fetch_array($result)) {
@@ -147,10 +147,10 @@ if(isset($_SESSION['id'])) {
             }
         }
         $namesCount++;
-        echo "<td> <a href='QRCode.php?text=$row[inv_id]'>Show QR Code<br></td>
-                    <td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>";
+        echo "<td> <a href='QRCode.php?text=".$row["Serial Number"]."'>Show QR Code<br></td>
+                    <td> <a href='editInventory.php?edit=".$row["Serial Number"]."'>Edit<br></td>";
         if ($acctType == "Admin") {
-            echo "<td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td></tr>";
+            echo "<td> <a href='deleteInventory.php?serialNumber=".$row["Serial Number"]."&item=$row[Item]'>Delete<br></td></tr>";
         }
         else{
             echo "</tr>";

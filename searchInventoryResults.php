@@ -121,9 +121,9 @@ if(isset($_SESSION['id'])) {
                 }
             }
         }
-        echo "<td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>";
+        echo "<td> <a href='editInventory.php?edit=".$row["Serial Number"]."'>Edit<br></td>";
             if ($acctType == "Admin") {
-                echo "<td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td>";
+                echo "<td> <a href='deleteInventory.php?serialNumber=".$row["Serial Number"]."&item=$row[Item]'>Delete<br></td>";
                }
             echo "</tr>";
     }

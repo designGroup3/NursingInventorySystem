@@ -55,6 +55,7 @@ if(isset($_SESSION['id'])) {
             $sql .= " AND ";
         }
         $sql .= "Email = '".$email."'";
+        $andNeeded = true;
     }
     if($office !== "")
     {

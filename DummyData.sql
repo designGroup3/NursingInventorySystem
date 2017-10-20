@@ -22,15 +22,15 @@ INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsCo
 
 INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Staples Flash Drive', 'Storage Device', '0', '0');
 
-INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('XU338026956', 'Canon PowerShot A710 IS', 'Still Camera', 'Joe Johnson', 'Nursing 162', 1, 5, 3, '2017-09-29', 'Tester');
+INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('XU338026956', 'Canon PowerShot A710 IS', 'Still Camera', 'Joe Johnson', 'Nursing 162', 1, 1, 1, '2017-09-29', 'Tester');
 
-INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('ET474374601', 'Apple MAC OS X 10.4', 'Apple', 'Drew Hills', 'Nursing 161', 1, 4, 2, '2017-09-20', 'Tester');
+INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('ET474374601', 'Apple MAC OS X 10.4', 'Apple', 'Drew Hills', 'Nursing 161', 1, 1, 0, '2017-09-20', 'Tester');
 
 INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('YW425757483', 'Brother HL-2270DW Printer', 'Brother 2000 Series', 'Mary Sue', 'Checkout', 0, 1, 1, '2017-09-30', 'John');
 
-INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('CJ763287594', 'Canon Rebel EOS T5i', 'Digital Camera', 'Joe Johnson', 'Nursing 162', 0, 5, 0, '2017-08-29', 'Frank');
+INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('CJ763287594', 'Canon Rebel EOS T5i', 'Digital Camera', 'Joe Johnson', 'Nursing 162', 0, 1, 0, '2017-08-29', 'Frank');
 
-INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('IP472802749', 'Adobe PhotoShop CS', 'Adobe', 'Drew Hills', 'Checkout', 0, 2, 1, '2016-09-29', 'Bob');
+INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('IP472802749', 'Adobe PhotoShop CS', 'Adobe', 'Drew Hills', 'Checkout', 0, 1, 1, '2016-09-29', 'Bob');
 
 INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('TM852187346', 'HP PhotoSmart D7560 Printer', 'HP Printer', 'Mary Sue', 'Nursing 162', 1, 0, 0, '2012-02-22', 'Joe');
 
@@ -54,7 +54,7 @@ INSERT INTO `loginsystem`.`clients` (`Number`, `Last`, `First`, `Ext`, `Email`, 
 
 INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('1', 'Canon PowerShot A710 IS', 'Still Camera', '1', 'XU338026956', 'Douglas Hughey', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
 
-INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('2', 'Apple MAC OS X 10.4', 'Apple', '1', 'YW425757483', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
+INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('2', 'Apple MAC OS X 10.4', 'Apple', '1', 'ET474374601', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
 
 INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('6', 'HP PhotoSmart D7560 Printer', 'HP Printer', '1', 'TM852187346', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
 

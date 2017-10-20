@@ -54,6 +54,12 @@ if(isset($_SESSION['id'])) {
             $isSelect = true;
             $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<select name=";
         }
+        elseif($rowType['DATA_TYPE'] == "date"){
+            $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='date' name=";
+        }
+        elseif($rowType['DATA_TYPE'] == "int"){
+            $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='number' name=";
+        }
         else {
             $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=";
         }

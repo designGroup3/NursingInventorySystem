@@ -38,8 +38,11 @@ if(isset($_SESSION['id'])) {
                     echo "</select>";
                 }
                 else{
-                    echo "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=".$columnName
-                        . " value='" . $row[$columnNames[$count]] . "'><br><br>";
+                    if (strpos($columnName, ' ')) {
+                        $columnName = str_replace(" ", "", $columnName);
+                    }
+                    echo "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name='".$columnName
+                        . "' value='" . $row[$columnNames[$count]] . "'><br><br>";
                 }
             }
             echo "<br><br>";

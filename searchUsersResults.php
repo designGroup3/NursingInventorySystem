@@ -45,13 +45,13 @@ if(isset($_SESSION['id'])) {
             $sql .= " AND ";
         }
         $sql .= "last = '".$last."'";
-        //error_reporting(E_ERROR | E_PARSE); //silences warning that comes up if a string is searched for
+        error_reporting(E_ERROR | E_PARSE); //silences warning that comes up if a string is searched for
         $andNeeded = true;
     }
 
     if($accountName !== "")
     {
-        //error_reporting(E_ERROR | E_PARSE);
+        error_reporting(E_ERROR | E_PARSE);
         if($andNeeded){
             $sql .= " AND ";
         }
@@ -60,7 +60,7 @@ if(isset($_SESSION['id'])) {
     }
     if($accountType !== "")
     {
-       //error_reporting(E_ERROR | E_PARSE);
+        error_reporting(E_ERROR | E_PARSE);
         if($andNeeded){
             $sql .= " AND ";
         }
@@ -69,7 +69,7 @@ if(isset($_SESSION['id'])) {
     }
     if($dateAdded !== "")
     {
-        //error_reporting(E_ERROR | E_PARSE);
+        error_reporting(E_ERROR | E_PARSE);
         if($andNeeded){
             $sql .= " AND ";
         }

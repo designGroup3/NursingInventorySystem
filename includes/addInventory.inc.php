@@ -13,7 +13,7 @@ if(isset($_SESSION['id'])) {
     error_reporting(E_ALL ^ E_NOTICE);
     $columnNames = array();
     $receivedValues = array();
-    $inventoryNames = array();
+    $serialNumbers = array();
 
     $sql = "SHOW COLUMNS FROM inventory";
     $result = mysqli_query($conn, $sql);
@@ -27,13 +27,13 @@ if(isset($_SESSION['id'])) {
         }
     }
 
-    $sql = "SELECT Item FROM inventory"; //checks if new item already exists
+    $sql = "SELECT `Serial Number` FROM inventory"; //checks if new item already exists
     $result = mysqli_query($conn, $sql);
     while($row = mysqli_fetch_array($result)) {
-        array_push($inventoryNames, $row['Item']);
+        array_push($serialNumbers, $row['Serial Number']);
     }
 
-    if(in_array($receivedValues[1], $inventoryNames)){
+    if(in_array($receivedValues[0], $serialNumbers)){
         header("Location: ../addInventory.php?error=exists");
         exit();
     }
@@ -44,7 +44,7 @@ if(isset($_SESSION['id'])) {
 
     $sql = "INSERT INTO inventory (";
 
-    for ($count = 1; $count < count($columnNames); $count++) {
+    for ($count = 0; $count < count($columnNames); $count++) {
         if ($count < count($columnNames) - 1) {
             $sql .= "`" . $columnNames[$count] . "`" . ", ";
         } else {
@@ -54,14 +54,13 @@ if(isset($_SESSION['id'])) {
 
     $sql .= "VALUES (";
 
-    for ($count = 1; $count < count($columnNames); $count++) {
+    for ($count = 0; $count < count($columnNames); $count++) {
         if ($count < count($columnNames) - 1) {
             $sql .= "'" . $receivedValues[$count] . "'" . ", ";
         } else {
             $sql .= "'" . $receivedValues[$count] . "'" . ");";
         }
     }
-
     $result = mysqli_query($conn, $sql);
 
     //Reports
@@ -69,7 +68,7 @@ if(isset($_SESSION['id'])) {
 
     $sql .= "'" . $receivedValues[1] . "'" . ", ";
     $sql .= "'" . $receivedValues[2] . "'" . ", ";
-    $sql .= "'" . $receivedValues[7] . "'" . ", ";
+    $sql .= "'" . $receivedValues[6] . "'" . ", ";
 
     $sql2 = "SELECT CURRENT_TIMESTAMP;";
     $result2 = mysqli_query($conn, $sql2);

@@ -52,7 +52,7 @@ if(isset($_SESSION['id'])) {
     $row2 = $result2->fetch_assoc();
     $current_quantity = $row2['Number in Stock'];
 
-    $quantity = $inventoryValues[7] - $current_quantity;
+    $quantity = $inventoryValues[6] - $current_quantity;
     $reportSql .= $quantity .", ";
 
     $sql3 = "SELECT CURRENT_TIMESTAMP;";

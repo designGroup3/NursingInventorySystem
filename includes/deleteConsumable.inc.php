@@ -3,7 +3,7 @@ session_start();
 
 include '../dbh.php';
 
-$id = $_POST['id'];
+$item = $_POST['item'];
 
 if(isset($_SESSION['id'])) {
     $currentID = $_SESSION['id'];
@@ -12,12 +12,12 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $uid = $row['uid'];
 
-    $sql = "DELETE FROM consumables WHERE id = '$id'";
+    $sql = "DELETE FROM consumables WHERE Item = '".$item."';";
 
     //Reports
     $reportSql = "INSERT INTO reports (`Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Consumable','1',";
 
-    $sql2 = "SELECT Item, Subtype, `Number in Stock` FROM consumables WHERE id = ". $id.";";
+    $sql2 = "SELECT Item, Subtype, `Number in Stock` FROM consumables WHERE Item = '". $item."';";
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();
 
@@ -32,8 +32,6 @@ if(isset($_SESSION['id'])) {
 
     $reportSql .= "'" . $time . "'" . ", ";
     $reportSql .= "'" . $uid . "'" . ");";
-
-    echo $reportSql;
 
     $result = mysqli_query($conn, $sql); //Cannot be executed until needed info. is gotten.
 

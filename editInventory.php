@@ -6,6 +6,11 @@ $serialNumber = $_GET['edit'];
 $columnNames = array();
 
 if(isset($_SESSION['id'])) {
+    $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    if(strpos($url, 'error=exists') !== false){
+        echo "<br>&nbsp&nbspAn item with that serial number already exists.<br>";
+    }
+
     $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page
     $result = mysqli_query($conn, $sql);
     $innerCount = 0;

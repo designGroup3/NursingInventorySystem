@@ -22,13 +22,8 @@ if(isset($_SESSION['id'])) {
     $name;
     $columnNames = array();
 
-    $minimumSQL = "SELECT `Minimum Stock` FROM inventory WHERE `Serial Number` = '".$serialNumber."';"; //Gets the Minimum Stock separately since that isn't its own row.
-    $minimumResult = mysqli_query($conn, $minimumSQL);
-    $minimumRow = mysqli_fetch_array($minimumResult);
-    $Minimum = $minimumRow['Minimum Stock'];
-
     echo "<table class ='inventory'>";
-    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock (Minimum)");
+    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock");
 
     for ($count = 0; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
@@ -53,14 +48,8 @@ if(isset($_SESSION['id'])) {
                     echo '<td></td>';
                 }
             } else {
-                if($columnNames[$whileCount] === "Number in Stock (Minimum)"){
-                    echo '<td> ' . $row['Number in Stock'] . ' (' . $Minimum.')</td>';
-                }
-                else{
-                    echo '<td> ' . $row[$columnNames[$whileCount]] . '</td>';
-                }
+                echo '<td> ' . $row[$columnNames[$whileCount]] . '</td>';
             }
-
         }
 
         $sql2 = "SELECT `Number in Stock` , Checkoutable FROM inventory WHERE `Serial Number` = '".$serialNumber."';";

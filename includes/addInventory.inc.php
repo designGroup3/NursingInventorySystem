@@ -15,6 +15,11 @@ if(isset($_SESSION['id'])) {
     $receivedValues = array();
     $serialNumbers = array();
 
+    $sql2 = "SELECT CURRENT_TIMESTAMP;"; //gets current time
+    $result2 = mysqli_query($conn, $sql2);
+    $row2 = $result2->fetch_assoc();
+    $time = $row2['CURRENT_TIMESTAMP'];
+
     $sql = "SHOW COLUMNS FROM inventory";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_array($result)) {
@@ -55,12 +60,27 @@ if(isset($_SESSION['id'])) {
     $sql .= "VALUES (";
 
     for ($count = 0; $count < count($columnNames); $count++) {
-        if ($count < count($columnNames) - 1) {
-            $sql .= "'" . $receivedValues[$count] . "'" . ", ";
-        } else {
-            $sql .= "'" . $receivedValues[$count] . "'" . ");";
+        if ($count < 7) {
+            $sql .= "'" . $receivedValues[$count];
+        }
+        elseif($count === 7){
+            $sql .= "'" . $time;
+        }
+        elseif($count === 8){
+            $sql .= "'" . $uid;
+        }
+        else {
+            $sql .= "'" . $receivedValues[$count];
+        }
+
+        if($count != (count($columnNames)-1)){
+            $sql .= "', ";
+        }
+        else{
+            $sql .= "')";
         }
     }
+
     $result = mysqli_query($conn, $sql);
 
     //Reports
@@ -69,11 +89,6 @@ if(isset($_SESSION['id'])) {
     $sql .= "'" . $receivedValues[1] . "'" . ", ";
     $sql .= "'" . $receivedValues[2] . "'" . ", ";
     $sql .= "'" . $receivedValues[6] . "'" . ", ";
-
-    $sql2 = "SELECT CURRENT_TIMESTAMP;";
-    $result2 = mysqli_query($conn, $sql2);
-    $row2 = $result2->fetch_assoc();
-    $time = $row2['CURRENT_TIMESTAMP'];
 
     $sql .= "'" . $time . "'" . ", ";
     $sql .= "'" . $uid . "'" . ");";

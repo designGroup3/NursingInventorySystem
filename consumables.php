@@ -119,7 +119,7 @@ if(isset($_SESSION['id'])) {
 
     $this_page_first_result = ($page-1)*$results_per_page; //for pagination
 
-    $sql = "SELECT id, Item, consumables.Subtype, subtypes.Type, `Number in Stock` FROM consumables JOIN subtypes ON consumables.Subtype = subtypes.Subtype ORDER BY id LIMIT " . $this_page_first_result . "," .  $results_per_page.";"; //limit rows shown
+    $sql = "SELECT Item, consumables.Subtype, subtypes.Type, `Number in Stock` FROM consumables JOIN subtypes ON consumables.Subtype = subtypes.Subtype ORDER BY Item LIMIT " . $this_page_first_result . "," .  $results_per_page.";"; //limit rows shown
     $result = mysqli_query($conn, $sql);
     $namesCount = 0;
     while ($row = mysqli_fetch_array($result)) {
@@ -147,8 +147,8 @@ if(isset($_SESSION['id'])) {
             }
         }
         $namesCount++;
-        echo "<td> <a href='editConsumable.php?edit=$row[id]'>Edit<br></td>
-              <td> <a href='deleteConsumable.php?id=$row[id]&item=$row[Item]'>Delete<br></td></tr>";
+        echo "<td> <a href='editConsumable.php?edit=$row[Item]'>Edit<br></td>
+              <td> <a href='deleteConsumable.php?item=$row[Item]'>Delete<br></td></tr>";
     }
 //            $columnNumber++;
 

@@ -10,7 +10,7 @@ INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsCo
 
 INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Black Toner', 'Printer Cartridge', '0', '1');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Flash Drive', 'Storage Device', '0', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Flash Drive', 'Storage Device', '0', '1');
 
 INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Digital Camera', 'Camera', '1', '0');
 
@@ -20,7 +20,7 @@ INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsCo
 
 INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Color Toner', 'Printer Cartridge', '0', '1');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Staples Flash Drive', 'Storage Device', '0', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Staples Flash Drive', 'Storage Device', '0', '1');
 
 INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('XU338026956', 'Canon PowerShot A710 IS', 'Still Camera', 'Joe Johnson', 'Nursing 162', 1, 1, '2017-09-29', 'Tester');
 
@@ -34,17 +34,17 @@ INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assi
 
 INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('TM852187346', 'HP PhotoSmart D7560 Printer', 'HP Printer', 'Mary Sue', 'Nursing 162', 1, 0, '2012-02-22', 'Joe');
 
-INSERT INTO `loginsystem`.`consumables`(`id`, `Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES (1, 'HP LaserJet 1012,1018,1022 Toner', 'Black Toner', 'Surplus', 4, 1);
+INSERT INTO `loginsystem`.`consumables`(`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES ('HP LaserJet 1012,1018,1022 Toner', 'Black Toner', 'Surplus', 4, 1);
 
-INSERT INTO `loginsystem`.`consumables`(`id`, `Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES (2, 'Sandisk Cruzer 16GB', 'Flash Drive', 'Drawer', 10, 3);
+INSERT INTO `loginsystem`.`consumables`(`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES ('Sandisk Cruzer 16GB', 'Flash Drive', 'Drawer', 10, 3);
 
-INSERT INTO `loginsystem`.`consumables`(`id`, `Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES (3, 'HP LaserJet P1102W', 'Black Toner', 'Surplus', 7, 2);
+INSERT INTO `loginsystem`.`consumables`(`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES ('HP LaserJet P1102W', 'Black Toner', 'Surplus', 7, 2);
 
-INSERT INTO `loginsystem`.`consumables`(`id`, `Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES (4, 'Verbatim PinStrip USB Drive', 'Flash Drive', 'Drawer', 1, 1);
+INSERT INTO `loginsystem`.`consumables`(`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES ('Verbatim PinStrip USB Drive', 'Flash Drive', 'Drawer', 1, 1);
 
-INSERT INTO `loginsystem`.`consumables`(`id`, `Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES (5, 'Staples 16GB Flash Drive', 'Flash Drive', 'Drawer', 6, 0);
+INSERT INTO `loginsystem`.`consumables`(`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES ('Staples 16GB Flash Drive', 'Flash Drive', 'Drawer', 6, 0);
 
-INSERT INTO `loginsystem`.`consumables`(`id`, `Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES (6, 'HP P3005 Toner', 'Black Toner', 'Surplus', 4, 3);
+INSERT INTO `loginsystem`.`consumables`(`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES ('HP P3005 Toner', 'Black Toner', 'Surplus', 4, 3);
 
 INSERT INTO `loginsystem`.`clients` (`Number`, `Last`, `First`, `Ext`, `Email`, `Office`) VALUES ('1', 'Hughey', 'Douglas', '6733', 'hugheyd@umsl.edu', '164');
 

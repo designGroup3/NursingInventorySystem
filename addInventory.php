@@ -42,7 +42,7 @@
                 if ($isSelect) {
                     $inputs .= $columnName . ">";
                     if ($count == 2) {
-                        $sql3 = "SELECT Subtype FROM subtypes";
+                        $sql3 = "SELECT Subtype FROM subtypes WHERE isCheckoutable = 1";
                         $result3 = mysqli_query($conn, $sql3);
                         while ($SubtypeRow = mysqli_fetch_array($result3)) {
                             $inputs .= "<option value= " . $SubtypeRow['Subtype'] . ">" . $SubtypeRow['Subtype'] . "</option>";

@@ -77,7 +77,7 @@ if(isset($_SESSION['id'])) {
             $sql .= "', ";
         }
         else{
-            $sql .= "')";
+            $sql .= "');";
         }
     }
 

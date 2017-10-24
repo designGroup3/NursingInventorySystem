@@ -9,6 +9,12 @@
 include 'header.php';
 include 'dbh.php';
 if(isset($_SESSION['id'])) {
+    $currentID = $_SESSION['id'];
+    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    $acctType = $row['acctType'];
+
     $last = $_POST['last'];
     $first = $_POST['first'];
     $ext = $_POST['ext'];
@@ -45,7 +51,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "Ext = ".$ext;
+        $sql .= "Ext = '".$ext."'";
         $andNeeded = true;
     }
     if($email !== "")
@@ -82,13 +88,15 @@ if(isset($_SESSION['id'])) {
               <td> ".$row['First']."</td>
               <td> ".$row['Ext']."</td>
               <td> ".$row['Email']."</td>
-              <td> ".$row['Office']."</td>
-              <td> <a href='editClient.php?edit=$row[Number]'>Edit<br></td>
-              <td> <a href='deleteClient.php?number=$row[Number]&last=$row[Last]&first=$row[First]'>Delete<br></td>
-              </tr><br>";
+              <td> ".$row['Office']."</td>";
+        if ($acctType == "Admin") {
+            echo "<td> <a href='editClient.php?edit=$row[Number]'>Edit<br></td>
+              <td> <a href='deleteClient.php?number=$row[Number]&last=$row[Last]&first=$row[First]'>Delete<br></td>";
+        }
+              echo "</tr><br>";
     }
     if($count == 0) {
-        echo "<br> No Items Found That Match All of Those Criteria.<br>";
+        echo "<br> No Clients Found That Match All of Those Criteria.<br>";
     }
 }
 else{

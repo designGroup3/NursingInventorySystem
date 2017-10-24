@@ -188,6 +188,6 @@ if(isset($_SESSION['id'])) {
     }
 
 } else {
-    echo "Please login to manipluate the database";
+    header("Location: ./login.php");
 }
 ?>

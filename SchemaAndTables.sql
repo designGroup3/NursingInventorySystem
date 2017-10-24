@@ -94,3 +94,12 @@ CREATE TABLE `loginsystem`.`repairs/updates/upgrades` (
   `Supplier` VARCHAR(100) NOT NULL,
   `Reason` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`Id`));
+
+CREATE TABLE `loginsystem`.`serviceAgreements` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) NOT NULL,
+  `Annual Cost` DECIMAL(8,2) NOT NULL,
+  `Duration` VARCHAR(100) NOT NULL,
+  `Expiration Date` DATE NOT NULL,
+  `Approval` BLOB,
+  PRIMARY KEY (`Id`));

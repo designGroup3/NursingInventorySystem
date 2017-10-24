@@ -81,3 +81,9 @@ INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Numbe
 INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('2', 'Update', 'IP472802749', 'Software', '99.99', '2017-10-25', 'Adobe', 'Annual major update');
 
 INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('3', 'Upgrade', 'YW425757483', 'Spooler', '19.99', '2017-10-20', 'Brother', 'Larger spooler');
+
+INSERT INTO `loginsystem`.`serviceAgreements`(`Id`, `Name`, `Annual Cost`, `Duration`, `Expiration Date`) VALUES ('1', 'Windows Service', '499.99', '1 Year', '2018-10-20');
+
+INSERT INTO `loginsystem`.`serviceAgreements`(`Id`, `Name`, `Annual Cost`, `Duration`, `Expiration Date`) VALUES ('2', 'Antivirus Service', '99.99', '1 Year', '2018-02-17');
+
+INSERT INTO `loginsystem`.`serviceAgreements`(`Id`, `Name`, `Annual Cost`, `Duration`, `Expiration Date`) VALUES ('3', 'Mac Service', '199.99', '1 Year', '2018-08-30');

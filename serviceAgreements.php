@@ -1,3 +1,10 @@
+<style>
+    table.center {
+        margin-left:auto;
+        margin-right:auto;
+    }
+</style>
+
 <?php
 
 include 'header.php';
@@ -17,13 +24,13 @@ if(isset($_SESSION['id'])) {
 
     $sql = "SELECT * FROM serviceAgreements;";
     $result = mysqli_query($conn, $sql);
-    echo "<table cellspacing='10'><tr><th>Name</th>
+    echo "<table class='center' cellspacing='10'><tr><th>Name</th>
     <th>Annual Cost</th>
     <th>Duration</th>
     <th>Expiration Date</th>";
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr><td> " . $row['Name'] . "</td>
-            <td> " . $row['Annual Cost'] . "</td>
+            <td> $" . $row['Annual Cost'] . "</td>
             <td> " . $row['Duration'] . "</td>";
             $date = date_create($row['Expiration Date']);
             echo "<td> " . date_format($date, 'm/d/Y') . "</td>

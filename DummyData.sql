@@ -75,3 +75,9 @@ INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `IsConsumable`, `Ite
 INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('5', 'Edit consumable', '1', 'Verbatim PinStrip USB Drive', 'Flash Drive', '1', '2017-10-11 17:42:12', 'Craig');
 
 INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('6', 'Delete consumable', '1', 'Staples 16GB Flash Drive', 'Flash Drive', '1', '2017-10-11 13:14:16', 'admin');
+
+INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('1', 'Repair', 'XU338026956', 'Lens', '29.95', '2017-10-24', 'Canon', 'Replaces broken lens');
+
+INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('2', 'Update', 'IP472802749', 'Software', '99.99', '2017-10-25', 'Adobe', 'Annual major update');
+
+INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('3', 'Upgrade', 'YW425757483', 'Spooler', '19.99', '2017-10-20', 'Brother', 'Larger spooler');

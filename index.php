@@ -35,6 +35,10 @@ if(isset($_SESSION['id'])) {
                <input type='submit' value='Other Reports'/>
               </form>";
 
+        echo "&nbsp&nbsp<form action='repairsUpdatesUpgrades.php'>
+               <input type='submit' value='Repairs/Updates/Upgrades'/>
+              </form>";
+
     } else {
         header("Location: ./login.php");
     }

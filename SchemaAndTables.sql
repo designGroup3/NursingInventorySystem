@@ -83,3 +83,14 @@ CREATE TABLE `loginsystem`.`reports` (
   `Timestamp` VARCHAR(100) NOT NULL,
   `Update Person` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`Id`));
+
+CREATE TABLE `loginsystem`.`repairs/updates/upgrades` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Type` VARCHAR(10) NOT NULL,
+  `Serial Number` VARCHAR(100) NOT NULL,
+  `Part` VARCHAR(100) NOT NULL,
+  `Cost` DECIMAL(8,2) NOT NULL,
+  `Date` DATE NOT NULL,
+  `Supplier` VARCHAR(100) NOT NULL,
+  `Reason` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`Id`));

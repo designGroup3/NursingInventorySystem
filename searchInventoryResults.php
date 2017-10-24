@@ -38,7 +38,7 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT * FROM inventory WHERE ";
     $andNeeded = false;
 
-    for($count = 1; $count< count($columnNames); $count++){
+    for($count = 0; $count< count($columnNames); $count++){
         if($receivedValues[$count] !== ""){
             $sql .= "`" . $columnNames[$count] . "`" . " = '" . $receivedValues[$count]. "' AND ";
             error_reporting(E_ERROR | E_PARSE);
@@ -86,7 +86,7 @@ if(isset($_SESSION['id'])) {
             $tableHeadNeeded = false;
             $outerCount++;
             echo "<table>";
-            for($count = 1; $count< 2; $count++){
+            for($count = 0; $count< 2; $count++){
                 echo "<th>$columnNames[$count]</th>";
             }
             echo "<th>Type</th>";
@@ -95,7 +95,7 @@ if(isset($_SESSION['id'])) {
             }
         }
         echo "<tr>";
-        for($count = 1; $count< count($columnNames); $count++){
+        for($count = 0; $count< count($columnNames); $count++){
             if($count == 1){
                 echo '<td> '.$row[$columnNames[$count]].'</td>';
                 $innerSQL = "SELECT Type FROM subtypes WHERE Subtype = '".$row[$columnNames[$count + 1]]."';";
@@ -116,14 +116,18 @@ if(isset($_SESSION['id'])) {
                         echo '<td>Yes</td>';
                     }
                 }
+                elseif($rowType['DATA_TYPE'] == "date"){
+                    $date = date_create($row[$columnNames[$count]]);
+                    echo '<td>'.date_format($date, "m/d/Y").'</td>';
+                }
                 else{
                     echo '<td> '.$row[$columnNames[$count]].'</td>';
                 }
             }
         }
-        echo "<td> <a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>";
+        echo "<td> <a href='editInventory.php?edit=".$row["Serial Number"]."'>Edit<br></td>";
             if ($acctType == "Admin") {
-                echo "<td> <a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td>";
+                echo "<td> <a href='deleteInventory.php?serialNumber=".$row["Serial Number"]."&item=$row[Item]'>Delete<br></td>";
                }
             echo "</tr>";
     }

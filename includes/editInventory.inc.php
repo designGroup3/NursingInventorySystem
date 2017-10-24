@@ -3,7 +3,7 @@ session_start();
 
 include '../dbh.php';
 
-$inv_id = $_POST['inv_id'];
+$originalSerialNumber = $_POST['originalSerialNumber'];
 $inventoryColumns = array();
 $inventoryValues = array();
 
@@ -14,6 +14,11 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     $uid = $row['uid'];
+
+    $sqlTime = "SELECT CURRENT_TIMESTAMP;"; //get current time
+    $resultTime = mysqli_query($conn, $sqlTime);
+    $rowTime = $resultTime->fetch_assoc();
+    $time = $rowTime['CURRENT_TIMESTAMP'];
 
     $sql="SHOW COLUMNS FROM inventory";
     $result = mysqli_query($conn, $sql);
@@ -28,17 +33,41 @@ if(isset($_SESSION['id'])) {
             }
     }
 
+    $serialNumbers = array();
+
+    $sql = "SELECT `Serial Number` FROM inventory";
+    $result = mysqli_query($conn, $sql);
+    while($row = mysqli_fetch_array($result)) {
+        array_push($serialNumbers, $row['Serial Number']);
+    }
+
+    if(in_array($inventoryValues[0], $serialNumbers)){
+        header("Location: ../editInventory.php?edit=$originalSerialNumber&error=exists");
+        exit();
+    }
+
+
     $sql = "UPDATE inventory SET ";
     for($count = 0; $count< count($inventoryColumns); $count++){
         if($inventoryColumns[$count] != "Last Processing Date" && $inventoryColumns[$count] != "Last Processing Person") {
-            $sql .= "`" . $inventoryColumns[$count] . "`" . " = '" . $inventoryValues[$count] . "' ";
-            if ($count !== count($inventoryColumns) - 1) {
-                $sql .= ", ";
-            }
+            $sql .= "`" . $inventoryColumns[$count] . "`" . " = '" . $inventoryValues[$count] . "'";
+
+        }
+
+        if($inventoryColumns[$count] == "Last Processing Date"){
+            $sql .= "`Last Processing Date` = '" .$time."'";
+        }
+
+        if($inventoryColumns[$count] == "Last Processing Person"){
+            $sql .= "`Last Processing Person` = '" .$uid."'";
+        }
+
+        if ($count !== count($inventoryColumns) - 1) {
+            $sql .= ", ";
         }
     }
 
-    $sql .= "WHERE inv_id = '$inv_id';";
+    $sql .= " WHERE `Serial Number` = '$originalSerialNumber';";
 
     //Reports
     $reportSql = "INSERT INTO reports (`Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Inventory','0',";
@@ -52,13 +81,8 @@ if(isset($_SESSION['id'])) {
     $row2 = $result2->fetch_assoc();
     $current_quantity = $row2['Number in Stock'];
 
-    $quantity = $inventoryValues[7] - $current_quantity;
+    $quantity = $inventoryValues[6] - $current_quantity;
     $reportSql .= $quantity .", ";
-
-    $sql3 = "SELECT CURRENT_TIMESTAMP;";
-    $result3 = mysqli_query($conn, $sql3);
-    $row3 = $result3->fetch_assoc();
-    $time = $row3['CURRENT_TIMESTAMP'];
 
     $reportSql .= "'" . $time . "'" . ", ";
     $reportSql .= "'" . $uid . "'" . ");";

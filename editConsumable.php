@@ -2,7 +2,7 @@
 include 'header.php';
 include 'dbh.php';
 
-$id = $_GET['edit'];
+$originalItem = $_GET['edit'];
 $columnNames = array();
 
 if(isset($_SESSION['id'])) {
@@ -26,12 +26,12 @@ if(isset($_SESSION['id'])) {
     }
 
     echo "<form action ='includes/editConsumable.inc.php' method ='POST'><br>
-            <input type='hidden' name='id' value = $id>";
+            <input type='hidden' name='originalItem' value = '$originalItem'>";
 
-    $sql="SELECT * FROM consumables WHERE id = ".$id.";";
+    $sql="SELECT * FROM consumables WHERE `Item` = '".$originalItem."';";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
-    for($count = 1; $count < (count($columnNames)); $count++){ //id is not editable since it's the primary key
+    for($count = 0; $count < (count($columnNames)); $count++){
         if($columnNames[$count] != "Last Processing Date" && $columnNames[$count] != "Last Processing Person") { //Last processing date & person should not be editable
             $isSelect = false;
             $columnName = $columnNames[$count];
@@ -39,9 +39,11 @@ if(isset($_SESSION['id'])) {
             WHERE table_name = 'consumables' AND COLUMN_NAME = '$columnNames[$count]';";
             $result2 = mysqli_query($conn, $sql2);
             $rowType = mysqli_fetch_array($result2);
-            if ($rowType['DATA_TYPE'] == "tinyint" || $count == 2) {
+            if ($rowType['DATA_TYPE'] == "tinyint" || $count == 1) {
                 $isSelect = true;
                 $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<select name=";
+            } elseif ($rowType['DATA_TYPE'] == "int") {
+                $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='number' name=";
             } else {
                 $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=";
             }
@@ -50,13 +52,13 @@ if(isset($_SESSION['id'])) {
             }
             if ($isSelect) {
                 $inputs .= $columnName . ">";
-                if ($count == 2) {
-                    $sqlSubtype = "SELECT Subtype FROM consumables WHERE id =" . $id;
+                if ($count == 1) {
+                    $sqlSubtype = "SELECT Subtype FROM consumables WHERE item = '" . $originalItem."';";
                     $resultSubtype = mysqli_query($conn, $sqlSubtype);
                     $subRow = mysqli_fetch_array($resultSubtype);
                     $Subtype = $subRow['Subtype'];
 
-                    $sql3 = "SELECT Subtype FROM subtypes";
+                    $sql3 = "SELECT Subtype FROM subtypes WHERE isConsumable = 1";
                     $result3 = mysqli_query($conn, $sql3);
                     while ($SubtypeRow = mysqli_fetch_array($result3)) {
                         if ($Subtype === $SubtypeRow['Subtype']) {

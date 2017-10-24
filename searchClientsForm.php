@@ -3,7 +3,7 @@ include 'header.php';
 include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
-    echo "<br>&nbsp&nbspEnter what criteria you would like to see any matching items for.
+    echo "<br>&nbsp&nbspEnter what criteria you would like to see any matching clients for.
         <form action ='searchClientsResults.php' method ='POST'><br>
         &nbsp&nbsp<label>Last Name<br></label>&nbsp&nbsp<input type='text' name='last'><br><br>
         &nbsp&nbsp<label>First Name<br></label>&nbsp&nbsp<input type='text' name='first'><br><br>

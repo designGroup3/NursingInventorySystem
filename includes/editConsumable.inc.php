@@ -3,7 +3,7 @@ session_start();
 
 include '../dbh.php';
 
-$id = $_POST['id'];
+$originalItem = $_POST['originalItem'];
 $consumableColumns = array();
 $consumableValues = array();
 
@@ -14,6 +14,11 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     $uid = $row['uid'];
+
+    $sql2 = "SELECT CURRENT_TIMESTAMP;"; //gets current time
+    $result2 = mysqli_query($conn, $sql2);
+    $row2 = $result2->fetch_assoc();
+    $time = $row2['CURRENT_TIMESTAMP'];
 
     $sql="SHOW COLUMNS FROM consumables";
     $result = mysqli_query($conn, $sql);
@@ -30,13 +35,23 @@ if(isset($_SESSION['id'])) {
 
     $sql = "UPDATE consumables SET ";
     for($count = 0; $count< count($consumableColumns); $count++){
-        $sql .= "`" . $consumableColumns[$count] . "`" . " = '" . $consumableValues[$count]. "' ";
-        if($count !== count($consumableColumns) -1){
+        if($consumableColumns[$count] != "Last Processing Date" && $consumableColumns[$count] != "Last Processing Person") {
+            $sql .= "`" . $consumableColumns[$count] . "`" . " = '" . $consumableValues[$count] . "' ";
+        }
+        if($consumableColumns[$count] == "Last Processing Date"){
+            $sql .= "`Last Processing Date` = '" .$time."'";
+        }
+
+        if($consumableColumns[$count] == "Last Processing Person"){
+            $sql .= "`Last Processing Person` = '" .$uid."'";
+        }
+
+        if ($count !== count($consumableColumns) - 1) {
             $sql .= ", ";
         }
     }
 
-    $sql .= "WHERE id = '$id';";
+    $sql .= " WHERE `Item` = '$originalItem';";
 
     //Reports
     $reportSql = "INSERT INTO reports (`Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Consumable','1',";
@@ -45,7 +60,7 @@ if(isset($_SESSION['id'])) {
     $reportSql .= "'" . $consumableValues[2] . "'" . ", ";
 
     //Get old quantity
-    $sql2 = "SELECT `Number in Stock` FROM consumables WHERE `Item` = '".$consumableValues[1]."';";
+    $sql2 = "SELECT `Number in Stock` FROM consumables WHERE `Item` = '".$consumableValues[0]."';";
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();
     $current_quantity = $row2['Number in Stock'];

@@ -18,21 +18,18 @@ CREATE TABLE loginsystem.subtypes (
   PRIMARY KEY (Subtype));
 
 CREATE TABLE loginsystem.inventory (
-  inv_id INT NOT NULL AUTO_INCREMENT,
+  `Serial Number` VARCHAR(100),
   Item VARCHAR(100) NOT NULL,
   Subtype VARCHAR(100) NOT NULL,
-  `Serial Number` VARCHAR(100),
   `Assigned to` VARCHAR(100) NOT NULL,
   Location VARCHAR(100) NOT NULL,
   Checkoutable TINYINT(1) NOT NULL,
   `Number in Stock` INT NOT NULL,
-  `Minimum Stock` INT,
   `Last Processing Date` DATE,
   `Last Processing Person` VARCHAR(100),
-  PRIMARY KEY (inv_id));
+  PRIMARY KEY (`Serial Number`));
 
 CREATE TABLE loginsystem.consumables (
-  id INT NOT NULL AUTO_INCREMENT,
   Item VARCHAR(100) NOT NULL,
   Subtype VARCHAR(100) NOT NULL,
   Location VARCHAR(100) NOT NULL,
@@ -40,7 +37,7 @@ CREATE TABLE loginsystem.consumables (
   `Minimum Stock` INT,
   `Last Processing Date` DATE,
   `Last Processing Person` VARCHAR(100),
-  PRIMARY KEY (id));
+  PRIMARY KEY (Item));
 
 CREATE TABLE `loginsystem`.`clients` (
   `Number` INT NOT NULL AUTO_INCREMENT,
@@ -85,4 +82,24 @@ CREATE TABLE `loginsystem`.`reports` (
   `Quantity` INT NOT NULL,
   `Timestamp` VARCHAR(100) NOT NULL,
   `Update Person` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`Id`));
+
+CREATE TABLE `loginsystem`.`repairs/updates/upgrades` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Type` VARCHAR(10) NOT NULL,
+  `Serial Number` VARCHAR(100) NOT NULL,
+  `Part` VARCHAR(100) NOT NULL,
+  `Cost` DECIMAL(8,2) NOT NULL,
+  `Date` DATE NOT NULL,
+  `Supplier` VARCHAR(100) NOT NULL,
+  `Reason` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`Id`));
+
+CREATE TABLE `loginsystem`.`serviceAgreements` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(100) NOT NULL,
+  `Annual Cost` DECIMAL(8,2) NOT NULL,
+  `Duration` VARCHAR(100) NOT NULL,
+  `Expiration Date` DATE NOT NULL,
+  `Approval` BLOB,
   PRIMARY KEY (`Id`));

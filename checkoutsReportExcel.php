@@ -4,7 +4,7 @@ include 'dbh.php';
 
 if(isset($_POST["export"]))
 {
-    $sql = "SELECT checkouts.Item, subtypes.Type, checkouts.Subtype, `Quantity Borrowed`, inventory.`Number in Stock`, inventory.`Minimum Stock`, Person, Reason, `Checkout Date`, `Update Person`, `Due Date` FROM checkouts JOIN subtypes ON subtypes.Subtype = checkouts.Subtype JOIN inventory ON checkouts.Item = inventory.Item;";
+    $sql = "SELECT checkouts.Item, subtypes.Type, checkouts.Subtype, `Quantity Borrowed`, inventory.`Number in Stock`, Person, Reason, `Checkout Date`, `Update Person`, `Due Date` FROM checkouts JOIN subtypes ON subtypes.Subtype = checkouts.Subtype JOIN inventory ON checkouts.Item = inventory.Item;";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0)
     {
@@ -14,7 +14,7 @@ if(isset($_POST["export"]))
                         <th>Type</th>
                         <th>Subtype</th>
                         <th>Quantity Borrowed</th>
-                        <th>Number in Stock (Minimum)</th>
+                        <th>Number in Stock</th>
                         <th>Borrower</th>
                         <th>Reason</th>
                         <th>Checkout Date</th>
@@ -26,7 +26,7 @@ if(isset($_POST["export"]))
                             <td>'.$row["Type"].'</td>
                             <td>'.$row["Subtype"].'</td>
                             <td>'.$row["Quantity Borrowed"].'</td>
-                            <td>'.$row["Number in Stock"].' ('.$row["Minimum Stock"].')</td>
+                            <td>'.$row["Number in Stock"].'</td>
                             <td>'.$row["Person"].'</td>
                             <td>'.$row["Reason"].'</td>
                             <td>'.$row["Checkout Date"].'</td>

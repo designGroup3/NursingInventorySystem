@@ -7,9 +7,9 @@ if(isset($_SESSION['id'])) {
     //get update person
     $uid = $_SESSION['id'];
 
-    $id = $_GET['Id'];
+    $serialNumber = $_GET['serialNumber'];
 
-    $sql = "SELECT Item, `Quantity Borrowed` FROM checkouts WHERE Id = ".$id;
+    $sql = "SELECT Item, `Quantity Borrowed` FROM checkouts WHERE `Serial Number` = '".$serialNumber."';";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
 
@@ -26,7 +26,7 @@ if(isset($_SESSION['id'])) {
     $sql = "UPDATE inventory SET `Number in Stock` = ".$newStock.", `Last Processing Date` = '" . date('Y/m/d') . "', `Last Processing Person` = '" . $uid . "' WHERE `Item` = '" . $item . "';";
     $result = mysqli_query($conn, $sql);
 
-    $sql = "DELETE FROM checkouts WHERE Id = ".$id;
+    $sql = "DELETE FROM checkouts WHERE `Serial Number` = '".$serialNumber."';";
     $result = mysqli_query($conn, $sql);
 
     header("Location: ../checkout.php?checkin");

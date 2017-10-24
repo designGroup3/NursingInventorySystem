@@ -3,7 +3,6 @@ session_start();
 
 include '../dbh.php';
 
-
 $number = $_POST['number'];
 $last = $_POST['last'];
 $first = $_POST['first'];

@@ -25,9 +25,6 @@ if(isset($_SESSION['id'])) {
     elseif(strpos($url, 'error=zero') !== false){
         echo "<br>&nbsp&nbspYou must checkout at least one unit.<br>";
     }
-    elseif(strpos($url, 'error=breakMin') !== false){
-        echo "<br>&nbsp&nbspCannot check-out. Checking-out that many would go under the minimum stock.<br>";
-    }
     elseif(strpos($url, 'checkin') !== false){
         echo "<br>&nbsp&nbspItem checked-in.<br>";
     }

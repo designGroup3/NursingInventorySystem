@@ -7,7 +7,7 @@
     if(isset($_SESSION['id'])) {
         $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         if(strpos($url, 'error=exists') !== false){
-            echo "<br>&nbsp&nbspAn item already exists by that name.<br>";
+            echo "<br>&nbsp&nbspAn item with that serial number already exists.<br>";
         }
         elseif(strpos($url, 'empty') !== false){
             echo "<br>&nbsp&nbspYou must name the item.<br>";
@@ -20,7 +20,7 @@
         }
 
         echo "<form action ='includes/addInventory.inc.php' method = 'POST'><br>";
-        for($count = 1; $count< count($columnNames); $count++){
+        for($count = 0; $count< count($columnNames); $count++){
             if($columnNames[$count] != "Last Processing Date" && $columnNames[$count] != "Last Processing Person") { //Last processing date & person should not be editable
                 $isSelect = false;
                 $columnName = $columnNames[$count];
@@ -42,7 +42,7 @@
                 if ($isSelect) {
                     $inputs .= $columnName . ">";
                     if ($count == 2) {
-                        $sql3 = "SELECT Subtype FROM subtypes";
+                        $sql3 = "SELECT Subtype FROM subtypes WHERE isCheckoutable = 1";
                         $result3 = mysqli_query($conn, $sql3);
                         while ($SubtypeRow = mysqli_fetch_array($result3)) {
                             $inputs .= "<option value= " . $SubtypeRow['Subtype'] . ">" . $SubtypeRow['Subtype'] . "</option>";

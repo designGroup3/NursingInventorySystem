@@ -93,7 +93,7 @@ if(isset($_SESSION['id'])) {
         for($count = 0; $count< count($columnNames); $count++){
             if($count == 1){
                 echo '<td> '.$row[$columnNames[$count]].'</td>';
-                $innerSQL = "SELECT Type FROM subtypes WHERE Subtype = '".$row[$columnNames[$count + 1]]."';";
+                $innerSQL = "SELECT Type FROM subtypes WHERE Subtype = '".$row[$columnNames[$count]]."';";
                 $innerResult = mysqli_query($conn, $innerSQL);
                 $innerRow = mysqli_fetch_array($innerResult);
                 echo '<td>'. $innerRow['Type'].'</td>';
@@ -116,8 +116,8 @@ if(isset($_SESSION['id'])) {
                 }
             }
         }
-        echo "<td> <a href='editConsumable.php?edit=$row[id]'>Edit<br></td>
-                <td> <a href='deleteConsumable.php?id=$row[id]&item=$row[Item]'>Delete<br></td>
+        echo "<td> <a href='editConsumable.php?edit=$row[Item]'>Edit<br></td>
+                <td> <a href='deleteConsumable.php?item=$row[Item]'>Delete<br></td>
             </tr>";
     }
 

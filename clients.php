@@ -14,6 +14,12 @@ include 'dbh.php';
 $columnNames= array();
 
 if(isset($_SESSION['id'])) {
+    $currentID = $_SESSION['id'];
+    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    $acctType = $row['acctType'];
+
     echo "<br>";
     echo "<table class ='inventory'>";
     echo "<th>Last</th><th>First</th><th>Ext</th><th>Email</th><th>Office</th>";
@@ -40,8 +46,10 @@ if(isset($_SESSION['id'])) {
         echo "<tr>";
         echo '<td> ' . $row['Last'] . '</td>'.'<td> ' . $row['First'] . '</td>'.
         '<td> ' . $row['Ext'] . '<td> ' . $row['Email'] . '</td>' .'<td> ' . $row['Office'] . '</td>';
-        echo "<td> <a href='editClient.php?edit=$row[Number]'>Edit<br></td>
+        if ($acctType == "Admin") {
+            echo "<td> <a href='editClient.php?edit=$row[Number]'>Edit<br></td>
               <td> <a href='deleteClient.php?number=$row[Number]&last=$row[Last]&first=$row[First]'>Delete<br></td></tr>";
+        }
     }
 
     echo "&nbsp&nbsp<form action='addClient.php'>
@@ -62,6 +70,6 @@ if(isset($_SESSION['id'])) {
     }
 
 } else {
-    echo "Please login to manipulate the database";
+    header("Location: ./login.php");
 }
 ?>

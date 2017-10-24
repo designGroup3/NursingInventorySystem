@@ -14,7 +14,7 @@ if(isset($_SESSION['id'])) {
 
     echo "<br>&nbsp&nbspEnter what criteria you would like to see any matching items for.
         <form action ='searchInventoryResults.php' method ='POST'><br>";
-            for($count = 1; $count < 4; $count++){
+            for($count = 0; $count < 4; $count++){
                 $columnName = $columnNames[$count];
                 if($count == 2){
                     echo "&nbsp&nbsp<label>Type</label> <br>&nbsp&nbsp<select name='Type'><option value=''></option>";
@@ -38,8 +38,11 @@ if(isset($_SESSION['id'])) {
                     echo "</select>";
                 }
                 else{
-                    echo "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=".$columnName
-                        . " value='" . $row[$columnNames[$count]] . "'><br><br>";
+                    if (strpos($columnName, ' ')) {
+                        $columnName = str_replace(" ", "", $columnName);
+                    }
+                    echo "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name='".$columnName
+                        . "' value='" . $row[$columnNames[$count]] . "'><br><br>";
                 }
             }
             echo "<br><br>";

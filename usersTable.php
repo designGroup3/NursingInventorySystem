@@ -15,6 +15,10 @@ if(isset($_SESSION['id'])) {
         echo "<br>&nbsp&nbspYou cannot delete yourself.<br>";
     }
 
+    echo "&nbsp&nbsp<form action='searchUsersForm.php'>
+               &nbsp&nbsp<input type='submit' value='Search Users'/>
+              </form>";
+
     $sql = "SELECT * FROM users";
     $result = mysqli_query($conn, $sql);
     echo "<table cellspacing='10'><tr><th>First Name</th>
@@ -36,5 +40,6 @@ if(isset($_SESSION['id'])) {
             }
         echo "</tr>";
     }
+    echo "</table>";
 }
 ?>

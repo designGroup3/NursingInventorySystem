@@ -27,24 +27,29 @@ if(isset($_SESSION['id'])) {
         }
     }
 
+    $sql2 = "SELECT CURRENT_TIMESTAMP;"; //gets current time
+    $result2 = mysqli_query($conn, $sql2);
+    $row2 = $result2->fetch_assoc();
+    $time = $row2['CURRENT_TIMESTAMP'];
+
     $sql = "SELECT Item FROM consumables"; //checks if new consumable already exists
     $result = mysqli_query($conn, $sql);
     while($row = mysqli_fetch_array($result)) {
         array_push($consumableNames, $row['Item']);
     }
 
-    if(in_array($receivedValues[1], $consumableNames)){
+    if(in_array($receivedValues[0], $consumableNames)){
         header("Location: ../addConsumable.php?error=exists");
         exit();
     }
-    if($receivedValues[1] == ""){
+    if($receivedValues[0] == ""){
         header("Location: ../addConsumable.php?error=empty");
         exit();
     }
 
     $sql = "INSERT INTO consumables (";
 
-    for ($count = 1; $count < count($columnNames); $count++) {
+    for ($count = 0; $count < count($columnNames); $count++) {
         if ($count < count($columnNames) - 1) {
             $sql .= "`" . $columnNames[$count] . "`" . ", ";
         } else {
@@ -53,12 +58,25 @@ if(isset($_SESSION['id'])) {
     }
 
     $sql .= "VALUES (";
+    for ($count = 0; $count < count($columnNames); $count++) {
+        if ($count < 4) {
+            $sql .= "'" . $receivedValues[$count];
+        }
+        elseif($count === 5){
+            $sql .= "'" . $time;
+        }
+        elseif($count === 6){
+            $sql .= "'" . $uid;
+        }
+        else {
+            $sql .= "'" . $receivedValues[$count];
+        }
 
-    for ($count = 1; $count < count($columnNames); $count++) {
-        if ($count < count($columnNames) - 1) {
-            $sql .= "'" . $receivedValues[$count] . "'" . ", ";
-        } else {
-            $sql .= "'" . $receivedValues[$count] . "'" . ");";
+        if($count != (count($columnNames)-1)){
+            $sql .= "', ";
+        }
+        else{
+            $sql .= "');";
         }
     }
 

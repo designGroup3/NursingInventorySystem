@@ -18,18 +18,18 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
-    $inv_id = $_GET['show'];
+    $serialNumber = $_GET['show'];
     $name;
     $columnNames = array();
 
     echo "<table class ='inventory'>";
-    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock", "Minimum Stock");
+    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock");
 
     for ($count = 0; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
     }
 
-    $sql = "SELECT inv_id, Item, inventory.Subtype, subtypes.Type, Checkoutable, `Number in Stock`, `Minimum Stock` FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE inv_id = ".$inv_id;
+    $sql = "SELECT `Serial Number`, Item, inventory.Subtype, subtypes.Type, Checkoutable, `Number in Stock` FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE `Serial Number` = '".$serialNumber."';";
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_array($result)) {
         $name = $row['Item'];
@@ -50,27 +50,26 @@ if(isset($_SESSION['id'])) {
             } else {
                 echo '<td> ' . $row[$columnNames[$whileCount]] . '</td>';
             }
-
         }
 
-        $sql2 = "SELECT `Number in Stock` , Checkoutable FROM inventory WHERE inv_id = ".$inv_id;
+        $sql2 = "SELECT `Number in Stock` , Checkoutable FROM inventory WHERE `Serial Number` = '".$serialNumber."';";
         $result2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_array($result2);
         if($row2['Number in Stock'] > 0 && $row2['Checkoutable'] == 1){
-            echo "<td><a href='includes/QRcheckout.inc.php?id=$row[inv_id]'>Check-out<br></td>";
+            echo "<td><a href='includes/QRcheckout.inc.php?serialNumber=".$row['Serial Number']."'>Check-out<br></td>";
         }
 
         $sql3 = "SELECT Item FROM checkouts WHERE Item = '".$name."';";
         $result3 = mysqli_query($conn, $sql3);
         $row3 = mysqli_num_rows($result3);
         if($row3 > 0 && $row2['Checkoutable'] == 1){
-            echo "<td><a href='includes/checkin.inc.php?Id=$row[inv_id]'>Check-in<br></td>";
+            echo "<td><a href='includes/checkin.inc.php?serialNumber=".$row['Serial Number']."'>Check-in<br></td>";
         }
 
-        echo "<td><a href='QRCode.php?text=$row[inv_id]'>Show QR Code<br></td>
-         <td><a href='editInventory.php?edit=$row[inv_id]'>Edit<br></td>";
+        echo "<td><a href='QRCode.php?text=".$row['Serial Number']."'>Show QR Code<br></td>
+         <td><a href='editInventory.php?edit=".$row['Serial Number']."'>Edit<br></td>";
         if ($acctType == "Admin") {
-            echo "<td><a href='deleteInventory.php?id=$row[inv_id]&item=$row[Item]'>Delete<br></td></tr>";
+            echo "<td><a href='deleteInventory.php?serialNumber=".$row['Serial Number']."&item=$row[Item]'>Delete<br></td></tr>";
         }
         else{
             echo "</tr>";

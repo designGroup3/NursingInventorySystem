@@ -3,6 +3,19 @@
         text-align: left;
         padding: 8px;
     }
+
+    table.center {
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    th{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        text-align:center;
+    }
 </style>
 
 <?php
@@ -102,7 +115,7 @@ if(isset($_SESSION['id'])) {
         if($tableHeadNeeded){
             $tableHeadNeeded = false;
             $count++;
-            echo "<table><tr><th>Type</th>
+            echo "<table class='center'><tr><th>Type</th>
             <th>Serial Number</th>
             <th>Item</th>
             <th>Part</th>

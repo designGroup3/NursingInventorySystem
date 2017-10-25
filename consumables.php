@@ -8,6 +8,14 @@
         margin-left:auto;
         margin-right:auto;
     }
+
+    body {
+        text-align:center;
+    }
+
+    th{
+        font-family: Arial, Helvetica, sans-serif;
+    }
 </style>
 
 <?php

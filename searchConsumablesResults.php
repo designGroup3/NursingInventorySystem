@@ -3,6 +3,19 @@
         text-align: left;
         padding: 8px;
     }
+
+    table.center {
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    th{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        text-align:center;
+    }
 </style>
 
 <?php
@@ -80,7 +93,7 @@ if(isset($_SESSION['id'])) {
         if($tableHeadNeeded){
             $tableHeadNeeded = false;
             $outerCount++;
-            echo "<table>";
+            echo "<table class='center'>";
             for($count = 0; $count< 2; $count++){
                 echo "<th>$columnNames[$count]</th>";
             }

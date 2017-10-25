@@ -3,6 +3,19 @@
         text-align: left;
         padding: 8px;
     }
+
+    table.center {
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    th{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        text-align:center;
+    }
 </style>
 
 <?php
@@ -83,7 +96,7 @@ if(isset($_SESSION['id'])) {
         if($tableHeadNeeded){
             $tableHeadNeeded = false;
             $count++;
-            echo "<table><tr><th>Name</th>
+            echo "<table class = 'center'><tr><th>Name</th>
             <th>Annual Cost</th>
             <th>Duration</th>
             <th>Expiration Date</th></tr>";

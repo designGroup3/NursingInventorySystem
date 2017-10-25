@@ -1,7 +1,15 @@
 <style>
+    th{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
     table.center {
         margin-left:auto;
         margin-right:auto;
+    }
+
+    body {
+        text-align:center;
     }
 </style>
 

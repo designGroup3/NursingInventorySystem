@@ -3,6 +3,14 @@
         margin-left:auto;
         margin-right:auto;
     }
+
+    th{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        text-align:center;
+    }
 </style>
 
 <?php

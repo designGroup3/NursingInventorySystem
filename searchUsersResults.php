@@ -3,6 +3,19 @@
         text-align: left;
         padding: 8px;
     }
+
+    table.center {
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    th{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        text-align:center;
+    }
 </style>
 
 <?php
@@ -83,7 +96,7 @@ if(isset($_SESSION['id'])) {
 
     if(mysqli_num_rows($result) > 0){
         $count++;
-        echo "<table><tr><th>First</th>
+        echo "<table class = 'center'><tr><th>First</th>
         <th>Last</th>
         <th>Account Name</th>
         <th>Account Type</th>

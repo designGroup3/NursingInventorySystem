@@ -4,8 +4,16 @@
         margin-right:auto;
     }
 
+    body {
+        text-align:center;
+    }
+
     h2 {
         text-align: center;
+    }
+
+    h2, th{
+        font-family: Arial, Helvetica, sans-serif;
     }
 </style>
 <?php

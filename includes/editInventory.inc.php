@@ -41,7 +41,7 @@ if(isset($_SESSION['id'])) {
         array_push($serialNumbers, $row['Serial Number']);
     }
 
-    if(in_array($inventoryValues[0], $serialNumbers)){
+    if(in_array($inventoryValues[0], $serialNumbers) && $inventoryValues[0] !== $originalSerialNumber){
         header("Location: ../editInventory.php?edit=$originalSerialNumber&error=exists");
         exit();
     }

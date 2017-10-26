@@ -30,7 +30,7 @@ echo '<br>&nbsp&nbspWhich column do you want to edit?
             <option selected value=""></option>';
 
 for($columnsCount = 0; $columnsCount < count($columnNames); $columnsCount++) {
-    if($columnsCount > 7){
+    if($columnsCount > 6){
         echo '<option value = "'.$columnNames[$columnsCount].'">'.$columnNames[$columnsCount].'</option>';
     }
 }

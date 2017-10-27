@@ -22,6 +22,12 @@
 include 'header.php';
 include 'dbh.php';
 if(isset($_SESSION['id'])) {
+    $currentID = $_SESSION['id'];
+    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    $acctType = $row['acctType'];
+
     $type = $_POST['type'];
     $serialNumber = $_POST['serialNumber'];
     $item = $_POST['item'];
@@ -132,8 +138,7 @@ if(isset($_SESSION['id'])) {
         $date = date_create($row['Date']);
         '<td>'.date_format($date, "m/d/Y").'</td>';
 
-        echo "<tr>
-              <td> ".$row['Type']."</td>
+        echo "<tr><td> ".$row['Type']."</td>
               <td> ".$row['Serial Number']."</td>
               <td> ".$row2['Item']."</td>
               <td> ".$row['Part']."</td>
@@ -141,9 +146,11 @@ if(isset($_SESSION['id'])) {
               <td> ".date_format($date, 'm/d/Y')."</td>
               <td> ".$row['Supplier']."</td>
               <td> ".$row['Reason']."</td>
-              <td> <a href='editRepairUpdateUpgrade.php?edit=$row[Id]'>Edit<br></td>
-              <td> <a href='deleteRepairUpdateUpgrade.php?id=$row[Id]&type=$row[Type]&item=$row[Item]'>Delete<br></td>
-              </tr><br>";
+              <td> <a href='editRepairUpdateUpgrade.php?edit=$row[Id]'>Edit<br></td>";
+        if ($acctType == "Admin") {
+            echo "<td> <a href='deleteRepairUpdateUpgrade.php?id=$row[Id]&type=$row[Type]&item=$row[Item]'>Delete<br></td>";
+        }
+              echo "</tr><br>";
     }
     if($count == 0) {
         echo "<br> No Items Found That Match All of Those Criteria.<br>";

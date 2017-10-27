@@ -24,6 +24,12 @@ include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
 
+    $currentID = $_SESSION['id'];
+    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    $acctType = $row['acctType'];
+
     $columnNames = array();
     $receivedValues = array();
     error_reporting(E_ALL ^ E_NOTICE);
@@ -129,9 +135,11 @@ if(isset($_SESSION['id'])) {
                 }
             }
         }
-        echo "<td> <a href='editConsumable.php?edit=$row[Item]'>Edit<br></td>
-                <td> <a href='deleteConsumable.php?item=$row[Item]'>Delete<br></td>
-            </tr>";
+        echo "<td> <a href='editConsumable.php?edit=$row[Item]'>Edit<br></td>";
+        if ($acctType == "Admin") {
+            echo "<td> <a href='deleteConsumable.php?item=$row[Item]'>Delete<br></td>";
+        }
+        echo "</tr>";
     }
 
     if($outerCount == 0) {

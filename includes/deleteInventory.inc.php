@@ -15,7 +15,7 @@ if(isset($_SESSION['id'])) {
     $sql = "DELETE FROM inventory WHERE `Serial Number` = '$serialNumber';";
 
     //Reports
-    $reportSql = "INSERT INTO reports (`Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Inventory','0',";
+    $reportSql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Inventory',";
 
     $sql2 = "SELECT Item, Subtype, `Number in Stock` FROM inventory WHERE `Serial Number` = '". $serialNumber."';";
     $result2 = mysqli_query($conn, $sql2);

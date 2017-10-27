@@ -70,7 +70,7 @@ if(isset($_SESSION['id'])) {
     $sql .= " WHERE `Serial Number` = '$originalSerialNumber';";
 
     //Reports
-    $reportSql = "INSERT INTO reports (`Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Inventory','0',";
+    $reportSql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Inventory',";
 
     $reportSql .= "'" . $inventoryValues[1] . "'" . ", ";
     $reportSql .= "'" . $inventoryValues[2] . "'" . ", ";

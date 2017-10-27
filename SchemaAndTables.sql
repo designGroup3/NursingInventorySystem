@@ -76,7 +76,6 @@ CREATE TABLE `loginsystem`.`consumptions` (
 CREATE TABLE `loginsystem`.`reports` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Activity Type` VARCHAR(100) NOT NULL,
-  `IsConsumable` BOOLEAN NOT NULL,
   `Item` VARCHAR(100) NOT NULL,
   `Subtype` VARCHAR(100) NOT NULL,
   `Quantity` INT NOT NULL,

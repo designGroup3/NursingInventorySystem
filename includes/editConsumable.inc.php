@@ -54,7 +54,7 @@ if(isset($_SESSION['id'])) {
     $sql .= " WHERE `Item` = '$originalItem';";
 
     //Reports
-    $reportSql = "INSERT INTO reports (`Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Consumable','1',";
+    $reportSql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Consumable',";
 
     $reportSql .= "'" . $consumableValues[1] . "'" . ", ";
     $reportSql .= "'" . $consumableValues[2] . "'" . ", ";

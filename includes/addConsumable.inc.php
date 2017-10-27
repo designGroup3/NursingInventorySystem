@@ -83,7 +83,7 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
 
     //Reports
-    $sql = "INSERT INTO reports (`Activity Type`, `IsConsumable`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Consumable','1',";
+    $sql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Consumable',";
 
     $sql .= "'" . $receivedValues[1] . "'" . ", ";
     $sql .= "'" . $receivedValues[2] . "'" . ", ";

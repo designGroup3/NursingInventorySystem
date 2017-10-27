@@ -18,11 +18,13 @@
 </style>
 
 <?php
-
 include 'header.php';
-include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+
+    echo "<head><Title>Daily Reports</Title></head>";
+
     echo "<form method='POST'>
         <br>&nbsp&nbspReport Date: <input type= 'date' name='date'>
         <br><br>&nbsp&nbsp<button type='submit'>Submit</button></form>";

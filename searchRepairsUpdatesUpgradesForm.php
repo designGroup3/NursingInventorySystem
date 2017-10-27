@@ -1,8 +1,10 @@
 <?php
 include 'header.php';
-include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+    echo "<head><Title>Search Repairs/Updates/Upgrades</Title></head>";
+
     echo "<br>&nbsp&nbspEnter what criteria you would like to see any matching repairs/updates/upgrades for.
         <form action ='searchRepairsUpdatesUpgradesResults.php' method ='POST'><br>
         &nbsp&nbsp<label>Type<br></label>&nbsp&nbsp<select name='type'>

@@ -19,20 +19,23 @@
 </style>
 
 <?php
-//include 'includes/bootstrap.inc.php';
 include 'header.php';
-include 'dbh.php';
-
-$columnNames= array();
-$Minimums = array();
-
-$minimumSQL = "SELECT `Minimum Stock` FROM consumables"; //Gets each item's Minimum Stock separately since that isn't its own row.
-$minimumResult = mysqli_query($conn, $minimumSQL);
-while ($minimumRow = mysqli_fetch_array($minimumResult)) {
-    array_push($Minimums, $minimumRow['Minimum Stock']);
-}
 
 if(isset($_SESSION['id'])) {
+    //include 'includes/bootstrap.inc.php';
+    include 'dbh.php';
+
+    echo "<head><Title>Consumables</Title></head>";
+
+    $columnNames= array();
+    $Minimums = array();
+
+    $minimumSQL = "SELECT `Minimum Stock` FROM consumables"; //Gets each item's Minimum Stock separately since that isn't its own row.
+    $minimumResult = mysqli_query($conn, $minimumSQL);
+    while ($minimumRow = mysqli_fetch_array($minimumResult)) {
+        array_push($Minimums, $minimumRow['Minimum Stock']);
+    }
+
     $currentID = $_SESSION['id'];
     $sql = "SELECT acctType FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);

@@ -19,20 +19,21 @@
 </style>
 
 <?php
-    //include 'includes/bootstrap.inc.php';
-    include 'header.php';
-    include 'dbh.php';
-
-$columnNames= array();
+include 'header.php';
 
 if(isset($_SESSION['id'])) {
+    //include 'includes/bootstrap.inc.php';
+    include 'dbh.php';
+
+    echo "<head><Title>Inventory</Title></head>";
+
+    $columnNames= array();
+
     $currentID = $_SESSION['id'];
     $sql = "SELECT acctType FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
-
-    echo "<head><Title>Inventory</Title></head>";
 
     echo "<br>";
     echo "<table class='center'>";

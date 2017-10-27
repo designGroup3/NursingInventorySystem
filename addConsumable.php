@@ -1,10 +1,13 @@
 <?php
 include 'header.php';
-include 'dbh.php';
-
-$columnNames = array();
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+
+    $columnNames = array();
+
+    echo "<head><Title>Add Consumable</Title></head>";
+
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){
         echo "<br>&nbsp&nbspAn item already exists by that name.<br>";

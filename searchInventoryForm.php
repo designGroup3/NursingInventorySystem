@@ -1,11 +1,13 @@
 <?php
 include 'header.php';
-include 'dbh.php';
-
-$columnNames = array();
-$Types = array();
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+    echo "<head><Title>Search Inventory</Title></head>";
+
+    $columnNames = array();
+    $Types = array();
+
     $sql="SHOW COLUMNS FROM inventory";
     $result = mysqli_query($conn, $sql);
     while($row = mysqli_fetch_array($result)) {

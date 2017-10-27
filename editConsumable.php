@@ -1,11 +1,13 @@
 <?php
 include 'header.php';
-include 'dbh.php';
-
-$originalItem = $_GET['edit'];
-$columnNames = array();
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+
+    $originalItem = $_GET['edit'];
+    $columnNames = array();
+    echo "<head><Title>Edit Consumable</Title></head>";
+
     $sql = "SHOW COLUMNS FROM consumables"; //gets first headers for page
     $result = mysqli_query($conn, $sql);
     $innerCount = 0;

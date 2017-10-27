@@ -14,11 +14,12 @@
 </style>
 
 <?php
-
 include 'header.php';
-include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+    echo "<head><Title>Users</Title></head>";
+
     $currentID = $_SESSION['id'];
     $sql = "SELECT acctType FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);

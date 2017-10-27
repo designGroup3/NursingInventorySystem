@@ -20,9 +20,10 @@
 
 <?php
 include 'header.php';
-include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+    echo "<head><Title>Search Consumables Results</Title></head>";
 
     $currentID = $_SESSION['id'];
     $sql = "SELECT acctType FROM users WHERE id='$currentID'";

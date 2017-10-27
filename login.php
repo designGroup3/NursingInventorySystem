@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>College of Nursing Inventory System</title>
+<title>Login Page</title>
 
 <?php
   $bg = array('images/NAB_w_flowers.jpg', 'images/background1.jpg', 'images/background2.jpg', 'images/background3.jpg' ); // array of filenames

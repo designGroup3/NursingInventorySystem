@@ -23,11 +23,13 @@
 </style>
 
 <?php
-
 include 'header.php';
-include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+
+    echo "<head><Title>Checkout</Title></head>";
+
     error_reporting(E_ALL ^ E_NOTICE);
     $statedTypes = array();
     $getType = $_GET['type'];

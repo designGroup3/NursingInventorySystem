@@ -1,5 +1,6 @@
 <?php
 	include 'header.php';
+    echo "<head><Title>Signup</Title></head>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=empty') !== false){

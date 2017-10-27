@@ -1,8 +1,11 @@
 <?php
 include 'header.php';
-include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+
+    echo "<head><Title>Add Repair/Update/Upgrade</Title></head>";
+
     echo "<br><form action='includes/addRepairUpdateUpgrade.inc.php' method='POST'>
         &nbsp&nbsp<label>Type<br></label>&nbsp&nbsp<select name='type'>
           <option value=''></option>

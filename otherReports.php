@@ -17,11 +17,12 @@
     }
 </style>
 <?php
-
 include 'header.php';
-include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+    echo "<head><Title>Broad Reports</Title></head>";
+
     echo "<form method='POST'>
         <br>&nbsp&nbspStart Date: <input type='date' name='startDate'><br>
         <br>&nbsp&nbspEnd Date: <input type='date' name='endDate'>

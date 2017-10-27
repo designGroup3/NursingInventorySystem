@@ -1,12 +1,13 @@
 <?php
-
 include 'header.php';
 
-$id = $_GET['id'];
-$type = $_GET['type'];
-$item = $_GET['item'];
-
 if(isset($_SESSION['id'])) {
+    $id = $_GET['id'];
+    $type = $_GET['type'];
+    $item = $_GET['item'];
+
+    echo "<head><Title>Delete Repair/Update/Upgrade</Title></head>";
+
     echo "Are you sure you want to delete this ".$item. " ". strtolower($type) ."? This action cannot be undone.
         <form action ='includes/deleteRepairUpdateUpgrade.inc.php' method ='POST'><br>
             <input type='hidden' name='id' value = $id>

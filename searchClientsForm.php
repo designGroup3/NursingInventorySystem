@@ -1,8 +1,10 @@
 <?php
 include 'header.php';
-include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+    echo "<head><Title>Search Clients</Title></head>";
+
     echo "<br>&nbsp&nbspEnter what criteria you would like to see any matching clients for.
         <form action ='searchClientsResults.php' method ='POST'><br>
         &nbsp&nbsp<label>Last Name<br></label>&nbsp&nbsp<input type='text' name='last'><br><br>

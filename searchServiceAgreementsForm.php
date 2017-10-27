@@ -1,8 +1,10 @@
 <?php
 include 'header.php';
-include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+    echo "<head><Title>Search Service Agreements</Title></head>";
+
     echo "<br>&nbsp&nbspEnter what criteria you would like to see any matching clients for.
         <form action ='searchServiceAgreementsResults.php' method ='POST' enctype='multipart/form-data'><br>
         &nbsp&nbsp<label>Name<br></label>&nbsp&nbsp<input type='text' name='name'><br><br>

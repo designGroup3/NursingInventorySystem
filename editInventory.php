@@ -1,11 +1,13 @@
 <?php
 include 'header.php';
-include 'dbh.php';
-
-$serialNumber = $_GET['edit'];
-$columnNames = array();
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+
+    $serialNumber = $_GET['edit'];
+    $columnNames = array();
+    echo "<head><Title>Edit Inventory</Title></head>";
+
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){
         echo "<br>&nbsp&nbspAn item with that serial number already exists.<br>";

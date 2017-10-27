@@ -1,9 +1,10 @@
 <?php
 include 'header.php';
-include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
     $id = $_GET['edit'];
+    echo "<head><Title>Edit Service Agreement</Title></head>";
 
     $sql="SELECT * FROM serviceAgreements WHERE Id = $id";
     $result = mysqli_query($conn, $sql);

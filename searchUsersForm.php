@@ -1,8 +1,10 @@
 <?php
 include 'header.php';
-include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+    echo "<head><Title>Search Users</Title></head>";
+
     echo "<br>&nbsp&nbspEnter what criteria you would like to see any matching users for.
         <form action ='searchUsersResults.php' method ='POST'><br>
         &nbsp&nbsp<label>First Name<br></label>&nbsp&nbsp<input type='text' name='first'><br><br>

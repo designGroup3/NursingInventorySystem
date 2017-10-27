@@ -1,9 +1,10 @@
 <?php
 include 'header.php';
-include 'dbh.php';
 
 if(isset($_SESSION['id'])) {
+    include 'dbh.php';
     $number = $_GET['edit'];
+    echo "<head><Title>Edit Client</Title></head>";
 
     $sql="SELECT * FROM clients WHERE number = $number";
     $result = mysqli_query($conn, $sql);

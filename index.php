@@ -1,8 +1,9 @@
 <?php
-	//include 'includes/bootstrap.inc.php';
-    include 'header.php';
+include 'header.php';
 
 if(isset($_SESSION['id'])) {
+    echo "<head><Title>Main Menu</Title></head>";
+
         echo "&nbsp&nbsp<form action='inventory.php'>
                <input type='submit' value='Inventory'/>
               </form>";

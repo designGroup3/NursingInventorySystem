@@ -32,6 +32,8 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
+    echo "<head><Title>Inventory</Title></head>";
+
     echo "<br>";
     echo "<table class='center'>";
 

@@ -4,6 +4,18 @@
         padding: 8px;
     }
 
+    th{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    table.center {
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    body {
+        text-align:center;
+    }
 </style>
 
 <?php
@@ -22,14 +34,51 @@ if(isset($_SESSION['id'])) {
     $name;
     $columnNames = array();
 
-    echo "<table class ='inventory'>";
-    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock");
+    echo "<br><table class ='center'>";
+//    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock");
+//
+//    for ($count = 0; $count < count($columnNames); $count++) {
+//        echo "<th>$columnNames[$count]</th>";
+//    }
+
+    $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page
+    $result = mysqli_query($conn, $sql);
+    $innerCount = 0;
+    while ($row = mysqli_fetch_array($result)) {
+        if ($innerCount < 3) {
+            $innerCount++;
+            array_push($columnNames, $row['Field']);
+        }
+    }
+    array_push($columnNames,"Type"); //from Subtype table
+    $sql = "SHOW COLUMNS FROM inventory"; //gets second headers for page
+    $result = mysqli_query($conn, $sql);
+    $innerCount = 0;
+    while ($row = mysqli_fetch_array($result)) {
+        $innerCount++;
+        if ($innerCount > 3 && $innerCount < 8 || $innerCount > 9) {
+            array_push($columnNames, $row['Field']);
+        }
+    }
 
     for ($count = 0; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
     }
 
-    $sql = "SELECT `Serial Number`, Item, inventory.Subtype, subtypes.Type, Checkoutable, `Number in Stock` FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE `Serial Number` = '".$serialNumber."';";
+    $sql = "SELECT ";
+    for($count = 0; $count < count($columnNames); $count++){
+        if($columnNames[$count] == "Type"){
+            $sql .= "subtypes.Type, ";
+        }
+        elseif($count != count($columnNames)-1){
+            $sql .= "inventory.`".$columnNames[$count] ."`, ";
+        }
+        else{
+            $sql .= "inventory.`".$columnNames[$count] ."`";
+        }
+    }
+    $sql .= " FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE `Serial Number` = '".$serialNumber."';";
+
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_array($result)) {
         $name = $row['Item'];

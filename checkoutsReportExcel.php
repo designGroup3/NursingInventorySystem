@@ -4,7 +4,7 @@ include 'dbh.php';
 
 if(isset($_POST["export"]))
 {
-    $sql = "SELECT checkouts.Item, subtypes.Type, checkouts.Subtype, `Quantity Borrowed`, inventory.`Number in Stock`, Person, Reason, `Checkout Date`, `Update Person`, `Due Date` FROM checkouts JOIN subtypes ON subtypes.Subtype = checkouts.Subtype JOIN inventory ON checkouts.Item = inventory.Item;";
+    $sql = "SELECT checkouts.Item, subtypes.Type, checkouts.Subtype, `Quantity Borrowed`, inventory.`Number in Stock`, Person, Reason, `Checkout Date`, `Update Person`, `Due Date`, `Return Date` FROM checkouts JOIN subtypes ON subtypes.Subtype = checkouts.Subtype JOIN inventory ON checkouts.Item = inventory.Item;";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0)
     {
@@ -19,7 +19,8 @@ if(isset($_POST["export"]))
                         <th>Reason</th>
                         <th>Checkout Date</th>
                         <th>Update Person</th>
-                        <th>Due Date</th></tr>';
+                        <th>Due Date</th>
+                        <th>Return Date</th></tr>';
         while($row = mysqli_fetch_array($result))
         {
             $output .= '<tr><td>'.$row["Item"].'</td>
@@ -31,7 +32,8 @@ if(isset($_POST["export"]))
                             <td>'.$row["Reason"].'</td>
                             <td>'.$row["Checkout Date"].'</td>
                             <td>'.$row["Update Person"].'</td>
-                            <td>'.$row["Due Date"].'</td></tr>';
+                            <td>'.$row["Due Date"].'</td>
+                            <td>'.$row["Return Date"].'</td></tr>';
         }
         $output .= '</table>';
 

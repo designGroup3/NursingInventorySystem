@@ -186,7 +186,7 @@ if(isset($_SESSION['id'])) {
     echo "<br><br><h2>Current Checked-Out Inventories</h2><br>";
     echo "<table class='center'>";
 
-    echo "<th>Print</th><th>Item</th><th>Type</th><th>Subtype</th><th>Quantity Borrowed</th><th>Person</th>
+    echo "<th>Print</th><th>Serial Number</th><th>Item</th><th>Type</th><th>Subtype</th><th>Quantity Borrowed</th><th>Person</th>
     <th>Update Person</th><th>Checkout Date</th><th>Due Date</th>";
 
     $results_per_page = 5; //for pagination
@@ -205,13 +205,13 @@ if(isset($_SESSION['id'])) {
 
     $this_page_first_result = ($page-1)*$results_per_page; //for pagination
 
-    $sql = "SELECT Id, Item, subtypes.Type, checkouts.Subtype, `Quantity Borrowed`, Person, `Update Person`, `Checkout Date`, `Due Date` FROM checkouts JOIN subtypes ON checkouts.Subtype = subtypes.Subtype ORDER BY Id LIMIT " . $this_page_first_result . "," .  $results_per_page.";"; //limit rows shown
+    $sql = "SELECT Id, Item, subtypes.Type, checkouts.Subtype, `Quantity Borrowed`, `Serial Number`, Person, `Update Person`, `Checkout Date`, `Due Date` FROM checkouts JOIN subtypes ON checkouts.Subtype = subtypes.Subtype WHERE `Return Date` IS NULL ORDER BY Id LIMIT " . $this_page_first_result . "," .  $results_per_page.";"; //limit rows shown
     $result = mysqli_query($conn, $sql);
     $namesCount = 0;
     while ($row = mysqli_fetch_array($result)) {
-        echo "<tr><td><a href='printCheckout.php?Id=$row[Id]'>Print<br></td><td>".$row['Item']."</td><td>".$row['Type']."</td><td>".$row['Subtype']."</td><td>".$row['Quantity Borrowed']."</td>
+        echo "<tr><td><a href='printCheckout.php?Id=$row[Id]'>Print<br></td><td>".$row['Serial Number']."</td><td>".$row['Item']."</td><td>".$row['Type']."</td><td>".$row['Subtype']."</td><td>".$row['Quantity Borrowed']."</td>
         <td>".$row['Person']."</td><td>".$row['Update Person']."</td><td>".$row['Checkout Date']."</td><td>".$row['Due Date']."</td>
-        <td><a href='includes/checkin.inc.php?Id=$row[Id]'>Check-In<br></td></tr>";
+        <td><a href='includes/checkin.inc.php?serialNumber=".$row['Serial Number']."'>Check-In<br></td></tr>";
     }
 
     echo "</table>";

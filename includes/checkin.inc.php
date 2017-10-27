@@ -5,7 +5,11 @@ include '../dbh.php';
 
 if(isset($_SESSION['id'])) {
     //get update person
-    $uid = $_SESSION['id'];
+    $id = $_SESSION['id'];
+    $sql = "SELECT uid FROM users WHERE id = ". $id.";";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $uid = $row['uid'];
 
     $serialNumber = $_GET['serialNumber'];
 
@@ -16,17 +20,17 @@ if(isset($_SESSION['id'])) {
     $item = $row['Item'];
     $Borrowed = $row['Quantity Borrowed'];
 
-    $sql = "SELECT `Number in Stock` FROM inventory WHERE Item = '" . $item . "';";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_array($result);
+    $sql2 = "SELECT `Number in Stock` FROM inventory WHERE `Serial Number` = '".$serialNumber."';";
+    $result2 = mysqli_query($conn, $sql2);
+    $row2 = mysqli_fetch_array($result2);
 
-    $stock = $row['Number in Stock'];
+    $stock = $row2['Number in Stock'];
     $newStock = $stock + $Borrowed;
 
-    $sql = "UPDATE inventory SET `Number in Stock` = ".$newStock.", `Last Processing Date` = '" . date('Y/m/d') . "', `Last Processing Person` = '" . $uid . "' WHERE `Item` = '" . $item . "';";
+    $sql = "UPDATE inventory SET `Number in Stock` = ".$newStock.", `Last Processing Date` = '" . date('Y/m/d') . "', `Last Processing Person` = '" . $uid . "' WHERE `Serial Number` = '".$serialNumber."';";
     $result = mysqli_query($conn, $sql);
 
-    $sql = "DELETE FROM checkouts WHERE `Serial Number` = '".$serialNumber."';";
+    $sql = "UPDATE checkouts SET `Return Date` = '".date('Y/m/d')."' WHERE `Serial Number` = '".$serialNumber."';";
     $result = mysqli_query($conn, $sql);
 
     header("Location: ../checkout.php?checkin");

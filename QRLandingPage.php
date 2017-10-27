@@ -102,14 +102,14 @@ if(isset($_SESSION['id'])) {
             }
         }
 
-        $sql2 = "SELECT `Number in Stock` , Checkoutable FROM inventory WHERE `Serial Number` = '".$serialNumber."';";
+        $sql2 = "SELECT `Number in Stock`, Checkoutable FROM inventory WHERE `Serial Number` = '".$serialNumber."';";
         $result2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_array($result2);
         if($row2['Number in Stock'] > 0 && $row2['Checkoutable'] == 1){
             echo "<td><a href='includes/QRcheckout.inc.php?serialNumber=".$row['Serial Number']."'>Check-out<br></td>";
         }
 
-        $sql3 = "SELECT Item FROM checkouts WHERE Item = '".$name."';";
+        $sql3 = "SELECT `Serial Number` FROM checkouts WHERE `Serial Number` = '".$serialNumber."' AND `Return Date` IS NULL;";
         $result3 = mysqli_query($conn, $sql3);
         $row3 = mysqli_num_rows($result3);
         if($row3 > 0 && $row2['Checkoutable'] == 1){

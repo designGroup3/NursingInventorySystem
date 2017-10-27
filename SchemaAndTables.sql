@@ -59,6 +59,7 @@ CREATE TABLE `loginsystem`.`checkouts` (
   `Notes` VARCHAR(1000),
   `Due Date` DATE NOT NULL,
   `Checkout Date` DATE NOT NULL,
+  `Return Date` DATE,
   `Update Person` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`Id`));
 

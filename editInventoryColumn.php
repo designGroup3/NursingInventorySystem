@@ -53,7 +53,8 @@ if(isset($_SESSION['id'])) {
         }
         echo "<br><form action ='includes/editInventoryColumn.inc.php' method = 'POST'><br>
         <input type='hidden' name='oldColumn' value = $oldColumn>
-        <input type='hidden' name='oldType' value = $type>";
+        <input type='hidden' name='oldType' value = $type>
+        <input type='hidden' name='source' value = 'editPage'>";
         if (strpos($oldColumn, '%20')) {
             $oldColumn = str_replace("%20", " ", $oldColumn);
         }

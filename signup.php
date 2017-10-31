@@ -11,6 +11,10 @@
         echo "<br>&nbsp&nbspUsername already in use.<br>";
         exit();
     }
+    elseif(strpos($url, 'error=email') !== false){
+        echo "<br>&nbsp&nbspEmail Address already in use.<br>";
+        exit();
+    }
 
     if(isset($_SESSION['id'])){
         echo "<br><form class='signupform' action='includes/signup.inc.php' method='POST'>

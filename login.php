@@ -13,26 +13,43 @@
 echo'<style>
         body {
             background-image: url('.$selectedBg.'); 
-            background-size: 100%;
+            background-size:auto no-repeat;
         }
         </style>';
     ?>
 		<style>
 		.container{
-		padding: 250px;
-        position: relative;
-        top:-50px;
+			padding-top: 350px;
+		padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 		}
-		.panel-transparent {
-        background-color: transparent;
+		
+	.panel .panel-body{
+ margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);    }
+	
+.panel-body {
+	background-color: rgba(255, 255, 255, 0.1);
+}
+   .form-signin .form-control {
+        position: relative;
+        font-size: 16px;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        height: auto;
+        padding: 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
     }
-
-    .panel-transparent .panel-heading{
-        background: rgba(122, 130, 136, 0.2)!important;
-    }
-
-    .panel-transparent .panel-body{
-        background: rgba(46, 51, 56, 0.2)!important;
+    .vertical-offset-100 {
+        padding-top: 10px;
+		text-align:center;
     }
 		
 		p.form-title
@@ -204,6 +221,20 @@ form.login a:hover
 }
 
     </style>
+	<script>
+
+$(document).ready(function() {
+    $(document).mousemove(function(event) {
+        TweenLite.to($("body"), 
+        .5, {
+            css: {
+                backgroundPosition: "" + parseInt(event.pageX / 8) + "px " + parseInt(event.pageY / '12') + "px, " + parseInt(event.pageX / '15') + "px " + parseInt(event.pageY / '15') + "px, " + parseInt(event.pageX / '30') + "px " + parseInt(event.pageY / '30') + "px",
+            	"background-position": parseInt(event.pageX / 8) + "px " + parseInt(event.pageY / 12) + "px, " + parseInt(event.pageX / 15) + "px " + parseInt(event.pageY / 15) + "px, " + parseInt(event.pageX / 30) + "px " + parseInt(event.pageY / 30) + "px"
+            }
+        })
+    })
+})
+</script>
 </head>
 	<script src="js/bdposlgin.js"></script>
 <link rel="stylesheet" href="css/style.css">
@@ -219,11 +250,11 @@ form.login a:hover
         ?>
             <div class="container" >
                 	<div class="row vertical-offset-100">
-                    	<div class="col-md-4 col-md-offset-4 col-lg-4">
-                        	<div class="panel panel-transparent">
+                    	<div class="col-md-4 col-md-offset-4">
+                        	<div class="panel panel-default">
                             	<div class="panel-heading">                                
                                 	<div class="row-fluid user-row">
-                                    <img src="images/logowoutshadow.png" class="img-responsive" alt="umsl nursing logo" width="500" Height="200"/>
+                                    <img src="images/logowoutshadow.png" class="img-responsive" alt="umsl nursing logo" />
                                 	</div>
                             	</div>
                             <div class="panel-body">

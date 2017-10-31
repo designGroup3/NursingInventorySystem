@@ -58,21 +58,21 @@ if(isset($_SESSION['id'])) {
             }
         }
 
-    $results_per_page = 5; //for pagination
-
-    $sql='SELECT * FROM inventory'; //for pagination
-    $result = mysqli_query($conn, $sql); //for pagination
-    $number_of_results = mysqli_num_rows($result); //for pagination
-
-    $number_of_pages = ceil($number_of_results/$results_per_page); //for pagination
-
-    if (!isset($_GET['page'])) { //for pagination
-        $page = 1;
-    } else {
-        $page = $_GET['page'];
-    }
-
-    $this_page_first_result = ($page-1)*$results_per_page; //for pagination
+//    $results_per_page = 5; //for pagination
+//
+//    $sql='SELECT * FROM inventory'; //for pagination
+//    $result = mysqli_query($conn, $sql); //for pagination
+//    $number_of_results = mysqli_num_rows($result); //for pagination
+//
+//    $number_of_pages = ceil($number_of_results/$results_per_page); //for pagination
+//
+//    if (!isset($_GET['page'])) { //for pagination
+//        $page = 1;
+//    } else {
+//        $page = $_GET['page'];
+//    }
+//
+//    $this_page_first_result = ($page-1)*$results_per_page; //for pagination
 
     //array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock");
 
@@ -80,11 +80,11 @@ if(isset($_SESSION['id'])) {
         echo "<th>$columnNames[$count]</th>";
     }
 
-        $sql = "SELECT `Serial Number`, Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY `Serial Number`  LIMIT " . $this_page_first_result . "," . $results_per_page.";"; //display first four columns
+        $sql = "SELECT `Serial Number`, Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY `Serial Number`;"; //display first four columns
         $result = mysqli_query($conn, $sql);
 
         $IDs = array();
-        $sqlColumns = "SELECT `Serial Number` FROM inventory LIMIT " . $this_page_first_result . "," .  $results_per_page.";"; //limit rows shown //needed to show later columns if Serial Number skips
+        $sqlColumns = "SELECT `Serial Number` FROM inventory;"; //needed to show later columns if Serial Number skips
         $columnResult = mysqli_query($conn, $sqlColumns);
         while($columnRow = mysqli_fetch_array($columnResult)){
             array_push($IDs, $columnRow['Serial Number']);
@@ -197,11 +197,11 @@ if(isset($_SESSION['id'])) {
 
     echo "</table>";
 
-    echo "<br>Page: ";
-
-    for ($page=1; $page<=$number_of_pages; $page++) {
-        echo '<a href="inventory.php?page=' . $page . '">' . $page . '&nbsp</a> ';
-    }
+//    echo "<br>Page: ";
+//
+//    for ($page=1; $page<=$number_of_pages; $page++) {
+//        echo '<a href="inventory.php?page=' . $page . '">' . $page . '&nbsp</a> ';
+//    }
 
 } else {
     header("Location: ./login.php");

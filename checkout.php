@@ -189,23 +189,23 @@ if(isset($_SESSION['id'])) {
     echo "<th>Print</th><th>Serial Number</th><th>Item</th><th>Type</th><th>Subtype</th><th>Quantity Borrowed</th><th>Person</th>
     <th>Update Person</th><th>Checkout Date</th><th>Due Date</th>";
 
-    $results_per_page = 5; //for pagination
+//    $results_per_page = 5; //for pagination
+//
+//    $sql='SELECT * FROM checkouts'; //for pagination
+//    $result = mysqli_query($conn, $sql); //for pagination
+//    $number_of_results = mysqli_num_rows($result); //for pagination
+//
+//    $number_of_pages = ceil($number_of_results/$results_per_page); //for pagination
+//
+//    if (!isset($_GET['page'])) { //for pagination
+//        $page = 1;
+//    } else {
+//        $page = $_GET['page'];
+//    }
+//
+//    $this_page_first_result = ($page-1)*$results_per_page; //for pagination
 
-    $sql='SELECT * FROM checkouts'; //for pagination
-    $result = mysqli_query($conn, $sql); //for pagination
-    $number_of_results = mysqli_num_rows($result); //for pagination
-
-    $number_of_pages = ceil($number_of_results/$results_per_page); //for pagination
-
-    if (!isset($_GET['page'])) { //for pagination
-        $page = 1;
-    } else {
-        $page = $_GET['page'];
-    }
-
-    $this_page_first_result = ($page-1)*$results_per_page; //for pagination
-
-    $sql = "SELECT Id, Item, subtypes.Type, checkouts.Subtype, `Quantity Borrowed`, `Serial Number`, Person, `Update Person`, `Checkout Date`, `Due Date` FROM checkouts JOIN subtypes ON checkouts.Subtype = subtypes.Subtype WHERE `Return Date` IS NULL ORDER BY Id LIMIT " . $this_page_first_result . "," .  $results_per_page.";"; //limit rows shown
+    $sql = "SELECT Id, Item, subtypes.Type, checkouts.Subtype, `Quantity Borrowed`, `Serial Number`, Person, `Update Person`, `Checkout Date`, `Due Date` FROM checkouts JOIN subtypes ON checkouts.Subtype = subtypes.Subtype WHERE `Return Date` IS NULL ORDER BY Id;";
     $result = mysqli_query($conn, $sql);
     $namesCount = 0;
     while ($row = mysqli_fetch_array($result)) {
@@ -216,13 +216,13 @@ if(isset($_SESSION['id'])) {
 
     echo "</table>";
 
-    echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPage: ";
-    for ($page=1; $page<=$number_of_pages; $page++) {
-        echo '<a href="checkout.php?page=' . $page . '">' . $page . '&nbsp</a> ';
-    }
-    echo "<br><br><br>";
+//    echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+//        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+//        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPage: ";
+//    for ($page=1; $page<=$number_of_pages; $page++) {
+//        echo '<a href="checkout.php?page=' . $page . '">' . $page . '&nbsp</a> ';
+//    }
+//    echo "<br><br><br>";
 }
 else{
     header("Location: ./login.php");

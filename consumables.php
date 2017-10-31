@@ -65,21 +65,21 @@ if(isset($_SESSION['id'])) {
             }
         }
 
-    $results_per_page = 5; //for pagination
-
-    $sql='SELECT * FROM consumables'; //for pagination
-    $result = mysqli_query($conn, $sql); //for pagination
-    $number_of_results = mysqli_num_rows($result); //for pagination
-
-    $number_of_pages = ceil($number_of_results/$results_per_page); //for pagination
-
-    if (!isset($_GET['page'])) { //for pagination
-        $page = 1;
-    } else {
-        $page = $_GET['page'];
-    }
-
-    $this_page_first_result = ($page-1)*$results_per_page; //for pagination
+//    $results_per_page = 5; //for pagination
+//
+//    $sql='SELECT * FROM consumables'; //for pagination
+//    $result = mysqli_query($conn, $sql); //for pagination
+//    $number_of_results = mysqli_num_rows($result); //for pagination
+//
+//    $number_of_pages = ceil($number_of_results/$results_per_page); //for pagination
+//
+//    if (!isset($_GET['page'])) { //for pagination
+//        $page = 1;
+//    } else {
+//        $page = $_GET['page'];
+//    }
+//
+//    $this_page_first_result = ($page-1)*$results_per_page; //for pagination
 
     //array_push($columnNames, "Item", "Type", "Subtype", "Number in Stock");
 
@@ -95,11 +95,11 @@ if(isset($_SESSION['id'])) {
         }
     }
 
-        $sql = "SELECT Item, consumables.Subtype, subtypes.Type FROM consumables JOIN subtypes ON consumables.Subtype = subtypes.Subtype ORDER BY Item LIMIT " . $this_page_first_result . "," .  $results_per_page.";"; //limit rows shown //display first three columns
+        $sql = "SELECT Item, consumables.Subtype, subtypes.Type FROM consumables JOIN subtypes ON consumables.Subtype = subtypes.Subtype ORDER BY Item;";//display first three columns
         $result = mysqli_query($conn, $sql);
 
         $IDs = array();
-        $sqlColumns = "SELECT Item FROM consumables LIMIT " . $this_page_first_result . "," .  $results_per_page.";"; //limit rows shown"; //needed to show later columns
+        $sqlColumns = "SELECT Item FROM consumables;"; //needed to show later columns
         $columnResult = mysqli_query($conn, $sqlColumns);
         while($columnRow = mysqli_fetch_array($columnResult)){
             array_push($IDs, $columnRow['Item']);
@@ -211,10 +211,10 @@ if(isset($_SESSION['id'])) {
 
     echo "</table>";
 
-    echo "<br>Page: ";
-    for ($page=1; $page<=$number_of_pages; $page++) {
-        echo '<a href="consumables.php?page=' . $page . '">' . $page . '&nbsp</a> ';
-    }
+//    echo "<br>Page: ";
+//    for ($page=1; $page<=$number_of_pages; $page++) {
+//        echo '<a href="consumables.php?page=' . $page . '">' . $page . '&nbsp</a> ';
+//    }
 
 } else {
     header("Location: ./login.php");

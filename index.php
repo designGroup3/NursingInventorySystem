@@ -12,7 +12,7 @@ if(isset($_SESSION['id'])) {
                <input type='submit' value='See Users'/>
               </form>";
 
-        echo "&nbsp&nbsp<form action='newPassword.php'>
+        echo "&nbsp&nbsp<form action='changePassword.php'>
                    <input type='submit' value='Change My Password'/>
                   </form>";
 

@@ -7,6 +7,9 @@ $id = $_POST['id'];
 $first = $_POST['first'];
 $last = $_POST['last'];
 $uid = $_POST['uid'];
+$email = $_POST['email'];
+$originalEmail = $_POST['originalEmail'];
+$originalType = $_POST['originalType'];
 $type = $_POST['type'];
 
 if($type == "Standard User"){
@@ -14,7 +17,7 @@ if($type == "Standard User"){
     $result = mysqli_query($conn, $sql);
     $row = mysqli_num_rows($result);
 
-    if($row == 1){
+    if($row == 1 && $originalType == "Admin"){
         header("Location: ../editUser.php?edit=".$id."&error=noAdmin");
         exit();
     }
@@ -34,7 +37,15 @@ if($uidcheck > 0) {
     }
 }
 
-$sql = "UPDATE users SET first = '$first', last = '$last', uid = '$uid', acctType = '$type' WHERE id ='$id';";
+$sql = "SELECT email FROM users WHERE email = '$email'";
+$result = mysqli_query($conn, $sql);
+$emailCheck = mysqli_num_rows($result);
+if($emailCheck > 0 && $email !== $originalEmail) {
+    header("Location: ../editUser.php?edit=".$id."&error=email");
+    exit();
+}
+
+$sql = "UPDATE users SET first = '$first', last = '$last', uid = '$uid', acctType = '$type', email = '$email' WHERE id ='$id';";
 
 $result = mysqli_query($conn, $sql);
 

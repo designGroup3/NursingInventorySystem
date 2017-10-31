@@ -13,7 +13,7 @@
 echo'<style>
         body {
             background-image: url('.$selectedBg.'); 
-            background-size: 100%;
+            background-size: auto;
         }
         </style>';
     ?>
@@ -223,7 +223,7 @@ form.login a:hover
                         	<div class="panel panel-transparent">
                             	<div class="panel-heading">                                
                                 	<div class="row-fluid user-row">
-                                    <img src="images/logowoutshadow.png" class="img-responsive" alt="umsl nursing logo" width="500" Height="200"/>
+                                    <img src="images/logowoutshadow.png" class="img-responsive" alt="umsl nursing logo"/>
                                 	</div>
                             	</div>
                             <div class="panel-body">

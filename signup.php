@@ -16,6 +16,7 @@
         echo "<br><form class='signupform' action='includes/signup.inc.php' method='POST'>
         &nbsp&nbsp<label>First Name<br></label>&nbsp&nbsp<input type='text' name='first'><br><br>
         &nbsp&nbsp<label>Last Name<br></label>&nbsp&nbsp<input type='text' name='last'><br><br>
+        &nbsp&nbsp<label>Email<br></label>&nbsp&nbsp<input type='email' name='email'><br><br>
         &nbsp&nbsp<label>Username<br></label>&nbsp&nbsp<input type='text' name='uid'><br><br>
         &nbsp&nbsp<label>Password<br></label>&nbsp&nbsp<input type='password' name='pwd'><br><br><br>
         &nbsp&nbsp<button type='submit'>Sign Up</button>

@@ -1,6 +1,6 @@
 <?php
 
-$conn = mysqli_connect("localhost", "root", "Rottman", "loginsystem");
+$conn = mysqli_connect("localhost", "root", "", "loginsystem");
 
 if (!$conn){
 	die("Connection Failed: ".mysqli_connect_error());

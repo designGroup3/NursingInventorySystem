@@ -241,6 +241,7 @@ form.login a:hover
                                     </fieldset>
                                 </form>';
                                 ?>
+                                <br><button type="button" class="btn btn-default" style="float:right"><a href="forgotPassword.php">Forgot Password</a></button>
                             </div>
                         </div>
                     </div>

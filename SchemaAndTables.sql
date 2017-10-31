@@ -6,8 +6,10 @@ CREATE TABLE loginsystem.users (
   last VARCHAR(128) NOT NULL,
   uid VARCHAR(128) UNIQUE NOT NULL,
   pwd VARCHAR(1000) NOT NULL,
+  email VARCHAR(200) NOT NULL,
   acctType VARCHAR(20) NOT NULL,
   dateAdded DATE NOT NULL,
+  pwdRecoveryKey VARCHAR(100),
   PRIMARY KEY (id));
 
 CREATE TABLE loginsystem.subtypes (

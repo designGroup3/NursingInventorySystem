@@ -39,21 +39,21 @@ if(isset($_SESSION['id'])) {
     echo "<table class ='center'>";
     echo "<th>Last</th><th>First</th><th>Ext</th><th>Email</th><th>Office</th>";
 
-    $results_per_page = 5; //for pagination
-
-    $sql='SELECT * FROM clients'; //for pagination
-    $result = mysqli_query($conn, $sql); //for pagination
-    $number_of_results = mysqli_num_rows($result); //for pagination
-
-    $number_of_pages = ceil($number_of_results/$results_per_page); //for pagination
-
-    if (!isset($_GET['page'])) { //for pagination
-        $page = 1;
-    } else {
-        $page = $_GET['page'];
-    }
-
-    $this_page_first_result = ($page-1)*$results_per_page; //for pagination
+//    $results_per_page = 5; //for pagination
+//
+//    $sql='SELECT * FROM clients'; //for pagination
+//    $result = mysqli_query($conn, $sql); //for pagination
+//    $number_of_results = mysqli_num_rows($result); //for pagination
+//
+//    $number_of_pages = ceil($number_of_results/$results_per_page); //for pagination
+//
+//    if (!isset($_GET['page'])) { //for pagination
+//        $page = 1;
+//    } else {
+//        $page = $_GET['page'];
+//    }
+//
+//    $this_page_first_result = ($page-1)*$results_per_page; //for pagination
 
     $sql = "SELECT * FROM clients;";
     $result = mysqli_query($conn, $sql);
@@ -77,18 +77,18 @@ if(isset($_SESSION['id'])) {
 
     echo "</table>";
 
-    echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPage: ";
-    for ($page=1; $page<=$number_of_pages; $page++) {
-        echo '<a href="clients.php?page=' . $page . '">' . $page . '&nbsp</a> ';
-    }
+//    echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+//        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+//        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+//        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+//        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+//        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+//        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+//        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+//        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPage: ";
+//    for ($page=1; $page<=$number_of_pages; $page++) {
+//        echo '<a href="clients.php?page=' . $page . '">' . $page . '&nbsp</a> ';
+//    }
 
 } else {
     header("Location: ./login.php");

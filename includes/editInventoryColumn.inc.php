@@ -12,11 +12,10 @@ $newColumn = $_POST['newColumn'];
 $newType = $_POST['newType'];
 
 if($newType == "Letters & Numbers"){
-    $newType = "varchar(100)";
-    $oldType = "varchar(100)";
+    $newType = "varchar";
 }
 else{
-    $newType = "boolean";
+    $newType = "tinyint";
 }
 
 $currentColumns = array();
@@ -37,8 +36,12 @@ if($newColumn == ""){
 }
 
 if($oldType != $newType){
-    $sql = "UPDATE inventory SET ".$oldColumn. " = NULL;";
+    $sql = "UPDATE inventory SET `".$oldColumn. "` = NULL;";
     $result = mysqli_query($conn, $sql);
+}
+
+if($newType == "varchar"){
+    $newType = "varchar(100)";
 }
 
 $sql = "ALTER TABLE `inventory` CHANGE `".$oldColumn."` `".$newColumn."` ".$newType.";";

@@ -40,6 +40,7 @@ if(isset($_SESSION['id'])) {
     echo "<table class='center' cellspacing='10'><tr><th>First Name</th>
     <th>Last Name</th>
     <th>Account Name</th>
+    <th>Email</th>
     <th>Account Type</th>
     <th>Date Added</th>";
     while ($row = mysqli_fetch_array($result)) {
@@ -47,6 +48,7 @@ if(isset($_SESSION['id'])) {
             <td> " . $row['first'] . "</td>
             <td> " . $row['last'] . "</td>
             <td> " . $row['uid'] . "</td>
+            <td> " . $row['email'] . "</td>
             <td> " . $row['acctType'] . "</td>";
             $date = date_create($row['dateAdded']);
             echo "<td> " . date_format($date, 'm/d/Y') . "</td>";

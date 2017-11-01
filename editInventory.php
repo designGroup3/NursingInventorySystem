@@ -7,7 +7,7 @@ if(isset($_SESSION['id'])) {
     $serialNumber = $_GET['edit'];
     $columnNames = array();
     $type;
-    echo "<head><Title>Edit Inventory</Title><script src=\"jquery-3.2.1.min.js\"></script><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script></head>";
+    echo "<head><Title>Edit Inventory</Title><script src=\"./js/jquery.min.js\"></script></head>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){

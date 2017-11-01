@@ -3,7 +3,7 @@ include 'header.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Edit Consumable Column</Title><script src=\"jquery-3.2.1.min.js\"></script><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script></head>";
+    echo "<head><Title>Edit Consumable Column</Title><script src=\"./js/jquery.min.js\"></script></head>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){

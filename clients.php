@@ -36,7 +36,7 @@ if(isset($_SESSION['id'])) {
     $acctType = $row['acctType'];
 
     echo "<br>";
-    echo "<table class ='center'>";
+    echo "<table class ='table'>";
     echo "<th>Last</th><th>First</th><th>Ext</th><th>Email</th><th>Office</th>";
 
 //    $results_per_page = 5; //for pagination

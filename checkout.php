@@ -184,7 +184,7 @@ if(isset($_SESSION['id'])) {
     }
 
     echo "<br><br><h2>Current Checked-Out Inventories</h2><br>";
-    echo "<table class='center'>";
+    echo "<table class='table'>";
 
     echo "<th>Print</th><th>Serial Number</th><th>Item</th><th>Type</th><th>Subtype</th><th>Quantity Borrowed</th><th>Person</th>
     <th>Update Person</th><th>Checkout Date</th><th>Due Date</th>";

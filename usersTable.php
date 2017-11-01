@@ -37,7 +37,7 @@ if(isset($_SESSION['id'])) {
 
     $sql = "SELECT * FROM users";
     $result = mysqli_query($conn, $sql);
-    echo "<table class='center' cellspacing='10'><tr><th>First Name</th>
+    echo "<table class='table' cellspacing='10'><tr><th>First Name</th>
     <th>Last Name</th>
     <th>Account Name</th>
     <th>Email</th>

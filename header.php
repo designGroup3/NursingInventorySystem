@@ -1,4 +1,5 @@
 <?php
+    ob_start();
 	session_start();
 ?>
 
@@ -209,7 +210,7 @@ $(document).ready( function() {
       <a style="width: 100px;
     height: 50px;
     background-size: 50px;
-    padding-top: 7px;" class="navbar-brand" href="#"><img src="images/logotn.png" ></a>
+    padding-top: 7px;" class="navbar-brand" href="http://www.umsl.edu"><img src="images/logotn.png" ></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -346,6 +347,6 @@ $(document).ready( function() {
   </div><!-- /.container-fluid -->
 </nav>
             
-		</ul> </div></div>
-	</nav>
+<!--		</ul> </div></div>-->
+<!--	</nav>-->
 </header>

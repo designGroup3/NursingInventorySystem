@@ -48,7 +48,7 @@ if(isset($_SESSION['id'])) {
             $start = date_create($startDate); //converts string to date
             $end = date_create($endDate);
             echo "<br><h2><b>&nbsp&nbspActivities for (".date_format($start, 'm/d/Y')." - ".date_format($end, 'm/d/Y').")</b></h2>
-            <br><table class='center' cellspacing='15'><tr><th>Activity Type</th>
+            <br><table class='table' cellspacing='15'><tr><th>Activity Type</th>
             <th>Item</th>
             <th>Type</th>
             <th>Subtype</th>

@@ -36,7 +36,7 @@ if(isset($_SESSION['id'])) {
     $acctType = $row['acctType'];
 
     echo "<br>";
-    echo "<table class='center'>";
+    echo "<table class='table'>";
 
         $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page
         $result = mysqli_query($conn, $sql);

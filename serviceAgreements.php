@@ -33,7 +33,7 @@ if(isset($_SESSION['id'])) {
 
     $sql = "SELECT * FROM serviceAgreements;";
     $result = mysqli_query($conn, $sql);
-    echo "<table class='center' cellspacing='10'><tr><th>Name</th>
+    echo "<table class='table' cellspacing='10'><tr><th>Name</th>
     <th>Annual Cost</th>
     <th>Duration</th>
     <th>Expiration Date</th>";

@@ -93,7 +93,7 @@ if(isset($_SESSION['id'])) {
         if($tableHeadNeeded){
             $tableHeadNeeded = false;
             $count++;
-            echo "<table class='center'><tr><th>Last</th>
+            echo "<table class='table'><tr><th>Last</th>
             <th>First</th>
             <th>Ext</th>
             <th>Email</th>

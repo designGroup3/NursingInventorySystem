@@ -39,7 +39,7 @@ if(isset($_SESSION['id'])) {
 
         if($resultCheck > 0) {
             echo "<br><h2><b>&nbsp&nbspActivities for ".date_format($dateTitle, 'm/d/Y')."</b></h2>
-            <br><table class='center' cellspacing='15'><tr><th>Activity Type</th>
+            <br><table class='table' cellspacing='15'><tr><th>Activity Type</th>
             <th>Item</th>
             <th>Type</th>
             <th>Subtype</th>

@@ -100,7 +100,7 @@ if(isset($_SESSION['id'])) {
         if($tableHeadNeeded){
             $tableHeadNeeded = false;
             $outerCount++;
-            echo "<table class='center'>";
+            echo "<table class='table'>";
             for($count = 0; $count< 2; $count++){
                 echo "<th>$columnNames[$count]</th>";
             }

@@ -124,7 +124,7 @@ if(isset($_SESSION['id'])) {
         if($tableHeadNeeded){
             $tableHeadNeeded = false;
             $count++;
-            echo "<table class='center'><tr><th>Type</th>
+            echo "<table class='table'><tr><th>Type</th>
             <th>Serial Number</th>
             <th>Item</th>
             <th>Part</th>

@@ -28,7 +28,7 @@ if(isset($_SESSION['id'])) {
 
     $sql = "SELECT * FROM `repairs/updates/upgrades` JOIN inventory ON inventory.`Serial Number` = `repairs/updates/upgrades`. `Serial Number`;";
     $result = mysqli_query($conn, $sql);
-    echo "<table class='center' cellspacing='10'><tr><th>Type</th>
+    echo "<table class='table' cellspacing='10'><tr><th>Type</th>
     <th>Serial Number</th>
     <th>Item</th>
     <th>Part</th>

@@ -26,9 +26,11 @@
 .nav-tabs > li.active > a:focus {
   border: none;
   border-radius: 0;
-
 }
-
+.nav-tabs > li > a:hover { 
+    color: #444444;
+	TEXT-DECORATION: none; font-weight: none;
+}
 .nav-list {}
 .nav-list > li { 
   padding: 20px 15px 15px;
@@ -145,10 +147,11 @@
     border-image-repeat: initial;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.172549) 0px 6px 12px;
-}/*I don't know what the hell happened here for the life of me, the .nav-list is supposed to stick the nav bar to the top*/
+	
 .nav-list > li {
     padding: 20px 15px 15px;
-	border-left:0px;}
+	border-left:0px;
+	}
 .nav-list {
     border-bottom: 0px;
 	}
@@ -161,45 +164,27 @@
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>	
 <script>
-	$(document).ready(function(){
-    $(".dropdown").hover(            
-        function() {
-            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
-            $(this).toggleClass('open');        
+//NAV Dropdown Hover
+$(function () {
+
+    if ($(window).width() > 800) {
+
+        $(".dropdown").hover(
+
+        function () {
+            $('.dropdown-menu', this).stop(true, true).fadeIn("fast");
+            $(this).toggleClass('open');
+            $('b', this).toggleClass("caret caret-up");
         },
-        function() {
-            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
-            $(this).toggleClass('open');       
-        }
-    );
-});
 
-$(document).ready( function() {
-    $('#myCarousel').carousel({
-        interval:   4000
-	});
-	
-	var clickEvent = false;
-	$('#myCarousel').on('click', '.nav a', function() {
-			clickEvent = true;
-			$('.nav li').removeClass('active');
-			$(this).parent().addClass('active');		
-	}).on('slid.bs.carousel', function(e) {
-		if(!clickEvent) {
-			var count = $('.nav').children().length -1;
-			var current = $('.nav li.active');
-			current.removeClass('active').next().addClass('active');
-			var id = parseInt(current.data('slide-to'));
-			if(count == id) {
-				$('.nav li').first().addClass('active');	
-			}
-		}
-		clickEvent = false;
-	});
+        function () {
+            $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
+            $(this).toggleClass('open');
+            $('b', this).toggleClass("caret caret-up");
+        });
+    }
 });</script>
-
 <body>
-
 <header>
 	<nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
@@ -214,7 +199,7 @@ $(document).ready( function() {
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="navbar-collapse collapse in" id="bs-megadropdown-tabs" style="padding-left: 0px;">
+    <div class="navbar-collapse collapse" id="bs-megadropdown-tabs" style="padding-left: 0px;">
         <ul class="nav navbar-nav">
            <!-- goes to the main menu with the giant thumbnails -->
             <li><a style="color: white;" href="index.php"><i class="fa fa-globe"></i> Main Menu</a></li>

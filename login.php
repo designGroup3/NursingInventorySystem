@@ -25,7 +25,7 @@ echo'<style>
   margin-right: auto;
   margin-left: auto;
 		}
-		
+
 	.panel .panel-body{
  margin-bottom: 20px;
     background-color: rgba(255, 255, 255, 0.75);
@@ -33,7 +33,7 @@ echo'<style>
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);    }
-	
+
 .panel-body {
 	background-color: rgba(255, 255, 255, 0.1);
 }
@@ -225,7 +225,7 @@ form.login a:hover
 
 $(document).ready(function() {
     $(document).mousemove(function(event) {
-        TweenLite.to($("body"), 
+        TweenLite.to($("body"),
         .5, {
             css: {
                 backgroundPosition: "" + parseInt(event.pageX / 8) + "px " + parseInt(event.pageY / '12') + "px, " + parseInt(event.pageX / '15') + "px " + parseInt(event.pageY / '15') + "px, " + parseInt(event.pageX / '30') + "px " + parseInt(event.pageY / '30') + "px",
@@ -272,6 +272,7 @@ $(document).ready(function() {
                                     </fieldset>
                                 </form>';
                                 ?>
+                                <br><button type="button" class="btn btn-default" style="float:right"><a href="forgotPassword.php">Forgot Password</a></button>
                             </div>
                         </div>
                     </div>

@@ -45,9 +45,6 @@ if(isset($_SESSION['id'])) {
               </form>";
 
     } else {
-    echo "<script type='text/javascript'>
-    window.location.href = './login.php';
-    </script>";
-        //header("Location: ./login.php");
+        header("Location: ./login.php");
     }
 ?>

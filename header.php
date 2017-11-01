@@ -1,4 +1,5 @@
 <?php
+    ob_start();
 	session_start();
 ?>
 
@@ -346,6 +347,6 @@ $(document).ready( function() {
   </div><!-- /.container-fluid -->
 </nav>
             
-		</ul> </div></div>
-	</nav>
+<!--		</ul> </div></div>-->
+<!--	</nav>-->
 </header>

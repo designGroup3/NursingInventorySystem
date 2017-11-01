@@ -163,27 +163,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>	
-<script>
-//NAV Dropdown Hover
-$(function () {
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
-    if ($(window).width() > 800) {
-
-        $(".dropdown").hover(
-
-        function () {
-            $('.dropdown-menu', this).stop(true, true).fadeIn("fast");
-            $(this).toggleClass('open');
-            $('b', this).toggleClass("caret caret-up");
-        },
-
-        function () {
-            $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
-            $(this).toggleClass('open');
-            $('b', this).toggleClass("caret caret-up");
-        });
-    }
-});</script>
 <body>
 <header>
 	<nav class="navbar navbar-default" role="navigation">
@@ -201,18 +184,20 @@ $(function () {
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="navbar-collapse collapse" id="bs-megadropdown-tabs" style="padding-left: 0px;">
         <ul class="nav navbar-nav">
+		
+		
            <!-- goes to the main menu with the giant thumbnails -->
             <li><a style="color: white;" href="index.php"><i class="fa fa-globe"></i> Main Menu</a></li>
+			
             <!--Users function page -->
 			 <li class="dropdown mega-dropdown">
-			   <a style="color: white;"  class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-users"></i> User Managment <span class="caret"></span></a>				
+			   <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-users"></i> User Management <span class="caret"></span></a>				
 				<div id="filters" class="dropdown-menu mega-dropdown-menu">
                     <div style="text-align: center;" class="container-fluid2">
     				    <!-- Tab panes -->
-                        <div class="tab-content">
-                     
-                          <div class="tab-pane active" id="kids">
-                            <ul class="nav-list list-inline">
+                         <div class="tab-content">
+                                <div class="tab-pane active" id="content-one">
+                                    <ul class="nav-list list-inline">
                                <!-- check in check out tables-->
                                 <li><a href="signup.php"><img src="images/placeholder_nvtn.png"><span>Add user</span></a></li>
                                 <li><a href="searchUsersForm.php"><img src="images/placeholder_nvtn.png"><span>Search user</span></a></li>
@@ -226,8 +211,8 @@ $(function () {
 				</div>				
 			</li>
              <!--<li><a style="color: white;" href="usersTable.php"><i class="fa fa-users"></i> Users</a></li>-->
-            <li class="dropdown mega-dropdown">
-			   <a style="color: white;"  class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-gears"></i> Inventory Functions <span class="caret"></span></a>				
+           <li class="dropdown mega-dropdown">
+			   <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-gear"></i> Inventory Functions <span class="caret"></span></a>				
 				<div id="filters" class="dropdown-menu mega-dropdown-menu">
                     <div style="text-align: center;" class="container-fluid2">
     				    <!-- Tab panes -->

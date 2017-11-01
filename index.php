@@ -60,6 +60,7 @@ h1{
 }
 </style>
 <h1><strong>Welcome to NURSING IT Inventory System! (Beta)</strong></h1>
+<br/><br/>
 <div class="container center">
 <div class="row">
   <div class="col-md-4 col-lg-4 col-sm-4">
@@ -89,7 +90,7 @@ h1{
 </div>
 <div class="row">
   <div class="col-md-4 col-lg-4 col-sm-4">
-    <div class="thumbnail text-center">        <h3>Service<br/> Agreements</h3>
+    <div class="thumbnail text-center">        <h3>ServiceAgreements</h3>
 <a href="serviceAgreements.php"><img src="images/placeholder_nvtn.png" alt="Thumbnail Image 4" ></a>
       <div class="caption">
         <!--<p>Consumable items such as, USB drives.</p> -->
@@ -97,7 +98,7 @@ h1{
     </div>
   </div>
   <div class="col-md-4 col-lg-4 col-sm-4">
-    <div class="thumbnail text-center"><h3>View <br/>Clients List</h3><a href="clients.php"><img src="images/placeholder_nvtn.png" alt="Thumbnail Image 5" ></a>
+    <div class="thumbnail text-center"><h3>View Clients List</h3><a href="clients.php"><img src="images/placeholder_nvtn.png" alt="Thumbnail Image 5" ></a>
       <div class="caption">
         
         <!-- <p>Report generation for items, people, and tables.</p> -->
@@ -105,7 +106,7 @@ h1{
     </div>
   </div>
    <div class="col-md-4 col-lg-4 col-sm-4">
-    <div class="thumbnail text-center"><h3>Repairs /<br/> Updates / Upgrades</h3><a href="repairsUpdatesUpgrades.php">        
+    <div class="thumbnail text-center"><h3>Upgrades</h3><a href="repairsUpdatesUpgrades.php">        
 <img src="images/placeholder_nvtn.png"  alt="Thumbnail Image 6"></a>
       <div class="caption">
         <!--<p>Generate QR code</p><br/> -->
@@ -124,7 +125,7 @@ h1{
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 				<div class="design">
-					 <a href="#">Managment Inventory System </a> |  <a target="_blank" href="http://www.Umsl.edu">Web Design & Development by  Design Team 3</a>
+					 <a href="index.php">Managment Inventory System </a> |  <a target="_blank" href="http://www.Umsl.edu">Web Design & Development by  Design Team 3</a>
 				</div>
 			</div>
 		</div>

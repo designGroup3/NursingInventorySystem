@@ -6,7 +6,9 @@ if(isset($_SESSION['id'])) {
 
     $originalItem = $_GET['edit'];
     $columnNames = array();
-    echo "<head><Title>Edit Consumable</Title></head>";
+    $type;
+    echo "<head><Title>Edit Consumable</Title><script src=\"jquery-3.2.1.min.js\"></script><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script></head>";
+
 
     $sql = "SHOW COLUMNS FROM consumables"; //gets first headers for page
     $result = mysqli_query($conn, $sql);
@@ -41,7 +43,7 @@ if(isset($_SESSION['id'])) {
             WHERE table_name = 'consumables' AND COLUMN_NAME = '$columnNames[$count]';";
             $result2 = mysqli_query($conn, $sql2);
             $rowType = mysqli_fetch_array($result2);
-            if ($rowType['DATA_TYPE'] == "tinyint" || $count == 1) {
+            if ($rowType['DATA_TYPE'] == "tinyint") {
                 $isSelect = true;
                 $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<select name=";
             } elseif ($rowType['DATA_TYPE'] == "int") {
@@ -54,23 +56,23 @@ if(isset($_SESSION['id'])) {
             }
             if ($isSelect) {
                 $inputs .= $columnName . ">";
-                if ($count == 1) {
-                    $sqlSubtype = "SELECT Subtype FROM consumables WHERE item = '" . $originalItem."';";
-                    $resultSubtype = mysqli_query($conn, $sqlSubtype);
-                    $subRow = mysqli_fetch_array($resultSubtype);
-                    $Subtype = $subRow['Subtype'];
-
-                    $sql3 = "SELECT Subtype FROM subtypes WHERE isConsumable = 1";
-                    $result3 = mysqli_query($conn, $sql3);
-                    while ($SubtypeRow = mysqli_fetch_array($result3)) {
-                        if ($Subtype === $SubtypeRow['Subtype']) {
-                            $inputs .= "<option selected=\"selected\" value= '" . $SubtypeRow['Subtype'] . "'>" . $SubtypeRow['Subtype'] . "</option>";
-                        } else {
-                            $inputs .= "<option value= '" . $SubtypeRow['Subtype'] . "'>" . $SubtypeRow['Subtype'] . "</option>";
-                        }
-                    }
-                    $inputs .= "</select><br><br>";
-                } else {
+//                if ($count == 1) {
+//                    $sqlSubtype = "SELECT Subtype FROM consumables WHERE item = '" . $originalItem."';";
+//                    $resultSubtype = mysqli_query($conn, $sqlSubtype);
+//                    $subRow = mysqli_fetch_array($resultSubtype);
+//                    $Subtype = $subRow['Subtype'];
+//
+//                    $sql3 = "SELECT Subtype FROM subtypes WHERE isConsumable = 1";
+//                    $result3 = mysqli_query($conn, $sql3);
+//                    while ($SubtypeRow = mysqli_fetch_array($result3)) {
+//                        if ($Subtype === $SubtypeRow['Subtype']) {
+//                            $inputs .= "<option selected=\"selected\" value= '" . $SubtypeRow['Subtype'] . "'>" . $SubtypeRow['Subtype'] . "</option>";
+//                        } else {
+//                            $inputs .= "<option value= '" . $SubtypeRow['Subtype'] . "'>" . $SubtypeRow['Subtype'] . "</option>";
+//                        }
+//                    }
+//                    $inputs .= "</select><br><br>";
+//                } else {
                     if ($row[$columnNames[$count]] == 0 && $row[$columnNames[$count]] !== null) {
                         $inputs .= "<option value=0>No</option><option value=1>Yes</option></select><br><br>";
                     } elseif ($row[$columnNames[$count]] !== null) {
@@ -78,14 +80,33 @@ if(isset($_SESSION['id'])) {
                     } else {
                         $inputs .= "<option value=''></option><option value=1>Yes</option><option value=0>No</option></select><br><br>";
                     }
-                }
+                //}
             } else {
                 $inputs .= $columnName . " value=\"" . $row[$columnNames[$count]] . "\"><br><br>";
+            }
+            if($count == 1){
+                $sql3 = "SELECT Type FROM subtypes WHERE Subtype = '$row[Subtype]';";
+                $result3 = mysqli_query($conn, $sql3);
+                $row3 = mysqli_fetch_array($result3);
+                $type = $row3['Type'];
+
+                $inputs.= "&nbsp&nbsp<label>Type (Warning: Changing type will change the type for every item with this subtype)</label><br>&nbsp&nbsp<input type='text' name='type' id='type' value='$type'><br><br>";
             }
             echo $inputs;
         }
     }
-    echo "&nbsp&nbsp<button type='submit'>Submit</button></form>";
+    echo '<input type="hidden" name="originalSubtype" value = \''.$row['Subtype']. '\'>
+          <input type="hidden" name="originalType" value = \''.$type. '\'>
+            &nbsp&nbsp<button type="submit">Submit</button></form>';
+
+
+    echo "<script>$('document').ready(function() {
+   
+    $('#type').on('change',function(){
+        alert(\"Warning: Changing type will change the type for every item with this subtype\");
+    });
+    
+});</script>";
 }
 else{
     header("Location: ./login.php");

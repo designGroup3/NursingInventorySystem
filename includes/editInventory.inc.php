@@ -4,6 +4,9 @@ session_start();
 include '../dbh.php';
 
 $originalSerialNumber = $_POST['originalSerialNumber'];
+$originalSubtype = $_POST['originalSubtype'];
+$originalType = $_POST['originalType'];
+$type = $_POST['type'];
 $inventoryColumns = array();
 $inventoryValues = array();
 
@@ -46,7 +49,6 @@ if(isset($_SESSION['id'])) {
         exit();
     }
 
-
     $sql = "UPDATE inventory SET ";
     for($count = 0; $count< count($inventoryColumns); $count++){
         if($inventoryColumns[$count] != "Last Processing Date" && $inventoryColumns[$count] != "Last Processing Person") {
@@ -68,6 +70,59 @@ if(isset($_SESSION['id'])) {
     }
 
     $sql .= " WHERE `Serial Number` = '$originalSerialNumber';";
+
+    //Check Subtypes table
+    if($originalSubtype !== $_POST['Subtype'] || $originalType !== $type){
+        if($originalType !== $type && $originalSubtype == $_POST['Subtype']){ //type is changed
+            $TypeSql = "UPDATE subtypes SET Type = '$type' WHERE Subtype = '$originalSubtype';";
+            $TypeResult = mysqli_query($conn, $TypeSql);
+        }
+        elseif($originalSubtype !== $_POST['Subtype'] && $originalType == $type){ //subtype is changed
+            $newSubtype = $_POST['Subtype'];
+            $subtypeSql = "SELECT Item FROM inventory WHERE Subtype = '$originalSubtype';";
+            $subtypeResult = mysqli_query($conn, $subtypeSql);
+            if(mysqli_num_rows($subtypeResult) == 1){ //If the only item with that subtype has its subtype changed, change the subtype in the subtypes table.
+                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+                $subtypeResult = mysqli_query($conn, $subtypeSql);
+                $subtypeSql = "UPDATE subtypes SET Subtype = '$newSubtype' WHERE Subtype = '$originalSubtype';";
+                echo $subtypeSql;
+                $subtypeResult = mysqli_query($conn, $subtypeSql);
+            }
+            else{
+                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+                $subtypeResult = mysqli_query($conn, $subtypeSql);
+                if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
+                    $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $newSubtype . "','" . $type . "', $inventoryValues[5],0);";
+                    echo $subtypeSql;
+                    $subtypeResult = mysqli_query($conn, $subtypeSql);
+                }
+            }
+        }
+        elseif($originalSubtype !== $_POST['Subtype'] && $originalType !== $type){
+            $newSubtype = $_POST['Subtype'];
+
+            $subtypeSql = "SELECT Item FROM consumables WHERE Subtype = '$originalSubtype';";
+            $subtypeResult = mysqli_query($conn, $subtypeSql);
+            if(mysqli_num_rows($subtypeResult) == 1){ //If the only item with that subtype has its subtype changed, change the subtype in the subtypes table.
+                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+                $subtypeResult = mysqli_query($conn, $subtypeSql);
+                $subtypeSql = "UPDATE subtypes SET Subtype = '$newSubtype' WHERE Subtype = '$originalSubtype';";
+                echo $subtypeSql;
+                $subtypeResult = mysqli_query($conn, $subtypeSql);
+            }
+            else{
+                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+                $subtypeResult = mysqli_query($conn, $subtypeSql);
+                if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
+                    $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $newSubtype . "','" . $type . "', $inventoryValues[5],0);";
+                    echo $subtypeSql;
+                    $subtypeResult = mysqli_query($conn, $subtypeSql);
+                }
+            }
+            $TypeSql = "UPDATE subtypes SET Type = '$type' WHERE Subtype = '$newSubtype';";
+            $TypeResult = mysqli_query($conn, $TypeSql);
+        }
+    }
 
     //Reports
     $reportSql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Inventory',";

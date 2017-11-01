@@ -121,7 +121,24 @@ if(isset($_SESSION['id'])) {
                     WHERE table_name = 'consumables' AND COLUMN_NAME = '$columnNames[$whileCount]';";
                     $result3 = mysqli_query($conn, $sql3);
                     $rowType = mysqli_fetch_array($result3);
-                    if($rowType['DATA_TYPE'] == "tinyint"){
+//                    if($rowType['DATA_TYPE'] == "tinyint"){
+//                        if($row2[$columnNames[$whileCount]] == 0 && $row2[$columnNames[$whileCount]] !== null){
+//                            echo '<td>No</td>';
+//                        }
+//                        elseif($row2[$columnNames[$whileCount]] !== null){
+//                            echo '<td>Yes</td>';
+//                        }
+//                        else{
+//                            echo '<td></td>';
+//                        }
+//                    }
+                    if($columnNames[$whileCount] === "Number in Stock"){
+                        echo '<td style="text-align:center"> '.$row2[$columnNames[$whileCount]].' ('.$row2['Minimum Stock'].')</td>';
+                    }
+                    elseif($columnNames[$whileCount] === "Minimum Stock"){
+                        //Show nothing since the previous column already shows it.
+                    }
+                    elseif($rowType['DATA_TYPE'] == "tinyint"){
                         if($row2[$columnNames[$whileCount]] == 0 && $row2[$columnNames[$whileCount]] !== null){
                             echo '<td>No</td>';
                         }
@@ -132,14 +149,8 @@ if(isset($_SESSION['id'])) {
                             echo '<td></td>';
                         }
                     }
-                    if($columnNames[$whileCount] === "Number in Stock"){
-                        echo '<td style="text-align:center"> '.$row2[$columnNames[$whileCount]].' ('.$row2['Minimum Stock'].')</td>';
-                    }
-                    elseif($columnNames[$whileCount] === "Minimum Stock"){
-                        //Show nothing since the previous column already shows it.
-                    }
                     else{
-                        echo '<td> '.$row2[$columnNames[$whileCount]].'</td>';
+                        echo '<td>'.$row2[$columnNames[$whileCount]].'</td>';
                     }
                 }
             }

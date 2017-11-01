@@ -10,13 +10,13 @@ if (strpos($oldColumn, '%20')) {
 $oldType = $_POST['oldType'];
 $newColumn = $_POST['newColumn'];
 $newType = $_POST['newType'];
+$source = $_POST['source'];
 
-if($newType == "Letters & Numbers"){
-    $newType = "varchar(100)";
-    $oldType = "varchar(100)";
+if($newType == "Letters & Numbers"  || $newType == "varchar"){
+    $newType = "varchar";
 }
 else{
-    $newType = "boolean";
+    $newType = "tinyint";
 }
 
 $currentColumns = array();
@@ -36,9 +36,17 @@ if($newColumn == ""){
     exit();
 }
 
-if($oldType != $newType){
-    $sql = "UPDATE consumables SET ".$oldColumn. " = NULL;";
+if($oldType != $newType && $source == "editPage") {
+    header("Location: ../editConsumableColumnConfirm.php?oldColumn=$oldColumn&oldType=$oldType&newColumn=$newColumn&newType=$newType");
+    exit();
+}
+elseif($oldType != $newType && $source == "confirmPage"){
+    $sql = "UPDATE consumables SET `".$oldColumn. "` = NULL;";
     $result = mysqli_query($conn, $sql);
+}
+
+if($newType == "varchar"){
+    $newType = "varchar(100)";
 }
 
 $sql = "ALTER TABLE `consumables` CHANGE `".$oldColumn."` `".$newColumn."` ".$newType.";";

@@ -13,6 +13,9 @@ if(isset($_SESSION['id'])) {
     elseif(strpos($url, 'error=noAdmin') !== false){
         echo "<br>&nbsp&nbspThere must be at least 1 admin in the system.<br>";
     }
+    elseif(strpos($url, 'error=email') !== false){
+        echo "<br>&nbsp&nbspThat email address is already in use.<br>";
+    }
 
     $id = $_GET['edit'];
 

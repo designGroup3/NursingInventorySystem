@@ -62,4 +62,7 @@ if(isset($_SESSION['id'])) {
 
     echo "</table>";
 }
+else {
+    header("Location: ./login.php");
+}
 ?>

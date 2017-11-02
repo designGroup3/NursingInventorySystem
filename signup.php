@@ -25,5 +25,7 @@
         &nbsp&nbsp<label>Password<br></label>&nbsp&nbsp<input type='password' name='pwd'><br><br><br>
         &nbsp&nbsp<button type='submit'>Sign Up</button>
     </form>";
+    }else {
+        header("Location: ./login.php");
     }
 ?>

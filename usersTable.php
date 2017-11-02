@@ -30,6 +30,9 @@ if(isset($_SESSION['id'])) {
     if(strpos($url, 'error=self') !== false){
         echo "<br>&nbsp&nbspYou cannot delete yourself.<br>";
     }
+    elseif(strpos($url, 'success') !== false){
+        echo "<br>&nbsp&nbspNew user added successfully.<br>";
+    }
 
     echo "&nbsp&nbsp<form action='searchUsersForm.php'>
                &nbsp&nbsp<input type='submit' value='Search Users'/>
@@ -52,12 +55,15 @@ if(isset($_SESSION['id'])) {
             <td> " . $row['acctType'] . "</td>";
             $date = date_create($row['dateAdded']);
             echo "<td> " . date_format($date, 'm/d/Y') . "</td>";
-            if ($acctType == "Admin") {
+            if ($acctType == "Super Admin") {
             echo "<td> <a href='editUser.php?edit=$row[id]'>Edit</a><br></td>
             <td> <a href='deleteUser.php?id=$row[id]&uid=$row[uid]'>Delete<br></td>";
             }
         echo "</tr>";
     }
     echo "</table>";
+}
+else {
+    header("Location: ./login.php");
 }
 ?>

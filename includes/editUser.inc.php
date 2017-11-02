@@ -13,11 +13,11 @@ $originalType = $_POST['originalType'];
 $type = $_POST['type'];
 
 if($type == "Standard User"){
-    $sql = "SELECT acctType FROM users WHERE acctType = 'Admin'";
+    $sql = "SELECT acctType FROM users WHERE acctType = 'Super Admin'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_num_rows($result);
 
-    if($row == 1 && $originalType == "Admin"){
+    if($row == 1 && $originalType == "Super Admin"){
         header("Location: ../editUser.php?edit=".$id."&error=noAdmin");
         exit();
     }

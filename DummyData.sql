@@ -1,6 +1,8 @@
-INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `email`, `acctType`, `dateAdded`, `pwdRecoveryKey`) VALUES ('1', 'Gene', 'Casey', 'admin', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO', 'mjlacy.dude@gmail.com', 'Admin', '2017-08-22', 'manualKey');
+INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `email`, `acctType`, `dateAdded`, `pwdRecoveryKey`) VALUES ('1', 'Gene', 'Casey', 'superAdmin', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO', 'mjlacy.dude@gmail.com', 'Super Admin', '2017-08-22', 'manualKey');
 
-INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `email`, `acctType`, `dateAdded`, `pwdRecoveryKey`) VALUES ('2', 'Craig', 'Johnson', 'Craig', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO', '2dude10@gmail.com', 'Standard User', '2017-08-22', 'fakeKey');
+INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `email`, `acctType`, `dateAdded`, `pwdRecoveryKey`) VALUES ('2', 'John', 'Doe', 'admin', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO', 'fake@fake.com', 'Admin', '2017-08-22', 'falseKey');
+
+INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `email`, `acctType`, `dateAdded`, `pwdRecoveryKey`) VALUES ('3', 'Craig', 'Johnson', 'Craig', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO', '2dude10@gmail.com', 'Standard User', '2017-08-22', 'fakeKey');
 
 INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Still Camera', 'Camera', '1', '0');
 

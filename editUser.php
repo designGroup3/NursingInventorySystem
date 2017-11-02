@@ -11,7 +11,7 @@ if(isset($_SESSION['id'])) {
         exit();
     }
     elseif(strpos($url, 'error=noAdmin') !== false){
-        echo "<br>&nbsp&nbspThere must be at least 1 admin in the system.<br>";
+        echo "<br>&nbsp&nbspThere must be at least 1 Super Admin in the system.<br>";
     }
     elseif(strpos($url, 'error=email') !== false){
         echo "<br>&nbsp&nbspThat email address is already in use.<br>";
@@ -33,10 +33,13 @@ if(isset($_SESSION['id'])) {
             &nbsp&nbsp<label>Email:</label> <br>&nbsp&nbsp<input type='email' name='email' value='".$row['email']."'><br><br>
             &nbsp&nbsp<label>Account Type:</label> <br>&nbsp&nbsp<select name='type'>";
     if($row['acctType'] == "Standard User"){
-        echo "<option selected value='Standard User'>Standard User</option><option value='Admin'>Admin</option>";
+        echo "<option selected value='Standard User'>Standard User</option><option value='Admin'>Admin</option><option value='Super Admin'>Super Admin</option>";
     }
     elseif($row['acctType'] == "Admin"){
-        echo "<option value='Standard User'>Standard User</option><option selected value='Admin'>Admin</option>";
+        echo "<option value='Standard User'>Standard User</option><option selected value='Admin'>Admin</option><option value='Super Admin'>Super Admin</option>";
+    }
+    elseif($row['acctType'] == "Super Admin"){
+        echo "<option value='Standard User'>Standard User</option><option value='Admin'>Admin</option><option selected value='Super Admin'>Super Admin</option>";
     }
     echo "</select><br><br>&nbsp&nbsp<button type='submit'>Submit</button>";
 }

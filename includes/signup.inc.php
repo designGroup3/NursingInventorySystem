@@ -52,6 +52,6 @@ else{
 
     $result = mysqli_query($conn, $sql);
 
-    header("Location: ../index.php");
+    header("Location: ../usersTable.php?success");
 }
 ?>

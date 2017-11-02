@@ -53,7 +53,7 @@ if(isset($_SESSION['id'])) {
     }
     if($name !== "")
     {
-        $sql .= "Name = '".$name."'";
+        $sql .= "Name LIKE '%".$name."%'";
         error_reporting(E_ERROR | E_PARSE); //silences warning that comes up if a string is searched for
         $andNeeded = true;
     }
@@ -62,7 +62,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "`Annual Cost` = '".$cost."'";
+        $sql .= "`Annual Cost` LIKE '%".$cost."%'";
         $andNeeded = true;
     }
     if($duration !== "")
@@ -71,7 +71,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "Duration = '".$duration."'";
+        $sql .= "Duration LIKE '%".$duration."%'";
         $andNeeded = true;
     }
     if($date !== "")
@@ -80,7 +80,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "`Expiration Date` = '".$date."'";
+        $sql .= "`Expiration Date` LIKE '%".$date."%'";
         $andNeeded = true;
     }
     if($image !== "")
@@ -89,7 +89,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "Approval = '".$image."'";
+        $sql .= "Approval LIKE '%".$image."%'";
     }
     $sql .=";";
 
@@ -99,7 +99,7 @@ if(isset($_SESSION['id'])) {
         if($tableHeadNeeded){
             $tableHeadNeeded = false;
             $count++;
-            echo "<table class = 'center'><tr><th>Name</th>
+            echo "<table class = 'table'><tr><th>Name</th>
             <th>Annual Cost</th>
             <th>Duration</th>
             <th>Expiration Date</th></tr>";

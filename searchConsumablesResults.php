@@ -137,7 +137,7 @@ if(isset($_SESSION['id'])) {
             }
         }
         echo "<td> <a href='editConsumable.php?edit=$row[Item]'>Edit<br></td>";
-        if ($acctType == "Admin") {
+        if ($acctType == "Admin" || $acctType == "Super Admin") {
             echo "<td> <a href='deleteConsumable.php?item=$row[Item]'>Delete<br></td>";
         }
         echo "</tr>";

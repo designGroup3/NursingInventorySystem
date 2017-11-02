@@ -105,7 +105,7 @@ if(isset($_SESSION['id'])) {
               <td> ".$row['Ext']."</td>
               <td> ".$row['Email']."</td>
               <td> ".$row['Office']."</td>";
-        if ($acctType == "Admin") {
+        if ($acctType == "Admin" || $acctType == "Super Admin") {
             echo "<td> <a href='editClient.php?edit=$row[Number]'>Edit<br></td>
               <td> <a href='deleteClient.php?number=$row[Number]&last=$row[Last]&first=$row[First]'>Delete<br></td>";
         }

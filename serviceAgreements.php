@@ -46,7 +46,7 @@ if(isset($_SESSION['id'])) {
             if($row['Approval'] !== NULL){
             echo "<td> <a href='approvalForm.php?id=$row[Id]'>Show Approval Form</a><br></td>";
             }
-            if ($acctType == "Admin") {
+            if ($acctType == "Admin" || $acctType == "Super Admin") {
             echo "<td> <a href='editServiceAgreement.php?edit=$row[Id]'>Edit</a><br></td>
             <td> <a href='deleteServiceAgreement.php?id=$row[Id]&name=$row[Name]'>Delete<br></td>";
             }

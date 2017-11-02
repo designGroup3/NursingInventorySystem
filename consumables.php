@@ -206,18 +206,23 @@ if(isset($_SESSION['id'])) {
                    <input type='submit' value='Consume'/>
                   </form>";
 
-    if ($acctType == "Admin") {
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
         echo "&nbsp&nbsp<form action='addConsumableColumn.php'>
                <input type='submit' value='Add Column'/>
               </form>";
 
-        echo "&nbsp&nbsp<form action='editConsumableColumn.php'>
+        $columnSql = "SHOW COLUMNS FROM consumables;";
+        $columnResult = mysqli_query($conn, $columnSql);
+
+        if(mysqli_num_rows($columnResult) > 7) {
+            echo "&nbsp&nbsp<form action='editConsumableColumn.php'>
                <input type='submit' value='Edit Column'/>
               </form>";
 
-        echo "&nbsp&nbsp<form action='deleteConsumableColumn.php'>
+            echo "&nbsp&nbsp<form action='deleteConsumableColumn.php'>
                <input type='submit' value='Delete Column'/>
               </form>";
+        }
     }
 
     echo "</table>";

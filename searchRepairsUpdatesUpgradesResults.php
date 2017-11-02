@@ -150,7 +150,7 @@ if(isset($_SESSION['id'])) {
               <td> ".$row['Supplier']."</td>
               <td> ".$row['Reason']."</td>
               <td> <a href='editRepairUpdateUpgrade.php?edit=$row[Id]'>Edit<br></td>";
-        if ($acctType == "Admin") {
+        if ($acctType == "Admin" || $acctType == "Super Admin") {
             echo "<td> <a href='deleteRepairUpdateUpgrade.php?id=$row[Id]&type=$row[Type]&item=$row[Item]'>Delete<br></td>";
         }
               echo "</tr><br>";

@@ -165,18 +165,23 @@ if(isset($_SESSION['id'])) {
 //        }
 //    }
 
-    if ($acctType == "Admin") {
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
         echo "&nbsp&nbsp<form action='addInventoryColumn.php'>
                    <input type='submit' value='Add Column'/>
                   </form>";
 
-        echo "&nbsp&nbsp<form action='editInventoryColumn.php'>
+        $columnSql = "SHOW COLUMNS FROM inventory;";
+        $columnResult = mysqli_query($conn, $columnSql);
+
+        if(mysqli_num_rows($columnResult) > 9){
+            echo "&nbsp&nbsp<form action='editInventoryColumn.php'>
                <input type='submit' value='Edit Column'/>
               </form>";
 
-        echo "&nbsp&nbsp<form action='deleteInventoryColumn.php'>
+            echo "&nbsp&nbsp<form action='deleteInventoryColumn.php'>
                <input type='submit' value='Delete Column'/>
               </form>";
+        }
     }
 
     echo "&nbsp&nbsp<form action='addSubtype.php'>

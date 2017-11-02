@@ -111,7 +111,7 @@ if(isset($_SESSION['id'])) {
               <td> ".$row['acctType']."</td>";
               $date = date_create($row['dateAdded']);
               echo '<td>'.date_format($date, "m/d/Y").'</td>';
-        if ($acctType == "Admin") {
+        if ($acctType == "Super Admin") {
             echo "<td> <a href='editUser.php?edit=$row[id]'>Edit</a><br></td>
             <td> <a href='deleteUser.php?id=$row[id]&uid=$row[uid]'>Delete<br></td>";
         }

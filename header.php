@@ -26,9 +26,11 @@
 .nav-tabs > li.active > a:focus {
   border: none;
   border-radius: 0;
-
 }
-
+.nav-tabs > li > a:hover {
+    color: #444444;
+	TEXT-DECORATION: none; font-weight: none;
+}
 .nav-list {}
 .nav-list > li { 
   padding: 20px 15px 15px;
@@ -145,10 +147,11 @@
     border-image-repeat: initial;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.172549) 0px 6px 12px;
-}/*I don't know what the hell happened here for the life of me, the .nav-list is supposed to stick the nav bar to the top*/
+
 .nav-list > li {
     padding: 20px 15px 15px;
-	border-left:0px;}
+	border-left:0px;
+	}
 .nav-list {
     border-bottom: 0px;
 	}
@@ -159,47 +162,12 @@
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
-<script src="./js/jquery-1.11.1.js"></script>
-<script>
-	$(document).ready(function(){
-    $(".dropdown").hover(            
-        function() {
-            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
-            $(this).toggleClass('open');        
-        },
-        function() {
-            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
-            $(this).toggleClass('open');       
-        }
-    );
-});
-
-$(document).ready( function() {
-    $('#myCarousel').carousel({
-        interval:   4000
-	});
-	
-	var clickEvent = false;
-	$('#myCarousel').on('click', '.nav a', function() {
-			clickEvent = true;
-			$('.nav li').removeClass('active');
-			$(this).parent().addClass('active');		
-	}).on('slid.bs.carousel', function(e) {
-		if(!clickEvent) {
-			var count = $('.nav').children().length -1;
-			var current = $('.nav li.active');
-			current.removeClass('active').next().addClass('active');
-			var id = parseInt(current.data('slide-to'));
-			if(count == id) {
-				$('.nav li').first().addClass('active');	
-			}
-		}
-		clickEvent = false;
-	});
-});</script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>	
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 <body>
-
 <header>
 	<nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
@@ -210,24 +178,26 @@ $(document).ready( function() {
       <a style="width: 100px;
     height: 50px;
     background-size: 50px;
-    padding-top: 7px;" class="navbar-brand" href="#"><img src="images/logotn.png" ></a>
+    padding-top: 7px;" class="navbar-brand" href="http://www.umsl.edu"><img src="images/logotn.png" ></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="navbar-collapse collapse in" id="bs-megadropdown-tabs" style="padding-left: 0px;">
+    <div class="navbar-collapse collapse" id="bs-megadropdown-tabs" style="padding-left: 0px;">
         <ul class="nav navbar-nav">
+
+
            <!-- goes to the main menu with the giant thumbnails -->
             <li><a style="color: white;" href="index.php"><i class="fa fa-globe"></i> Main Menu</a></li>
+
             <!--Users function page -->
 			 <li class="dropdown mega-dropdown">
-			   <a style="color: white;"  class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-users"></i> User Managment <span class="caret"></span></a>				
+			   <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-users"></i> User Management <span class="caret"></span></a>
 				<div id="filters" class="dropdown-menu mega-dropdown-menu">
                     <div style="text-align: center;" class="container-fluid2">
     				    <!-- Tab panes -->
-                        <div class="tab-content">
-                     
-                          <div class="tab-pane active" id="kids">
-                            <ul class="nav-list list-inline">
+                         <div class="tab-content">
+                                <div class="tab-pane active" id="content-one">
+                                    <ul class="nav-list list-inline">
                                <!-- check in check out tables-->
                                 <li><a href="signup.php"><img src="images/placeholder_nvtn.png"><span>Add user</span></a></li>
                                 <li><a href="searchUsersForm.php"><img src="images/placeholder_nvtn.png"><span>Search user</span></a></li>
@@ -241,8 +211,8 @@ $(document).ready( function() {
 				</div>				
 			</li>
              <!--<li><a style="color: white;" href="usersTable.php"><i class="fa fa-users"></i> Users</a></li>-->
-            <li class="dropdown mega-dropdown">
-			   <a style="color: white;"  class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-gears"></i> Inventory Functions <span class="caret"></span></a>				
+           <li class="dropdown mega-dropdown">
+			   <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-gear"></i> Inventory Functions <span class="caret"></span></a>
 				<div id="filters" class="dropdown-menu mega-dropdown-menu">
                     <div style="text-align: center;" class="container-fluid2">
     				    <!-- Tab panes -->

@@ -3,7 +3,7 @@ include 'header.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Edit Consumable Column</Title></head>";
+    echo "<head><Title>Edit Consumable Column</Title><script src=\"./js/jquery.min.js\"></script></head>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){
@@ -60,7 +60,7 @@ if(isset($_SESSION['id'])) {
         }
 
         echo "&nbsp&nbsp<label>Column Name: </label><br>&nbsp&nbsp<input type='text' name='newColumn' value='". $oldColumn. "'><br><br>
-            &nbsp&nbsp<label>Type: (Warning, changing type will delete all column data.)</label><br>&nbsp&nbsp<select name='newType'>";
+            &nbsp&nbsp<label>Type: (Warning, changing type will delete all column data.)</label><br>&nbsp&nbsp<select name='newType' id='newType'>";
         if (strpos($oldColumn, '%20')) {
             $oldColumn = str_replace("%20", " ", $oldColumn);
         }
@@ -72,6 +72,14 @@ if(isset($_SESSION['id'])) {
         }
         echo "</select><br><br>&nbsp&nbsp<button type='submit'>Edit Column</button>
         </form>";
+
+        echo "<script>$('document').ready(function() {
+   
+    $('#newType').on('change',function(){
+        alert(\"Warning: Changing type will delete all column data.\");
+    });
+    
+});</script>";
     }
 }
 else{

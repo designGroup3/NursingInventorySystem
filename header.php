@@ -27,7 +27,7 @@
   border: none;
   border-radius: 0;
 }
-.nav-tabs > li > a:hover { 
+.nav-tabs > li > a:hover {
     color: #444444;
 	TEXT-DECORATION: none; font-weight: none;
 }
@@ -147,7 +147,7 @@
     border-image-repeat: initial;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.172549) 0px 6px 12px;
-	
+
 .nav-list > li {
     padding: 20px 15px 15px;
 	border-left:0px;
@@ -184,14 +184,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="navbar-collapse collapse" id="bs-megadropdown-tabs" style="padding-left: 0px;">
         <ul class="nav navbar-nav">
-		
-		
+
+
            <!-- goes to the main menu with the giant thumbnails -->
             <li><a style="color: white;" href="index.php"><i class="fa fa-globe"></i> Main Menu</a></li>
-			
+
             <!--Users function page -->
 			 <li class="dropdown mega-dropdown">
-			   <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-users"></i> User Management <span class="caret"></span></a>				
+			   <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-users"></i> User Management <span class="caret"></span></a>
 				<div id="filters" class="dropdown-menu mega-dropdown-menu">
                     <div style="text-align: center;" class="container-fluid2">
     				    <!-- Tab panes -->
@@ -212,7 +212,7 @@
 			</li>
              <!--<li><a style="color: white;" href="usersTable.php"><i class="fa fa-users"></i> Users</a></li>-->
            <li class="dropdown mega-dropdown">
-			   <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-gear"></i> Inventory Functions <span class="caret"></span></a>				
+			   <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-gear"></i> Inventory Functions <span class="caret"></span></a>
 				<div id="filters" class="dropdown-menu mega-dropdown-menu">
                     <div style="text-align: center;" class="container-fluid2">
     				    <!-- Tab panes -->

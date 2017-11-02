@@ -10,6 +10,8 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $uid = $row['uid'];
 
+    $type = $_POST['type'];
+
     error_reporting(E_ALL ^ E_NOTICE);
     $columnNames = array();
     $receivedValues = array();
@@ -81,7 +83,32 @@ if(isset($_SESSION['id'])) {
         }
     }
 
-    $result = mysqli_query($conn, $sql);
+    //Check subtypes table
+    $sql2 = "SELECT Subtype FROM subtypes WHERE Subtype = '$receivedValues[2]';";
+    $result2 = mysqli_query($conn, $sql2);
+    if(mysqli_num_rows($result2) !== 0){ //subtype found
+        $sql2 = "SELECT Subtype, Type FROM subtypes WHERE Subtype = '$receivedValues[2]' AND Type = '$type';";
+        $result2 = mysqli_query($conn, $sql2);
+        if(mysqli_num_rows($result2) == 0){ // matching type not found
+            $sql2 = "SELECT Type from subtypes WHERE Subtype ='$receivedValues[2]';";
+            $result2 = mysqli_query($conn, $sql2);
+            while ($row2 = mysqli_fetch_array($result2)) {
+                $type = $row2['Type'];
+            }
+            header("Location: ../addInventory.php?error=typeMismatch&subtype=$receivedValues[2]&type=$type");
+            exit();
+        }
+        else{
+            $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $receivedValues[2] . "','" . $type . "', $receivedValues[5],0);";
+            $result2 = mysqli_query($conn, $sql2);
+            $result = mysqli_query($conn, $sql); //add the item
+        }
+    }
+    else{ //subtype not found
+        $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $receivedValues[2] . "','" . $type . "', $receivedValues[5],0);";
+        $result2 = mysqli_query($conn, $sql2);
+        $result = mysqli_query($conn, $sql); //add the item
+    }
 
     //Reports
     $sql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Inventory',";
@@ -95,6 +122,7 @@ if(isset($_SESSION['id'])) {
 
     $result = mysqli_query($conn, $sql);
     header("Location: ../inventory.php");
+    exit();
 }
 else{
     header("Location: ./login.php");

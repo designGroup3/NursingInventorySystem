@@ -1,4 +1,6 @@
 <?php
+//unused
+
 include 'header.php';
 include 'dbh.php';
 

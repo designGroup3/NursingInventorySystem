@@ -12,6 +12,11 @@ if(isset($_SESSION['id'])) {
     if(strpos($url, 'error=exists') !== false){
         echo "<br>&nbsp&nbspAn item with that serial number already exists.<br>";
     }
+    elseif(strpos($url, 'error=typeMismatch') !== false){
+        $subtype= $_GET['subtype'];
+        $type= $_GET['type'];
+        echo "<br>&nbsp&nbspThe subtype $subtype already relates to the type $type. Subtypes can only have one type.<br>";
+    }
     elseif(strpos($url, 'empty') !== false){
         echo "<br>&nbsp&nbspYou must name the item.<br>";
     }
@@ -31,7 +36,7 @@ if(isset($_SESSION['id'])) {
             WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
             $result2 = mysqli_query($conn, $sql2);
             $rowType = mysqli_fetch_array($result2);
-            if ($rowType['DATA_TYPE'] == "tinyint" || $count == 2) {
+            if ($rowType['DATA_TYPE'] == "tinyint") {
                 $isSelect = true;
                 $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<select name=";
             } elseif ($rowType['DATA_TYPE'] == "int") {
@@ -52,10 +57,14 @@ if(isset($_SESSION['id'])) {
                     }
                     $inputs .= "</select><br><br>";
                 } else {
-                    $inputs .= "<option value= 0>No</option><option value= 1>Yes</option></select><br><br>";
+                    $inputs .= "<option value =''></option><option value= 0>No</option><option value= 1>Yes</option></select><br><br>";
                 }
             } else {
                 $inputs .= $columnName . " value=" . $row[$columnNames[$count]] . "><br><br>";
+            }
+
+            if($count == 2){
+                $inputs.= "&nbsp&nbsp<label>Type</label><br>&nbsp&nbsp<input type='text' name='type'><br><br>";
             }
             echo $inputs;
         }

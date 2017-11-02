@@ -55,7 +55,7 @@ if(isset($_SESSION['id'])) {
 
     for($count = 0; $count< count($columnNames); $count++){
         if($receivedValues[$count] !== ""){
-            $sql .= "`" . $columnNames[$count] . "`" . " = '" . $receivedValues[$count]. "' AND ";
+            $sql .= "`" . $columnNames[$count] . "`" . " LIKE '%" . $receivedValues[$count]. "%' AND ";
             error_reporting(E_ERROR | E_PARSE);
         }
     }
@@ -63,7 +63,7 @@ if(isset($_SESSION['id'])) {
     $sql = chop($sql," AND ");
 
     if($_POST['Type'] !== ""){
-        $sql .= " AND Subtype IN (SELECT Subtype FROM subtypes WHERE type = '". $_POST['Type']."')";
+        $sql .= " AND Subtype IN (SELECT Subtype FROM subtypes WHERE type LIKE '%". $_POST['Type']."%')";
     }
 
     $sql .= ";";

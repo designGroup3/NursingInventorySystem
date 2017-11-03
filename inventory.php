@@ -184,21 +184,21 @@ if(isset($_SESSION['id'])) {
         }
     }
 
-    echo "&nbsp&nbsp<form action='addSubtype.php'>
-               <input type='submit' value='Add Subtype'/>
-              </form>";
-
-    echo "&nbsp&nbsp<form action='editSubtype.php'>
-               <input type='submit' value='Edit Subtype'/>
-              </form>";
-
-    echo "&nbsp&nbsp<form action='deleteSubtype.php'>
-               <input type='submit' value='Delete Subtype'/>
-              </form>";
-
-    echo "&nbsp&nbsp<form action='editType.php'>
-               <input type='submit' value='Edit Type'/>
-              </form>";
+//    echo "&nbsp&nbsp<form action='addSubtype.php'>
+//               <input type='submit' value='Add Subtype'/>
+//              </form>";
+//
+//    echo "&nbsp&nbsp<form action='editSubtype.php'>
+//               <input type='submit' value='Edit Subtype'/>
+//              </form>";
+//
+//    echo "&nbsp&nbsp<form action='deleteSubtype.php'>
+//               <input type='submit' value='Delete Subtype'/>
+//              </form>";
+//
+//    echo "&nbsp&nbsp<form action='editType.php'>
+//               <input type='submit' value='Edit Type'/>
+//              </form>";
 
     echo "</table>";
 

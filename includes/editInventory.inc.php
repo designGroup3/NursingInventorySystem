@@ -79,13 +79,25 @@ if(isset($_SESSION['id'])) {
         }
         elseif($originalSubtype !== $_POST['Subtype'] && $originalType == $type){ //subtype is changed
             $newSubtype = $_POST['Subtype'];
+            $typeSQL = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+            $typeResult = mysqli_query($conn, $typeSQL);
+            $row = mysqli_fetch_array($typeResult);
+            if($row['Type'] !== $type){
+                $typeSQL = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+                $typeResult = mysqli_query($conn, $typeSQL);
+                $row = mysqli_fetch_array($typeResult);
+                $existingType = $row['Type'];
+                header("Location: ../editInventory.php?edit=$originalSerialNumber&error=typeMismatch&subtype=$newSubtype&type=$existingType");
+                exit();
+            }
+
             $subtypeSql = "SELECT Item FROM inventory WHERE Subtype = '$originalSubtype';";
             $subtypeResult = mysqli_query($conn, $subtypeSql);
             if(mysqli_num_rows($subtypeResult) == 1){ //If the only item with that subtype has its subtype changed, change the subtype in the subtypes table.
-                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
-                $subtypeResult = mysqli_query($conn, $subtypeSql);
+//                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+//                $subtypeResult = mysqli_query($conn, $subtypeSql);
                 $subtypeSql = "UPDATE subtypes SET Subtype = '$newSubtype' WHERE Subtype = '$originalSubtype';";
-                echo $subtypeSql;
+                //echo $subtypeSql;
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
             }
             else{
@@ -93,7 +105,7 @@ if(isset($_SESSION['id'])) {
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
                 if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
                     $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $newSubtype . "','" . $type . "', $inventoryValues[5],0);";
-                    echo $subtypeSql;
+                    //echo $subtypeSql;
                     $subtypeResult = mysqli_query($conn, $subtypeSql);
                 }
             }
@@ -101,13 +113,13 @@ if(isset($_SESSION['id'])) {
         elseif($originalSubtype !== $_POST['Subtype'] && $originalType !== $type){
             $newSubtype = $_POST['Subtype'];
 
-            $subtypeSql = "SELECT Item FROM consumables WHERE Subtype = '$originalSubtype';";
+            $subtypeSql = "SELECT Item FROM inventory WHERE Subtype = '$originalSubtype';";
             $subtypeResult = mysqli_query($conn, $subtypeSql);
             if(mysqli_num_rows($subtypeResult) == 1){ //If the only item with that subtype has its subtype changed, change the subtype in the subtypes table.
-                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
-                $subtypeResult = mysqli_query($conn, $subtypeSql);
+//                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+//                $subtypeResult = mysqli_query($conn, $subtypeSql);
                 $subtypeSql = "UPDATE subtypes SET Subtype = '$newSubtype' WHERE Subtype = '$originalSubtype';";
-                echo $subtypeSql;
+                //echo $subtypeSql;
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
             }
             else{
@@ -115,7 +127,7 @@ if(isset($_SESSION['id'])) {
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
                 if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
                     $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $newSubtype . "','" . $type . "', $inventoryValues[5],0);";
-                    echo $subtypeSql;
+                    //echo $subtypeSql;
                     $subtypeResult = mysqli_query($conn, $subtypeSql);
                 }
             }
@@ -143,6 +155,14 @@ if(isset($_SESSION['id'])) {
     $reportSql .= "'" . $uid . "'" . ");";
 
     $result = mysqli_query($conn, $sql); // Can't be executed until prior quantity is gotten
+
+    $subtypeSql = "SELECT * FROM inventory WHERE Subtype = '$originalSubtype';";
+    $subtypeResult = mysqli_query($conn, $subtypeSql);
+    $row = mysqli_fetch_array($subtypeResult);
+    if(mysqli_num_rows($subtypeResult) == 0){
+        $subtypeSql = "DELETE FROM subtypes WHERE Subtype = '$originalSubtype';";
+        $subtypeResult = mysqli_query($conn, $subtypeSql);
+    }
 
     $result = mysqli_query($conn, $reportSql);
 

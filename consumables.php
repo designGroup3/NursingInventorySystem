@@ -194,17 +194,17 @@ if(isset($_SESSION['id'])) {
             $columnNumber++;
         }
 
-    echo "&nbsp&nbsp<form action='addConsumable.php'>
-               <input type='submit' value='Add Consumable'/>
-              </form>";
-
-    echo "&nbsp&nbsp<form action='searchConsumablesForm.php'>
-               <input type='submit' value='Search Consumables'/>
-              </form>";
-
-    echo "&nbsp&nbsp<form action='consume.php'>
-                   <input type='submit' value='Consume'/>
-                  </form>";
+//    echo "&nbsp&nbsp<form action='addConsumable.php'>
+//               <input type='submit' value='Add Consumable'/>
+//              </form>";
+//
+//    echo "&nbsp&nbsp<form action='searchConsumablesForm.php'>
+//               <input type='submit' value='Search Consumables'/>
+//              </form>";
+//
+//    echo "&nbsp&nbsp<form action='consume.php'>
+//                   <input type='submit' value='Consume'/>
+//                  </form>";
 
     if ($acctType == "Admin" || $acctType == "Super Admin") {
         echo "&nbsp&nbsp<form action='addConsumableColumn.php'>

@@ -13,6 +13,11 @@ if(isset($_SESSION['id'])) {
     if(strpos($url, 'error=exists') !== false){
         echo "<br>&nbsp&nbspAn item with that serial number already exists.<br>";
     }
+    elseif(strpos($url, 'error=typeMismatch') !== false){
+        $subtype= $_GET['subtype'];
+        $type= $_GET['type'];
+        echo "<br>&nbsp&nbspThe subtype $subtype already relates to the type $type. Subtypes can only have one type.<br>";
+    }
 
     $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page
     $result = mysqli_query($conn, $sql);

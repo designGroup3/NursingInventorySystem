@@ -273,8 +273,11 @@
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form> -->
-        <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+        <?php
+        if(isset($_SESSION['id'])) {
+            ?>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
                     <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-user"></span>
                         <?php
@@ -300,12 +303,13 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <?php
-                                        echo '<p class="text-ce"><strong>'.$uid.'</strong></p>
-                                        <p class="text-left small">'.$acctType.'</p>';
+                                        echo '<p class="text-ce"><strong>' . $uid . '</strong></p>
+                                        <p class="text-left small">' . $acctType . '</p>';
                                         ?>
 
                                         <p class="text-left"><!-- if we have account settings page-->
-                                            <a href="changePassword.php" class="btn btn-primary btn-block btn-sm">Change Password</a>
+                                            <a href="changePassword.php" class="btn btn-primary btn-block btn-sm">Change
+                                                Password</a>
                                         </p>
                                     </div>
                                 </div>
@@ -317,7 +321,8 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <p>
-                                            <a href="includes/logout.inc.php" class="btn btn-danger btn-block">Log Out</a>
+                                            <a href="includes/logout.inc.php" class="btn btn-danger btn-block">Log
+                                                Out</a>
                                         </p>
                                     </div>
                                 </div>
@@ -325,7 +330,10 @@
                         </li>
                     </ul>
                 </li>
-      </ul>
+            </ul>
+            <?php
+        }
+        ?>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

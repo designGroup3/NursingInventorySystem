@@ -1,29 +1,5 @@
-<style>
-    td, th {
-        text-align: left;
-        padding: 8px;
-    }
-
-    table.center {
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    body {
-        text-align:center;
-    }
-
-    h2 {
-        text-align: center;
-    }
-
-    h2, th{
-        font-family: Arial, Helvetica, sans-serif;
-    }
-</style>
-
 <?php
-include 'header.php';
+include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -183,11 +159,11 @@ if(isset($_SESSION['id'])) {
         header("Location: ./checkout.php?type=".$type."&subtype=".$subtype."&item=".$item);
     }
 
-    echo "<br><br><h2>Current Checked-Out Inventories</h2><br>";
-    echo "<table class='table'>";
+    echo "<br><br><h2 style='text-align: center';>Current Checked-Out Inventories</h2><br>";
+    echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
 
     echo "<th>Print</th><th>Serial Number</th><th>Item</th><th>Type</th><th>Subtype</th><th>Quantity Borrowed</th><th>Person</th>
-    <th>Update Person</th><th>Checkout Date</th><th>Due Date</th>";
+    <th>Update Person</th><th>Checkout Date</th><th>Due Date</th><th>Check-In</th></thead>";
 
 //    $results_per_page = 5; //for pagination
 //
@@ -208,13 +184,14 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT Id, Item, subtypes.Type, checkouts.Subtype, `Quantity Borrowed`, `Serial Number`, Person, `Update Person`, `Checkout Date`, `Due Date` FROM checkouts JOIN subtypes ON checkouts.Subtype = subtypes.Subtype WHERE `Return Date` IS NULL ORDER BY Id;";
     $result = mysqli_query($conn, $sql);
     $namesCount = 0;
+    echo "<tbody>";
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr><td><a href='printCheckout.php?Id=$row[Id]'>Print<br></td><td>".$row['Serial Number']."</td><td>".$row['Item']."</td><td>".$row['Type']."</td><td>".$row['Subtype']."</td><td>".$row['Quantity Borrowed']."</td>
         <td>".$row['Person']."</td><td>".$row['Update Person']."</td><td>".$row['Checkout Date']."</td><td>".$row['Due Date']."</td>
         <td><a href='includes/checkin.inc.php?serialNumber=".$row['Serial Number']."'>Check-In<br></td></tr>";
     }
 
-    echo "</table>";
+    echo "</tbody></table>";
 
 //    echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 //        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -227,4 +204,6 @@ if(isset($_SESSION['id'])) {
 else{
     header("Location: ./login.php");
 }
+
+include 'tableFooter.php';
 ?>

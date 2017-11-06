@@ -1,25 +1,5 @@
-<style>
-    td, th {
-        text-align: left;
-        padding: 8px;
-    }
-
-    table.center {
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    body {
-        text-align:center;
-    }
-
-    th{
-        font-family: Arial, Helvetica, sans-serif;
-    }
-</style>
-
 <?php
-include 'header.php';
+include 'table.php';
 
 if(isset($_SESSION['id'])) {
     //include 'includes/bootstrap.inc.php';
@@ -35,9 +15,18 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
-    echo "<br>";
-    echo "<table class ='table'>";
-    echo "<th>Last</th><th>First</th><th>Ext</th><th>Email</th><th>Office</th>";
+    echo "<table style=\"margin-left:auto; margin-right:auto;\">
+            <td><form action='addClient.php'>
+               <input type='submit' value='Add Client'/>
+              </form></td>";
+
+    echo "<td><form action='searchClientsForm.php'>
+               <input type='submit' value='Search Clients'/>
+              </form></td></table>";
+
+    echo "<br>
+    <table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
+    echo "<th>Last</th><th>First</th><th>Ext</th><th>Email</th><th>Office</th><th>Edit</th><th>Delete</th></thead>";
 
 //    $results_per_page = 5; //for pagination
 //
@@ -57,6 +46,7 @@ if(isset($_SESSION['id'])) {
 
     $sql = "SELECT * FROM clients;";
     $result = mysqli_query($conn, $sql);
+    echo "<tbody>";
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr>";
         echo '<td> ' . $row['Last'] . '</td>'.'<td> ' . $row['First'] . '</td>'.
@@ -67,15 +57,7 @@ if(isset($_SESSION['id'])) {
         }
     }
 
-    echo "&nbsp&nbsp<form action='addClient.php'>
-               <input type='submit' value='Add Client'/>
-              </form>";
-
-    echo "&nbsp&nbsp<form action='searchClientsForm.php'>
-               <input type='submit' value='Search Clients'/>
-              </form>";
-
-    echo "</table>";
+    echo "</tbody></table>";
 
 //    echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 //        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -93,4 +75,6 @@ if(isset($_SESSION['id'])) {
 } else {
     header("Location: ./login.php");
 }
+
+include 'tableFooter.php';
 ?>

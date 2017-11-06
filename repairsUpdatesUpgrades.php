@@ -1,20 +1,5 @@
-<style>
-    table.center {
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    th{
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-        text-align:center;
-    }
-</style>
-
 <?php
-include 'header.php';
+include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -26,16 +11,28 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
+    echo "<table style=\"margin-left:auto; margin-right:auto;\">
+        <td><form action='addRepairUpdateUpgrade.php'>
+           &nbsp&nbsp<input type='submit' value='Add Repair/Update/Upgrade'/>
+          </form></td>";
+
+    echo "<td><form action='searchRepairsUpdatesUpgradesForm.php'>
+               &nbsp&nbsp<input type='submit' value='Search Repairs/Updates/Upgrades'/>
+              </form></td></table>";
+
+
     $sql = "SELECT * FROM `repairs/updates/upgrades` JOIN inventory ON inventory.`Serial Number` = `repairs/updates/upgrades`. `Serial Number`;";
     $result = mysqli_query($conn, $sql);
-    echo "<table class='table' cellspacing='10'><tr><th>Type</th>
+    echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>
+    <tr><th>Type</th>
     <th>Serial Number</th>
     <th>Item</th>
     <th>Part</th>
     <th>Cost</th>
     <th>Date Performed</th>
     <th>Supplier</th>
-    <th>Reason</th>";
+    <th>Reason</th>
+    <th>Edit</th><th>Delete</th></tr></thead><tbody>";
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr>
             <td> " . $row['Type'] . "</td>
@@ -53,17 +50,11 @@ if(isset($_SESSION['id'])) {
             }
         echo "</tr>";
     }
-    echo "&nbsp&nbsp<br><br><form action='addRepairUpdateUpgrade.php'>
-           &nbsp&nbsp<input type='submit' value='Add Repair/Update/Upgrade'/>
-          </form>";
-
-    echo "&nbsp&nbsp<form action='searchRepairsUpdatesUpgradesForm.php'>
-               &nbsp&nbsp<input type='submit' value='Search Repairs/Updates/Upgrades'/>
-              </form>";
-
-    echo "</table>";
+    echo "</tbody></table>";
 }
 else {
     header("Location: ./login.php");
 }
+
+include 'tableFooter.php';
 ?>

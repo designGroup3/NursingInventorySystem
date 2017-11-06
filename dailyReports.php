@@ -1,31 +1,18 @@
 <style>
-    table.center {
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    body {
-        text-align:center;
-    }
-
-    h2 {
+    .center{
         text-align: center;
-    }
-
-    h2, th{
-        font-family: Arial, Helvetica, sans-serif;
     }
 </style>
 
 <?php
-include 'header.php';
+include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
     echo "<head><Title>Daily Reports</Title></head>";
 
-    echo "<form method='POST'>
+    echo "<form class='center' method='POST'>
         <br>&nbsp&nbspReport Date: <input type= 'date' name='date'>
         <br><br>&nbsp&nbsp<button type='submit'>Submit</button></form>";
 
@@ -38,14 +25,21 @@ if(isset($_SESSION['id'])) {
         $resultCheck = mysqli_num_rows($result);
 
         if($resultCheck > 0) {
-            echo "<br><h2><b>&nbsp&nbspActivities for ".date_format($dateTitle, 'm/d/Y')."</b></h2>
-            <br><table class='table' cellspacing='15'><tr><th>Activity Type</th>
+            echo "<br><h2 class='center'><b>&nbsp&nbspActivities for ".date_format($dateTitle, 'm/d/Y')."</b></h2>
+
+            <br><form class='center' action='dailyReportsExcel.php' method = 'post'>
+                <input type='hidden' name='date' value = " .$date.">
+                <input type='submit' name ='export' value='Export to Excel'/>
+                </form>
+
+            <br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
+            <thead><tr><th>Activity Type</th>
             <th>Item</th>
             <th>Type</th>
             <th>Subtype</th>
             <th>Quantity Changed</th>
             <th>Timestamp</th>
-            <th>Update Person</th>";
+            <th>Update Person</th></tr></thead><tbody>";
 
             while ($row = mysqli_fetch_array($result)) {
                 echo "<tr><td> " . $row['Activity Type'] . "</td>
@@ -56,10 +50,7 @@ if(isset($_SESSION['id'])) {
                 <td> " . $row['Timestamp'] . "</td>
                 <td> " . $row['Update Person'] . "</td>";
             }
-            echo "<form action='dailyReportsExcel.php' method = 'post'>
-                <input type='hidden' name='date' value = " .$date.">
-                <input type='submit' name ='export' value='Export to Excel'/>
-                </form>";
+            echo "</tbody></table>";
         }
         else{
             echo "<br><p>&nbsp&nbspThere are no activities at the date you selected.</p>";
@@ -69,4 +60,6 @@ if(isset($_SESSION['id'])) {
 else{
     header("Location: ./login.php");
 }
+
+include 'tableFooter.php';
 ?>

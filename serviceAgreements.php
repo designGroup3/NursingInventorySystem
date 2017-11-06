@@ -24,15 +24,22 @@ if(isset($_SESSION['id'])) {
 
     $sql = "SELECT * FROM serviceAgreements;";
     $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
     echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
     <thead><tr><th>Name</th>
     <th>Annual Cost</th>
     <th>Duration</th>
     <th>Expiration Date</th>";
+    if($row['Approval'] !== NULL){
+        echo "<th>Approval Form</th>";
+    }
     if ($acctType == "Admin" || $acctType == "Super Admin") {
         echo "<th>Edit</th><th>Delete</th>";
     }
     echo "</tr></thead><tbody>";
+
+    $sql = "SELECT * FROM serviceAgreements;";
+    $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr><td> " . $row['Name'] . "</td>
             <td> $" . $row['Annual Cost'] . "</td>
@@ -40,14 +47,11 @@ if(isset($_SESSION['id'])) {
             $date = date_create($row['Expiration Date']);
             echo "<td> " . date_format($date, 'm/d/Y') . "</td>";
             if($row['Approval'] !== NULL){
-            echo "<td><a href='serviceAgreements/$row[Id].pdf'>Approval Form</a></td>";
-            }
-            else{
-                echo "<td></td>";
+                echo "<td><a href='serviceAgreements/$row[Id].pdf'>Approval Form</a></td>";
             }
             if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td> <a href='editServiceAgreement.php?edit=$row[Id]'>Edit</a><br></td>
-            <td> <a href='deleteServiceAgreement.php?id=$row[Id]&name=$row[Name]'>Delete<br></td>";
+                echo "<td> <a href='editServiceAgreement.php?edit=$row[Id]'>Edit</a><br></td>
+                <td> <a href='deleteServiceAgreement.php?id=$row[Id]&name=$row[Name]'>Delete<br></td>";
             }
         echo "</tr>";
     }

@@ -119,10 +119,10 @@ if(isset($_SESSION['id'])) {
         <input type="hidden" name="type" value = \''.$getType. '\'>
         <input type="hidden" name="subtype" value = \''.$getSubtype. '\'>
         <input type="hidden" name="item" value = \''.$getItem. '\'>';
-        echo'<br>&nbsp&nbspNumber in Stock: <input type="number" name= "stock" value='.$row['Number in Stock'].'>';
+        echo'<br>&nbsp&nbspNumber in Stock: <input type="number" min="0" name= "stock" value='.$row['Number in Stock'].'>';
     }
     else{
-        echo'<br>&nbsp&nbspNumber in Stock: <input type="number" name= "stock" value="0">';
+        echo'<br>&nbsp&nbspNumber in Stock: <input type="number" min="0" name= "stock" value="0">';
     }
 
     //Person

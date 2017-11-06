@@ -16,11 +16,6 @@ if(isset($_SESSION['id'])) {
     include 'dbh.php';
     echo "<head><Title>Service Agreements</Title></head>";
 
-    $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-    if(strpos($url, 'error=nonImage') !== false){
-        echo "<br>&nbsp&nbspApproval forms must be an image file.<br>";
-    }
-
     $currentID = $_SESSION['id'];
     $sql = "SELECT acctType FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
@@ -45,7 +40,10 @@ if(isset($_SESSION['id'])) {
             $date = date_create($row['Expiration Date']);
             echo "<td> " . date_format($date, 'm/d/Y') . "</td>";
             if($row['Approval'] !== NULL){
-            echo "<td> <a href='approvalForm.php?id=$row[Id]'>Show Approval Form</a><br></td>";
+            echo "<td><a href='serviceAgreements/$row[Id].pdf'>Approval Form</a></td>";
+            }
+            else{
+                echo "<td></td>";
             }
             if ($acctType == "Admin" || $acctType == "Super Admin") {
             echo "<td> <a href='editServiceAgreement.php?edit=$row[Id]'>Edit</a><br></td>

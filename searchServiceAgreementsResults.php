@@ -38,13 +38,11 @@ if(isset($_SESSION['id'])) {
     $duration = $_POST['duration'];
     $date = $_POST['date'];
 
-    $image = addslashes(file_get_contents($_FILES['form']['tmp_name']));
-
     $tableHeadNeeded = true;
     $count = 0;
     $sql = "SELECT * FROM serviceAgreements WHERE ";
     $andNeeded = false;
-    if($name == "" && $cost == "" && $duration == "" && $date == "" && $image== ""){
+    if($name == "" && $cost == "" && $duration == "" && $date == ""){
         echo "<br> Please fill out at least 1 search field.";
         echo "<br><br><form action='searchServiceAgreementsForm.php'> 
                    <input type='submit' value='Search Service Agreements'/>
@@ -83,14 +81,6 @@ if(isset($_SESSION['id'])) {
         $sql .= "`Expiration Date` LIKE '%".$date."%'";
         $andNeeded = true;
     }
-    if($image !== "")
-    {
-        error_reporting(E_ERROR | E_PARSE);
-        if($andNeeded){
-            $sql .= " AND ";
-        }
-        $sql .= "Approval LIKE '%".$image."%'";
-    }
     $sql .=";";
 
     $result = mysqli_query($conn, $sql);
@@ -109,7 +99,7 @@ if(isset($_SESSION['id'])) {
             <td> " . $row['Duration'] . "</td>";
         $date = date_create($row['Expiration Date']);
         echo "<td> " . date_format($date, 'm/d/Y') . "</td>
-            <td> <a href='approvalForm.php?id=$row[Id]'>Show Approval Form</a><br></td>";
+           <!--<td> <a href='approvalForm.php?id=$row[Id]'>Show Approval Form</a><br></td>-->";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
             echo "<td> <a href='editServiceAgreement.php?edit=$row[Id]'>Edit</a><br></td>
             <td> <a href='deleteServiceAgreement.php?id=$row[Id]&name=$row[Name]'>Delete<br></td>";

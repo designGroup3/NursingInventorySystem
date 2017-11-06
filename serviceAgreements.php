@@ -40,7 +40,10 @@ if(isset($_SESSION['id'])) {
             echo "<td> " . date_format($date, 'm/d/Y') . "</td>";
             if($row['Approval'] !== NULL){
             //echo "<td> <a href='approvalForm.php?id=$row[Id]'>Show Approval Form</a><br></td>";
-            echo '<td><a href="serviceAgreements/Help.docx">My PDF file</a></td>';
+            echo "<td><a href='serviceAgreements/$row[Id].pdf'>Approval Form</a></td>";
+            }
+            else{
+                echo "<td></td>";
             }
             if ($acctType == "Admin" || $acctType == "Super Admin") {
             echo "<td> <a href='editServiceAgreement.php?edit=$row[Id]'>Edit</a><br></td>

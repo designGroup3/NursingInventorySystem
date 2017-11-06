@@ -6,7 +6,7 @@ if(isset($_SESSION['id'])) {
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=wrongType') !== false){
-        echo "<br>&nbsp&nbspApproval forms must a .pdf, .doc, or .docx file.<br>";
+        echo "<br>&nbsp&nbspApproval forms must a .pdf file.<br>";
     }
 
     echo "<head><Title>Add Service Agreement</Title></head>";

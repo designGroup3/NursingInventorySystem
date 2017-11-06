@@ -19,7 +19,8 @@ $date = $_POST['date'];
 //$sql = "INSERT INTO serviceAgreements (Name, `Annual Cost`, Duration, `Expiration Date`, Approval)
 //    VALUES ('$name', '$cost', '$duration', '$date', '$image');";
 
-$allowedExts = array("pdf", "doc", "docx");
+
+
 $extension = end(explode(".", $_FILES["file"]["name"]));
 
 if ($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
@@ -27,24 +28,34 @@ if ($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
 }
 $finfo = finfo_open(FILEINFO_MIME_TYPE);
 $mime = finfo_file($finfo, $_FILES['file']['tmp_name']);
-$ok = false;
-switch ($mime) {
-    case 'application/pdf':
-    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': //docx
-    case 'application/msword':
-        $ok = true;
-    move_uploaded_file($_FILES["file"]["tmp_name"], "../serviceAgreements/" . $_FILES["file"]["name"]);
 
-    $sql = "INSERT INTO serviceAgreements (Name, `Annual Cost`, Duration, `Expiration Date`, Approval) 
-    VALUES ('$name', '$cost', '$duration', '$date', '1');";
+//switch ($mime) {
+//    case 'application/pdf':
+//    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': //docx
+//    case 'application/msword':
+
+if($mime == 'application/pdf') {
+    $sql = "INSERT INTO serviceAgreements (Name, `Annual Cost`, Duration, `Expiration Date`)
+    VALUES ('$name', '$cost', '$duration', '$date');";
 
     $result = mysqli_query($conn, $sql);
 
-    header("Location: ../serviceAgreements.php");
+    $sql = "SELECT * FROM serviceAgreements ORDER BY Id DESC LIMIT 1;";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
 
-    default:
-        echo $mime;
-        //header("Location: ../addServiceAgreement.php?error=wrongType");
+    $docName = $row['Id'];
+
+    $sql = "UPDATE serviceAgreements SET Approval = '$docName' WHERE Id = '$docName';";
+    $result = mysqli_query($conn, $sql);
+
+    move_uploaded_file($_FILES["file"]["tmp_name"], "../serviceAgreements/".$docName .".pdf");
+
+    header("Location: ../serviceAgreements.php");
+}
+else{
+    //default:
+        header("Location: ../addServiceAgreement.php?error=wrongType");
         exit();
 }
 ?>

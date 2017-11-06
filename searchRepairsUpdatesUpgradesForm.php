@@ -28,7 +28,7 @@ if(isset($_SESSION['id'])) {
     }
     echo "</select><br><br>
         &nbsp&nbsp<label>Part<br></label>&nbsp&nbsp<input type='text' name='part'><br><br>
-        &nbsp&nbsp<label>Cost<br></label>&nbsp&nbsp$<input type='number' step='0.01' name='cost'><br><br>
+        &nbsp&nbsp<label>Cost<br></label>&nbsp&nbsp$<input type='number' min='0' step='0.01' name='cost'><br><br>
         &nbsp&nbsp<label>Date Performed<br></label>&nbsp&nbsp<input type='date' name='date'><br><br>
         &nbsp&nbsp<label>Supplier<br></label>&nbsp&nbsp<input type='text' name='supplier'><br><br>
         &nbsp&nbsp<label>Reason<br></label>&nbsp&nbsp<input type='text' name='reason'><br><br><br>

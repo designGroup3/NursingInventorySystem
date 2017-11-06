@@ -119,9 +119,10 @@ if(isset($_SESSION['id'])) {
                         echo '<td> ' . $row2[$columnNames[$whileCount]] . '</td>';
                     }
                 }
-                echo "<td> <a href='QRCode.php?text=".$row["Serial Number"]."'>Show QR Code<br></td>
+//                echo "<td> <a href='QRCode.php?text=".$row["Serial Number"]."'>Show QR Code<br></td>
+                   echo "<td> <a href='QRPrintPage.php?serialNumber=".$row["Serial Number"]."'>Print QR Code<br></td>
                     <td> <a href='editInventory.php?edit=".$row["Serial Number"]."'>Edit<br></td>";
-                if ($acctType == "Admin") {
+                if ($acctType == "Admin" || $acctType == "Super Admin") {
                     echo "<td> <a href='deleteInventory.php?serialNumber=".$row["Serial Number"]."&item=$row[Item]'>Delete<br></td></tr>";
                 }
                 else{
@@ -165,35 +166,40 @@ if(isset($_SESSION['id'])) {
 //        }
 //    }
 
-    if ($acctType == "Admin") {
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
         echo "&nbsp&nbsp<form action='addInventoryColumn.php'>
                    <input type='submit' value='Add Column'/>
                   </form>";
 
-        echo "&nbsp&nbsp<form action='editInventoryColumn.php'>
+        $columnSql = "SHOW COLUMNS FROM inventory;";
+        $columnResult = mysqli_query($conn, $columnSql);
+
+        if(mysqli_num_rows($columnResult) > 9){
+            echo "&nbsp&nbsp<form action='editInventoryColumn.php'>
                <input type='submit' value='Edit Column'/>
               </form>";
 
-        echo "&nbsp&nbsp<form action='deleteInventoryColumn.php'>
+            echo "&nbsp&nbsp<form action='deleteInventoryColumn.php'>
                <input type='submit' value='Delete Column'/>
               </form>";
+        }
     }
 
-    echo "&nbsp&nbsp<form action='addSubtype.php'>
-               <input type='submit' value='Add Subtype'/>
-              </form>";
-
-    echo "&nbsp&nbsp<form action='editSubtype.php'>
-               <input type='submit' value='Edit Subtype'/>
-              </form>";
-
-    echo "&nbsp&nbsp<form action='deleteSubtype.php'>
-               <input type='submit' value='Delete Subtype'/>
-              </form>";
-
-    echo "&nbsp&nbsp<form action='editType.php'>
-               <input type='submit' value='Edit Type'/>
-              </form>";
+//    echo "&nbsp&nbsp<form action='addSubtype.php'>
+//               <input type='submit' value='Add Subtype'/>
+//              </form>";
+//
+//    echo "&nbsp&nbsp<form action='editSubtype.php'>
+//               <input type='submit' value='Edit Subtype'/>
+//              </form>";
+//
+//    echo "&nbsp&nbsp<form action='deleteSubtype.php'>
+//               <input type='submit' value='Delete Subtype'/>
+//              </form>";
+//
+//    echo "&nbsp&nbsp<form action='editType.php'>
+//               <input type='submit' value='Edit Type'/>
+//              </form>";
 
     echo "</table>";
 

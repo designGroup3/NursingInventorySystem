@@ -47,7 +47,7 @@ if(isset($_SESSION['id'])) {
             echo "<td> " . date_format($date, 'm/d/Y') . "</td>
             <td> " . $row['Supplier'] . "</td>
             <td> " . $row['Reason'] . "</td>";
-            if ($acctType == "Admin") {
+            if ($acctType == "Admin" || $acctType == "Super Admin") {
             echo "<td> <a href='editRepairUpdateUpgrade.php?edit=$row[Id]'>Edit</a><br></td>
             <td> <a href='deleteRepairUpdateUpgrade.php?id=$row[Id]&type=$row[Type]&item=$row[Item]'>Delete<br></td>";
             }
@@ -62,5 +62,8 @@ if(isset($_SESSION['id'])) {
               </form>";
 
     echo "</table>";
+}
+else {
+    header("Location: ./login.php");
 }
 ?>

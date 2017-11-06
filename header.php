@@ -1,6 +1,7 @@
 <?php
     ob_start();
 	session_start();
+	include './dbh.php';
 ?>
 
 <!DOCTYPE html>
@@ -272,11 +273,23 @@
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form> -->
-        <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+        <?php
+        if(isset($_SESSION['id'])) {
+            ?>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
                     <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-user"></span> 
-                        <strong>Username</strong>
+                        <span class="glyphicon glyphicon-user"></span>
+                        <?php
+                        $currentID = $_SESSION['id'];
+                        $sql = "SELECT acctType, uid FROM users WHERE id='$currentID'";
+                        $result = mysqli_query($conn, $sql);
+                        $row = $result->fetch_assoc();
+                        $acctType = $row['acctType'];
+                        $uid = $row['uid'];
+
+                        echo "<strong>$uid</strong>";
+                        ?>
                         <span class="glyphicon glyphicon-chevron-down"></span>
                     </a>
                     <ul style="background-color:white;" class="dropdown-menu">
@@ -289,10 +302,14 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <p class="text-ce"><strong>UsersName</strong></p>
-                                        <p class="text-left small">User's Level</p>
+                                        <?php
+                                        echo '<p class="text-ce"><strong>' . $uid . '</strong></p>
+                                        <p class="text-left small">' . $acctType . '</p>';
+                                        ?>
+
                                         <p class="text-left"><!-- if we have account settings page-->
-                                            <a href="changePassword.php" class="btn btn-primary btn-block btn-sm">Change Password</a>
+                                            <a href="changePassword.php" class="btn btn-primary btn-block btn-sm">Change
+                                                Password</a>
                                         </p>
                                     </div>
                                 </div>
@@ -304,7 +321,8 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <p>
-                                            <a href="includes/logout.inc.php" class="btn btn-danger btn-block">Log Out</a>
+                                            <a href="includes/logout.inc.php" class="btn btn-danger btn-block">Log
+                                                Out</a>
                                         </p>
                                     </div>
                                 </div>
@@ -312,7 +330,10 @@
                         </li>
                     </ul>
                 </li>
-      </ul>
+            </ul>
+            <?php
+        }
+        ?>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

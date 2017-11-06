@@ -49,7 +49,7 @@ if(isset($_SESSION['id'])) {
     }
     if($last !== "")
     {
-        $sql .= "Last = '".$last."'";
+        $sql .= "Last LIKE '%".$last."%'";
         error_reporting(E_ERROR | E_PARSE); //silences warning that comes up if a string is searched for
         $andNeeded = true;
     }
@@ -58,7 +58,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "First = '".$first."'";
+        $sql .= "First LIKE '%".$first."%'";
         $andNeeded = true;
     }
     if($ext !== "")
@@ -67,7 +67,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "Ext = '".$ext."'";
+        $sql .= "Ext LIKE '%".$ext."%'";
         $andNeeded = true;
     }
     if($email !== "")
@@ -76,7 +76,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "Email = '".$email."'";
+        $sql .= "Email LIKE '%".$email."%'";
         $andNeeded = true;
     }
     if($office !== "")
@@ -85,10 +85,11 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "Office = '".$office."'";
+        $sql .= "Office LIKE '%".$office."%'";
     }
     $sql .=";";
     $result = mysqli_query($conn, $sql);
+
     while($row = mysqli_fetch_array($result)) {
         if($tableHeadNeeded){
             $tableHeadNeeded = false;
@@ -105,7 +106,7 @@ if(isset($_SESSION['id'])) {
               <td> ".$row['Ext']."</td>
               <td> ".$row['Email']."</td>
               <td> ".$row['Office']."</td>";
-        if ($acctType == "Admin") {
+        if ($acctType == "Admin" || $acctType == "Super Admin") {
             echo "<td> <a href='editClient.php?edit=$row[Number]'>Edit<br></td>
               <td> <a href='deleteClient.php?number=$row[Number]&last=$row[Last]&first=$row[First]'>Delete<br></td>";
         }

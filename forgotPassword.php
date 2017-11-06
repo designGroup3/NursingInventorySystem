@@ -2,7 +2,7 @@
 include 'header.php';
 $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 if(strpos($url, 'error=email') !== false){
-    echo "<br>&nbsp&nbspThere is no account with this email address. Please create an account.<br>";
+    echo "<br>&nbsp&nbspThere is no account with this email address in the system.<br>";
     exit();
 }
 if(strpos($url, 'sent') !== false){

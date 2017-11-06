@@ -52,7 +52,7 @@ if(isset($_SESSION['id'])) {
     }
     if($type !== "")
     {
-        $sql .= "Type = '".$type."'";
+        $sql .= "Type LIKE '%".$type."%'";
         error_reporting(E_ERROR | E_PARSE); //silences warning that comes up if a string is searched for
         $andNeeded = true;
     }
@@ -61,7 +61,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "`Serial Number` = '".$serialNumber."'";
+        $sql .= "`Serial Number` LIKE '%".$serialNumber."%'";
         $andNeeded = true;
     }
     if($part !== "")
@@ -70,7 +70,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "Part = '".$part."'";
+        $sql .= "Part LIKE '%".$part."%'";
         $andNeeded = true;
     }
     if($cost !== "")
@@ -79,7 +79,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "Cost = '".$cost."'";
+        $sql .= "Cost LIKE '%".$cost."%'";
         $andNeeded = true;
     }
     if($date !== "")
@@ -88,7 +88,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "Date = '".$date."'";
+        $sql .= "Date LIKE '%".$date."%'";
         $andNeeded = true;
     }
     if($supplier !== "")
@@ -97,7 +97,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "Supplier = '".$supplier."'";
+        $sql .= "Supplier LIKE '%".$supplier."%'";
         $andNeeded = true;
     }
     if($reason !== "")
@@ -106,7 +106,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "Reason = '".$reason."'";
+        $sql .= "Reason LIKE '%".$reason."%'";
         $andNeeded = true;
     }
     if($item !== "")
@@ -115,7 +115,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "`Serial Number` IN (SELECT `Serial Number` FROM inventory WHERE Item = '".$item."')";
+        $sql .= "`Serial Number` IN (SELECT `Serial Number` FROM inventory WHERE Item LIKE '%".$item."%')";
     }
     $sql .=";";
 
@@ -150,7 +150,7 @@ if(isset($_SESSION['id'])) {
               <td> ".$row['Supplier']."</td>
               <td> ".$row['Reason']."</td>
               <td> <a href='editRepairUpdateUpgrade.php?edit=$row[Id]'>Edit<br></td>";
-        if ($acctType == "Admin") {
+        if ($acctType == "Admin" || $acctType == "Super Admin") {
             echo "<td> <a href='deleteRepairUpdateUpgrade.php?id=$row[Id]&type=$row[Type]&item=$row[Item]'>Delete<br></td>";
         }
               echo "</tr><br>";

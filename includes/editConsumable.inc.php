@@ -5,6 +5,7 @@ include '../dbh.php';
 
 $originalItem = $_POST['originalItem'];
 $originalSubtype = $_POST['originalSubtype'];
+$newSubtype = $_POST['Subtype'];
 $originalType = $_POST['originalType'];
 $type = $_POST['type'];
 $consumableColumns = array();
@@ -36,6 +37,19 @@ if(isset($_SESSION['id'])) {
         }
     }
 
+    $items = array();
+
+    $sql = "SELECT `Item` FROM consumables";
+    $result = mysqli_query($conn, $sql);
+    while($row = mysqli_fetch_array($result)) {
+        array_push($items, $row['Item']);
+    }
+
+    if(in_array($consumableValues[0], $items) && $consumableValues[0] !== $originalItem){
+        header("Location: ../editConsumable.php?edit=$originalItem&error=exists");
+        exit();
+    }
+
     $sql = "UPDATE consumables SET ";
     for($count = 0; $count< count($consumableColumns); $count++){
         if($consumableColumns[$count] != "Last Processing Date" && $consumableColumns[$count] != "Last Processing Person") {
@@ -64,13 +78,25 @@ if(isset($_SESSION['id'])) {
         }
         elseif($originalSubtype !== $_POST['Subtype'] && $originalType == $type){ //subtype is changed
             $newSubtype = $_POST['Subtype'];
+            $typeSQL = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+            $typeResult = mysqli_query($conn, $typeSQL);
+            $row = mysqli_fetch_array($typeResult);
+            if($row['Type'] !== $type){
+                $typeSQL = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+                $typeResult = mysqli_query($conn, $typeSQL);
+                $row = mysqli_fetch_array($typeResult);
+                $existingType = $row['Type'];
+                header("Location: ../editConsumable.php?edit=$originalItem&error=typeMismatch&subtype=$newSubtype&type=$existingType");
+                exit();
+            }
+
             $subtypeSql = "SELECT Item FROM consumables WHERE Subtype = '$originalSubtype';";
             $subtypeResult = mysqli_query($conn, $subtypeSql);
             if(mysqli_num_rows($subtypeResult) == 1){ //If the only item with that subtype has its subtype changed, change the subtype in the subtypes table.
-                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
-                $subtypeResult = mysqli_query($conn, $subtypeSql);
+//                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+//                $subtypeResult = mysqli_query($conn, $subtypeSql);
                 $subtypeSql = "UPDATE subtypes SET Subtype = '$newSubtype' WHERE Subtype = '$originalSubtype';";
-                echo $subtypeSql;
+                //echo $subtypeSql;
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
             }
             else{
@@ -78,21 +104,19 @@ if(isset($_SESSION['id'])) {
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
                 if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
                     $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $newSubtype . "','" . $type . "',0,1);";
-                    echo $subtypeSql;
+                    //echo $subtypeSql;
                     $subtypeResult = mysqli_query($conn, $subtypeSql);
                 }
             }
         }
         elseif($originalSubtype !== $_POST['Subtype'] && $originalType !== $type){
-            $newSubtype = $_POST['Subtype'];
-
             $subtypeSql = "SELECT Item FROM consumables WHERE Subtype = '$originalSubtype';";
             $subtypeResult = mysqli_query($conn, $subtypeSql);
             if(mysqli_num_rows($subtypeResult) == 1){ //If the only item with that subtype has its subtype changed, change the subtype in the subtypes table.
-                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
-                $subtypeResult = mysqli_query($conn, $subtypeSql);
+//                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+//                $subtypeResult = mysqli_query($conn, $subtypeSql);
                 $subtypeSql = "UPDATE subtypes SET Subtype = '$newSubtype' WHERE Subtype = '$originalSubtype';";
-                echo $subtypeSql;
+                //echo $subtypeSql;
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
             }
             else{
@@ -100,7 +124,7 @@ if(isset($_SESSION['id'])) {
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
                 if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
                     $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $newSubtype . "','" . $type . "',0,1);";
-                    echo $subtypeSql;
+                    //echo $subtypeSql;
                     $subtypeResult = mysqli_query($conn, $subtypeSql);
                 }
             }
@@ -133,6 +157,14 @@ if(isset($_SESSION['id'])) {
     $reportSql .= "'" . $uid . "'" . ");";
 
     $result = mysqli_query($conn, $sql);
+
+    $subtypeSql = "SELECT * FROM consumables WHERE Subtype = '$originalSubtype';";
+    $subtypeResult = mysqli_query($conn, $subtypeSql);
+    $row = mysqli_fetch_array($subtypeResult);
+    if(mysqli_num_rows($subtypeResult) == 0){
+        $subtypeSql = "DELETE FROM subtypes WHERE Subtype = '$originalSubtype';";
+        $subtypeResult = mysqli_query($conn, $subtypeSql);
+    }
 
     $result = mysqli_query($conn, $reportSql);
 

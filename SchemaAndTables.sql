@@ -103,5 +103,5 @@ CREATE TABLE `loginsystem`.`serviceAgreements` (
   `Annual Cost` DECIMAL(8,2) NOT NULL,
   `Duration` VARCHAR(100) NOT NULL,
   `Expiration Date` DATE NOT NULL,
-  `Approval` BLOB,
+  `Approval` VARCHAR(500),
   PRIMARY KEY (`Id`));

@@ -6,6 +6,7 @@ include '../dbh.php';
 $first = $_POST['first'];
 $last = $_POST['last'];
 $email = $_POST['email'];
+$acctType = $_POST['acctType'];
 $uid = $_POST['uid'];
 $pwd = $_POST['pwd'];
 
@@ -18,6 +19,10 @@ if(empty($last)){
     exit();
 }
 if(empty($email)){
+    header("Location: ../signup.php?error=empty");
+    exit();
+}
+if(empty($acctType)){
     header("Location: ../signup.php?error=empty");
     exit();
 }
@@ -48,10 +53,10 @@ else{
 
     $encrypted_password = password_hash($pwd, PASSWORD_DEFAULT);
     $sql = "INSERT INTO users (first, last, uid, pwd, email, acctType, dateAdded, pwdRecoveryKey) 
-    VALUES ('$first', '$last', '$uid', '$encrypted_password', '$email', 'Standard User', '". date('Y/m/d')."', rand());";
+    VALUES ('$first', '$last', '$uid', '$encrypted_password', '$email', '$acctType', '". date('Y/m/d')."', rand());";
 
     $result = mysqli_query($conn, $sql);
 
-    header("Location: ../index.php");
+    header("Location: ../usersTable.php?success");
 }
 ?>

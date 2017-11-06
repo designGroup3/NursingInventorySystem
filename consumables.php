@@ -184,7 +184,7 @@ if(isset($_SESSION['id'])) {
 //        }
 //        $namesCount++;
         echo "<td> <a href='editConsumable.php?edit=$row[Item]'>Edit<br></td>";
-            if ($acctType == "Admin") {
+            if ($acctType == "Admin" || $acctType == "Super Admin") {
                 echo "<td> <a href='deleteConsumable.php?item=$row[Item]'>Delete<br></td></tr>";
             }
             else{
@@ -194,30 +194,35 @@ if(isset($_SESSION['id'])) {
             $columnNumber++;
         }
 
-    echo "&nbsp&nbsp<form action='addConsumable.php'>
-               <input type='submit' value='Add Consumable'/>
-              </form>";
+//    echo "&nbsp&nbsp<form action='addConsumable.php'>
+//               <input type='submit' value='Add Consumable'/>
+//              </form>";
+//
+//    echo "&nbsp&nbsp<form action='searchConsumablesForm.php'>
+//               <input type='submit' value='Search Consumables'/>
+//              </form>";
+//
+//    echo "&nbsp&nbsp<form action='consume.php'>
+//                   <input type='submit' value='Consume'/>
+//                  </form>";
 
-    echo "&nbsp&nbsp<form action='searchConsumablesForm.php'>
-               <input type='submit' value='Search Consumables'/>
-              </form>";
-
-    echo "&nbsp&nbsp<form action='consume.php'>
-                   <input type='submit' value='Consume'/>
-                  </form>";
-
-    if ($acctType == "Admin") {
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
         echo "&nbsp&nbsp<form action='addConsumableColumn.php'>
                <input type='submit' value='Add Column'/>
               </form>";
 
-        echo "&nbsp&nbsp<form action='editConsumableColumn.php'>
+        $columnSql = "SHOW COLUMNS FROM consumables;";
+        $columnResult = mysqli_query($conn, $columnSql);
+
+        if(mysqli_num_rows($columnResult) > 7) {
+            echo "&nbsp&nbsp<form action='editConsumableColumn.php'>
                <input type='submit' value='Edit Column'/>
               </form>";
 
-        echo "&nbsp&nbsp<form action='deleteConsumableColumn.php'>
+            echo "&nbsp&nbsp<form action='deleteConsumableColumn.php'>
                <input type='submit' value='Delete Column'/>
               </form>";
+        }
     }
 
     echo "</table>";

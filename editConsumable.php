@@ -9,6 +9,15 @@ if(isset($_SESSION['id'])) {
     $type;
     echo "<head><Title>Edit Consumable</Title><script src=\"./js/jquery.min.js\"></script></head>";
 
+    $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    if(strpos($url, 'error=exists') !== false){
+        echo "<br>&nbsp&nbspAn consumable with that name already exists.<br>";
+    }
+    elseif(strpos($url, 'error=typeMismatch') !== false){
+        $subtype= $_GET['subtype'];
+        $type= $_GET['type'];
+        echo "<br>&nbsp&nbspThe subtype $subtype already relates to the type $type. Subtypes can only have one type.<br>";
+    }
 
     $sql = "SHOW COLUMNS FROM consumables"; //gets first headers for page
     $result = mysqli_query($conn, $sql);
@@ -47,7 +56,7 @@ if(isset($_SESSION['id'])) {
                 $isSelect = true;
                 $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<select name=";
             } elseif ($rowType['DATA_TYPE'] == "int") {
-                $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='number' name=";
+                $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='number' min='0' name=";
             } else {
                 $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=";
             }

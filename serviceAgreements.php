@@ -1,21 +1,17 @@
-<style>
-    table.center {
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    body {
-        text-align:center;
-    }
-
-    th{
-        font-family: Arial, Helvetica, sans-serif;
-    }
-</style>
-
 <?php
-include 'header.php';
+    include 'table.php';
+?>
 
+<table style="margin-left:auto; margin-right:auto;">
+    <td><form style='text-align: center;' action='addServiceAgreement.php'>
+        <input type='submit' value='Add Service Agreement'/>
+        </form></td>
+
+    <td><form style='text-align: center;' action='searchServiceAgreementsForm.php'>
+        <input type='submit' value='Search Service Agreements'/>
+        </form></td>
+    </table>
+<?php
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
     echo "<head><Title>Service Agreements</Title></head>";
@@ -33,10 +29,15 @@ if(isset($_SESSION['id'])) {
 
     $sql = "SELECT * FROM serviceAgreements;";
     $result = mysqli_query($conn, $sql);
-    echo "<table class='table' cellspacing='10'><tr><th>Name</th>
+    echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
+    <thead><tr><th>Name</th>
     <th>Annual Cost</th>
     <th>Duration</th>
     <th>Expiration Date</th>";
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
+        echo "<th>Edit</th><th>Delete</th>";
+    }
+    echo "</tr></thead><tbody>";
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr><td> " . $row['Name'] . "</td>
             <td> $" . $row['Annual Cost'] . "</td>
@@ -52,17 +53,10 @@ if(isset($_SESSION['id'])) {
             }
         echo "</tr>";
     }
-    echo "&nbsp&nbsp<br><br><form action='addServiceAgreement.php'>
-           &nbsp&nbsp<input type='submit' value='Add Service Agreement'/>
-          </form>";
-
-    echo "&nbsp&nbsp<form action='searchServiceAgreementsForm.php'>
-               &nbsp&nbsp<input type='submit' value='Search Service Agreements'/>
-              </form>";
-
-    echo "</table>";
+    echo "</tbody></table>";
 }
 else {
     header("Location: ./login.php");
 }
+include 'tableFooter.php';
 ?>

@@ -1,25 +1,5 @@
-<style>
-    td, th {
-        text-align: left;
-        padding: 8px;
-    }
-
-    table.center {
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    body {
-        text-align:center;
-    }
-
-    th{
-        font-family: Arial, Helvetica, sans-serif;
-    }
-</style>
-
 <?php
-include 'header.php';
+include 'table.php';
 
 if(isset($_SESSION['id'])) {
     //include 'includes/bootstrap.inc.php';
@@ -42,8 +22,30 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
-    echo "<br>";
-    echo "<table class ='table'>";
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
+        echo "<table style=\"margin-left:auto; margin-right:auto;\">
+              <td><form action='addConsumableColumn.php'>
+               <input type='submit' value='Add Column'/>
+              </form></td>";
+
+        $columnSql = "SHOW COLUMNS FROM consumables;";
+        $columnResult = mysqli_query($conn, $columnSql);
+
+        if(mysqli_num_rows($columnResult) > 7) {
+            echo "<td><form action='editConsumableColumn.php'>
+               <input type='submit' value='Edit Column'/>
+              </form></td>";
+
+            echo "<td><form action='deleteConsumableColumn.php'>
+               <input type='submit' value='Delete Column'/>
+              </form></td>";
+        }
+        echo "</table>";
+    }
+
+    echo "<br>
+    <table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
+    <thead>";
 
         $sql = "SHOW COLUMNS FROM consumables"; //gets first headers for page
         $result = mysqli_query($conn, $sql);
@@ -94,6 +96,7 @@ if(isset($_SESSION['id'])) {
             echo "<th>$columnNames[$count]</th>";
         }
     }
+    echo "<th>Edit</th><th>Delete</th></thead>";
 
         $sql = "SELECT Item, consumables.Subtype, subtypes.Type FROM consumables JOIN subtypes ON consumables.Subtype = subtypes.Subtype ORDER BY Item;";//display first three columns
         $result = mysqli_query($conn, $sql);
@@ -106,6 +109,7 @@ if(isset($_SESSION['id'])) {
         }
         $columnNumber = 0;
 
+        echo "<tbody>";
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr>";
             for ($innerCount = 0; $innerCount < 3; $innerCount++) {
@@ -205,27 +209,7 @@ if(isset($_SESSION['id'])) {
 //    echo "&nbsp&nbsp<form action='consume.php'>
 //                   <input type='submit' value='Consume'/>
 //                  </form>";
-
-    if ($acctType == "Admin" || $acctType == "Super Admin") {
-        echo "&nbsp&nbsp<form action='addConsumableColumn.php'>
-               <input type='submit' value='Add Column'/>
-              </form>";
-
-        $columnSql = "SHOW COLUMNS FROM consumables;";
-        $columnResult = mysqli_query($conn, $columnSql);
-
-        if(mysqli_num_rows($columnResult) > 7) {
-            echo "&nbsp&nbsp<form action='editConsumableColumn.php'>
-               <input type='submit' value='Edit Column'/>
-              </form>";
-
-            echo "&nbsp&nbsp<form action='deleteConsumableColumn.php'>
-               <input type='submit' value='Delete Column'/>
-              </form>";
-        }
-    }
-
-    echo "</table>";
+    echo "</tbody></table>";
 
 //    echo "<br>Page: ";
 //    for ($page=1; $page<=$number_of_pages; $page++) {
@@ -235,4 +219,6 @@ if(isset($_SESSION['id'])) {
 } else {
     header("Location: ./login.php");
 }
+
+include 'tableFooter.php';
 ?>

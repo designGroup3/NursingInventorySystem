@@ -1,7 +1,5 @@
 <?php
 include 'header.php';
-
-if(isset($_SESSION['id'])) {
 ?>
 <!doctype html>
 <html>
@@ -66,8 +64,8 @@ h1{
 <div class="container center">
 <div class="row">
   <div class="col-md-4 col-lg-4 col-sm-4">
-    <div class="thumbnail text-center ce"><h3>Inventory</h3><a href="inventory.php">        
-<img href="inventory.php" src="images/placeholder_nvtn.png" alt="Thumbnail Image 1" ></a>
+    <div class="thumbnail text-center ce"><h3>View Inventory</h3><a href="inventory.php">
+<img href="inventory.php" src="images/viewInventory.png" alt="Thumbnail Image 1" ></a>
       <div class="caption">
        <!-- <p>Add items to the inventory.</p><br/>-->
       </div>
@@ -75,7 +73,7 @@ h1{
   </div>
    <div class="col-md-4 col-lg-4 col-sm-4 ">
     <div class="thumbnail text-center"><h3>Check-out</h3><a href="checkout.php">        
-<img href="checkout.php"src="images/placeholder_nvtn.png" alt="Thumbnail Image 2"  ></a>
+<img href="checkout.php"src="images/checkout.png" alt="Thumbnail Image 2"  ></a>
       <div class="caption">
         <!--<p>Edit and view inventory Tables</p><br/> -->
       </div>
@@ -83,7 +81,7 @@ h1{
   </div>
    <div class="col-md-4 col-lg-4 col-sm-4">
     <div class="thumbnail text-center">        <h3>Consumables</h3>
-<a href="consumables.php"><img src="images/placeholder_nvtn.png" alt="Thumbnail Image 3" ></a>
+<a href="consumables.php"><img src="images/consume.png" alt="Thumbnail Image 3" ></a>
       <div class="caption">
        <!-- <p>Student worker Check-list </p> -->
       </div>
@@ -93,14 +91,14 @@ h1{
 <div class="row">
   <div class="col-md-4 col-lg-4 col-sm-4">
     <div class="thumbnail text-center">        <h3>ServiceAgreements</h3>
-<a href="serviceAgreements.php"><img src="images/placeholder_nvtn.png" alt="Thumbnail Image 4" ></a>
+<a href="serviceAgreements.php"><img src="images/serviceAgreements.png" alt="Thumbnail Image 4" ></a>
       <div class="caption">
         <!--<p>Consumable items such as, USB drives.</p> -->
       </div>
     </div>
   </div>
   <div class="col-md-4 col-lg-4 col-sm-4">
-    <div class="thumbnail text-center"><h3>View Clients List</h3><a href="clients.php"><img src="images/placeholder_nvtn.png" alt="Thumbnail Image 5" ></a>
+    <div class="thumbnail text-center"><h3>View Clients List</h3><a href="clients.php"><img src="images/viewClientList.png" alt="Thumbnail Image 5" ></a>
       <div class="caption">
         
         <!-- <p>Report generation for items, people, and tables.</p> -->
@@ -108,8 +106,8 @@ h1{
     </div>
   </div>
    <div class="col-md-4 col-lg-4 col-sm-4">
-    <div class="thumbnail text-center"><h3>Repairs/Upgrades/Updates</h3><a href="repairsUpdatesUpgrades.php">
-<img src="images/placeholder_nvtn.png"  alt="Thumbnail Image 6"></a>
+    <div class="thumbnail text-center"><h3>Upgrades</h3><a href="repairsUpdatesUpgrades.php">        
+<img src="images/Upgrade.png"  alt="Thumbnail Image 6"></a>
       <div class="caption">
         <!--<p>Generate QR code</p><br/> -->
       </div>
@@ -117,25 +115,11 @@ h1{
   </div>
 </div>
 </div>
-<div class="footer-bottom">
-	<div class="containerfooter ">
-		<div class="row">
-		  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-				<div class="copyright">
-					© 2017, University of Missouri- St. Louis, All rights reserved
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-				<div class="design">
-					 <a href="index.php">Managment Inventory System </a> |  <a target="_blank" href="http://www.Umsl.edu">Web Design & Development by  Design Team 3</a>
-				</div>
-			</div>
-		</div>
-  </div>
-</div>
+
 </body>
 </html>
 <!--
+if(isset($_SESSION['id'])) {
     echo "<head><Title>Main Menu</Title></head>";
 
         echo "&nbsp&nbsp<form action='inventory.php'>
@@ -177,9 +161,10 @@ h1{
         echo "&nbsp&nbsp<form action='serviceAgreements.php'>
                <input type='submit' value='Service Agreements'/>
               </form>";
-    -->
-<?php
-    } else {
-        header("Location: ./login.php");
-    }
+
+    <?php
+} else {
+    header("Location: ./login.php");
+}
 ?>
+-->

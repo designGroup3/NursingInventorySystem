@@ -1,6 +1,7 @@
 <?php
 include 'header.php';
-?>
+if(isset($_SESSION['id'])) {
+    ?>
 <!doctype html>
 <html>
 	
@@ -161,10 +162,9 @@ if(isset($_SESSION['id'])) {
         echo "&nbsp&nbsp<form action='serviceAgreements.php'>
                <input type='submit' value='Service Agreements'/>
               </form>";
-
+-->
     <?php
 } else {
     header("Location: ./login.php");
 }
 ?>
--->

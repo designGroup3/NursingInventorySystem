@@ -32,7 +32,7 @@ if(isset($_SESSION['id'])) {
         <div class=\"form-group\"><label class=\"col-md-4 control-label\">Account Type</label>
         <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-list\"></i></span>
-        <select name='accountType' class=\"form-control selectpicker\" >
+        <select name='accountType' class=\"form-control selectpicker\">
         <option selected value=''></option><option value='Standard User'>Standard User</option>
         <option value='Admin'>Admin</option><option value='Super Admin'>Super Admin</option></select></div></div></div>
         

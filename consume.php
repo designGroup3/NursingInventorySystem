@@ -133,8 +133,8 @@ if(isset($_SESSION['id'])) {
         <label>
         <input type="hidden" name="type" value = \''.$getType. '\'>
         <input type="hidden" name="subtype" value = \''.$getSubtype. '\'>
-        <input type="hidden" name="item" value = \''.$getItem. '\'>';
-        echo'<div class="form-group"><label class="col-md-4 control-label">Number in Stock</label>  
+        <input type="hidden" name="item" value = \''.$getItem. '\'>
+        <div class="form-group"><label class="col-md-4 control-label">Number in Stock</label>  
         <div class="col-md-4 inputGroupContainer"><div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
         <input type="number" class="form-control" min="0" name="stock" value='.$row['Number in Stock'].'></div></div></div>';

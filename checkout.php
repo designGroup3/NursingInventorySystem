@@ -29,10 +29,12 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT Type FROM subtypes WHERE isCheckoutable = '1';";
     $result = mysqli_query($conn, $sql);
 
-    echo '<br><p>&nbsp&nbspWhich item would you like to checkout?</p>
-    <form method="POST">
-    <label>
-        <br>&nbsp&nbspType: <select name="type" onchange="this.form.submit()">';
+    echo '<br><div class="container"><h2 align="center">  Which item would you like to checkout?</h2><br>
+        <form class="well form-horizontal" style="border-bottom: none;" id="contact_form" method="POST"><fieldset>
+        <div class="form-group"><label class="col-md-4 control-label">Type:</label>
+        <div class="col-md-4 selectContainer"><div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-th-large"></i></span>
+        <select name="type" class="form-control selectpicker" onchange="this.form.submit()">';
         if($getType == NULL){
             echo '<option selected value=""></option>';
         }
@@ -50,16 +52,18 @@ if(isset($_SESSION['id'])) {
             array_push($statedTypes, $row['Type']);
         }
     }
-    echo '</select></label></form>';
+    echo '</select></div></div></div>';
 
     //start subtype
     if($getType !== NULL && $getType !== ""){
         $sql = "SELECT Subtype FROM subtypes WHERE Type = '".$getType."';";
         $result = mysqli_query($conn, $sql);
-        echo '<form method="POST">
-        <label>
-        <input type="hidden" name="type" value = \''.$getType. '\'>';
-        echo'<br>&nbsp&nbspSubtype: <select name="subtype" onchange="this.form.submit()">';
+        echo '<form class="well form-horizontal" id="contact_form" method="POST">
+        <div class="form-group"><label class="col-md-4 control-label">
+        <input type="hidden" name="type" value = \''.$getType. '\'>
+        Subtype: </label><div class="col-md-4 selectContainer"><div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        <select name="subtype" class="form-control selectpicker" onchange="this.form.submit()">';
         if($getSubtype == NULL){
             echo '<option selected value=""></option>';
         }
@@ -74,21 +78,28 @@ if(isset($_SESSION['id'])) {
                 echo '<option value = "' . $row['Subtype'] . '">' . $row['Subtype'] . '</option>';
             }
         }
-        echo '</select></label></form>';
+        echo '</select></div></div></div>';
     }
     else{
-        echo '<br>&nbsp&nbspSubtype: <select disabled><option value="">Select a type first</option></select><br>';
+        //echo '<br>&nbsp&nbspSubtype: <select disabled><option value="">Select a type first</option></select><br>';
+        echo '<div class="form-group"><label class="col-md-4 control-label">Subtype: </label>
+            <div class="col-md-4 selectContainer"><div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <select class="form-control selectpicker" disabled><option value="">Select a type first</option></select>
+            </div></div></div>';
     }
 
     //start item
     if($getSubtype !== NULL && $getSubtype !== ""){
         $sql = "SELECT Item FROM inventory WHERE Subtype = '".$getSubtype."';";
         $result = mysqli_query($conn, $sql);
-        echo '<form method="POST">
-        <label>
+        echo '<form class="well form-horizontal" id="contact_form" method="POST">
+        <div class="form-group"><label class="col-md-4 control-label">
         <input type="hidden" name="type" value = \''.$getType. '\'>
-        <input type="hidden" name="subtype" value = \''.$getSubtype. '\'>';
-        echo'<br>&nbsp&nbspItem: <select name="item" onchange="this.form.submit()">';
+        <input type="hidden" name="subtype" value = \''.$getSubtype. '\'>
+        Item: </label><div class="col-md-4 selectContainer"><div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+        <select name="item" class="form-control selectpicker" onchange="this.form.submit()">';
         if($getItem == NULL){
             echo '<option selected value=""></option>';
         }
@@ -103,10 +114,15 @@ if(isset($_SESSION['id'])) {
                 echo '<option value = "' . $row['Item'] . '">' . $row['Item'] . '</option>';
             }
         }
-        echo '</select></label></form>';
+        echo '</select></form></div></div></div>';
     }
     else{
-        echo '<br>&nbsp&nbspItem: <select disabled><option value="">Select a subtype first</option></select><br>';
+        //echo '<br>&nbsp&nbspItem: <select disabled><option value="">Select a subtype first</option></select><br>';
+        echo '<div class="form-group"><label class="col-md-4 control-label">Type: </label>
+            <div class="col-md-4 selectContainer"><div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <select class="form-control selectpicker" disabled><option value="">Select a subtype first</option></select>
+            </div></div></div>';
     }
 
     //Number in Stock
@@ -118,29 +134,63 @@ if(isset($_SESSION['id'])) {
         <label>
         <input type="hidden" name="type" value = \''.$getType. '\'>
         <input type="hidden" name="subtype" value = \''.$getSubtype. '\'>
-        <input type="hidden" name="item" value = \''.$getItem. '\'>';
-        echo'<br>&nbsp&nbspNumber in Stock: <input type="number" min="0" name= "stock" value='.$row['Number in Stock'].'>';
+        <input type="hidden" name="item" value = \''.$getItem. '\'>
+        <div class="form-group"><label class="col-md-4 control-label">Number in Stock:</label>  
+        <div class="col-md-4 inputGroupContainer"><div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
+        <input type="number" class="form-control" min="0" name="stock" value='.$row['Number in Stock'].'></div></div></div>';
     }
     else{
-        echo'<br>&nbsp&nbspNumber in Stock: <input type="number" min="0" name= "stock" value="0">';
+        //echo '<br>&nbsp&nbspNumber in Stock: <input type="number" min="0" name= "stock" value="0">';
+        echo '<div class="form-group"><label class="col-md-4 control-label">Number in Stock:</label>  
+            <div class="col-md-4 inputGroupContainer"><div class="input-group"><span class="input-group-addon">
+            <i class="glyphicon glyphicon-question-sign"></i></span>
+            <input class="form-control" type="number" name="quantity" min="0" max="100" step="1" value="0">
+            </div></div></div>';
     }
 
     //Person
     $sql = "SELECT First, Last FROM clients;";
     $result = mysqli_query($conn, $sql);
-    echo'<br><br>&nbsp&nbspPerson: <select name="person"><option selected value=""></option>';
+    //echo'<br><br>&nbsp&nbspPerson: <select name="person"><option selected value=""></option>';
+    echo'<div class="form-group"><label class="col-md-4 control-label">Person:</label>
+    <div class="col-md-4 selectContainer"><div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+    <select name="person" class="form-control selectpicker"><option selected value=""></option>';
 
     while ($row = mysqli_fetch_array($result)) {
         echo '<option value = "'.$row['First']." ".$row['Last'].'">'.$row['First']." ".$row['Last'].'</option>';
     }
-    echo '</select>';
+    echo '</select></div></div></div>';
 
     //Reason, Notes, Due Date, Checkout Date
-    echo "<br><br>&nbsp&nbspReason: <input type= 'text' name='reason'>
-    <br><br>&nbsp&nbspNotes: <input type= 'text' name='notes'>
-    <br><br>&nbsp&nbspDue Date: <input type= 'date' name='date'>
-    <br><br>&nbsp&nbspCheckout Date: <span>".date('m/d/Y')."</span>
-    <br><br>&nbsp&nbsp<button type='submit'>Checkout</button></form>";
+//    echo "<br><br>&nbsp&nbspReason: <input type= 'text' name='reason'>
+//    <br><br>&nbsp&nbspNotes: <input type= 'text' name='notes'>
+//    <br><br>&nbsp&nbspDue Date: <input type= 'date' name='date'>
+//    <br><br>&nbsp&nbspCheckout Date: <span>".date('m/d/Y')."</span>
+//    <br><br>&nbsp&nbsp<button type='submit'>Checkout</button></form>";
+
+    echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Reason:</label>  
+    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+    <span class=\"input-group-addon\"><i class=\"fa fa-question\" aria-hidden=\"true\"></i></span>
+    <input type='text' placeholder='Reason' name='reason' class=\"form-control\"></div></div></div>
+    
+    <div class=\"form-group\"><label class=\"col-md-4 control-label\">Notes:</label>  
+    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
+    <input name=\"notes\" placeholder=\"Notes\" class=\"form-control\" type=\"text\"></div></div></div>
+
+    <div class=\"form-group\"><label class=\"col-md-4 control-label\">Due Date:</label>  
+    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-calendar\"></i></span>
+    <input name=\"date\" placeholder=\"MM/DD/YY\" class=\"form-control\" type=\"date\"></div></div></div>
+    
+    <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label>
+    <div class=\"col-md-4\">Checkout Date: <span>".date('m/d/Y')."</span></div></div>
+    
+    <br><br><div class=\"form - group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
+    <button type='submit' class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
+    data-submit=\"...Sending\">Check-out</button></div></div></form></fieldset></form>";
 
     //posts
     if($_SERVER['REQUEST_METHOD'] == 'POST' && $getSubtype == NULL && $getItem == NULL){

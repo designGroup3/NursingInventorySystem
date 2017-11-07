@@ -79,7 +79,11 @@ if(isset($_SESSION['id'])) {
     for ($count = 0; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
     }
-    echo "<th>Print QR Code</th><th>Edit</th><th>Delete</th></thead><tbody>";
+    echo "<th>Print QR Code</th><th>Edit</th>";
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
+        echo "<th>Delete</th>";
+    }
+    echo "</thead><tbody>";
 
         $sql = "SELECT `Serial Number`, Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY `Serial Number`;"; //display first four columns
         $result = mysqli_query($conn, $sql);

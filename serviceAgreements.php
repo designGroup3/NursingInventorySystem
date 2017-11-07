@@ -24,13 +24,16 @@ if(isset($_SESSION['id'])) {
 
     $sql = "SELECT * FROM serviceAgreements;";
     $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_array($result);
+    $approvals = array();
+    while($row = mysqli_fetch_array($result)){
+        array_push($approvals, $row['Approval']);
+    }
     echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
     <thead><tr><th>Name</th>
     <th>Annual Cost</th>
     <th>Duration</th>
     <th>Expiration Date</th>";
-    if($row['Approval'] !== NULL){
+    if(count($approvals) > 0){
         echo "<th>Approval Form</th>";
     }
     if ($acctType == "Admin" || $acctType == "Super Admin") {
@@ -48,6 +51,9 @@ if(isset($_SESSION['id'])) {
             echo "<td> " . date_format($date, 'm/d/Y') . "</td>";
             if($row['Approval'] !== NULL){
                 echo "<td><a href='serviceAgreements/$row[Id].pdf'>Approval Form</a></td>";
+            }
+            else{
+                echo "<td></td>";
             }
             if ($acctType == "Admin" || $acctType == "Super Admin") {
                 echo "<td> <a href='editServiceAgreement.php?edit=$row[Id]'>Edit</a><br></td>

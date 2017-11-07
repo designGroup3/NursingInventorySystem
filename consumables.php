@@ -96,7 +96,11 @@ if(isset($_SESSION['id'])) {
             echo "<th>$columnNames[$count]</th>";
         }
     }
-    echo "<th>Edit</th><th>Delete</th></thead>";
+    echo "<th>Edit</th>";
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
+        echo "<th>Delete</th>";
+    }
+    echo "</thead>";
 
         $sql = "SELECT Item, consumables.Subtype, subtypes.Type FROM consumables JOIN subtypes ON consumables.Subtype = subtypes.Subtype ORDER BY Item;";//display first three columns
         $result = mysqli_query($conn, $sql);

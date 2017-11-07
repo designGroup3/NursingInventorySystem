@@ -3,18 +3,23 @@
         text-align: center;
     }
 </style>
-
 <?php
 include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-
     echo "<head><Title>Daily Reports</Title></head>";
 
-    echo "<form class='center' method='POST'>
-        <br>&nbsp&nbspReport Date: <input type= 'date' name='date'>
-        <br><br>&nbsp&nbsp<button type='submit'>Submit</button></form>";
+    echo "<div class=\"container\"><form class=\"well form-horizontal\" id=\"contact_form\" method='POST'>
+        <h2 align=\"center\">What day would you like a report on?</h2><br/>
+        
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Report Date:</label>  
+        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-calendar\"></i></span>
+        <input type= 'date' class=\"form-control\" name='date'></div></div></div>
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
+        <button name=\"submit\" type=\"submit\" class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
+        data-submit=\"...Sending\">Create Report</button></div></div></form></div>";
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $date = $_POST['date'];
@@ -29,7 +34,8 @@ if(isset($_SESSION['id'])) {
 
             <br><form class='center' action='dailyReportsExcel.php' method = 'post'>
                 <input type='hidden' name='date' value = " .$date.">
-                <input type='submit' name ='export' value='Export to Excel'/>
+                <button name=\"export\" type=\"submit\" class=\"btn btn-warning\" style='text-align:center;' id=\"contact-submit\" 
+                data-submit=\"...Sending\">Export to Excel</button>
                 </form>
 
             <br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">

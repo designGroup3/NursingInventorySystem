@@ -7,14 +7,15 @@ if(isset($_SESSION['id'])) {
 
     echo "<head><Title>Delete Inventory</Title></head>";
 
-    echo "Are you sure you want to delete ".$item."? This action cannot be undone.
-        <form action ='includes/deleteInventory.inc.php' method ='POST'><br>
-            <input type='hidden' name='serialNumber' value = $serialNumber>
-            <button type='submit'>Delete</button>
-        </form><br>
-        <form action='inventory.php'>
-            <input type='submit' value='Cancel' />
-         </form>";
+    echo "<div class='container'>
+        <form action ='includes/deleteInventory.inc.php' class='well form-horizontal' id='contact_form' method ='POST'>
+        <h2 align='center'>Are you sure you want to delete ".$item."?</h2>
+        <br><div class=\"form-group\" style=\"text-align: center;\"><label class=\"col-md-4 control-label\"></label>
+        <div class=\"col-md-4\"><input type='hidden' name='serialNumber' value = $serialNumber>
+            <button class=\"btn btn-danger btn-lg\"  type='submit'>Yes</button>
+            
+        <button onclick=\"history.go(-1);\" name=\"submit\" type=\"submit\" class=\"nobtn btn btn-warning btn-lg\" 
+         id=\"contact-submit\" data-submit=\"...Sending\" > No</button></form></div></div></div>";
 }
 else{
     header("Location: ./login.php");

@@ -10,18 +10,32 @@ if(isset($_SESSION['id'])) {
     include 'dbh.php';
     echo "<head><Title>Broad Reports</Title></head>";
 
-    echo "<form class='center' method='POST'>
-        <br>&nbsp&nbspStart Date: <input type='date' name='startDate'><br>
-        <br>&nbsp&nbspEnd Date: <input type='date' name='endDate'>
-        <br><br>&nbsp&nbsp<button type='submit'>Submit</button></form>";
+    echo "<div class=\"container\"><form class=\"well form-horizontal\" id=\"contact_form\" method='POST'>
+        <h2 align=\"center\"> Which dates would you like to report?</h2><br>
+        
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Start Date:</label>  
+        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-calendar\"></i></span>
+        <input type='date' class=\"form-control\" name='startDate'></div></div></div>
+        
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">End Date:</label>  
+        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-calendar\"></i></span>
+        <input type='date' class=\"form-control\" name='endDate'></div></div></div>
+        
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
+        <button name=\"submit\" type=\"submit\" class=\"btn btn-success btn-block\" id=\"contact-submit\" 
+        data-submit=\"...Sending\">Submit</button></div></div></form>
+        
+        <form style='text-align:center;' action='checkoutsReportExcel.php' method = 'post'>
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
+        <button name=\"export\" type=\"submit\" class=\"btn btn-warning\" id=\"contact-submit\"
+         data-submit=\"...Sending\">Export Check out History (Excel)</button></div></div></form><br><br>
 
-    echo "<form class='center' action='checkoutsReportExcel.php' method = 'post'>
-                <br>&nbsp&nbsp<input type='submit' name ='export' value='Check-out History (Excel)'/>
-                </form>";
-
-    echo "<form class='center' action='consumptionsReportExcel.php' method = 'post'>
-                <br>&nbsp&nbsp<input type='submit' name ='export' value='Consumable History (Excel)'/>
-                </form>";
+        <form style='text-align:center;' action='consumptionsReportExcel.php' method='post'>
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
+        <button name=\"export\" type=\"submit\" class=\"btn btn-warning\" id=\"contact-submit\" 
+        data-submit=\"...Sending\">Export Consumables History (Excel)</button></div></div></form></div><br><br>";
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $startDate = $_POST['startDate'];
@@ -36,10 +50,11 @@ if(isset($_SESSION['id'])) {
             $end = date_create($endDate);
             echo "<br><h2 class='center'><b>&nbsp&nbspActivities for (".date_format($start, 'm/d/Y')." - ".date_format($end, 'm/d/Y').")</b></h2>
 
-            <br><form class='center' action='multiDayReportsExcel.php' method = 'post'>
+            <br><form style='text-align:center;' action='multiDayReportsExcel.php' method = 'post'>
                 <input type='hidden' name='startDate' value = '$startDate'>
                 <input type='hidden' name='endDate' value = '$endDate'>
-                <input type='submit' name ='export' value='Export to Excel'/>
+                <button name=\"export\" type=\"submit\" class=\"btn btn-warning\" id=\"contact-submit\" 
+                data-submit=\"...Sending\">Export to Excel</button>
                 </form>
             
             <br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead><tr><th>Activity Type</th>

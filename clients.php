@@ -26,7 +26,12 @@ if(isset($_SESSION['id'])) {
 
     echo "<br>
     <table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
-    echo "<th>Last</th><th>First</th><th>Ext</th><th>Email</th><th>Office</th><th>Edit</th><th>Delete</th></thead>";
+    echo "<th>Last</th><th>First</th><th>Ext</th><th>Email</th><th>Office</th>";
+
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
+        echo "<th>Edit</th><th>Delete</th>";
+    }
+    echo "</thead>";
 
 //    $results_per_page = 5; //for pagination
 //

@@ -29,10 +29,12 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT Type FROM subtypes WHERE isConsumable = '1';";
     $result = mysqli_query($conn, $sql);
 
-    echo '<br><p>&nbsp&nbspWhich item would you like to consume?</p>
-    <form method="POST">
-    <label>
-        <br>&nbsp&nbspType: <select name="type" onchange="this.form.submit()">';
+    echo '<br><div class="container"><h2 align="center">Which item would you like to checkout?</h2>
+        <form class="well form-horizontal" id="contact_form" method="POST">
+        <div class="form-group"><label class="col-md-4 control-label">Type:</label>
+        <div class="col-md-4 selectContainer"><div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-th-large"></i></span>
+        <select name="type" class="form-control selectpicker" onchange="this.form.submit()">';
     if($getType == NULL){
         echo '<option selected value=""></option>';
     }
@@ -50,16 +52,18 @@ if(isset($_SESSION['id'])) {
             array_push($statedTypes, $row['Type']);
         }
     }
-    echo '</select></label></form>';
+    echo '</select></div></div></div></form>';
 
     //start subtype
     if($getType !== NULL && $getType !== ""){
         $sql = "SELECT Subtype FROM subtypes WHERE Type = '".$getType."';";
         $result = mysqli_query($conn, $sql);
-        echo '<form method="POST">
-        <label>
-        <input type="hidden" name="type" value = \''.$getType. '\'>';
-        echo'<br>&nbsp&nbspSubtype: <select name="subtype" onchange="this.form.submit()">';
+        echo '<form class="well form-horizontal" id="contact_form" method="POST">
+        <div class="form-group"><label class="col-md-4 control-label">
+        <input type="hidden" name="type" value = \''.$getType. '\'>
+        Subtype:</label><div class="col-md-4 selectContainer"><div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        <select name="subtype" class="form-control selectpicker" onchange="this.form.submit()">';
         if($getSubtype == NULL){
             echo '<option selected value=""></option>';
         }
@@ -74,10 +78,15 @@ if(isset($_SESSION['id'])) {
                 echo '<option value = "' . $row['Subtype'] . '">' . $row['Subtype'] . '</option>';
             }
         }
-        echo '</select></label></form>';
+        echo '</select></div></div></div></form>';
     }
     else{
-        echo '<br>&nbsp&nbspSubtype: <select disabled><option value="">Select a type first</option></select><br>';
+        echo '<form class="well form-horizontal" style="position:relative; bottom:20px;" id="contact_form" method="POST">
+            <div class="form-group"><label class="col-md-4 control-label">Subtype: </label>
+            <div class="col-md-4 selectContainer"><div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <select class="form-control selectpicker" disabled><option value="">Select a type first</option></select>
+            </div></div></div>';
     }
 
     //start item

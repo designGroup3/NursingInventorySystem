@@ -1,26 +1,5 @@
-<style>
-    td, th {
-        text-align: left;
-        padding: 8px;
-    }
-
-    th{
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    table.center {
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    body {
-        text-align:center;
-    }
-</style>
-
 <?php
-include 'header.php';
-
+include 'table.php';
 if(isset($_SESSION['id'])) {
     //include 'includes/bootstrap.inc.php';
     include 'dbh.php';
@@ -35,8 +14,29 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
+        echo "<table style=\"margin-left:auto; margin-right:auto;\">
+        <td><form action='addInventoryColumn.php'>
+                   <input type='submit' value='Add Column'/>
+                  </form></td>";
+
+        $columnSql = "SHOW COLUMNS FROM inventory;";
+        $columnResult = mysqli_query($conn, $columnSql);
+
+        if(mysqli_num_rows($columnResult) > 9){
+            echo "<td><form action='editInventoryColumn.php'>
+               <input type='submit' value='Edit Column'/>
+              </form></td>";
+
+            echo "<td><form action='deleteInventoryColumn.php'>
+               <input type='submit' value='Delete Column'/>
+              </form></td>";
+        }
+        echo "</table>";
+    }
+
     echo "<br>";
-    echo "<table class='table'>";
+    echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
 
         $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page
         $result = mysqli_query($conn, $sql);
@@ -79,6 +79,7 @@ if(isset($_SESSION['id'])) {
     for ($count = 0; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
     }
+    echo "<th>Print QR Code</th><th>Edit</th><th>Delete</th></thead><tbody>";
 
         $sql = "SELECT `Serial Number`, Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY `Serial Number`;"; //display first four columns
         $result = mysqli_query($conn, $sql);
@@ -166,25 +167,6 @@ if(isset($_SESSION['id'])) {
 //        }
 //    }
 
-    if ($acctType == "Admin" || $acctType == "Super Admin") {
-        echo "&nbsp&nbsp<form action='addInventoryColumn.php'>
-                   <input type='submit' value='Add Column'/>
-                  </form>";
-
-        $columnSql = "SHOW COLUMNS FROM inventory;";
-        $columnResult = mysqli_query($conn, $columnSql);
-
-        if(mysqli_num_rows($columnResult) > 9){
-            echo "&nbsp&nbsp<form action='editInventoryColumn.php'>
-               <input type='submit' value='Edit Column'/>
-              </form>";
-
-            echo "&nbsp&nbsp<form action='deleteInventoryColumn.php'>
-               <input type='submit' value='Delete Column'/>
-              </form>";
-        }
-    }
-
 //    echo "&nbsp&nbsp<form action='addSubtype.php'>
 //               <input type='submit' value='Add Subtype'/>
 //              </form>";
@@ -201,7 +183,7 @@ if(isset($_SESSION['id'])) {
 //               <input type='submit' value='Edit Type'/>
 //              </form>";
 
-    echo "</table>";
+    echo "</tbody></table>";
 
 //    echo "<br>Page: ";
 //
@@ -213,4 +195,5 @@ if(isset($_SESSION['id'])) {
     header("Location: ./login.php");
 }
 
+include 'tableFooter.php'
 ?>

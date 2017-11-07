@@ -108,7 +108,7 @@ h1{
     </div>
   </div>
    <div class="col-md-4 col-lg-4 col-sm-4">
-    <div class="thumbnail text-center"><h3>Upgrades</h3><a href="repairsUpdatesUpgrades.php">        
+    <div class="thumbnail text-center"><h3>Repairs/Upgrades/Updates</h3><a href="repairsUpdatesUpgrades.php">
 <img src="images/placeholder_nvtn.png"  alt="Thumbnail Image 6"></a>
       <div class="caption">
         <!--<p>Generate QR code</p><br/> -->

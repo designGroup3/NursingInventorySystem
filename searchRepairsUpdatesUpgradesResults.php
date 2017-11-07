@@ -1,25 +1,5 @@
-<style>
-    td, th {
-        text-align: left;
-        padding: 8px;
-    }
-
-    table.center {
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    th{
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-        text-align:center;
-    }
-</style>
-
 <?php
-include 'header.php';
+include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -124,14 +104,17 @@ if(isset($_SESSION['id'])) {
         if($tableHeadNeeded){
             $tableHeadNeeded = false;
             $count++;
-            echo "<table class='table'><tr><th>Type</th>
+            echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
+            <thead><tr><th>Type</th>
             <th>Serial Number</th>
             <th>Item</th>
             <th>Part</th>
             <th>Cost</th>
             <th>Date Performed</th>
             <th>Supplier</th>
-            <th>Reason</th></tr>";
+            <th>Reason</th>
+            <th>Edit</th>
+            <th>Delete</th></tr></thead><tbody>";
         }
 
         $sql2 = "SELECT Item FROM inventory WHERE `Serial Number` = '".$row['Serial Number']."';";
@@ -155,6 +138,8 @@ if(isset($_SESSION['id'])) {
         }
               echo "</tr><br>";
     }
+    echo "</tbody></table>";
+
     if($count == 0) {
         echo "<br> No Items Found That Match All of Those Criteria.<br>";
     }
@@ -162,4 +147,6 @@ if(isset($_SESSION['id'])) {
 else{
     header("Location: ./login.php");
 }
+
+include 'tableFooter.php';
 ?>

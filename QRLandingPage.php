@@ -19,7 +19,7 @@
 </style>
 
 <?php
-include 'header.php';
+include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -35,7 +35,7 @@ if(isset($_SESSION['id'])) {
     $name;
     $columnNames = array();
 
-    echo "<br><table class ='center'>";
+    echo "<br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
 //    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock");
 //
 //    for ($count = 0; $count < count($columnNames); $count++) {
@@ -65,6 +65,8 @@ if(isset($_SESSION['id'])) {
     for ($count = 0; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
     }
+    echo "<th>Show QR Code</th><th>Edit</th><th>Delete</th>";
+    echo "</thead><tbody>";
 
     $sql = "SELECT ";
     for($count = 0; $count < count($columnNames); $count++){
@@ -124,9 +126,11 @@ if(isset($_SESSION['id'])) {
         else{
             echo "</tr>";
         }
+        echo "</tbody></table>";
     }
 }
 else{
     header("Location: ./login.php");
 }
+include 'tableFooter.php'
 ?>

@@ -1,25 +1,5 @@
-<style>
-    td, th {
-        text-align: left;
-        padding: 8px;
-    }
-
-    table.center {
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    th{
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-        text-align:center;
-    }
-</style>
-
 <?php
-include 'header.php';
+include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -113,12 +93,18 @@ if(isset($_SESSION['id'])) {
         if($tableHeadNeeded) {
             $tableHeadNeeded = false;
             $count++;
-            echo "<table class = 'table'><tr><th>First Name</th>
+            echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
+            <thead><tr><th>First Name</th>
             <th>Last Name</th>
             <th>Account Name</th>
             <th>Email</th>
             <th>Account Type</th>
-            <th>Date Added</th></tr>";
+            <th>Date Added</th>";
+            if ($acctType == "Super Admin") {
+                echo "<th>Edit</th>
+                <th>Delete</th>";
+            }
+            echo "</tr></thead><tbody>";
         }
         echo "<tr><td> ".$row['first']."</td>
               <td> ".$row['last']."</td>
@@ -133,7 +119,7 @@ if(isset($_SESSION['id'])) {
         }
         echo "</tr>";
     }
-    echo "</table>";
+    echo "</tbody></table>";
 
     if($count == 0) {
         echo "&nbsp&nbsp No Users Found That Match All of Those Criteria.<br>";
@@ -142,4 +128,6 @@ if(isset($_SESSION['id'])) {
 else{
     header("Location: ./login.php");
 }
+
+include 'tableFooter.php';
 ?>

@@ -64,7 +64,7 @@ h1{
 <div class="container center">
 <div class="row">
   <div class="col-md-4 col-lg-4 col-sm-4">
-    <div class="thumbnail text-center ce"><h3>View Inventory</h3><a href="inventory.php">        
+    <div class="thumbnail text-center ce"><h3>View Inventory</h3><a href="inventory.php">
 <img href="inventory.php" src="images/viewInventory.png" alt="Thumbnail Image 1" ></a>
       <div class="caption">
        <!-- <p>Add items to the inventory.</p><br/>-->
@@ -162,7 +162,9 @@ if(isset($_SESSION['id'])) {
                <input type='submit' value='Service Agreements'/>
               </form>";
 
-    } else {
-        header("Location: ./login.php");
-    }
+    <?php
+} else {
+    header("Location: ./login.php");
+}
+?>
 -->

@@ -14,12 +14,16 @@ if(isset($_SESSION['id'])) {
         array_push($columnNames, $row['Field']);
     }
 
-    echo "<br>&nbsp&nbspEnter what criteria you would like to see any matching items for.
-        <form action ='searchInventoryResults.php' method ='POST'><br>";
+    echo "<br><div class=\"container\">
+        <form action ='searchInventoryResults.php' class=\"well form-horizontal\" id=\"contact_form\"method ='POST'>
+        <fieldset><h2 align=\"center\">Enter what criteria you would like to see any matching items for.</h2><br>";
             for($count = 0; $count < 4; $count++){
                 $columnName = $columnNames[$count];
                 if($count == 2){
-                    echo "&nbsp&nbsp<label>Type</label> <br>&nbsp&nbsp<select name='Type'><option value=''></option>";
+                    echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Type:</label>
+                        <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
+                        <select name='Type' class=\"form-control selectpicker\"><option value=''></option>";
                     $sql2 = "SELECT Type FROM subtypes;";
                     $result2 = mysqli_query($conn, $sql2);
                     while($TypeRow = mysqli_fetch_array($result2)){
@@ -28,26 +32,46 @@ if(isset($_SESSION['id'])) {
                             echo "<option value= '". $TypeRow['Type']."'>".$TypeRow['Type']."</option>";
                         }
                     }
-                    echo "</select><br><br>";
+                    echo "</select></div></div></div>";
                 }
                 elseif($count == 3){
                     $sql3 = "SELECT Subtype FROM subtypes";
                     $result3 = mysqli_query($conn, $sql3);
-                    echo "&nbsp&nbsp<label>Subtype</label> <br>&nbsp&nbsp<select name='Subtype'><option value=''></option>";
+                    echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:</label>
+                        <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
+                        <select name='Subtype' class=\"form-control selectpicker\"><option value=''></option>";
                     while($SubtypeRow = mysqli_fetch_array($result3)){
                         echo "<option value= '". $SubtypeRow['Subtype']."'>".$SubtypeRow['Subtype']."</option>";
                     }
-                    echo "</select>";
+                    echo "</select></div></div></div>";
                 }
                 else{
                     if (strpos($columnName, ' ')) {
                         $columnName = str_replace(" ", "", $columnName);
                     }
-                    echo "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name='".$columnName
-                        . "' value='" . $row[$columnNames[$count]] . "'><br><br>";
+
+                    if($count == 0){
+                        echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\">  Serial Number </label>  
+                            <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                            <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-tag\"></i></span>
+                            <input name='SerialNumber' placeholder=\"Serial Number\" class=\"form-control\" 
+                            type=\"text\"></div></div></div>";
+                    }
+                    elseif($count == 1){
+                        echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\" >Item</label> 
+                            <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                            <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
+                            <input name='Item' placeholder=\"Item Name\" class=\"form-control\"  type=\"text\"></div>
+                            </div></div>";
+                    }
+                    else {
+                        echo "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name='" . $columnName
+                            . "' value='" . $row[$columnNames[$count]] . "'><br><br>";
+                    }
                 }
             }
-            echo "<br><br>";
+            //echo "<br><br>";
             for($count = 3; $count< count($columnNames); $count++){
                 $isSelect = false;
                 $columnName = $columnNames[$count];
@@ -57,30 +81,100 @@ if(isset($_SESSION['id'])) {
                 $rowType = mysqli_fetch_array($result4);
                 if($rowType['DATA_TYPE'] == "tinyint"){
                     $isSelect = true;
-                    $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<select name=";
+                    if($count == 5){
+                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Checkoutable 
+                        </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-question-sign\"></i></span>
+                        <select name='Checkoutable' class=\"form-control selectpicker\"";
+                    }
+                    else{
+                        $inputs = "<div class='form-group'><label class='col-md-4 control-label'>$columnNames[$count]
+                        </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-question-sign\"></i></span>
+                        <select class=\"form-control selectpicker\" name=";
+                        //$inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<select name=";
+                    }
                 }
                 elseif($rowType['DATA_TYPE'] == "date"){
-                    $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='date' name=";
+                    if($count == 7){
+                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Last Processing Date
+                        </label> <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-calendar\"></i></span>
+                        <input name=\"LastProcessingDate\" placeholder=\"MM/DD/YY\" class=\"form-control\" type=\"date\">
+                        </div></div></div>";
+                    }
+                    else{
+                        $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='date' name=";
+                    }
                 }
                 elseif($rowType['DATA_TYPE'] == "int"){
-                    $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='number' min='0' name=";
+                    if($count == 6){
+                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">  Number in Stock
+                        </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-question-sign\"></i></span>
+                        <input name='NumberInStock' placeholder='Number in Stock' class='form-control' type='number'>
+                        </div></div></div>";
+                    }
+                    else{
+                        $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='number' min='0' name=";
+                    }
                 }
                 else {
-                    $inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=";
+                    if($count == 3){
+                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Assigned to</label>
+                        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
+                        <input name='AssignedTo' placeholder=\"Assignee's Name\" class=\"form-control\" type=\"text\"></div>
+                        </div></div>";
+                    }
+                    elseif($count == 4){
+                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Location</label>  
+                        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-home\"></i></span>
+                        <input name='Location' placeholder=\"Item's Location\" class=\"form-control\" type=\"text\"></div>
+                        </div></div>";
+                    }
+                    elseif($count == 8){
+                        $inputs= "<div class='form-group'><label class='col-md-4 control-label'>Last Processing Person 
+                        </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                        <span class='input-group-addon'><i class='fa fa-user-circle' aria-hidden='true'></i></span>
+                        <input name='LastProcessingPerson' placeholder='Last Processing Person' class=\"form-control\" 
+                        type=\"text\"></div></div></div>";
+                    }
+                    else{
+                        $inputs = "<div class='form-group'><label class='col-md-4 control-label'>$columnNames[$count]
+                        </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
+                        <input name='$columnNames[$count]' placeholder=\"$columnNames[$count]\" class='form-control' 
+                        type='text'></div></div></div>";
+
+                        //$inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=";
+                    }
+
                 }
                 if (strpos($columnName, ' ')) {
                     $columnName = str_replace(" ", "", $columnName);
                 }
                 if($isSelect){
-                    $inputs .= $columnName . "><option value=''></option>
-                            <option value=1>Yes</option><option value=0>No</option></select><br><br>";
+                    if($count == 5){
+                        $inputs .=  "><option value=''></option>
+                            <option value=1>Yes</option><option value=0>No</option></select></div></div></div>";
+                    }
+                    else{
+                        $inputs .= $columnName . "><option value=''></option>
+                            <option value=1>Yes</option><option value=0>No</option></select></div></div></div>";
+                    }
                 }
-                else{
-                    $inputs .= $columnName . " value='" . $row[$columnNames[$count]] . "'><br><br>";
-                }
+//                else{
+//                    if($count > 8){
+//                        $inputs .= $columnName . " value='" . $row[$columnNames[$count]] . "'><br><br>";
+//                    }
+//                }
                 echo $inputs;
             }
-            echo "&nbsp&nbsp<button type='submit'>Submit</button></form><br><br>";
+            echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
+                  <button name=\"submit\" type=\"submit\" class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
+                  data-submit=\"...Sending\">Submit</button></div></div></fieldset></form></div>";
 }
 else{
     header("Location: ./login.php");

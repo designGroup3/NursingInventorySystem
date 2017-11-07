@@ -103,17 +103,14 @@ if(isset($_SESSION['id'])) {
                 $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
                 WHERE table_name = 'consumables' AND COLUMN_NAME = '$columnNames[$count]';";
                 $result2 = mysqli_query($conn, $sql2);
-                $rowType = mysqli_fetch_array($result2);
-                if($rowType['DATA_TYPE'] == "tinyint"){
-                    if($row[$columnNames[$count]] == 0){
-                        echo '<td>No</td>';
+                while($rowType = mysqli_fetch_array($result2)){
+                    if($rowType['DATA_TYPE'] == "date" && $row['Last Processing Date'] !== null){
+                        $date = date_create($row[$columnNames[$count]]);
+                        echo '<td>'.date_format($date, "m/d/Y").'</td>';
                     }
                     else{
-                        echo '<td>Yes</td>';
+                        echo '<td> '.$row[$columnNames[$count]].'</td>';
                     }
-                }
-                else{
-                    echo '<td> '.$row[$columnNames[$count]].'</td>';
                 }
             }
         }

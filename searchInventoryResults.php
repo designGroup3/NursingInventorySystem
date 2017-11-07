@@ -1,25 +1,5 @@
-<style>
-    td, th {
-        text-align: left;
-        padding: 8px;
-    }
-
-    table.center {
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    th{
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-        text-align:center;
-    }
-</style>
-
 <?php
-include 'header.php';
+include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -100,7 +80,8 @@ if(isset($_SESSION['id'])) {
         if($tableHeadNeeded){
             $tableHeadNeeded = false;
             $outerCount++;
-            echo "<table class='table'>";
+            echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
+            <thead>";
             for($count = 0; $count< 2; $count++){
                 echo "<th>$columnNames[$count]</th>";
             }
@@ -108,8 +89,8 @@ if(isset($_SESSION['id'])) {
             for($count = 2; $count< count($columnNames); $count++){
                 echo "<th>$columnNames[$count]</th>";
             }
+            echo "<th>Edit</th><th>Delete</th></thead><tbody><tr>";
         }
-        echo "<tr>";
         for($count = 0; $count< count($columnNames); $count++){
             if($count == 1){
                 echo '<td> '.$row[$columnNames[$count]].'</td>';
@@ -146,6 +127,7 @@ if(isset($_SESSION['id'])) {
                }
             echo "</tr>";
     }
+    echo "</tbody></table>";
 
     if($outerCount == 0) {
         echo "&nbsp<br> No Items Found That Match All of Those Criteria.<br>";
@@ -154,4 +136,6 @@ if(isset($_SESSION['id'])) {
 else{
     header("Location: ./login.php");
 }
+
+include 'tableFooter.php';
 ?>

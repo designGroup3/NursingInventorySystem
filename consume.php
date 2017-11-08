@@ -29,8 +29,9 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT Type FROM subtypes WHERE isConsumable = '1';";
     $result = mysqli_query($conn, $sql);
 
-    echo '<br><div class="container"><h2 align="center">Which item would you like to consume?</h2><br>
+    echo '<br><div class="container">
         <form class="well form-horizontal" style="border-bottom: none;" id="contact_form" method="POST"><fieldset>
+        <h2 align="center">Which item would you like to consume?</h2><br>
         <div class="form-group"><label class="col-md-4 control-label">Type:</label>
         <div class="col-md-4 selectContainer"><div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-th-large"></i></span>

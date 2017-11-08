@@ -65,7 +65,11 @@ if(isset($_SESSION['id'])) {
     for ($count = 0; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
     }
-    echo "<th>Show QR Code</th><th>Edit</th><th>Delete</th>";
+
+    echo "<th>Show QR Code</th><th>Edit</th>";
+     if ($acctType == "Admin" || $acctType == "Super Admin") {
+         echo "<th>Delete</th>";
+     }
     echo "</thead><tbody>";
 
     $sql = "SELECT ";

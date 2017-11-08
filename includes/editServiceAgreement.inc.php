@@ -27,7 +27,7 @@ $mime = finfo_file($finfo, $_FILES['file']['tmp_name']);
 
 if($mime == 'application/pdf') {
     $sql = "UPDATE serviceAgreements SET Name = '$name', `Annual Cost` = '$cost', Duration = '$duration', `Expiration Date` = '$date', Approval = '$id' WHERE Id = '$id'";
-
+    $result = mysqli_query($conn, $sql);
     move_uploaded_file($_FILES["file"]["tmp_name"], "../serviceAgreements/".$id .".pdf");
 
     header("Location: ../serviceAgreements.php");

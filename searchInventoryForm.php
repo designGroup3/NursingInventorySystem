@@ -112,7 +112,7 @@ if(isset($_SESSION['id'])) {
                         $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">  Number in Stock
                         </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-question-sign\"></i></span>
-                        <input name='NumberInStock' placeholder='Number in Stock' class='form-control' type='number'>
+                        <input name='NumberinStock' placeholder='Number in Stock' class='form-control' type='number'>
                         </div></div></div>";
                     }
                     else{
@@ -124,7 +124,7 @@ if(isset($_SESSION['id'])) {
                         $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Assigned to</label>
                         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-                        <input name='AssignedTo' placeholder=\"Assignee's Name\" class=\"form-control\" type=\"text\"></div>
+                        <input name='Assignedto' placeholder=\"Assignee's Name\" class=\"form-control\" type=\"text\"></div>
                         </div></div>";
                     }
                     elseif($count == 4){
@@ -142,10 +142,14 @@ if(isset($_SESSION['id'])) {
                         type=\"text\"></div></div></div>";
                     }
                     else{
+                        $columnName = $columnNames[$count];
+                        if (strpos($columnName, ' ')) {
+                            $columnName = str_replace(" ", "", $columnName);
+                        }
                         $inputs = "<div class='form-group'><label class='col-md-4 control-label'>$columnNames[$count]
                         </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-                        <input name='$columnNames[$count]' placeholder=\"$columnNames[$count]\" class='form-control' 
+                        <input name='$columnName' placeholder=\"$columnNames[$count]\" class='form-control' 
                         type='text'></div></div></div>";
 
                         //$inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=";

@@ -19,7 +19,7 @@
 </style>
 
 <?php
-include 'header.php';
+include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -35,7 +35,7 @@ if(isset($_SESSION['id'])) {
     $name;
     $columnNames = array();
 
-    echo "<br><table class ='center'>";
+    echo "<br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
 //    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock");
 //
 //    for ($count = 0; $count < count($columnNames); $count++) {
@@ -65,6 +65,12 @@ if(isset($_SESSION['id'])) {
     for ($count = 0; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
     }
+
+    echo "<th>Show QR Code</th><th>Edit</th>";
+     if ($acctType == "Admin" || $acctType == "Super Admin") {
+         echo "<th>Delete</th>";
+     }
+    echo "</thead><tbody>";
 
     $sql = "SELECT ";
     for($count = 0; $count < count($columnNames); $count++){
@@ -116,7 +122,7 @@ if(isset($_SESSION['id'])) {
             echo "<td><a href='includes/checkin.inc.php?serialNumber=".$row['Serial Number']."'>Check-in<br></td>";
         }
 
-        echo "<td><a href='QRCode.php?text=".$row['Serial Number']."'>Show QR Code<br></td>
+        echo "<td><a href='QRPrintPage.php?serialNumber=".$row["Serial Number"]."'>Print QR Code<br></td>
          <td><a href='editInventory.php?edit=".$row['Serial Number']."'>Edit<br></td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
             echo "<td><a href='deleteInventory.php?serialNumber=".$row['Serial Number']."&item=$row[Item]'>Delete<br></td></tr>";
@@ -124,9 +130,11 @@ if(isset($_SESSION['id'])) {
         else{
             echo "</tr>";
         }
+        echo "</tbody></table>";
     }
 }
 else{
     header("Location: ./login.php");
 }
+include 'tableFooter.php'
 ?>

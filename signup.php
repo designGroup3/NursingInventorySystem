@@ -255,9 +255,9 @@
     }
 
     if(isset($_SESSION['id'])){
-        echo "<br><class style=\"text-align:center;\"> <h2>Add user page</h2><br/>
+        echo "<br><class style=\"text-align:center;\"> 
         <div class=\"container\"><form class=\"well form-horizontal\" action='includes/signup.inc.php'
-        method='POST' id=\"contact_form\"><fieldset>
+        method='POST' id=\"contact_form\"><fieldset><h2>Add user page</h2><br/>
         
         <div class=\"form-group\"><label class=\"col-md-4 control-label\">First Name</label>  
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">

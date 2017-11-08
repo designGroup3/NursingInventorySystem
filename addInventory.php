@@ -1,12 +1,3 @@
-<style>
-    .btn{
-        Background-color:#981e32;
-    }
-    .btn:hover{
-        Background-color:#bc233c;
-    }
-</style>
-
 <?php
 include 'header.php';
 
@@ -24,7 +15,7 @@ if(isset($_SESSION['id'])) {
     elseif(strpos($url, 'error=typeMismatch') !== false){
         $subtype= $_GET['subtype'];
         $type= $_GET['type'];
-        echo "<br>&nbsp&nbspThe subtype $subtype already relates to the type $type. Subtypes can only have one type.<br>";
+      echo "<br>&nbsp&nbspThe subtype $subtype already relates to the type $type. Subtypes can only have one type.<br>";
     }
     elseif(strpos($url, 'empty') !== false){
         echo "<br>&nbsp&nbspYou must name the item.<br>";
@@ -55,59 +46,57 @@ if(isset($_SESSION['id'])) {
                     <select class="form-control selectpicker" name=';
                 }
                 else{
-                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">$columnNames[$count]</label>
+                  $inputs = "<div class='form-group'><label class='col-md-4 control-label'>$columnNames[$count]:</label>
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-list\"></i></span>
                     <select class=\"form-control selectpicker\" name=";
-                    //$inputs = "&nbsp&nbsp<label>$columnNames[$count]</label><select name=";
                 }
             } elseif ($rowType['DATA_TYPE'] == "int") {
                 if($count == 6){
-                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">Number in Stock 
+                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">Number in Stock:
                     </label><div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
                     <input type="number" placeholder="Number in Stock" min="0" class="form-control" name=';
                 }
-                else{
-                    $inputs ="<div class=\"form-group\"><label class=\"col-md-4 control-label\">$columnNames[$count] 
-                    </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-                    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-question-sign\"></i></span>
-                    <input type=\"number\" placeholder='$columnNames[$count]' min=\"0\" class=\"form-control\" name=";
-                    //$inputs = "&nbsp&nbsp<label>$columnNames[$count]</label><input type='number' min='0' name=";
-                }
+//                else{
+//                    $inputs ="<div class=\"form-group\"><label class=\"col-md-4 control-label\">$columnNames[$count]:
+//                    </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+//                    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-question-sign\"></i></span>
+//                    <input type=\"number\" placeholder='$columnNames[$count]' min=\"0\" class=\"form-control\" name=";
+//                }
             } else {
                 if($count == 0){
-                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\"> Serial Number</label>
+                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Serial Number:</label>
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-tag\"></i></span>
                     <input type='text' placeholder='Serial Number' class=\"form-control\" name=";
                 }
                 elseif($count == 1){
-                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\" >Item</label> 
+                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\" >Item:</label> 
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
                     <input type='text' placeholder=\"Item Name\" class=\"form-control\" name=";
                 }
                 elseif($count == 2){
-                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype</label>  
+                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:</label>  
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
                     <input type='text' placeholder='Subtype' class=\"form-control\" name=";
                 }
                 elseif($count == 3){
-                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Assigned to
+                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Assigned to:
                     </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
                     <input type='text' placeholder=\"Assignee's Name\" class='form-control' name=";
                 }
                 elseif($count == 4){
-                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">Location
+                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">Location:
                     </label><div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
                     <input type="text" placeholder="Item\'s Location" class=\'form-control\' name=';
                 }
                 else{
-                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">$columnNames[$count]
+                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">$columnNames[$count]:
                     </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
                     <input type=\"text\" placeholder='$columnNames[$count]' class='form-control' name=";
@@ -123,18 +112,19 @@ if(isset($_SESSION['id'])) {
                     $sql3 = "SELECT Subtype FROM subtypes WHERE isCheckoutable = 1";
                     $result3 = mysqli_query($conn, $sql3);
                     while ($SubtypeRow = mysqli_fetch_array($result3)) {
-                        $inputs .= "<option value= " . $SubtypeRow['Subtype'] . ">" . $SubtypeRow['Subtype'] . "</option>";
+                        $inputs .= "<option value= " . $SubtypeRow['Subtype'].">".$SubtypeRow['Subtype']."</option>";
                     }
                     $inputs .= "</select></div></div></div>";
                 } else {
-                    $inputs .= "<option value =''></option><option value= 0>No</option><option value= 1>Yes</option></select></div></div></div>";
+                    $inputs .= "<option value =''></option><option value= 0>No</option><option value= 1>Yes</option>
+                    </select></div></div></div>";
                 }
             } else {
                 $inputs .= $columnName . " value=" . $row[$columnNames[$count]] . "></div></div></div>";
             }
 
             if($count == 2){
-                $inputs.= "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Type</label>  
+                $inputs.= "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Type:</label>  
                 <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                 <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
                 <input name=\"type\" placeholder=\"Type\" class=\"form-control\" type=\"text\"></div></div></div>";
@@ -143,10 +133,8 @@ if(isset($_SESSION['id'])) {
         }
     }
     echo"<div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-      <button name=\"submit\" type=\"submit\" class=\"btn btn-warning btn-block\" 
-      id=\"contact-submit\" data-submit=\"...Sending\">Add to inventory</button></div></div>";
-
-    echo "</fieldset></form></div></fieldset></form></div></div>";
+      <button name='submit' type='submit' class='btn btn-warning btn-block' id='contact-submit' 
+      data-submit='...Sending'>Add to Inventory</button></div></div></fieldset></form></div></div>";
 }
 else{
     header("Location: ./login.php");

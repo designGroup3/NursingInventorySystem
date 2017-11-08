@@ -87,7 +87,15 @@ if(isset($_SESSION['id'])) {
             }
             echo "<th>Type</th>";
             for($count = 2; $count< count($columnNames); $count++){
-                echo "<th>$columnNames[$count]</th>";
+                if($columnNames[$count] === "Number in Stock"){
+                    echo "<th>$columnNames[$count] "."(Minimum)"."</th>";
+                }
+                elseif($columnNames[$count] === "Minimum Stock"){
+                    //Show nothing since the previous column already shows it.
+                }
+                else{
+                    echo "<th>$columnNames[$count]</th>";
+                }
             }
             echo "<th>Edit</th>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
@@ -108,7 +116,13 @@ if(isset($_SESSION['id'])) {
                 WHERE table_name = 'consumables' AND COLUMN_NAME = '$columnNames[$count]';";
                 $result2 = mysqli_query($conn, $sql2);
                 while($rowType = mysqli_fetch_array($result2)){
-                    if($rowType['DATA_TYPE'] == "date" && $row['Last Processing Date'] !== null){
+                    if($columnNames[$count] === "Number in Stock"){
+                        echo '<td style="text-align:center"> '.$row['Number in Stock'].' ('.$row['Minimum Stock'].')</td>';
+                    }
+                    elseif($columnNames[$count] === "Minimum Stock"){
+                        //Show nothing since the previous column already shows it.
+                    }
+                    elseif($rowType['DATA_TYPE'] == "date" && $row['Last Processing Date'] !== null){
                         $date = date_create($row[$columnNames[$count]]);
                         echo '<td>'.date_format($date, "m/d/Y").'</td>';
                     }

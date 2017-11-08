@@ -50,7 +50,7 @@ if(isset($_SESSION['id'])) {
             <td> " . $row['Duration'] . "</td>";
             $date = date_create($row['Expiration Date']);
             echo "<td> " . date_format($date, 'm/d/Y') . "</td>";
-            if($row['Approval'] !== NULL){
+            if($row['Approval'] !== NULL && $row['Approval'] !== ""){
                 echo "<td><a href='serviceAgreements/$row[Id].pdf'>Approval Form</a></td>";
             }
             else{

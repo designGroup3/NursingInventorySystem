@@ -80,20 +80,22 @@ if(isset($_SESSION['id'])) {
             <th>Ext</th>
             <th>Email</th>
             <th>Office</th>
-            <th>Edit</th>
-            <th>Delete</th></tr></thead><tbody>";
+            <th>Edit</th>";
+            if ($acctType == "Admin" || $acctType == "Super Admin") {
+                echo "<th>Delete</th>";
+            }
+            echo "</tr></thead><tbody>";
         }
-        echo "<tr>
-              <td> ".$row['Last']."</td>
+        echo "<tr><td> ".$row['Last']."</td>
               <td> ".$row['First']."</td>
               <td> ".$row['Ext']."</td>
               <td> ".$row['Email']."</td>
-              <td> ".$row['Office']."</td>";
+              <td> ".$row['Office']."</td>
+              <td><a href='editClient.php?edit=$row[Number]'>Edit</td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td> <a href='editClient.php?edit=$row[Number]'>Edit<br></td>
-              <td> <a href='deleteClient.php?number=$row[Number]&last=$row[Last]&first=$row[First]'>Delete<br></td>";
+            echo "<td><a href='deleteClient.php?number=$row[Number]&last=$row[Last]&first=$row[First]'>Delete</td>";
         }
-              echo "</tr>";
+        echo "</tr>";
     }
     echo "</tbody></table>";
     if($count == 0) {

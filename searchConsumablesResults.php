@@ -89,7 +89,11 @@ if(isset($_SESSION['id'])) {
             for($count = 2; $count< count($columnNames); $count++){
                 echo "<th>$columnNames[$count]</th>";
             }
-            echo "<th>Edit</th><th>Delete</th></thead><tbody><tr>";
+            echo "<th>Edit</th>";
+            if ($acctType == "Admin" || $acctType == "Super Admin") {
+                echo "<th>Delete</th>";
+            }
+            echo"</thead><tbody><tr>";
         }
         for($count = 0; $count< count($columnNames); $count++){
             if($count == 1){

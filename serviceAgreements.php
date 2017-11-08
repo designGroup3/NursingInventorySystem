@@ -36,8 +36,9 @@ if(isset($_SESSION['id'])) {
     if(count($approvals) > 0){
         echo "<th>Approval Form</th>";
     }
+    echo "<th>Edit</th>";
     if ($acctType == "Admin" || $acctType == "Super Admin") {
-        echo "<th>Edit</th><th>Delete</th>";
+        echo "<th>Delete</th>";
     }
     echo "</tr></thead><tbody>";
 
@@ -55,9 +56,9 @@ if(isset($_SESSION['id'])) {
             else{
                 echo "<td></td>";
             }
+            echo "<td><a href='editServiceAgreement.php?edit=$row[Id]'>Edit</a></td>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
-                echo "<td> <a href='editServiceAgreement.php?edit=$row[Id]'>Edit</a><br></td>
-                <td> <a href='deleteServiceAgreement.php?id=$row[Id]&name=$row[Name]'>Delete<br></td>";
+                echo "<td><a href='deleteServiceAgreement.php?id=$row[Id]&name=$row[Name]'>Delete</td>";
             }
         echo "</tr>";
     }

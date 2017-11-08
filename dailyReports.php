@@ -52,8 +52,9 @@ if(isset($_SESSION['id'])) {
                 <td> " . $row['Item'] . "</td>
                 <td> " . $row['Type'] . "</td>
                 <td> " . $row['Subtype'] . "</td>
-                <td> " . $row['Quantity'] . "</td>
-                <td> " . $row['Timestamp'] . "</td>
+                <td> " . $row['Quantity'] . "</td>";
+                $date = date_create($row['Timestamp']);
+                echo "<td>".date_format($date, 'm-d-Y H:i:s')."</td>
                 <td> " . $row['Update Person'] . "</td>";
             }
             echo "</tbody></table>";

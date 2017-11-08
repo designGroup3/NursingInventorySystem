@@ -32,7 +32,11 @@ if(isset($_SESSION['id'])) {
     <th>Date Performed</th>
     <th>Supplier</th>
     <th>Reason</th>
-    <th>Edit</th><th>Delete</th></tr></thead><tbody>";
+    <th>Edit</th>";
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
+        echo "<th>Delete</th>";
+    }
+    echo "</tr></thead><tbody>";
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr>
             <td> " . $row['Type'] . "</td>
@@ -43,10 +47,10 @@ if(isset($_SESSION['id'])) {
             $date = date_create($row['Date']);
             echo "<td> " . date_format($date, 'm/d/Y') . "</td>
             <td> " . $row['Supplier'] . "</td>
-            <td> " . $row['Reason'] . "</td>";
+            <td> " . $row['Reason'] . "</td>
+            <td><a href='editRepairUpdateUpgrade.php?edit=$row[Id]'>Edit</a></td>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td> <a href='editRepairUpdateUpgrade.php?edit=$row[Id]'>Edit</a><br></td>
-            <td> <a href='deleteRepairUpdateUpgrade.php?id=$row[Id]&type=$row[Type]&item=$row[Item]'>Delete<br></td>";
+            echo "<td><a href='deleteRepairUpdateUpgrade.php?id=$row[Id]&type=$row[Type]&item=$row[Item]'>Delete</td>";
             }
         echo "</tr>";
     }

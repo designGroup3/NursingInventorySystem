@@ -113,8 +113,11 @@ if(isset($_SESSION['id'])) {
             <th>Date Performed</th>
             <th>Supplier</th>
             <th>Reason</th>
-            <th>Edit</th>
-            <th>Delete</th></tr></thead><tbody>";
+            <th>Edit</th>";
+            if ($acctType == "Admin" || $acctType == "Super Admin") {
+                echo "<th>Delete</th>";
+            }
+            echo "</tr></thead><tbody>";
         }
 
         $sql2 = "SELECT Item FROM inventory WHERE `Serial Number` = '".$row['Serial Number']."';";

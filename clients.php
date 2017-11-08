@@ -26,10 +26,10 @@ if(isset($_SESSION['id'])) {
 
     echo "<br>
     <table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
-    echo "<th>Last</th><th>First</th><th>Ext</th><th>Email</th><th>Office</th>";
+    echo "<th>Last</th><th>First</th><th>Ext</th><th>Email</th><th>Office</th><th>Edit</th>";
 
     if ($acctType == "Admin" || $acctType == "Super Admin") {
-        echo "<th>Edit</th><th>Delete</th>";
+        echo "<th>Delete</th>";
     }
     echo "</thead>";
 
@@ -56,9 +56,9 @@ if(isset($_SESSION['id'])) {
         echo "<tr>";
         echo '<td> ' . $row['Last'] . '</td>'.'<td> ' . $row['First'] . '</td>'.
         '<td> ' . $row['Ext'] . '<td> ' . $row['Email'] . '</td>' .'<td> ' . $row['Office'] . '</td>';
+        echo "<td><a href='editClient.php?edit=$row[Number]'>Edit<br></td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td> <a href='editClient.php?edit=$row[Number]'>Edit<br></td>
-              <td> <a href='deleteClient.php?number=$row[Number]&last=$row[Last]&first=$row[First]'>Delete<br></td></tr>";
+            echo "<td><a href='deleteClient.php?number=$row[Number]&last=$row[Last]&first=$row[First]'>Delete<br></td></tr>";
         }
     }
 

@@ -52,22 +52,22 @@ if(isset($_SESSION['id'])) {
                     }
 
                     if($count == 0){
-                        echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\">  Serial Number </label>  
+                        echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Serial Number:</label>  
                             <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                             <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-tag\"></i></span>
                             <input name='SerialNumber' placeholder=\"Serial Number\" class=\"form-control\" 
                             type=\"text\"></div></div></div>";
                     }
                     elseif($count == 1){
-                        echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\" >Item</label> 
+                        echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\" >Item:</label> 
                             <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                             <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
                             <input name='Item' placeholder=\"Item Name\" class=\"form-control\"  type=\"text\"></div>
                             </div></div>";
                     }
                     else {
-                        echo "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name='" . $columnName
-                            . "' value='" . $row[$columnNames[$count]] . "'><br><br>";
+                        echo "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name='".$columnName
+                            ."' value='" . $row[$columnNames[$count]] . "'><br><br>";
                     }
                 }
             }
@@ -82,13 +82,13 @@ if(isset($_SESSION['id'])) {
                 if($rowType['DATA_TYPE'] == "tinyint"){
                     $isSelect = true;
                     if($count == 5){
-                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Checkoutable 
+                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Checkoutable:
                         </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-question-sign\"></i></span>
                         <select name='Checkoutable' class=\"form-control selectpicker\"";
                     }
                     else{
-                        $inputs = "<div class='form-group'><label class='col-md-4 control-label'>$columnNames[$count]
+                        $inputs = "<div class='form-group'><label class='col-md-4 control-label'>$columnNames[$count]:
                         </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-question-sign\"></i></span>
                         <select class=\"form-control selectpicker\" name=";
@@ -97,7 +97,7 @@ if(isset($_SESSION['id'])) {
                 }
                 elseif($rowType['DATA_TYPE'] == "date"){
                     if($count == 7){
-                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Last Processing Date
+                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Last Processing Date:
                         </label> <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-calendar\"></i></span>
                         <input name=\"LastProcessingDate\" placeholder=\"MM/DD/YY\" class=\"form-control\" type=\"date\">
@@ -109,7 +109,7 @@ if(isset($_SESSION['id'])) {
                 }
                 elseif($rowType['DATA_TYPE'] == "int"){
                     if($count == 6){
-                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">  Number in Stock
+                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Number in Stock:
                         </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-question-sign\"></i></span>
                         <input name='NumberinStock' placeholder='Number in Stock' class='form-control' type='number'>
@@ -121,21 +121,21 @@ if(isset($_SESSION['id'])) {
                 }
                 else {
                     if($count == 3){
-                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Assigned to</label>
+                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Assigned to:</label>
                         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
                         <input name='Assignedto' placeholder=\"Assignee's Name\" class=\"form-control\" type=\"text\"></div>
                         </div></div>";
                     }
                     elseif($count == 4){
-                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Location</label>  
+                        $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Location:</label>  
                         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-home\"></i></span>
                         <input name='Location' placeholder=\"Item's Location\" class=\"form-control\" type=\"text\"></div>
                         </div></div>";
                     }
                     elseif($count == 8){
-                        $inputs= "<div class='form-group'><label class='col-md-4 control-label'>Last Processing Person 
+                        $inputs= "<div class='form-group'><label class='col-md-4 control-label'>Last Processing Person: 
                         </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class='input-group-addon'><i class='fa fa-user-circle' aria-hidden='true'></i></span>
                         <input name='LastProcessingPerson' placeholder='Last Processing Person' class=\"form-control\" 

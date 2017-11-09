@@ -38,6 +38,16 @@ if(isset($_SESSION['id'])) {
         }
     }
 
+    $sqlSubtype = "SELECT Subtype FROM inventory WHERE `Serial Number` = '". $serialNumber."';";
+    $resultSubtype = mysqli_query($conn, $sqlSubtype);
+    $subRow = mysqli_fetch_array($resultSubtype);
+    $subtype = $subRow['Subtype'];
+
+    $typeSQL = "SELECT Type FROM subtypes WHERE Subtype = '$subtype'";
+    $typeResult = mysqli_query($conn, $typeSQL);
+    $typeRow = mysqli_fetch_array($typeResult);
+    $type = $typeRow['Type'];
+
     echo "<div class=\"container\"><form class=\"well form-horizontal\" action ='includes/editInventory.inc.php'
         id=\"contact_form\" method ='POST'><fieldset><h2 align=\"center\">Edit Inventory Item</h2><br/>";
 
@@ -52,9 +62,15 @@ if(isset($_SESSION['id'])) {
             WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
             $result2 = mysqli_query($conn, $sql2);
             $rowType = mysqli_fetch_array($result2);
-            if($rowType['DATA_TYPE'] == "tinyint"){
+            if($rowType['DATA_TYPE'] == "tinyint" || $count == 2){
                 $isSelect = true;
-                if($count == 5){
+                if($count == 2) {
+                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:</label>  
+                    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
+                    <input style='height:30px; width:100%;' list='Subtypes' value='$subtype' placeholder='   Subtype' name=";
+                }
+                elseif($count == 5){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">Checkoutable?</label>
                     <div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i></span>
@@ -66,7 +82,6 @@ if(isset($_SESSION['id'])) {
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-list\"></i></span>
                     <select class=\"form-control selectpicker\" name=";
                 }
-                //$inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<select name=";
             } elseif ($rowType['DATA_TYPE'] == "int") {
                 if($count == 6){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">Number in Stock:
@@ -74,7 +89,6 @@ if(isset($_SESSION['id'])) {
                     <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
                     <input type="number" placeholder="Number in Stock" min="0" class="form-control" name=';
                 }
-                //$inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='number' min='0' name=";
             }
             else {
                 if($count == 0){
@@ -88,12 +102,6 @@ if(isset($_SESSION['id'])) {
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
                     <input type='text' placeholder=\"Item Name\" class=\"form-control\" name=";
-                }
-                elseif($count == 2){
-                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:</label>  
-                    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-                    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
-                    <input type='text' placeholder='Subtype' class=\"form-control\" name=";
                 }
                 elseif($count == 3){
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Assigned to:
@@ -113,14 +121,32 @@ if(isset($_SESSION['id'])) {
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
                     <input type=\"text\" placeholder='$columnNames[$count]' class='form-control' name=";
                 }
-                //$inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=";
             }
             if (strpos($columnName, ' ')) { //changes column name for includes file
                 $columnName = str_replace(" ", "", $columnName);
             }
             if($isSelect){
-                $inputs .= $columnName . ">";
-//                if($count == 2){
+                $inputs .= $columnName."><datalist id=\"Subtypes\">";
+                if($count == 2){
+                    $sql3 = "SELECT Subtype FROM subtypes WHERE isCheckoutable = 1";
+                    $result3 = mysqli_query($conn, $sql3);
+                    while ($SubtypeRow = mysqli_fetch_array($result3)) {
+                        $inputs .= "<option value= '" . $SubtypeRow['Subtype']."'>".$SubtypeRow['Subtype']."</option>";
+                    }
+
+                    $inputs .= "</datalist></div></div></div><div class=\"form-group\">
+                        <label class=\"col-md-4 control-label\">Type:</label>  
+                        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
+                        <input style='height:30px; width:100%;' list='Types' value='$type' placeholder='   Type' id='type' name='type'>
+                        <datalist id=\"Types\">";
+                    $sql4 = "SELECT DISTINCT Type FROM subtypes WHERE isCheckoutable = 1";
+                    $result4 = mysqli_query($conn, $sql4);
+                    while ($row4 = mysqli_fetch_array($result4)) {
+                        $inputs .= "<option value= '" . $row4['Type']."'>".$row4['Type']."</option>";
+                    }
+                    $inputs .= "</datalist></div></div></div>";
+
 //                    $sqlSubtype = "SELECT Subtype FROM inventory WHERE `Serial Number` = '". $serialNumber."';";
 //                    $resultSubtype = mysqli_query($conn, $sqlSubtype);
 //                    $subRow = mysqli_fetch_array($resultSubtype);
@@ -137,8 +163,8 @@ if(isset($_SESSION['id'])) {
 //                        }
 //                    }
 //                    $inputs .= "</select><br><br>";
-//                }
-//                else{
+                }
+                else{
                     if($row[$columnNames[$count]] == 0 && $row[$columnNames[$count]] !== null){
                         $inputs .= "<option value=0>No</option><option value=1>Yes</option></select></div></div></div>";
                     }
@@ -149,24 +175,22 @@ if(isset($_SESSION['id'])) {
                         $inputs .= "<option value=''></option><option value=1>Yes</option><option value=0>No</option>
                         </select></div></div></div>";
                     }
-                //}
+                }
             }
             else{
                 $inputs .= $columnName . " value=\"" . $row[$columnNames[$count]] . "\"></div></div></div>";
             }
-            if($count == 2){
-                $sql3 = "SELECT Type FROM subtypes WHERE Subtype = '$row[Subtype]';";
-                $result3 = mysqli_query($conn, $sql3);
-                $row3 = mysqli_fetch_array($result3);
-                $type = $row3['Type'];
-
-                $inputs.= "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Type:</label>  
-                <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-                <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
-               <input name='type' id='type' placeholder='Type' class='form-control' type='text' value='$type'></div></div></div>";
-
-                //$inputs.= "&nbsp&nbsp<label>Type (Warning: Changing type will change the type for every item with this subtype)</label><br>&nbsp&nbsp<input type='text' name='type' id='type' value='$type'><br><br>";
-            }
+//            if($count == 2){
+//                $sql3 = "SELECT Type FROM subtypes WHERE Subtype = '$row[Subtype]';";
+//                $result3 = mysqli_query($conn, $sql3);
+//                $row3 = mysqli_fetch_array($result3);
+//                $type = $row3['Type'];
+//
+//                $inputs.= "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Type:</label>
+//                <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+//                <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
+//               <input name='type' id='type' placeholder='Type' class='form-control' type='text' value='$type'></div></div></div>";
+//            }
             echo $inputs;
         }
     }

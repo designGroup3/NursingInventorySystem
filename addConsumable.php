@@ -37,12 +37,21 @@ if(isset($_SESSION['id'])) {
                 WHERE table_name = 'consumables' AND COLUMN_NAME = '$columnNames[$count]';";
             $result2 = mysqli_query($conn, $sql2);
             $rowType = mysqli_fetch_array($result2);
-            if ($rowType['DATA_TYPE'] == "tinyint") {
+            if ($rowType['DATA_TYPE'] == "tinyint" || $count == 1) {
                 $isSelect = true;
-                $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">$columnNames[$count]:</label>
-                    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-                    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-list\"></i></span>
-                    <select class=\"form-control selectpicker\" name=";
+                if($count == 1){
+                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:</label>  
+                        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
+                        <input style='height:30px; width:100%;' list='Subtypes' placeholder='   Subtype' name=";
+                }
+                else{
+                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">$columnNames[$count]:</label>
+                        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-list\"></i></span>
+                        <select class=\"form-control selectpicker\" name=";
+                }
+
             } elseif ($rowType['DATA_TYPE'] == "int") {
                 if($count == 3){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">Number in Stock:
@@ -62,19 +71,12 @@ if(isset($_SESSION['id'])) {
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-question-sign\"></i></span>
                     <input type=\"number\" placeholder='$columnNames[$count]' min=\"0\" class=\"form-control\" name=";
                 }
-                //$inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='number' min='0' name=";
             } else {
                 if($count == 0){
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\" >Item:</label> 
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
                     <input  placeholder='Item Name' class='form-control' type='text' name=";
-                }
-                elseif($count == 1){
-                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:</label>  
-                    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-                    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
-                    <input type='text' placeholder='Subtype' class=\"form-control\" name=";
                 }
                 elseif($count == 2){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">Location:
@@ -88,33 +90,36 @@ if(isset($_SESSION['id'])) {
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
                     <input type=\"text\" placeholder='$columnNames[$count]' class='form-control' name=";
                 }
-                //$inputs = "&nbsp&nbsp<label>$columnNames[$count]</label> <br>&nbsp&nbsp<input type='text' name=";
             }
             if (strpos($columnName, ' ')) {
                 $columnName = str_replace(" ", "", $columnName);
             }
             if ($isSelect) {
-                $inputs .= $columnName . ">";
+                $inputs .= $columnName . "><datalist id=\"Subtypes\">";
                 if ($count == 1) {
                     $sql3 = "SELECT Subtype FROM subtypes WHERE isConsumable = 1";
                     $result3 = mysqli_query($conn, $sql3);
                     while ($SubtypeRow = mysqli_fetch_array($result3)) {
                         $inputs .= "<option value= '".$SubtypeRow['Subtype']."'>".$SubtypeRow['Subtype']."</option>";
                     }
-                    $inputs .= "</select></div></div></div>";
+                    $inputs .= "</datalist></div></div></div><div class=\"form-group\">
+                        <label class=\"col-md-4 control-label\">Type:</label>  
+                        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
+                        <input style='height:30px; width:100%;' list='Types' placeholder='   Type' name='type'>
+                        <datalist id=\"Types\">";
+                    $sql4 = "SELECT DISTINCT Type FROM subtypes WHERE isConsumable = 1";
+                    $result4 = mysqli_query($conn, $sql4);
+                    while ($TypeRow = mysqli_fetch_array($result4)) {
+                        $inputs .= "<option value= '" . $TypeRow['Type']."'>".$TypeRow['Type']."</option>";
+                    }
+                    $inputs .= "</datalist></div></div></div>";
                 } else {
                     $inputs .= "<option value =''></option><option value= 0>No</option><option value= 1>Yes</option>
                     </select></div></div></div>";
                 }
             } else {
                 $inputs .= $columnName . " value='".$row[$columnNames[$count]]."'></div></div></div>";
-            }
-
-            if($count == 1){
-                $inputs.= "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Type:</label>  
-                <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-                <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
-                <input name=\"type\" placeholder=\"Type\" class=\"form-control\" type=\"text\"></div></div></div>";
             }
             echo $inputs;
         }

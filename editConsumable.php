@@ -116,7 +116,7 @@ if(isset($_SESSION['id'])) {
             if ($isSelect) {
                 $inputs .= $columnName."><datalist id=\"Subtypes\">";
                 if ($count == 1) {
-                    $sql3 = "SELECT Subtype FROM subtypes WHERE isConsumable = 1";
+                    $sql3 = "SELECT Subtype FROM subtypes WHERE `Table` = 'Consumables'";
                     $result3 = mysqli_query($conn, $sql3);
                     while ($SubtypeRow = mysqli_fetch_array($result3)) {
                         $inputs .= "<option value= '" . $SubtypeRow['Subtype']."'>".$SubtypeRow['Subtype']."</option>";
@@ -128,7 +128,7 @@ if(isset($_SESSION['id'])) {
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
                         <input style='height:30px; width:100%;' list='Types' value='$type' placeholder='   Type' id='type' name='type'>
                         <datalist id=\"Types\">";
-                    $sql4 = "SELECT DISTINCT Type FROM subtypes WHERE isConsumable = 1";
+                    $sql4 = "SELECT DISTINCT Type FROM subtypes WHERE `Table` = 'Consumables'";
                     $result4 = mysqli_query($conn, $sql4);
                     while ($row4 = mysqli_fetch_array($result4)) {
                         $inputs .= "<option value= '" . $row4['Type']."'>".$row4['Type']."</option>";

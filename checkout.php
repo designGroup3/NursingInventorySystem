@@ -12,6 +12,8 @@ if(isset($_SESSION['id'])) {
     $getSubtype = $_GET['subtype'];
     $getItem = $_GET['item'];
 
+    $noItem = false;
+
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=over') !== false){
         echo "<br>&nbsp&nbspThere are not that many of the item in inventory.<br>";
@@ -26,7 +28,7 @@ if(isset($_SESSION['id'])) {
         echo "<br>&nbsp&nbspItem checked-out.<br>";
     }
 
-    $sql = "SELECT Type FROM subtypes WHERE isCheckoutable = '1';";
+    $sql = "SELECT Type FROM subtypes WHERE `Table` = 'Inventory';";
     $result = mysqli_query($conn, $sql);
 
     echo '<br><div class="container">
@@ -34,8 +36,13 @@ if(isset($_SESSION['id'])) {
         <h2 align="center">Which item would you like to checkout?</h2><br>
         <div class="form-group"><label class="col-md-4 control-label">Type:</label>
         <div class="col-md-4 selectContainer"><div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-th-large"></i></span>
-        <select name="type" class="form-control selectpicker" onchange="this.form.submit()">';
+        <span class="input-group-addon"><i class="glyphicon glyphicon-th-large"></i></span>';
+        if($getType == NULL){
+            echo '<select name="type" class="form-control selectpicker" onchange="this.form.submit()">';
+        }
+        else{
+            echo '<select disabled name="type" class="form-control selectpicker" onchange="this.form.submit()">';
+        }
         if($getType == NULL){
             echo '<option selected value=""></option>';
         }
@@ -63,8 +70,13 @@ if(isset($_SESSION['id'])) {
         <div class="form-group"><label class="col-md-4 control-label">
         <input type="hidden" name="type" value = \''.$getType. '\'>
         Subtype: </label><div class="col-md-4 selectContainer"><div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-        <select name="subtype" class="form-control selectpicker" onchange="this.form.submit()">';
+        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>';
+        if($getSubtype == NULL) {
+            echo '<select name="subtype" class="form-control selectpicker" onchange="this.form.submit()">';
+        }
+        else{
+            echo '<select disabled name="subtype" class="form-control selectpicker" onchange="this.form.submit()">';
+        }
         if($getSubtype == NULL){
             echo '<option selected value=""></option>';
         }
@@ -92,17 +104,29 @@ if(isset($_SESSION['id'])) {
 
     //start item
     if($getSubtype !== NULL && $getSubtype !== ""){
-        $sql = "SELECT Item FROM inventory WHERE Subtype = '".$getSubtype."';";
+        $sql = "SELECT Item FROM inventory WHERE Subtype = '".$getSubtype."' AND Checkoutable = '1';";
         $result = mysqli_query($conn, $sql);
+
         echo '<form class="well form-horizontal" id="contact_form" method="POST">
         <div class="form-group"><label class="col-md-4 control-label">
         <input type="hidden" name="type" value = \''.$getType. '\'>
         <input type="hidden" name="subtype" value = \''.$getSubtype. '\'>
         Item: </label><div class="col-md-4 selectContainer"><div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-        <select name="item" class="form-control selectpicker" onchange="this.form.submit()">';
+        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>';
+        if(mysqli_num_rows($result) == 0){
+            echo '<select disabled name="item" class="form-control selectpicker" onchange="this.form.submit()">';
+            $noItem = true;
+        }
+        else{
+            echo '<select name="item" class="form-control selectpicker" onchange="this.form.submit()">';
+        }
         if($getItem == NULL){
-            echo '<option selected value=""></option>';
+            if($noItem){
+                echo '<option selected value="">No item with that subtype is checkoutable.</option>';
+            }
+            else{
+                echo '<option selected value=""></option>';
+            }
         }
         else{
             echo '<option value=""></option>';
@@ -119,7 +143,7 @@ if(isset($_SESSION['id'])) {
     }
     else{
         //echo '<br>&nbsp&nbspItem: <select disabled><option value="">Select a subtype first</option></select><br>';
-        echo '<div class="form-group"><label class="col-md-4 control-label">Type: </label>
+        echo '<div class="form-group"><label class="col-md-4 control-label">Item: </label>
             <div class="col-md-4 selectContainer"><div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
             <select class="form-control selectpicker" disabled><option value="">Select a subtype first</option></select>
@@ -187,11 +211,18 @@ if(isset($_SESSION['id'])) {
     <input name=\"date\" placeholder=\"MM/DD/YY\" class=\"form-control\" type=\"date\"></div></div></div>
     
     <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label>
-    <div class=\"col-md-4\">Checkout Date: <span>".date('m/d/Y')."</span></div></div>
-    
-    <br><br><div class=\"form - group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-    <button type='submit' class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
-    data-submit=\"...Sending\">Check-out</button></div></div></form></fieldset></form>";
+    <div class=\"col-md-4\">Checkout Date: <span>".date('m/d/Y')."</span></div></div>";
+
+    if($noItem){
+        echo "<br><br><div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
+        <button disabled type='submit' class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
+        data-submit=\"...Sending\">Check-out</button></div></div></form></fieldset></form>";
+    }
+    else{
+        echo "<br><br><div class='form-group'><label class='col-md-4 control-label'></label><div class='col-md-4'>
+        <button type='submit' class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
+        data-submit=\"...Sending\">Check-out</button></div></div></form></fieldset></form>";
+    }
 
     //posts
     if($_SERVER['REQUEST_METHOD'] == 'POST' && $getSubtype == NULL && $getItem == NULL){

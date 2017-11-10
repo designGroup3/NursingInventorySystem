@@ -4,25 +4,25 @@ INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `email`,
 
 INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `email`, `acctType`, `dateAdded`, `pwdRecoveryKey`) VALUES ('3', 'Craig', 'Johnson', 'Craig', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO', '2dude10@gmail.com', 'Standard User', '2017-08-22', 'fakeKey');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Still Camera', 'Camera', '1', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Still Camera', 'Camera', 'Inventory');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Apple', 'Software', '1', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Apple', 'Software', 'Inventory');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Brother 2000 Series', 'Printer', '0', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Brother 2000 Series', 'Printer', 'Inventory');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Black Toner', 'Printer Cartridge', '0', '1');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Black Toner', 'Printer Cartridge', 'Consumables');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Flash Drive', 'Storage Device', '0', '1');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Flash Drive', 'Storage Device', 'Consumables');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Digital Camera', 'Camera', '1', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Digital Camera', 'Camera', 'Inventory');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Adobe', 'Software', '1', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Adobe', 'Software', 'Inventory');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('HP Printer', 'Printer', '0', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('HP Printer', 'Printer', 'Inventory');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Color Toner', 'Printer Cartridge', '0', '1');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Color Toner', 'Printer Cartridge', 'Consumables');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Staples Flash Drive', 'Storage Device', '0', '1');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Staples Flash Drive', 'Storage Device', 'Consumables');
 
 INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('XU338026956', 'Canon PowerShot A710 IS', 'Still Camera', 'Joe Johnson', 'Nursing 162', 1, 0, '2017-09-29', 'Tester');
 

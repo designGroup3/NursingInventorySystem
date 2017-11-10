@@ -97,13 +97,13 @@ if(isset($_SESSION['id'])) {
             exit();
         }
         else{
-            $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $receivedValues[1] . "','" . $type . "',0,1);";
+            $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $receivedValues[1] . "','" . $type . "','Consumables');";
             $result2 = mysqli_query($conn, $sql2);
             $result = mysqli_query($conn, $sql); //add the item
         }
     }
     else{ //subtype not found
-        $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $receivedValues[1] . "','" . $type . "',0,1);";
+        $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $receivedValues[1] . "','" . $type . "','Consumables');";
         $result2 = mysqli_query($conn, $sql2);
         $result = mysqli_query($conn, $sql); //add the item
     }

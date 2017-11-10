@@ -53,7 +53,7 @@ if(isset($_SESSION['id'])) {
         $innerCount = 0;
         while ($row = mysqli_fetch_array($result)) {
             $innerCount++;
-            if ($innerCount > 3 && $innerCount < 8 || $innerCount > 9) {
+            if ($innerCount > 3 && $innerCount < 10 || $innerCount > 11) {
                 array_push($columnNames, $row['Field']);
             }
         }

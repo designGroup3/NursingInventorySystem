@@ -87,6 +87,18 @@ if(isset($_SESSION['id'])) {
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
                     <input type="text" placeholder="Item\'s Location" class=\'form-control\' name=';
                 }
+                elseif($count == 7){
+                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">MAC Address:</label>  
+                    <div class="col-md-4 inputGroupContainer"><div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-microchip"></i></span>
+                    <input placeholder="MAC Address" class="form-control" type="text" name=';
+                }
+                elseif($count == 8){
+                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">IP Address:</label>  
+                    <div class="col-md-4 inputGroupContainer"><div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-address-book"></i></span>
+                    <input placeholder="IP Address" class="form-control" type="text" name=';
+                }
                 else{
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">$columnNames[$count]:
                     </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">

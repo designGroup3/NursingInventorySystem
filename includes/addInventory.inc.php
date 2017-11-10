@@ -62,13 +62,13 @@ if(isset($_SESSION['id'])) {
     $sql .= "VALUES (";
 
     for ($count = 0; $count < count($columnNames); $count++) {
-        if ($count < 7) {
+        if ($count < 9) {
             $sql .= "'" . $receivedValues[$count];
         }
-        elseif($count === 7){
+        elseif($count === 9){
             $sql .= "'" . $time;
         }
-        elseif($count === 8){
+        elseif($count === 10){
             $sql .= "'" . $uid;
         }
         else {

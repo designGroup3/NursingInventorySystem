@@ -26,6 +26,8 @@ CREATE TABLE loginsystem.inventory (
   Location VARCHAR(100) NOT NULL,
   Checkoutable TINYINT(1) NOT NULL,
   `Number in Stock` INT NOT NULL,
+  `MAC Address` VARCHAR(100),
+  `IP Address` VARCHAR(100),
   `Last Processing Date` DATE,
   `Last Processing Person` VARCHAR(100),
   PRIMARY KEY (`Serial Number`));

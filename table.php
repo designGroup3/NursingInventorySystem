@@ -156,5 +156,3 @@ include 'header.php'
 
     } );
 </script>
-<body>
-<div class="container" style="margin: 25px auto;"><br/>

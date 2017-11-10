@@ -1,5 +1,9 @@
 <?php
 include 'header.php';
+
+echo "<div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
+
 $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 if(strpos($url, 'error=email') !== false){
     echo "<br>&nbsp&nbspThere is no account with this email address in the system.<br>";

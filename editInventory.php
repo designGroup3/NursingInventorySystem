@@ -40,7 +40,8 @@ if(isset($_SESSION['id'])) {
     $serialNumber = $_GET['edit'];
     $columnNames = array();
     $type;
-    echo "<head><Title>Edit Inventory</Title></head>";
+    echo "<head><Title>Edit Inventory</Title></head><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){
@@ -203,23 +204,6 @@ if(isset($_SESSION['id'])) {
                         $inputs .= "<option value= '" . $row4['Type']."'>".$row4['Type']."</option>";
                     }
                     $inputs .= "</datalist></div></div></div>";
-
-//                    $sqlSubtype = "SELECT Subtype FROM inventory WHERE `Serial Number` = '". $serialNumber."';";
-//                    $resultSubtype = mysqli_query($conn, $sqlSubtype);
-//                    $subRow = mysqli_fetch_array($resultSubtype);
-//                    $Subtype = $subRow['Subtype'];
-//
-//                    $sql3 = "SELECT Subtype FROM subtypes";
-//                    $result3 = mysqli_query($conn, $sql3);
-//                    while($SubtypeRow = mysqli_fetch_array($result3)){
-//                        if($Subtype === $SubtypeRow['Subtype']){
-//                            $inputs .= "<option selected=\"selected\" value= '". $SubtypeRow['Subtype']."'>".$SubtypeRow['Subtype']."</option>";
-//                        }
-//                        else{
-//                            $inputs .= "<option value= '". $SubtypeRow['Subtype']."'>".$SubtypeRow['Subtype']."</option>";
-//                        }
-//                    }
-//                    $inputs .= "</select><br><br>";
                 }
                 else{
                     if($row[$columnNames[$count]] == 0 && $row[$columnNames[$count]] !== null){

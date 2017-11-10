@@ -1,8 +1,12 @@
 <?php
     include 'table.php';
 ?>
-
-<table style="margin-left:auto; margin-right:auto;">
+<?php
+if(isset($_SESSION['id'])) {
+    include 'dbh.php';
+    echo "<head><Title>Service Agreements</Title></head><body><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>
+<div class=\"container\" style=\"margin: 25px auto;\"><br/><table style=\"margin-left:auto; margin-right:auto;\">
     <td><form style='text-align: center;' action='addServiceAgreement.php'>
         <input type='submit' value='Add Service Agreement'/>
         </form></td>
@@ -10,11 +14,7 @@
     <td><form style='text-align: center;' action='searchServiceAgreementsForm.php'>
         <input type='submit' value='Search Service Agreements'/>
         </form></td>
-    </table>
-<?php
-if(isset($_SESSION['id'])) {
-    include 'dbh.php';
-    echo "<head><Title>Service Agreements</Title></head>";
+    </table>";
 
     $currentID = $_SESSION['id'];
     $sql = "SELECT acctType FROM users WHERE id='$currentID'";

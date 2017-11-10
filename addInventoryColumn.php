@@ -2,10 +2,10 @@
 include 'header.php';
 
 if(isset($_SESSION['id'])) {
-    //include 'includes/bootstrap.inc.php';
     include 'dbh.php';
 
-    echo "<head><Title>Add Inventory Column</Title></head>";
+    echo "<head><Title>Add Inventory Column</Title></head><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){

@@ -5,7 +5,8 @@ if(isset($_SESSION['id'])) {
     $serialNumber = $_GET['serialNumber'];
     $item = $_GET['item'];
 
-    echo "<head><Title>Delete Inventory</Title></head>";
+    echo "<head><Title>Delete Inventory</Title></head><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
 
     echo "<div class='container'>
         <form action ='includes/deleteInventory.inc.php' class='well form-horizontal' id='contact_form' method ='POST'>

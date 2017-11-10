@@ -2,6 +2,10 @@
 include 'header.php';
 include 'dbh.php';
 error_reporting(E_ALL ^ E_NOTICE);
+
+echo "<div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
+
 $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $email = $_GET['email'];
 $sentKey = $_GET['pwdRecoveryKey'];

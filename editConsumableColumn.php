@@ -3,7 +3,8 @@ include 'header.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Edit Consumable Column</Title><script src=\"./js/jquery.min.js\"></script></head>";
+    echo "<head><Title>Edit Consumable Column</Title><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div><script src=\"./js/jquery.min.js\"></script></head>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){

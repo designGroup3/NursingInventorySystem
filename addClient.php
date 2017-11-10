@@ -4,7 +4,8 @@ include 'header.php';
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
-    echo "<head><Title>Add Client</Title></head>";
+    echo "<head><Title>Add Client</Title></head><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
 
     echo "<br><form action='includes/addClient.inc.php' method='POST'>
         &nbsp&nbsp<label>Last Name<br></label>&nbsp&nbsp<input type='text' name='last'><br><br>

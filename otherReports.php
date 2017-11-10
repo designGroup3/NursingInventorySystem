@@ -8,7 +8,9 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Broad Reports</Title></head>";
+    echo "<head><Title>Broad Reports</Title></head><body><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>
+<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     echo "<div class=\"container\"><form class=\"well form-horizontal\" id=\"contact_form\" method='POST'>
         <h2 align=\"center\"> Which dates would you like to report?</h2><br>

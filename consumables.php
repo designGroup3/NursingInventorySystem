@@ -2,10 +2,11 @@
 include 'table.php';
 
 if(isset($_SESSION['id'])) {
-    //include 'includes/bootstrap.inc.php';
     include 'dbh.php';
 
-    echo "<head><Title>Consumables</Title></head>";
+    echo "<head><Title>Consumables</Title></head><body><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>
+<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $columnNames= array();
     $Minimums = array();

@@ -4,7 +4,8 @@ include 'header.php';
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
-    echo "<head><Title>Delete Inventory Column</Title></head>";
+    echo "<head><Title>Delete Inventory Column</Title></head><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'success') !== false){

@@ -4,12 +4,13 @@ include 'header.php';
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
+    echo "<head><Title>Add Service Agreement</Title></head><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
+
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=wrongType') !== false){
         echo "<br>&nbsp&nbspApproval forms must a .pdf file.<br>";
     }
-
-    echo "<head><Title>Add Service Agreement</Title></head>";
 
     echo "<br><form action='includes/addServiceAgreement.inc.php' method='POST' enctype='multipart/form-data'>
         &nbsp&nbsp<label>Name<br></label>&nbsp&nbsp<input type='text' name='name'><br><br>

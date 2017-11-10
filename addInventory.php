@@ -37,7 +37,8 @@ include 'header.php';
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
-    echo '<head><Title>Add Inventory</Title></head>';
+    echo '<head><Title>Add Inventory</Title></head><div class="parent"><button onclick="window.location.href=\'http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf\'">
+        <i class=\'fa fa-question\'></i></button></div>';
 
     $columnNames = array();
 

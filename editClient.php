@@ -4,7 +4,8 @@ include 'header.php';
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
     $number = $_GET['edit'];
-    echo "<head><Title>Edit Client</Title></head>";
+    echo "<head><Title>Edit Client</Title></head><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
 
     $sql="SELECT * FROM clients WHERE number = $number";
     $result = mysqli_query($conn, $sql);

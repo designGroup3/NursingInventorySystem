@@ -60,6 +60,10 @@ h1{
     color: #fff;
 }
 </style>
+
+<div class="parent"><button onclick="window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'">
+        <i class='fa fa-question'></i></button></div>
+
 <h1><strong>Welcome to NURSING IT Inventory System! (Beta)</strong></h1>
 <br/><br/>
 <div class="container center">

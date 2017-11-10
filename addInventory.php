@@ -31,24 +31,6 @@ include 'header.php';
                     }
                 }
             })
-                .on('success.form.bv', function(e) {
-                    $('#success_message').slideDown({ opacity: "show" }, "slow"); // Do something ...
-                    $('#contact_form').data('bootstrapValidator').resetForm();
-
-                    // Prevent form submission
-                    e.preventDefault();
-
-                    // Get the form instance
-                    var $form = $(e.target);
-
-                    // Get the BootstrapValidator instance
-                    var bv = $form.data('bootstrapValidator');
-
-                    // Use Ajax to submit form data
-                    $.post($form.attr('action'), $form.serialize(), function(result) {
-                        console.log(result);
-                    }, 'json');
-                });
         });
     </script>
 <?php
@@ -205,7 +187,7 @@ if(isset($_SESSION['id'])) {
         }
     }
     echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-          <button type='submit' class='btn btn-warning btn-block'>Send</button></div></div></fieldset></form></div>";
+          <button type='submit' class='btn btn-warning btn-block'>Add to Inventory</button></div></div></fieldset></form></div>";
 }
 else{
     header("Location: ./login.php");

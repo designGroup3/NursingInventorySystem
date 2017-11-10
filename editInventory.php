@@ -1,13 +1,46 @@
 <?php
 include 'header.php';
-
+?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/v2.3.8/angular-strap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+    <body>
+    <script>
+        $(document).ready(function() {
+            $('#contact_form').bootstrapValidator({
+                // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    MACAddress: {
+                        validators: {
+                            mac: {
+                                message: 'Please supply a valid MAC address'
+                            }
+                        }
+                    },IPAddress: {
+                        validators: {
+                            ip: {
+                                message: 'Please supply a valid IP address'
+                            }
+                        }
+                    }
+                }
+            })
+        });
+    </script>
+<?php
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
     $serialNumber = $_GET['edit'];
     $columnNames = array();
     $type;
-    echo "<head><Title>Edit Inventory</Title><script src=\"./js/jquery.min.js\"></script></head>";
+    echo "<head><Title>Edit Inventory</Title></head>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){
@@ -49,7 +82,8 @@ if(isset($_SESSION['id'])) {
     $type = $typeRow['Type'];
 
     echo "<div class=\"container\"><form class=\"well form-horizontal\" action ='includes/editInventory.inc.php'
-        id=\"contact_form\" method ='POST'><fieldset><h2 align=\"center\">Edit Inventory Item</h2><br/>";
+        id=\"contact_form\" method ='POST'><fieldset><h2 align=\"center\">Edit Inventory Item</h2>
+        <p style=\"color:red; font-size:10px;\" align=\"center\">* required field</p><br>";
 
     $sql="SELECT * FROM inventory WHERE `Serial Number` = '".$serialNumber."';";
     $result = mysqli_query($conn, $sql);
@@ -65,16 +99,18 @@ if(isset($_SESSION['id'])) {
             if($rowType['DATA_TYPE'] == "tinyint" || $count == 2){
                 $isSelect = true;
                 if($count == 2) {
-                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:</label>  
+                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:
+                    <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>  
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
-                    <input style='height:30px; width:100%;' list='Subtypes' value='$subtype' placeholder='   Subtype' name=";
+                    <input style='height:30px; width:100%;' list='Subtypes' required value='$subtype' placeholder='   Subtype' name=";
                 }
                 elseif($count == 5){
-                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">Checkoutable?</label>
+                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">Checkoutable?
+                    <a style="color:red;" title="This field must be filled">*</a></label> 
                     <div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i></span>
-                    <select class="form-control selectpicker" name=';
+                    <select required class="form-control selectpicker" name=';
                 }
                 else{
                     $inputs = "<div class='form-group'><label class='col-md-4 control-label'>$columnNames[$count]:</label>
@@ -85,47 +121,55 @@ if(isset($_SESSION['id'])) {
             } elseif ($rowType['DATA_TYPE'] == "int") {
                 if($count == 6){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">Number in Stock:
-                    </label><div class="col-md-4 inputGroupContainer"><div class="input-group">
+                    <a style="color:red;" title="This field must be filled">*</a></label> 
+                    <div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
-                    <input type="number" placeholder="Number in Stock" min="0" class="form-control" name=';
+                    <input type="number" required placeholder="Number in Stock" min="0" class="form-control" name=';
                 }
             }
             else {
                 if($count == 0){
-                    $inputs = "<div class='form-group'><label class='col-md-4 control-label'>Serial Number</label>  
+                    $inputs = "<div class='form-group'><label class='col-md-4 control-label'>Serial Number:</label>  
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-tag\"></i></span>
-                    <input class='form-control' type='text' name=";
+                    <input class='form-control' placeholder='Serial Number' type='text' name=";
                 }
                 elseif($count == 1){
-                    $inputs ="<div class=\"form-group\"><label class=\"col-md-4 control-label\" >Item:</label> 
+                    $inputs ="<div class=\"form-group\"><label class=\"col-md-4 control-label\">Item:
+                    <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>  
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
-                    <input type='text' placeholder=\"Item Name\" class=\"form-control\" name=";
+                    <input type='text' required placeholder=\"Item Name\" class=\"form-control\" name=";
                 }
                 elseif($count == 3){
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Assigned to:
-                    </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                    <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+                    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-                    <input type='text' placeholder=\"Assignee's Name\" class='form-control' name=";
+                    <input type='text' required placeholder=\"Assignee's Name\" class='form-control' name=";
                 }
                 elseif($count == 4){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">Location:
-                    </label><div class="col-md-4 inputGroupContainer"><div class="input-group">
+                    <a style="color:red;" title="This field must be filled">*</a></label> 
+                    <div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                    <input type="text" placeholder="Item\'s Location" class=\'form-control\' name=';
+                    <input type="text" required placeholder="Item\'s Location" class=\'form-control\' name=';
                 }
                 elseif($count == 7){
-                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">MAC Address:</label>  
+                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">MAC Address:
+                    <p style="color:red; font-size:10px;">to view an example, hover over the field</p></label> 
                     <div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-microchip"></i></span>
-                    <input placeholder="MAC Address" class="form-control" type="text" name=';
+                    <input placeholder="MAC Address" title="MAC address should look like 00-15-E9-2B-99-3C"
+                    class="form-control" type="text" name="MACAddress" value='.$row[$columnNames[$count]].' data-fv-mac="true"></div></div></div>';
                 }
                 elseif($count == 8){
-                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">IP Address:</label>  
+                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">IP Address:
+                    <p style="color:red; font-size:10px;">to view an example, hover over the field</p></label>   
                     <div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-address-book"></i></span>
-                    <input placeholder="IP Address" class="form-control" type="text" name=';
+                    <input placeholder="IP Address" title="IP addresses (IPv4) look like four blocks of digits ranging from 0 to 255 separated by a period like 192.168.0.255" 
+                    class="form-control" type="text" name="IPAddress" value='.$row[$columnNames[$count]].' data-fv-mac="true"></div></div></div>';
                 }
                 else{
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">$columnNames[$count]:
@@ -147,10 +191,11 @@ if(isset($_SESSION['id'])) {
                     }
 
                     $inputs .= "</datalist></div></div></div><div class=\"form-group\">
-                        <label class=\"col-md-4 control-label\">Type:</label>  
+                        <label class=\"col-md-4 control-label\">Type:
+                        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>   
                         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
-                        <input style='height:30px; width:100%;' list='Types' value='$type' placeholder='   Type' id='type' name='type'>
+                        <input style='height:30px; width:100%;' list='Types' required value='$type' placeholder='   Type' id='type' name='type'>
                         <datalist id=\"Types\">";
                     $sql4 = "SELECT DISTINCT Type FROM subtypes WHERE `Table` = 'Inventory'";
                     $result4 = mysqli_query($conn, $sql4);
@@ -190,19 +235,10 @@ if(isset($_SESSION['id'])) {
                 }
             }
             else{
-                $inputs .= $columnName . " value=\"" . $row[$columnNames[$count]] . "\"></div></div></div>";
+                if($columnName != "MACAddress" && $columnName != "IPAddress"){
+                    $inputs .= $columnName . " value='".$row[$columnNames[$count]]."'></div></div></div>";
+                }
             }
-//            if($count == 2){
-//                $sql3 = "SELECT Type FROM subtypes WHERE Subtype = '$row[Subtype]';";
-//                $result3 = mysqli_query($conn, $sql3);
-//                $row3 = mysqli_fetch_array($result3);
-//                $type = $row3['Type'];
-//
-//                $inputs.= "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Type:</label>
-//                <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-//                <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
-//               <input name='type' id='type' placeholder='Type' class='form-control' type='text' value='$type'></div></div></div>";
-//            }
             echo $inputs;
         }
     }
@@ -210,8 +246,8 @@ if(isset($_SESSION['id'])) {
           <input type="hidden" name="originalSubtype" value = \''.$row['Subtype']. '\'>
           <input type="hidden" name="originalType" value = \''.$type. '\'>
           <div class="form-group"><label class="col-md-4 control-label"></label><div class="col-md-4">
-          <button name="submit" type="submit" class="btn btn-warning btn-block" id="contact-submit" 
-          data-submit="...Sending">Submit</button></div></div>';
+          <button type="submit" class="btn btn-warning btn-block">Edit Inventory</button></div></div></fieldset>
+          </form></div>';
 
     $retrievedData = $row['Serial Number'];
 

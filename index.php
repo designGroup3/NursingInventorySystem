@@ -13,8 +13,9 @@ if(isset($_SESSION['id'])) {
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>	
-	
+
 <body>
+
 <style>
 body{
 	background-color: rgb(238,238,238);
@@ -59,8 +60,14 @@ h1{
 .design a {
     color: #fff;
 }
-</style>
-<h1><strong>Welcome to NURSING IT Inventory System! (Beta)</strong></h1>
+.btnz{
+	float:right;
+}
+</style><button class="btn btnz" onclick="window.location.href='help/mainMenuHelp.pdf'">
+<i class="fa fa-question" ></i>
+</button>
+<h1><strong>Welcome to NURSING IT Inventory System! (Beta)</strong> 
+</h1>
 <br/><br/>
 <div class="container center">
 <div class="row">
@@ -107,7 +114,7 @@ h1{
     </div>
   </div>
    <div class="col-md-4 col-lg-4 col-sm-4">
-    <div class="thumbnail text-center"><h3>Upgrades</h3><a href="repairsUpdatesUpgrades.php">        
+    <div class="thumbnail text-center"><h3>Repairs/Updates/Upgrades</h3><a href="repairsUpdatesUpgrades.php">
 <img src="images/Upgrade.png"  alt="Thumbnail Image 6"></a>
       <div class="caption">
         <!--<p>Generate QR code</p><br/> -->
@@ -115,6 +122,28 @@ h1{
     </div>
   </div>
 </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Close</span></button>
+   
+      </div>
+      <div class="modal-body">
+       
+        
+        
+       <iframe width="100%" height="700" style="overflow: hidden;" src="randy.pdf" frameborder="0" marginheight="0" marginwidth="0" scrolling="no">Loading&amp;#8230;</iframe>
+        
+        
+        
+      </div>
+
+    </div>
+  </div>
 </div>
 
 </body>

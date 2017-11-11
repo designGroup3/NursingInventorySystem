@@ -31,13 +31,13 @@ if(isset($_SESSION['id'])) {
         
         <form style='text-align:center;' action='checkoutsReportExcel.php' method = 'post'>
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-        <button name=\"export\" type=\"submit\" class=\"btn btn-warning\" id=\"contact-submit\"
-         data-submit=\"...Sending\">Export Check out History (Excel)</button></div></div></form><br><br>
+        <input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Export Check-out History (Excel)'>
+        </div></div></form><br><br>
 
         <form style='text-align:center;' action='consumptionsReportExcel.php' method='post'>
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-        <button name=\"export\" type=\"submit\" class=\"btn btn-warning\" id=\"contact-submit\" 
-        data-submit=\"...Sending\">Export Consumables History (Excel)</button></div></div></form></div><br><br>";
+        <input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Export Consumables History (Excel)'>
+        </div></div></form><br><br>";
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $startDate = $_POST['startDate'];
@@ -55,9 +55,7 @@ if(isset($_SESSION['id'])) {
             <br><form style='text-align:center;' action='multiDayReportsExcel.php' method = 'post'>
                 <input type='hidden' name='startDate' value = '$startDate'>
                 <input type='hidden' name='endDate' value = '$endDate'>
-                <button name=\"export\" type=\"submit\" class=\"btn btn-warning\" id=\"contact-submit\" 
-                data-submit=\"...Sending\">Export to Excel</button>
-                </form>
+                <input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Export to Excel'></form>
             
             <br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead><tr><th>Activity Type</th>
             <th>Item</th>

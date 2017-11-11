@@ -1,10 +1,12 @@
 <?php
 include 'header.php';
 include 'dbh.php';
+include 'inputJS.php';
 error_reporting(E_ALL ^ E_NOTICE);
 
-echo "<div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div>";
+echo "<head><Title>New Password</Title></head><div class=\"parent\">
+<button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+<i class='fa fa-question'></i></button></div>";
 
 $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $email = $_GET['email'];
@@ -26,12 +28,19 @@ if($row = $result->fetch_assoc()) {
         exit();
     }
 }
-echo "Please type your new password below, and then again to confirm
-<form action ='includes/newPassword.inc.php' method ='POST'><br>
+echo "<div class=\"container\"><form action ='includes/newPassword.inc.php' method ='POST'
+    class=\"well form-horizontal\"id=\"contact_form\"><fieldset><h2 align=\"center\">Change Password</h2><br/>
     <input type='hidden' name='email' value = $email>
     <input type='hidden' name='pwdRecoveryKey' value = $pwdRecoveryKey>
-    &nbsp&nbsp<label>New Password:</label> <br>&nbsp&nbsp<input type='password' name='newPassword'><br><br>
-    &nbsp&nbsp<label>Confirm New Password:</label> <br>&nbsp&nbsp<input type='password' name='confirmNewPassword'><br><br>
-    &nbsp&nbsp<button type='submit'>Submit</button>
- </form>";
+    <div class=\"form-group\"><label class=\"col-md-4 control-label\">New Password:</label>
+    <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
+    <span class=\"input-group-addon\"><i class=\"fa fa-unlock-alt\"></i></span>
+    <input type='password' name='newPassword' class=\"form-control\" required></div></div></div>
+    <div class=\"form-group\"> <label class=\"col-md-4 control-label\">Confirm New Password:</label>
+    <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
+    <span class=\"input-group-addon\"><i class=\"fa fa-lock\"></i></span>
+    <input type='password' name='confirmNewPassword' class='form-control' required></div></div></div>
+    <br/><div class=\"form-group\" align=\"center\"><label class=\"col-md-4 control-label\"></label>
+    <div class=\"col-md-4\"><input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Change Password'>
+    </div></div></fieldset></form></div>";
 ?>

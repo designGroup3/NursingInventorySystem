@@ -130,7 +130,7 @@ if(isset($_SESSION['id'])) {
                     <div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-microchip"></i></span>
                     <input placeholder="MAC Address" title="MAC address should look like 00-15-E9-2B-99-3C"
-                    class="form-control" type="text" name="MACAddress" value='.$row[$columnNames[$count]].' data-fv-mac="true"></div></div></div>';
+                    class="form-control" type="text" name="MACAddress" value="'.$row[$columnNames[$count]].'" data-fv-mac="true"></div></div></div>';
                 }
                 elseif($count == 8){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">IP Address:
@@ -138,7 +138,7 @@ if(isset($_SESSION['id'])) {
                     <div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-address-book"></i></span>
                     <input placeholder="IP Address" title="IP addresses (IPv4) look like four blocks of digits ranging from 0 to 255 separated by a period like 192.168.0.255" 
-                    class="form-control" type="text" name="IPAddress" value='.$row[$columnNames[$count]].' data-fv-mac="true"></div></div></div>';
+                    class="form-control" type="text" name="IPAddress" value="'.$row[$columnNames[$count]].'" data-fv-mac="true"></div></div></div>';
                 }
                 else{
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">$columnNames[$count]:

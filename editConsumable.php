@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+include 'inputJS.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -7,8 +8,8 @@ if(isset($_SESSION['id'])) {
     $originalItem = $_GET['edit'];
     $columnNames = array();
     $type;
-    echo "<head><Title>Edit Consumable</Title><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div><script src=\"./js/jquery.min.js\"></script></head>";
+    echo "<head><Title>Edit Consumable</Title></head><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){
@@ -67,13 +68,13 @@ if(isset($_SESSION['id'])) {
             if ($rowType['DATA_TYPE'] == "tinyint" || $count == 1) {
                 $isSelect = true;
                 if($count == 1) {
-                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:</label>  
+                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
-                    <input style='height:30px; width:100%;' list='Subtypes' value='$subtype' placeholder='   Subtype' name=";
+                    <input style='height:30px; width:100%;' list='Subtypes' required value='$subtype' placeholder='   Subtype' name=";
                 }
                 else{
-                    $inputs = "<div class='form-group'><label class='col-md-4 control-label'>$columnNames[$count]:</label>
+                    $inputs = "<div class='form-group'><label class='col-md-4 control-label'>$columnNames[$count]:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-list\"></i></span>
                     <select class=\"form-control selectpicker\" name=";
@@ -81,32 +82,32 @@ if(isset($_SESSION['id'])) {
             } elseif ($rowType['DATA_TYPE'] == "int") {
                 if($count == 3){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">Number in Stock:
-                    </label><div class="col-md-4 inputGroupContainer"><div class="input-group">
+                    <a style="color:red;" title="This field must be filled">*</a></label><div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
-                    <input type="number" placeholder="Number in Stock" min="0" class="form-control" name=';
+                    <input type="number" required placeholder="Number in Stock" min="0" class="form-control" name=';
                 }
                 elseif($count == 4){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">Minimum Stock:
-                    </label><div class="col-md-4 inputGroupContainer"><div class="input-group">
+                    <a style="color:red;" title="This field must be filled">*</a></label><div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
-                    <input type="number" placeholder="Minimum Stock" min="0" class="form-control" name=';
+                    <input type="number" required placeholder="Minimum Stock" min="0" class="form-control" name=';
                 }
             } else {
                 if($count == 0){
-                    $inputs ="<div class=\"form-group\"><label class=\"col-md-4 control-label\" >Item:</label> 
+                    $inputs ="<div class=\"form-group\"><label class=\"col-md-4 control-label\" >Item:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
-                    <input type='text' placeholder=\"Item Name\" class=\"form-control\" name=";
+                    <input type='text' required placeholder=\"Item Name\" class=\"form-control\" name=";
                 }
                 elseif($count == 2){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">Location:
-                    </label><div class="col-md-4 inputGroupContainer"><div class="input-group">
+                    <a style="color:red;" title="This field must be filled">*</a></label><div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                    <input type="text" placeholder="Item\'s Location" class=\'form-control\' name=';
+                    <input type="text" required placeholder="Item\'s Location" class=\'form-control\' name=';
                 }
                 else{
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">$columnNames[$count]:
-                    </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+                    <a style=\"color:red;\" title=\"This field must be filled\">*</a></label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
                     <input type=\"text\" placeholder='$columnNames[$count]' class='form-control' name=";
                 }
@@ -124,10 +125,10 @@ if(isset($_SESSION['id'])) {
                     }
 
                     $inputs .= "</datalist></div></div></div><div class=\"form-group\">
-                        <label class=\"col-md-4 control-label\">Type:</label>  
+                        <label class=\"col-md-4 control-label\">Type:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
                         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
-                        <input style='height:30px; width:100%;' list='Types' value='$type' placeholder='   Type' id='type' name='type'>
+                        <input style='height:30px; width:100%;' list='Types' required value='$type' placeholder='   Type' id='type' name='type'>
                         <datalist id=\"Types\">";
                     $sql4 = "SELECT DISTINCT Type FROM subtypes WHERE `Table` = 'Consumables'";
                     $result4 = mysqli_query($conn, $sql4);
@@ -154,8 +155,8 @@ if(isset($_SESSION['id'])) {
     echo '<input type="hidden" name="originalSubtype" value = \''.$row['Subtype']. '\'>
           <input type="hidden" name="originalType" value = \''.$type. '\'>
           <div class="form-group"><label class="col-md-4 control-label"></label><div class="col-md-4">
-          <button name="submit" type="submit" class="btn btn-warning btn-block" id="contact-submit" 
-          data-submit="...Sending">Submit</button></div></div>';
+          <button type="submit" class="btn btn-warning btn-block">Edit Consumable</button></div></div></fieldset>
+          </form></div>';
 
 
     echo "<script>$('document').ready(function() {

@@ -132,7 +132,7 @@ if(isset($_SESSION['id'])) {
                     }
                     $inputs .= "</datalist></div></div></div><div class=\"form-group\">
                         <label class=\"col-md-4 control-label\">Type:
-                        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>  
+                        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
                         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
                         <input style='height:30px; width:100%;' list='Types' required placeholder='   Type' name='type'>

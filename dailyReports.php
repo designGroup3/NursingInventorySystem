@@ -34,10 +34,9 @@ if(isset($_SESSION['id'])) {
         if($resultCheck > 0) {
             echo "<br><h2 class='center'><b>&nbsp&nbspActivities for ".date_format($dateTitle, 'm/d/Y')."</b></h2>
 
-            <br><form class='center' action='dailyReportsExcel.php' method = 'post'>
+            <br><form class='center' action='dailyReportsExcel.php' method ='post'>
                 <input type='hidden' name='date' value = " .$date.">
-                <button name=\"export\" type=\"submit\" class=\"btn btn-warning\" style='text-align:center;' id=\"contact-submit\" 
-                data-submit=\"...Sending\">Export to Excel</button>
+                <input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Export to Excel'>
                 </form>
 
             <br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">

@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+include 'inputJS.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -97,7 +98,7 @@ if(isset($_SESSION['id'])) {
             }
         }
         elseif($rowType['DATA_TYPE'] == "date"){
-            if($count == 7){
+            if($count == 9){
                 $inputs = "<div class='form-group'><label class='col-md-4 control-label'>Last Processing Date:
                 </label> <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                 <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-calendar\"></i></span>
@@ -135,7 +136,23 @@ if(isset($_SESSION['id'])) {
                 <input name='Location' placeholder=\"Item's Location\" class=\"form-control\" type=\"text\"></div>
                 </div></div>";
             }
+            elseif($count == 7){
+                $inputs = '<div class="form-group"><label class="col-md-4 control-label">MAC Address:
+                    <p style="color:red; font-size:10px;">to view an example, hover over the field</p></label> 
+                    <div class="col-md-4 inputGroupContainer"><div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-microchip"></i></span>
+                    <input placeholder="MAC Address" title="MAC address should look like 00-15-E9-2B-99-3C"
+                    class="form-control" type="text" name="MACAddress" data-fv-mac="true"></div></div></div>';
+            }
             elseif($count == 8){
+                $inputs = '<div class="form-group"><label class="col-md-4 control-label">IP Address:
+                    <p style="color:red; font-size:10px;">to view an example, hover over the field</p></label>   
+                    <div class="col-md-4 inputGroupContainer"><div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-address-book"></i></span>
+                    <input placeholder="IP Address" title="IP addresses (IPv4) look like four blocks of digits ranging from 0 to 255 separated by a period like 192.168.0.255" 
+                    class="form-control" type="text" name="IPAddress" data-fv-mac="true"></div></div></div>';
+            }
+            elseif($count == 10){
                 $inputs= "<div class='form-group'><label class='col-md-4 control-label'>Last Processing Person: 
                 </label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                 <span class='input-group-addon'><i class='fa fa-user-circle' aria-hidden='true'></i></span>
@@ -168,16 +185,10 @@ if(isset($_SESSION['id'])) {
                     <option value=1>Yes</option><option value=0>No</option></select></div></div></div>";
             }
         }
-//                else{
-//                    if($count > 8){
-//                        $inputs .= $columnName . " value='" . $row[$columnNames[$count]] . "'><br><br>";
-//                    }
-//                }
         echo $inputs;
     }
     echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-          <button name=\"submit\" type=\"submit\" class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
-          data-submit=\"...Sending\">Search</button></div></div></fieldset></form></div>";
+          <button type='submit' class='btn btn-warning btn-block'>Search Inventory</button></div></div></fieldset></form></div>";
 }
 else{
     header("Location: ./login.php");

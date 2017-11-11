@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+include 'inputJS.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -35,11 +36,11 @@ if(isset($_SESSION['id'])) {
     echo '<br><div class="container">
         <form class="well form-horizontal" style="border-bottom: none;" id="contact_form" method="POST"><fieldset>
         <h2 align="center">Which item would you like to consume?</h2><br>
-        <div class="form-group"><label class="col-md-4 control-label">Type:</label>
+        <div class="form-group"><label class="col-md-4 control-label">Type:<a style="color:red;" title="This field must be filled">*</a></label>
         <div class="col-md-4 selectContainer"><div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-th-large"></i></span>';
         if($getType == NULL){
-            echo '<select name="type" class="form-control selectpicker" onchange="this.form.submit()">';
+            echo '<select required name="type" class="form-control selectpicker" onchange="this.form.submit()">';
         }
         else{
             echo '<select disabled name="type" class="form-control selectpicker" onchange="this.form.submit()">';
@@ -70,10 +71,10 @@ if(isset($_SESSION['id'])) {
         echo '<form class="well form-horizontal" id="contact_form" method="POST">
         <div class="form-group"><label class="col-md-4 control-label">
         <input type="hidden" name="type" value = \''.$getType. '\'>
-        Subtype:</label><div class="col-md-4 selectContainer"><div class="input-group">
+        Subtype:<a style="color:red;" title="This field must be filled">*</a></label><div class="col-md-4 selectContainer"><div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>';
         if($getSubtype == NULL) {
-            echo '<select name="subtype" class="form-control selectpicker" onchange="this.form.submit()">';
+            echo '<select required name="subtype" class="form-control selectpicker" onchange="this.form.submit()">';
         }
         else{
             echo '<select disabled name="subtype" class="form-control selectpicker" onchange="this.form.submit()">';
@@ -95,7 +96,7 @@ if(isset($_SESSION['id'])) {
         echo '</select></div></div></div>';
     }
     else{
-        echo '<div class="form-group"><label class="col-md-4 control-label">Subtype: </label>
+        echo '<div class="form-group"><label class="col-md-4 control-label">Subtype:<a style="color:red;" title="This field must be filled">*</a></label>
             <div class="col-md-4 selectContainer"><div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
             <select class="form-control selectpicker" disabled><option value="">Select a type first</option></select>
@@ -110,7 +111,7 @@ if(isset($_SESSION['id'])) {
         <div class="form-group"><label class="col-md-4 control-label">
         <input type="hidden" name="type" value = \''.$getType. '\'>
         <input type="hidden" name="subtype" value = \''.$getSubtype. '\'>
-        Item: </label><div class="col-md-4 selectContainer"><div class="input-group">
+        Item:<a style="color:red;" title="This field must be filled">*</a></label><div class="col-md-4 selectContainer"><div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>';
         if(mysqli_num_rows($result) == 0){
             echo '<select disabled name="item" class="form-control selectpicker" onchange="this.form.submit()">';
@@ -141,8 +142,7 @@ if(isset($_SESSION['id'])) {
         echo '</select></form></div></div></div>';
     }
     else{
-        //echo '<br>&nbsp&nbspItem: <select disabled><option value="">Select a subtype first</option></select><br>';
-        echo '<div class="form-group"><label class="col-md-4 control-label">Item: </label>
+        echo '<div class="form-group"><label class="col-md-4 control-label">Item:<a style="color:red;" title="This field must be filled">*</a></label>
             <div class="col-md-4 selectContainer"><div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
             <select class="form-control selectpicker" disabled><option value="">Select a subtype first</option></select>
@@ -159,28 +159,26 @@ if(isset($_SESSION['id'])) {
         <input type="hidden" name="type" value = \''.$getType. '\'>
         <input type="hidden" name="subtype" value = \''.$getSubtype. '\'>
         <input type="hidden" name="item" value = \''.$getItem. '\'>
-        <div class="form-group"><label class="col-md-4 control-label">Number in Stock:</label>  
+        <div class="form-group"><label class="col-md-4 control-label">Number in Stock:<a style="color:red;" title="This field must be filled">*</a></label> 
         <div class="col-md-4 inputGroupContainer"><div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
-        <input type="number" class="form-control" min="0" name="stock" value='.$row['Number in Stock'].'></div></div></div>';
+        <input type="number" required class="form-control" min="0" name="stock" value='.$row['Number in Stock'].'></div></div></div>';
     }
     else{
-        //echo'<br>&nbsp&nbspNumber in Stock: <input type="number" min="0" name= "stock" value="0">';
-        echo '<div class="form-group"><label class="col-md-4 control-label">Number in Stock:</label>  
+        echo '<div class="form-group"><label class="col-md-4 control-label">Number in Stock:<a style="color:red;" title="This field must be filled">*</a></label> 
             <div class="col-md-4 inputGroupContainer"><div class="input-group"><span class="input-group-addon">
             <i class="glyphicon glyphicon-question-sign"></i></span>
-            <input class="form-control" type="number" name="quantity" min="0" max="100" step="1" value="0">
+            <input class="form-control" required type="number" name="quantity" min="0" max="100" step="1" value="0">
             </div></div></div>';
     }
 
     //Person
     $sql = "SELECT First, Last FROM clients;";
     $result = mysqli_query($conn, $sql);
-    //echo'<br><br>&nbsp&nbspPerson: <select name="person"><option selected value=""></option>';
-    echo'<div class="form-group"><label class="col-md-4 control-label">Person:</label>
+    echo'<div class="form-group"><label class="col-md-4 control-label">Person:<a style="color:red;" title="This field must be filled">*</a></label>
     <div class="col-md-4 selectContainer"><div class="input-group">
     <span class="input-group-addon"><i class="fa fa-users"></i></span>
-    <select name="person" class="form-control selectpicker"><option selected value=""></option>';
+    <select name="person" required class="form-control selectpicker"><option selected value=""></option>';
 
     while ($row = mysqli_fetch_array($result)) {
         echo '<option value = "'.$row['First']." ".$row['Last'].'">'.$row['First']." ".$row['Last'].'</option>';
@@ -188,13 +186,10 @@ if(isset($_SESSION['id'])) {
     echo '</select></div></div></div>';
 
     //Reason & Consume Date
-//    echo "<br><br>&nbsp&nbspReason: <input type= 'text' name='reason'>
-//    <br><br>&nbsp&nbspConsume Date: <span>".date('m/d/Y')."</span>
-//    <br><br>&nbsp&nbsp<button type='submit'>Consume</button></form>";
-    echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Reason:</label>  
+    echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Reason:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
     <span class=\"input-group-addon\"><i class=\"fa fa-question\" aria-hidden=\"true\"></i></span>
-    <input type='text' placeholder='Reason' name='reason' class=\"form-control\"></div></div></div>
+    <input type='text' required placeholder='Reason' name='reason' class=\"form-control\"></div></div></div>
     
     <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label>
     <div class=\"col-md-4\">Consume Date: <span>".date('m/d/Y')."</span></div></div>";

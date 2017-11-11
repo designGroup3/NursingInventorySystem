@@ -19,6 +19,8 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $uid = $row['uid'];
 
+    $columnTypes = array();
+
     $sql2 = "SELECT CURRENT_TIMESTAMP;"; //gets current time
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();
@@ -37,6 +39,14 @@ if(isset($_SESSION['id'])) {
         }
     }
 
+    for ($count = 0; $count < count($consumableColumns); $count++) {
+        $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE table_name = 'consumables' AND COLUMN_NAME = '$consumableColumns[$count]';";
+        $result2 = mysqli_query($conn, $sql2);
+        $rowType = mysqli_fetch_array($result2);
+        array_push($columnTypes, $rowType['DATA_TYPE']);
+    }
+
     $items = array();
 
     $sql = "SELECT `Item` FROM consumables";
@@ -52,18 +62,29 @@ if(isset($_SESSION['id'])) {
 
     $sql = "UPDATE consumables SET ";
     for($count = 0; $count< count($consumableColumns); $count++){
-        if($consumableColumns[$count] != "Last Processing Date" && $consumableColumns[$count] != "Last Processing Person") {
-            $sql .= "`" . $consumableColumns[$count] . "`" . " = '" . $consumableValues[$count] . "' ";
+        if ($count < 5) {
+            $sql .= "`" . $consumableColumns[$count] . "` = '".$consumableValues[$count]."'";
         }
-        if($consumableColumns[$count] == "Last Processing Date"){
+        elseif($count === 5){
             $sql .= "`Last Processing Date` = '" .$time."'";
         }
-
-        if($consumableColumns[$count] == "Last Processing Person"){
+        elseif($count === 6){
             $sql .= "`Last Processing Person` = '" .$uid."'";
         }
-
-        if ($count !== count($consumableColumns) - 1) {
+        else {
+            if($columnTypes[$count] !== "tinyint"){
+                $sql .= "`".$consumableColumns[$count]."` = '".$consumableValues[$count]."'";
+            }
+            else{
+                if($consumableValues[$count] !== ""){
+                    $sql .= "`".$consumableColumns[$count]."` = '".$consumableValues[$count]."'";
+                }
+                else{
+                    $sql .= "`".$consumableColumns[$count]."` = NULL";
+                }
+            }
+        }
+        if($count != (count($consumableColumns)-1)){
             $sql .= ", ";
         }
     }

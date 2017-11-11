@@ -16,11 +16,7 @@ if(isset($_SESSION['id'])) {
     $columnNames = array();
     $receivedValues = array();
     $serialNumbers = array();
-
-    $sql2 = "SELECT CURRENT_TIMESTAMP;"; //gets current time
-    $result2 = mysqli_query($conn, $sql2);
-    $row2 = $result2->fetch_assoc();
-    $time = $row2['CURRENT_TIMESTAMP'];
+    $columnTypes = array();
 
     $sql = "SHOW COLUMNS FROM inventory";
     $result = mysqli_query($conn, $sql);
@@ -32,6 +28,19 @@ if(isset($_SESSION['id'])) {
         } else {
             array_push($receivedValues, $_POST[$row['Field']]);
         }
+    }
+
+    $sql2 = "SELECT CURRENT_TIMESTAMP;"; //gets current time
+    $result2 = mysqli_query($conn, $sql2);
+    $row2 = $result2->fetch_assoc();
+    $time = $row2['CURRENT_TIMESTAMP'];
+
+    for ($count = 0; $count < count($columnNames); $count++) {
+        $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
+        $result2 = mysqli_query($conn, $sql2);
+        $rowType = mysqli_fetch_array($result2);
+        array_push($columnTypes, $rowType['DATA_TYPE']);
     }
 
     $sql = "SELECT `Serial Number` FROM inventory"; //checks if new item already exists
@@ -63,23 +72,32 @@ if(isset($_SESSION['id'])) {
 
     for ($count = 0; $count < count($columnNames); $count++) {
         if ($count < 9) {
-            $sql .= "'" . $receivedValues[$count];
+            $sql .= "'".$receivedValues[$count]."'";
         }
         elseif($count === 9){
-            $sql .= "'" . $time;
+            $sql .= "'" . $time."'";
         }
         elseif($count === 10){
-            $sql .= "'" . $uid;
+            $sql .= "'" . $uid."'";
         }
         else {
-            $sql .= "'" . $receivedValues[$count];
+            if($columnTypes[$count] !== "tinyint"){
+                $sql .= "'" . $receivedValues[$count]."'";
+            }
+            else{
+                if($receivedValues[$count] !== ""){
+                    $sql .= $receivedValues[$count];
+                }
+                else{
+                    $sql .= 'NULL';
+                }
+            }
         }
-
         if($count != (count($columnNames)-1)){
-            $sql .= "', ";
+            $sql .= ", ";
         }
         else{
-            $sql .= "');";
+            $sql .= ");";
         }
     }
 

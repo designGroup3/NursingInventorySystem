@@ -15,6 +15,7 @@ if(isset($_SESSION['id'])) {
     $receivedValues = array();
     $consumableNames = array();
     $type = $_POST['type'];
+    $columnTypes = array();
 
     $sql = "SHOW COLUMNS FROM consumables";
     $result = mysqli_query($conn, $sql);
@@ -32,6 +33,14 @@ if(isset($_SESSION['id'])) {
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();
     $time = $row2['CURRENT_TIMESTAMP'];
+
+    for ($count = 0; $count < count($columnNames); $count++) {
+        $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE table_name = 'consumables' AND COLUMN_NAME = '$columnNames[$count]';";
+        $result2 = mysqli_query($conn, $sql2);
+        $rowType = mysqli_fetch_array($result2);
+        array_push($columnTypes, $rowType['DATA_TYPE']);
+    }
 
     $sql = "SELECT Item FROM consumables"; //checks if new consumable already exists
     $result = mysqli_query($conn, $sql);
@@ -60,24 +69,33 @@ if(isset($_SESSION['id'])) {
 
     $sql .= "VALUES (";
     for ($count = 0; $count < count($columnNames); $count++) {
-        if ($count < 4) {
-            $sql .= "'" . $receivedValues[$count];
+        if ($count < 5) {
+            $sql .= "'".$receivedValues[$count]."'";
         }
         elseif($count === 5){
-            $sql .= "'" . $time;
+            $sql .= "'" . $time."'";
         }
         elseif($count === 6){
-            $sql .= "'" . $uid;
+            $sql .= "'" . $uid."'";
         }
         else {
-            $sql .= "'" . $receivedValues[$count];
+            if($columnTypes[$count] !== "tinyint"){
+                $sql .= "'" . $receivedValues[$count]."'";
+            }
+            else{
+                if($receivedValues[$count] !== ""){
+                    $sql .= $receivedValues[$count];
+                }
+                else{
+                    $sql .= 'NULL';
+                }
+            }
         }
-
         if($count != (count($columnNames)-1)){
-            $sql .= "', ";
+            $sql .= ", ";
         }
         else{
-            $sql .= "');";
+            $sql .= ");";
         }
     }
 

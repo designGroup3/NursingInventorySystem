@@ -18,6 +18,8 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $uid = $row['uid'];
 
+    $columnTypes = array();
+
     $sqlTime = "SELECT CURRENT_TIMESTAMP;"; //get current time
     $resultTime = mysqli_query($conn, $sqlTime);
     $rowTime = $resultTime->fetch_assoc();
@@ -36,6 +38,14 @@ if(isset($_SESSION['id'])) {
             }
     }
 
+    for ($count = 0; $count < count($inventoryColumns); $count++) {
+        $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE table_name = 'inventory' AND COLUMN_NAME = '$inventoryColumns[$count]';";
+        $result2 = mysqli_query($conn, $sql2);
+        $rowType = mysqli_fetch_array($result2);
+        array_push($columnTypes, $rowType['DATA_TYPE']);
+    }
+
     $serialNumbers = array();
 
     $sql = "SELECT `Serial Number` FROM inventory";
@@ -51,20 +61,29 @@ if(isset($_SESSION['id'])) {
 
     $sql = "UPDATE inventory SET ";
     for($count = 0; $count< count($inventoryColumns); $count++){
-        if($inventoryColumns[$count] != "Last Processing Date" && $inventoryColumns[$count] != "Last Processing Person") {
-            $sql .= "`" . $inventoryColumns[$count] . "`" . " = '" . $inventoryValues[$count] . "'";
-
+        if ($count < 9) {
+            $sql .= "`" . $inventoryColumns[$count] . "` = '".$inventoryValues[$count]."'";
         }
-
-        if($inventoryColumns[$count] == "Last Processing Date"){
+        elseif($count === 9){
             $sql .= "`Last Processing Date` = '" .$time."'";
         }
-
-        if($inventoryColumns[$count] == "Last Processing Person"){
+        elseif($count === 10){
             $sql .= "`Last Processing Person` = '" .$uid."'";
         }
-
-        if ($count !== count($inventoryColumns) - 1) {
+        else {
+            if($columnTypes[$count] !== "tinyint"){
+                $sql .= "`".$inventoryColumns[$count]."` = '".$inventoryValues[$count]."'";
+            }
+            else{
+                if($inventoryValues[$count] !== ""){
+                    $sql .= "`".$inventoryColumns[$count]."` = '".$inventoryValues[$count]."'";
+                }
+                else{
+                    $sql .= "`".$inventoryColumns[$count]."` = NULL";
+                }
+            }
+        }
+        if($count != (count($inventoryColumns)-1)){
             $sql .= ", ";
         }
     }

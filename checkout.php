@@ -5,9 +5,14 @@ include 'inputJS.php';
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
+    $sql = "SELECT CURDATE();";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $date = $row['CURDATE()'];
+    $date = date_format(date_create($date), "m/d/Y");
+
     echo "<head><Title>Checkout</Title></head><body><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div>
-<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
+        <i class='fa fa-question'></i></button></div><br/>";
 
     error_reporting(E_ALL ^ E_NOTICE);
     $statedTypes = array();
@@ -35,7 +40,7 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
 
     echo '<br><div class="container">
-        <form class="well form-horizontal" style="border-bottom: none;" id="contact_form" method="POST"><fieldset>
+        <form class="well form-horizontal" id="contact_form" method="POST"><fieldset>
         <h2 align="center">Which item would you like to checkout?</h2><br>
         <div class="form-group"><label class="col-md-4 control-label">Type:
         <a style="color:red;" title="This field must be filled">*</a></label>
@@ -204,7 +209,7 @@ if(isset($_SESSION['id'])) {
     <input name=\"date\" required placeholder=\"MM/DD/YY\" class=\"form-control\" type=\"date\"></div></div></div>
     
     <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label>
-    <div class=\"col-md-4\">Checkout Date: <span>".date('m/d/Y')."</span></div></div>";
+    <div class=\"col-md-4\">Checkout Date: <span>".$date."</span></div></div>";
 
     if($noItem){
         echo "<br><br><div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
@@ -214,7 +219,7 @@ if(isset($_SESSION['id'])) {
     else{
         echo "<br><br><div class='form-group'><label class='col-md-4 control-label'></label><div class='col-md-4'>
         <button type='submit' class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
-        data-submit=\"...Sending\">Check-out</button></div></div></form></fieldset></form>";
+        data-submit=\"...Sending\">Check-out</button><br><br></div></div></form></fieldset></form>";
     }
 
     //posts
@@ -243,14 +248,14 @@ if(isset($_SESSION['id'])) {
     $namesCount = 0;
     echo "<tbody>";
     while ($row = mysqli_fetch_array($result)) {
-        if(date_create($row['Due Date']) < date_create(date('m/d/Y'))){
+        if(date_create($row['Due Date']) < date_create($date)){
             echo "<tr style='background: #d6010c!important;'>";
         }
         else{
             echo "<tr>";
         }
         echo "<td><a href='printCheckout.php?Id=$row[Id]'>Print<br></td><td>".$row['Serial Number']."</td><td>".$row['Item']."</td><td>".$row['Type']."</td><td>".$row['Subtype']."</td><td>".$row['Quantity Borrowed']."</td>
-        <td>".$row['Person']."</td><td>".$row['Update Person']."</td><td>".$row['Checkout Date']."</td><td>".$row['Due Date']."</td>
+        <td>".$row['Person']."</td><td>".$row['Update Person']."</td><td>".date_format(date_create($row['Checkout Date']),'m/d/Y')."</td><td>".date_format(date_create($row['Due Date']),'m/d/Y')."</td>
         <td><a href='includes/checkin.inc.php?serialNumber=".$row['Serial Number']."'>Check-In<br></td></tr>";
     }
 

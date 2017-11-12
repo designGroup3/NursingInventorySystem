@@ -19,6 +19,11 @@ if(isset($_SESSION['id'])) {
 
     $uid = $row['uid'];
 
+    $sql = "SELECT CURDATE();";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $date = $row['CURDATE()'];
+
     //check if borrowed amount exceeds stock
     $sql = "SELECT `Number in Stock`, `Minimum Stock` FROM consumables WHERE Item = '".$item."';";
     $result = mysqli_query($conn, $sql);
@@ -41,10 +46,10 @@ if(isset($_SESSION['id'])) {
     }
 
     $sql = "INSERT INTO consumptions(`Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) 
-    VALUES('".$item."','".$subType."','".$numBorrowed."','". $person."','". $reason."','".date('Y/m/d')."','".$uid."');";
+    VALUES('".$item."','".$subType."','".$numBorrowed."','". $person."','". $reason."','".$date."','".$uid."');";
     $result = mysqli_query($conn, $sql);
 
-    $sql = "UPDATE consumables SET `Number in Stock` = ".$remaining.", `Last Processing Date` = '".date('Y/m/d')."', `Last Processing Person` = '".$uid."' WHERE `Item` = '".$item."';";
+    $sql = "UPDATE consumables SET `Number in Stock` = ".$remaining.", `Last Processing Date` = '".$date."', `Last Processing Person` = '".$uid."' WHERE `Item` = '".$item."';";
     $result = mysqli_query($conn, $sql);
 
     header("Location: ../consume.php?success");

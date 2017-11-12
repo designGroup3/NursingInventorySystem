@@ -20,6 +20,11 @@ if(isset($_SESSION['id'])) {
     $row = mysqli_fetch_array($result);
     $uid = $row['uid'];
 
+    $sql = "SELECT CURDATE();";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $today = $row['CURDATE()'];
+
     //check if borrowed amount exceeds stock
     $sql = "SELECT `Number in Stock` FROM inventory WHERE Item = '".$item."';";
     $result = mysqli_query($conn, $sql);
@@ -44,11 +49,11 @@ if(isset($_SESSION['id'])) {
 
     $sql = "INSERT INTO checkouts(`Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`,
     `Due Date`, `Checkout Date`, `Update Person`) VALUES('".$item."','".$subType."','".$numBorrowed."','".$serialNumber."','".
-    $person."','".$reason."','".$notes."','".$date."','".date('Y/m/d')."','".$uid."');";
+    $person."','".$reason."','".$notes."','".$date."','".$today."','".$uid."');";
 
     $result = mysqli_query($conn, $sql);
 
-    $sql = "UPDATE inventory SET `Number in Stock` = ".$remaining.", `Last Processing Date` = '".date('Y/m/d')."', `Last Processing Person` = '".$uid."' WHERE `Item` = '".$item."';";
+    $sql = "UPDATE inventory SET `Number in Stock` = ".$remaining.", `Last Processing Date` = '".$today."', `Last Processing Person` = '".$uid."' WHERE `Item` = '".$item."';";
     $result = mysqli_query($conn, $sql);
 
     header("Location: ../checkout.php?success");

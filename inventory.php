@@ -24,7 +24,7 @@ if(isset($_SESSION['id'])) {
         $columnSql = "SHOW COLUMNS FROM inventory;";
         $columnResult = mysqli_query($conn, $columnSql);
 
-        if(mysqli_num_rows($columnResult) > 9){
+        if(mysqli_num_rows($columnResult) > 11){
             echo "<td><form action='editInventoryColumn.php'>
                <input type='submit' value='Edit Column'/>
               </form></td>";

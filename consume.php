@@ -16,6 +16,12 @@ if(isset($_SESSION['id'])) {
 
     $noItem = false;
 
+    $sql = "SELECT CURDATE();";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $date = $row['CURDATE()'];
+    $date = date_format(date_create($date), "m/d/Y");
+
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=over') !== false){
         echo "<br>&nbsp&nbspThere are not that many of the item in inventory.<br>";
@@ -192,7 +198,7 @@ if(isset($_SESSION['id'])) {
     <input type='text' required placeholder='Reason' name='reason' class=\"form-control\"></div></div></div>
     
     <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label>
-    <div class=\"col-md-4\">Consume Date: <span>".date('m/d/Y')."</span></div></div>";
+    <div class=\"col-md-4\">Consume Date: <span>".$date."</span></div></div>";
 
     if($noItem){
         echo "<br><br><div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">

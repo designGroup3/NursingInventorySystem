@@ -10,6 +10,11 @@ $acctType = $_POST['acctType'];
 $uid = $_POST['uid'];
 $pwd = $_POST['pwd'];
 
+$sql = "SELECT CURDATE();";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_array($result);
+$date = $row['CURDATE()'];
+
 if(empty($first)){
     header("Location: ../signup.php?error=empty");
     exit();
@@ -53,7 +58,7 @@ else{
 
     $encrypted_password = password_hash($pwd, PASSWORD_DEFAULT);
     $sql = "INSERT INTO users (first, last, uid, pwd, email, acctType, dateAdded, pwdRecoveryKey) 
-    VALUES ('$first', '$last', '$uid', '$encrypted_password', '$email', '$acctType', '". date('Y/m/d')."', rand());";
+    VALUES ('$first', '$last', '$uid', '$encrypted_password', '$email', '$acctType', '".$date."', rand());";
 
     $result = mysqli_query($conn, $sql);
 

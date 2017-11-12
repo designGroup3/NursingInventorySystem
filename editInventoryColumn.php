@@ -1,10 +1,11 @@
 <?php
 include 'header.php';
+include 'inputJS.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
     echo "<head><Title>Edit Inventory Column</Title><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div><script src=\"./js/jquery.min.js\"></script></head>";
+        <i class='fa fa-question'></i></button></div></script></head>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){
@@ -25,25 +26,25 @@ if(isset($_SESSION['id'])) {
         array_push($columnNames, $row['Field']);
     }
 
-    echo '<br>&nbsp&nbspWhich column do you want to edit?
-    
-    <form method="post">
-        <label>
-            <br>&nbsp&nbsp<select name="column" onchange="this.form.submit()">
-                <option selected value=""></option>';
+    echo '<div class="container"><form class="well form-horizontal" id="contact_form" method="post"><fieldset>
+          <h2 align="center">Which column would you like to edit?</h2><br>
+          <div class="form-group"><label class="col-md-4 control-label"></label>
+          <div class="col-md-4 selectContainer"><div  class="input-group">
+          <span class="input-group-addon"><i class="fa fa-columns"></i></span>
+          <select name="column" onchange="this.form.submit()" class="form-control selectpicker"><option selected value=""></option>';
 
     for($columnsCount = 0; $columnsCount < count($columnNames); $columnsCount++) {
-        if($columnsCount > 8){
+        if($columnsCount > 10){
             echo '<option value = "'.$columnNames[$columnsCount].'">'.$columnNames[$columnsCount].'</option>';
         }
     }
-    echo '</select></label></form>';
+    echo '</select></form></div></div></div>';
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $oldColumn = $_POST['column'];
         $type = "";
 
-        $sql = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'inventory' AND 
+        $sql = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'inventory' AND
         COLUMN_NAME = '". $oldColumn. "';";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($result);
@@ -60,8 +61,17 @@ if(isset($_SESSION['id'])) {
             $oldColumn = str_replace("%20", " ", $oldColumn);
         }
 
-        echo "&nbsp&nbsp<label>Column Name: </label><br>&nbsp&nbsp<input type='text' name='newColumn' value='". $oldColumn. "'><br><br>
-            &nbsp&nbsp<label>Type: (Warning, changing type will delete all column data.)</label><br>&nbsp&nbsp<select name='newType' id='newType'>";
+        echo "<br><br><div class=\"form-group\"><label class=\"col-md-4 control-label\">
+        Column Name:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+        <span class=\"input-group-addon\"><i class=\"fa fa-columns\"></i></span>
+        <input type='text' class=\"form-control\" required name='newColumn' value='".$oldColumn."'></div></div></div>
+
+        <div class=\"form-group\"> <label class=\"col-md-4 control-label\">Data Type:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+        <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
+        <span class=\"input-group-addon\"><i class=\"fa fa-server\"></i></span>
+        <select name='newType' id='newType' class=\"form-control selectpicker\">";
         if (strpos($oldColumn, '%20')) {
             $oldColumn = str_replace("%20", " ", $oldColumn);
         }
@@ -71,15 +81,17 @@ if(isset($_SESSION['id'])) {
         else{
             echo '<option value="Letters & Numbers">Letters & Numbers</option><option selected value="Yes or No">Yes or No</option>';
         }
-        echo "</select><br><br>&nbsp&nbsp<button type='submit'>Edit Column</button>
-        </form>";
+        echo "</select></div></div></div>
+            <div class='form-group'><label class='col-md-4 control-label'></label><div class='col-md-4'>
+            <button type='submit' class=\"btn btn-warning btn-block\">Edit Column</button><br><br></div></div></form></fieldset></form>";
+
 
         echo "<script>$('document').ready(function() {
-   
+
     $('#newType').on('change',function(){
         alert(\"Warning: Changing type will delete all column data.\");
     });
-    
+
 });</script>";
     }
 }

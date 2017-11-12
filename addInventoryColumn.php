@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+include "inputJS.php";
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -18,13 +19,25 @@ if(isset($_SESSION['id'])) {
         echo "<br>&nbsp&nbspColumn added successfully.<br>";
     }
 
-    echo "<form action ='includes/addInventoryColumn.inc.php' method = 'POST'><br>
-                &nbsp&nbsp<label>Name: </label><br>&nbsp&nbsp<input type='text' name='name'><br><br>
-                &nbsp&nbsp<label>Data Type: </label><br>&nbsp&nbsp<select name ='type'>
-                <option value='varchar'>Letters & Numbers</option>
-                <option value='tinyint'>Yes or No</option></select><br><br>
-                &nbsp&nbsp<button type='submit'>Add Column</button>
-             </form>";
+    echo "<div class=\"container\"><form class=\"well form-horizontal\" id=\"contact_form\"
+          action ='includes/addInventoryColumn.inc.php' method = 'POST'><fieldset><h2 align=\"center\">
+          Add Inventory Column</h2><br/><div class=\"form-group\"><label class=\"col-md-4 control-label\">Column Name:
+          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+          <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+          <span class=\"input-group-addon\"><i class=\"fa fa-columns\"></i></span>
+          <input type='text' class=\"form-control\" required name='name'></div></div></div>
+          
+          <div class=\"form-group\"> <label class=\"col-md-4 control-label\">Data Type:
+          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+          <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
+          <span class=\"input-group-addon\"><i class=\"fa fa-server\"></i></span>
+          <select name ='type' required class=\"form-control selectpicker\">
+          <option value=''></option><option value='varchar'>Letters & Numbers</option>
+          <option value='tinyint'>Yes or No</option></select></div></div></div>
+          
+          <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
+          <button type=\"submit\" class=\"btn btn-warning btn-block\">Add Column</button></div></div><br><br></fieldset>
+          </form></div>";
 }
 else{
     header("Location: ./login.php");

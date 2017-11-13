@@ -4,7 +4,7 @@ include 'table.php';
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
-    echo "<head><Title>Clients</Title></head><body><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+    echo "<head><Title>Clients</Title></head><body><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
@@ -18,11 +18,11 @@ if(isset($_SESSION['id'])) {
 
     echo "<table style=\"margin-left:auto; margin-right:auto;\">
             <td><form action='addClient.php'>
-               <input type='submit' value='Add Client'/>
+               <input class=\"btn btn-warning\" type='submit' value='Add Client'/>
               </form></td>";
 
     echo "<td><form action='searchClientsForm.php'>
-               <input type='submit' value='Search Clients'/>
+               <input class=\"btn btn-warning\" type='submit' value='Search Clients'/>
               </form></td></table>";
 
     echo "<br>

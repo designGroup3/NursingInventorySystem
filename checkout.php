@@ -11,7 +11,7 @@ if(isset($_SESSION['id'])) {
     $date = $row['CURDATE()'];
     $date = date_format(date_create($date), "m/d/Y");
 
-    echo "<head><Title>Checkout</Title></head><body><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+    echo "<head><Title>Checkout</Title></head><body><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div><br/>";
 
     error_reporting(E_ALL ^ E_NOTICE);

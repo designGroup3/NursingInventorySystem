@@ -61,7 +61,7 @@ h1{
 }
 </style>
 
-<div class="parent"><button onclick="window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'">
+<div class="parent"><button class="help" onclick="window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'">
         <i class='fa fa-question'></i></button></div>
 
 <h1><strong>Welcome to NURSING IT Inventory System! (Beta)</strong></h1>

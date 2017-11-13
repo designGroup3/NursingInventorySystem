@@ -11,7 +11,7 @@
 .parent {
     position: relative;
 }
-button {
+.help {
     position: absolute;
     right: 10px;
     top: 5px;

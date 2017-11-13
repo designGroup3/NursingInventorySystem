@@ -6,7 +6,7 @@ if(isset($_SESSION['id'])) {
     $last = $_GET['last'];
     $first = $_GET['first'];
 
-    echo "<head><Title>Delete Client</Title></head><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+    echo "<head><Title>Delete Client</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";
 
     echo "Are you sure you want to delete ".$first. " ". $last ."? This action cannot be undone.

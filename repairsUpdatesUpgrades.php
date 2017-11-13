@@ -3,7 +3,7 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Repairs/Updates/Upgrades</Title></head><body><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+    echo "<head><Title>Repairs/Updates/Upgrades</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
@@ -15,11 +15,11 @@ if(isset($_SESSION['id'])) {
 
     echo "<table style=\"margin-left:auto; margin-right:auto;\">
         <td><form action='addRepairUpdateUpgrade.php'>
-           &nbsp&nbsp<input type='submit' value='Add Repair/Update/Upgrade'/>
+           &nbsp&nbsp<input class=\"btn btn-warning\" type='submit' value='Add Repair/Update/Upgrade'/>
           </form></td>";
 
     echo "<td><form action='searchRepairsUpdatesUpgradesForm.php'>
-               &nbsp&nbsp<input type='submit' value='Search Repairs/Updates/Upgrades'/>
+               &nbsp&nbsp<input class=\"btn btn-warning\" type='submit' value='Search Repairs/Updates/Upgrades'/>
               </form></td></table>";
 
 

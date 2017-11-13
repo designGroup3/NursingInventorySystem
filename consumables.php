@@ -4,7 +4,7 @@ include 'table.php';
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
-    echo "<head><Title>Consumables</Title></head><body><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+    echo "<head><Title>Consumables</Title></head><body><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
@@ -23,10 +23,10 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
-    if ($acctType == "Admin" || $acctType == "Super Admin") {
+    if ($acctType == "Super Admin") {
         echo "<table style=\"margin-left:auto; margin-right:auto;\">
               <td><form action='addConsumableColumn.php'>
-               <input type='submit' value='Add Column'/>
+               <input class=\"btn btn-warning\" type='submit' value='Add Column'/>
               </form></td>";
 
         $columnSql = "SHOW COLUMNS FROM consumables;";
@@ -34,11 +34,11 @@ if(isset($_SESSION['id'])) {
 
         if(mysqli_num_rows($columnResult) > 7) {
             echo "<td><form action='editConsumableColumn.php'>
-               <input type='submit' value='Edit Column'/>
+               <input class=\"btn btn-warning\" type='submit' value='Edit Column'/>
               </form></td>";
 
             echo "<td><form action='deleteConsumableColumn.php'>
-               <input type='submit' value='Delete Column'/>
+               <input class=\"btn btn-warning\" type='submit' value='Delete Column'/>
               </form></td>";
         }
         echo "</table>";

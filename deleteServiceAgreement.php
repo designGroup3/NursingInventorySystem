@@ -5,7 +5,7 @@ if(isset($_SESSION['id'])) {
     $id = $_GET['id'];
     $name = $_GET['name'];
 
-    echo "<head><Title>Delete Service Agreement</Title></head><div class=\"parent\"><button onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+    echo "<head><Title>Delete Service Agreement</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";
 
     echo "Are you sure you want to delete ".$name."? This action cannot be undone.

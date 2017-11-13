@@ -9,7 +9,10 @@ if(isset($_SESSION['id'])) {
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=wrongType') !== false){
-        echo "<br>&nbsp&nbspApproval forms must a .pdf file.<br>";
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        Approval forms must a .pdf file.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspApproval forms must a .pdf file.<br>";
     }
 
     echo "<br><form action='includes/addServiceAgreement.inc.php' method='POST' enctype='multipart/form-data'>

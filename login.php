@@ -254,7 +254,7 @@ $(document).ready(function() {
         <?php
         $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         if(strpos($url, 'error=input') !== false){
-            echo "<div class='alert alert-danger'>Your username or password is incorrect!</div>";
+            echo "<div class='alert alert-danger col-xs-8 col-sm-8 col-md-8 col-xl-8'>Your username or password is incorrect!</div>";
         }
         ?>
             <div class="container" >

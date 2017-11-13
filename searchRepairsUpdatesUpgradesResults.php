@@ -25,10 +25,10 @@ if(isset($_SESSION['id'])) {
     $count = 0;
     $sql = "SELECT * FROM `repairs/updates/upgrades` WHERE ";
     $andNeeded = false;
-    if($type == "" && $serialNumber == "" && $part == "" && $cost == "" && $date == "" && $supplier == "" && $reason == ""){
+    if($type == "" && $serialNumber == "" && $item == "" && $part == "" && $cost == "" && $date == "" && $supplier == "" && $reason == ""){
         echo "<br> Please fill out at least 1 search field.";
-        echo "<br><br><form action='searchClientsForm.php'> 
-                   <input type='submit' value='Search Clients'/>
+        echo "<br><br><form action='searchRepairsUpdatesUpgradesForm.php'> 
+                   <input type='submit' value='Search Repairs/Updates/Upgrades'/>
               </form>";
         exit();
     }
@@ -97,7 +97,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "`Serial Number` IN (SELECT `Serial Number` FROM inventory WHERE Item LIKE '%".$item."%')";
+        $sql .= "Item LIKE '%".$item."%'";
     }
     $sql .=";";
 
@@ -122,16 +122,16 @@ if(isset($_SESSION['id'])) {
             echo "</tr></thead><tbody>";
         }
 
-        $sql2 = "SELECT Item FROM inventory WHERE `Serial Number` = '".$row['Serial Number']."';";
-        $result2 = mysqli_query($conn, $sql2);
-        $row2 = mysqli_fetch_array($result2);
-
+//        $sql2 = "SELECT Item FROM inventory WHERE `Serial Number` = '".$row['Serial Number']."';";
+//        $result2 = mysqli_query($conn, $sql2);
+//        $row2 = mysqli_fetch_array($result2);
+//
         $date = date_create($row['Date']);
-        '<td>'.date_format($date, "m/d/Y").'</td>';
+//        '<td>'.date_format($date, "m/d/Y").'</td>';
 
         echo "<tr><td> ".$row['Type']."</td>
               <td> ".$row['Serial Number']."</td>
-              <td> ".$row2['Item']."</td>
+              <td> ".$row['Item']."</td>
               <td> ".$row['Part']."</td>
               <td> ".$row['Cost']."</td>
               <td> ".date_format($date, 'm/d/Y')."</td>

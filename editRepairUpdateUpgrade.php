@@ -31,7 +31,7 @@ if(isset($_SESSION['id'])) {
               <option selected value='Upgrade'>Upgrade</option></select><br><br>";
           }
 
-          echo "&nbsp&nbsp<label>Serial Number:</label><br>&nbsp&nbsp<select name='serialNumber'>";
+          echo "&nbsp&nbsp<label>Serial Number:</label>&nbsp&nbsp<select name='serialNumber'>";
           $sql2 = "SELECT `Serial Number` FROM inventory";
           $result2 = mysqli_query($conn, $sql2);
           while($row2 = mysqli_fetch_array($result2)) {
@@ -42,6 +42,17 @@ if(isset($_SESSION['id'])) {
                   echo '<option value = "'.$row2['Serial Number'].'">'.$row2['Serial Number'].'</option>';
               }
           }
+        echo "</select><br><br>&nbsp&nbsp<label>Item:</label>&nbsp&nbsp<select name='item'>";
+        $sql2 = "SELECT `Item` FROM inventory";
+        $result2 = mysqli_query($conn, $sql2);
+        while($row2 = mysqli_fetch_array($result2)) {
+            if($row['Item'] === $row2['Item']){
+                echo '<option selected value = "'.$row2['Item'].'">'.$row2['Item'].'</option>';
+            }
+            else{
+                echo '<option value = "'.$row2['Item'].'">'.$row2['Item'].'</option>';
+            }
+        }
 
           echo "</select><br><br>
           &nbsp&nbsp<label>Part<br></label>&nbsp&nbsp<input type='text' name='part' value='".$row['Part']."'><br><br>

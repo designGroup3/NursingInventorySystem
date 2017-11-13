@@ -21,6 +21,14 @@ if(isset($_SESSION['id'])) {
         echo '<option value = "'.$row['Serial Number'].'">'.$row['Serial Number'].'</option>';
     }
     echo "</select><br><br>
+        &nbsp&nbsp<label>Item<br></label>&nbsp&nbsp<select name='item'>
+          <option value=''></option>";
+    $sql = "SELECT `Item` FROM inventory";
+    $result = mysqli_query($conn, $sql);
+    while($row = mysqli_fetch_array($result)) {
+        echo '<option value = "'.$row['Item'].'">'.$row['Item'].'</option>';
+    }
+    echo "</select><br><br>
         &nbsp&nbsp<label>Part<br></label>&nbsp&nbsp<input type='text' name='part'><br><br>
         &nbsp&nbsp<label>Cost<br></label>&nbsp&nbsp$<input type='number' min='0' step='0.01' name='cost'><br><br>
         &nbsp&nbsp<label>Date Performed<br></label>&nbsp&nbsp<input type='date' name='date'><br><br>

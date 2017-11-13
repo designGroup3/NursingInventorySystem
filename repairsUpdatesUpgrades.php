@@ -23,7 +23,7 @@ if(isset($_SESSION['id'])) {
               </form></td></table>";
 
 
-    $sql = "SELECT * FROM `repairs/updates/upgrades` JOIN inventory ON inventory.`Serial Number` = `repairs/updates/upgrades`. `Serial Number`;";
+    $sql = "SELECT * FROM `repairs/updates/upgrades`;";
     $result = mysqli_query($conn, $sql);
     echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>
     <tr><th>Type</th>

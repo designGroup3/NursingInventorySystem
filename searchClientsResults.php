@@ -14,10 +14,14 @@ if(isset($_SESSION['id'])) {
     $acctType = $row['acctType'];
 
     $last = $_POST['last'];
+    $last = str_replace("'","\'","$last");
     $first = $_POST['first'];
+    $first = str_replace("'","\'","$first");
     $ext = $_POST['ext'];
     $email = $_POST['email'];
+    $email = str_replace("'","\'","$email");
     $office = $_POST['office'];
+    $office = str_replace("'","\'","$office");
     $tableHeadNeeded = true;
     $count = 0;
     $sql = "SELECT * FROM clients WHERE ";

@@ -4,11 +4,16 @@ session_start();
 include '../dbh.php';
 
 $type = $_POST['type'];
+$type = str_replace("'","\'","$type");
 $subType = $_POST['subtype'];
+$subType = str_replace("'","\'","$subType");
 $item = $_POST['item'];
+$item = str_replace("'","\'","$item");
 $numBorrowed = $_POST['stock'];
 $person = $_POST['person'];
+$person = str_replace("'","\'","$person");
 $reason = $_POST['reason'];
+$reason = str_replace("'","\'","$reason");
 
 if(isset($_SESSION['id'])) {
     //get update person

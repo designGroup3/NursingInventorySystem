@@ -5,8 +5,11 @@ include '../dbh.php';
 
 $id = $_POST['id'];
 $name = $_POST['name'];
+$name = str_replace("'","\'","$name");
 $cost = $_POST['cost'];
+$cost = str_replace("'","\'","$cost");
 $duration = $_POST['duration'];
+$duration = str_replace("'","\'","$duration");
 $date = $_POST['date'];
 
 if($_FILES["file"]["name"] == "") { // no file uploaded

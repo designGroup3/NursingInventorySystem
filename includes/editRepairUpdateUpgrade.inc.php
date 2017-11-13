@@ -6,12 +6,17 @@ include '../dbh.php';
 $id = $_POST['id'];
 $type = $_POST['type'];
 $serialNumber = $_POST['serialNumber'];
+$serialNumber = str_replace("'","\'","$serialNumber");
 $item = $_POST['item'];
+$item = str_replace("'","\'","$item");
 $part = $_POST['part'];
+$part = str_replace("'","\'","$part");
 $cost = $_POST['cost'];
 $date = $_POST['date'];
 $supplier = $_POST['supplier'];
+$supplier = str_replace("'","\'","$supplier");
 $reason = $_POST['reason'];
+$reason = str_replace("'","\'","$reason");
 
 $sql = "UPDATE `repairs/updates/upgrades` SET Type = '$type', `Serial Number` = '$serialNumber', Item = '$item', Part = '$part', Cost = '$cost', Date = '$date', Supplier = '$supplier', Reason = '$reason' WHERE Id = '$id';";
 

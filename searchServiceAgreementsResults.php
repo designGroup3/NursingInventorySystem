@@ -23,8 +23,10 @@ if(isset($_SESSION['id'])) {
     }
 
     $name = $_POST['name'];
+    $name = str_replace("'","\'","$name");
     $cost = $_POST['cost'];
     $duration = $_POST['duration'];
+    $duration = str_replace("'","\'","$duration");
     $date = $_POST['date'];
 
     $tableHeadNeeded = true;

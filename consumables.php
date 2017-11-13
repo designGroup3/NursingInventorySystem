@@ -121,6 +121,7 @@ if(isset($_SESSION['id'])) {
                 echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
             }
 
+            $IDs[$columnNumber] = str_replace("'","\'","$IDs[$columnNumber]");
             $sql2 = "SELECT * FROM consumables WHERE Item = '".$IDs[$columnNumber]."';"; //display later columns
             $result2 = mysqli_query($conn, $sql2);
 
@@ -192,9 +193,11 @@ if(isset($_SESSION['id'])) {
 //            }
 //        }
 //        $namesCount++;
-        echo "<td> <a href='editConsumable.php?edit=$row[Item]'>Edit<br></td>";
+        $item = str_replace("'","%27","$row[Item]");
+        echo "<td> <a href='editConsumable.php?edit=$item'>Edit<br></td>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
-                echo "<td> <a href='deleteConsumable.php?item=$row[Item]'>Delete<br></td></tr>";
+                //$item = str_replace("'","%27","$row[Item]");
+                echo "<td> <a href='deleteConsumable.php?item=$item'>Delete<br></td></tr>";
             }
             else{
                 echo "</tr>";

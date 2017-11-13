@@ -15,6 +15,7 @@ if(isset($_SESSION['id'])) {
     $receivedValues = array();
     $consumableNames = array();
     $type = $_POST['type'];
+    $type = str_replace("'","\'","$type");
     $columnTypes = array();
 
     $sql = "SHOW COLUMNS FROM consumables";
@@ -70,6 +71,7 @@ if(isset($_SESSION['id'])) {
     $sql .= "VALUES (";
     for ($count = 0; $count < count($columnNames); $count++) {
         if ($count < 5) {
+            $receivedValues[$count] = str_replace("'","\'","$receivedValues[$count]");
             $sql .= "'".$receivedValues[$count]."'";
         }
         elseif($count === 5){
@@ -80,6 +82,7 @@ if(isset($_SESSION['id'])) {
         }
         else {
             if($columnTypes[$count] !== "tinyint"){
+                $receivedValues[$count] = str_replace("'","\'","$receivedValues[$count]");
                 $sql .= "'" . $receivedValues[$count]."'";
             }
             else{

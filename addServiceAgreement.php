@@ -1,6 +1,18 @@
 <?php
 include 'header.php';
 
+//approval: {
+//    validators: {
+//        file: {
+//            maxFiles:1,
+//                        extension: 'jpeg,jpg,png,pdf',
+//                        type: 'image/jpeg,image/png,application/pdf',
+//                        message: 'The selected file is not valid. Only jpeg,jpg,png,pdf files are valid'
+//
+//                    }
+//    }
+//}
+
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 

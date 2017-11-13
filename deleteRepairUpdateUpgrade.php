@@ -6,6 +6,8 @@ if(isset($_SESSION['id'])) {
     $type = $_GET['type'];
     $item = $_GET['item'];
 
+    //TODO Change item to DB read
+
     echo "<head><Title>Delete Repair/Update/Upgrade</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";
 

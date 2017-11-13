@@ -45,6 +45,8 @@ if(isset($_SESSION['id'])) {
     $subRow = mysqli_fetch_array($resultSubtype);
     $subtype = $subRow['Subtype'];
 
+    $subtype = str_replace("'","\'","$subtype");
+
     $typeSQL = "SELECT Type FROM subtypes WHERE Subtype = '$subtype'";
     $typeResult = mysqli_query($conn, $typeSQL);
     $typeRow = mysqli_fetch_array($typeResult);
@@ -68,11 +70,12 @@ if(isset($_SESSION['id'])) {
             if($rowType['DATA_TYPE'] == "tinyint" || $count == 2){
                 $isSelect = true;
                 if($count == 2) {
+                    $subtype = str_replace("\'","'","$subtype");
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:
                     <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>  
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
-                    <input style='height:30px; width:100%;' list='Subtypes' required value='$subtype' placeholder='   Subtype' name=";
+                    <input style='height:30px; width:100%;' list='Subtypes' required value=\"$subtype\" placeholder='   Subtype' name=";
                 }
                 elseif($count == 5){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">Checkoutable?
@@ -164,7 +167,7 @@ if(isset($_SESSION['id'])) {
                         <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>   
                         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
-                        <input style='height:30px; width:100%;' list='Types' required value='$type' placeholder='   Type' id='type' name='type'>
+                        <input style='height:30px; width:100%;' list='Types' required value=\"$type\" placeholder='   Type' id='type' name='type'>
                         <datalist id=\"Types\">";
                     $sql4 = "SELECT DISTINCT Type FROM subtypes WHERE `Table` = 'Inventory'";
                     $result4 = mysqli_query($conn, $sql4);
@@ -188,7 +191,7 @@ if(isset($_SESSION['id'])) {
             }
             else{
                 if($columnName != "MACAddress" && $columnName != "IPAddress"){
-                    $inputs .= $columnName . " value='".$row[$columnNames[$count]]."'></div></div></div>";
+                    $inputs .= $columnName . " value=\"".$row[$columnNames[$count]]."\"></div></div></div>";
                 }
             }
             echo $inputs;

@@ -5,10 +5,15 @@ include '../dbh.php';
 
 $id = $_POST['id'];
 $first = $_POST['first'];
+$first = str_replace("'","\'","$first");
 $last = $_POST['last'];
+$last = str_replace("'","\'","$last");
 $uid = $_POST['uid'];
+$uid = str_replace("'","\'","$uid");
 $email = $_POST['email'];
+$email = str_replace("'","\'","$email");
 $originalEmail = $_POST['originalEmail'];
+$originalEmail = str_replace("'","\'","$originalEmail");
 $originalType = $_POST['originalType'];
 $type = $_POST['type'];
 

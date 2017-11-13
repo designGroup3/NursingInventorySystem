@@ -6,6 +6,8 @@ if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
     $originalItem = $_GET['edit'];
+    $originalItem = str_replace("%27","'","$originalItem");
+    $originalItem = str_replace("'","\'","$originalItem"); //refuses to work in one statement
     $columnNames = array();
     $type;
     echo "<head><Title>Edit Consumable</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
@@ -45,14 +47,15 @@ if(isset($_SESSION['id'])) {
     $subRow = mysqli_fetch_array($resultSubtype);
     $subtype = $subRow['Subtype'];
 
+    $subtype = str_replace("'","\'","$subtype");
+
     $typeSQL = "SELECT Type FROM subtypes WHERE Subtype = '$subtype'";
     $typeResult = mysqli_query($conn, $typeSQL);
     $typeRow = mysqli_fetch_array($typeResult);
     $type = $typeRow['Type'];
 
     echo "<div class=\"container\"><form class=\"well form-horizontal\" action ='includes/editConsumable.inc.php'
-        id=\"contact_form\" method ='POST'><input type='hidden' name='originalItem' value = '$originalItem'>
-        <fieldset><h2 align=\"center\">  Edit Consumable Item</h2><br/>";
+        id=\"contact_form\" method ='POST'><fieldset><h2 align=\"center\">Edit Consumable Item</h2><br/>";
 
     $sql="SELECT * FROM consumables WHERE `Item` = '".$originalItem."';";
     $result = mysqli_query($conn, $sql);
@@ -68,10 +71,11 @@ if(isset($_SESSION['id'])) {
             if ($rowType['DATA_TYPE'] == "tinyint" || $count == 1) {
                 $isSelect = true;
                 if($count == 1) {
+                    $subtype = str_replace("\'","'","$subtype");
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
-                    <input style='height:30px; width:100%;' list='Subtypes' required value='$subtype' placeholder='   Subtype' name=";
+                    <input style='height:30px; width:100%;' list='Subtypes' required value=\"$subtype\" placeholder='   Subtype' name=";
                 }
                 else{
                     $inputs = "<div class='form-group'><label class='col-md-4 control-label'>$columnNames[$count]:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
@@ -128,7 +132,7 @@ if(isset($_SESSION['id'])) {
                         <label class=\"col-md-4 control-label\">Type:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
                         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
-                        <input style='height:30px; width:100%;' list='Types' required value='$type' placeholder='   Type' id='type' name='type'>
+                        <input style='height:30px; width:100%;' list='Types' required value=\"$type\" placeholder='   Type' id='type' name='type'>
                         <datalist id=\"Types\">";
                     $sql4 = "SELECT DISTINCT Type FROM subtypes WHERE `Table` = 'Consumables'";
                     $result4 = mysqli_query($conn, $sql4);
@@ -152,7 +156,11 @@ if(isset($_SESSION['id'])) {
             echo $inputs;
         }
     }
-    echo '<input type="hidden" name="originalSubtype" value = \''.$row['Subtype']. '\'>
+
+    $originalItem = str_replace("\'","%27","$originalItem");
+
+    echo '<input type=\'hidden\' name=\'originalItem\' value = "'.$originalItem.'">
+    <input type="hidden" name="originalSubtype" value = \''.$row['Subtype']. '\'>
           <input type="hidden" name="originalType" value = \''.$type. '\'>
           <div class="form-group"><label class="col-md-4 control-label"></label><div class="col-md-4">
           <button type="submit" class="btn btn-warning btn-block">Edit Consumable</button></div></div></fieldset>

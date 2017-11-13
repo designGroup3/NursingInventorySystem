@@ -4,12 +4,18 @@ session_start();
 include '../dbh.php';
 
 $type = $_POST['type'];
+$type = str_replace("'","\'","$type");
 $subType = $_POST['subtype'];
+$subType = str_replace("'","\'","$subType");
 $item = $_POST['item'];
+$item = str_replace("'","\'","$item");
 $numBorrowed = $_POST['stock'];
 $person = $_POST['person'];
+$person = str_replace("'","\'","$person");
 $reason = $_POST['reason'];
+$reason = str_replace("'","\'","$reason");
 $notes = $_POST['notes'];
+$notes = str_replace("'","\'","$notes");
 $date = $_POST['date'];
 
 if(isset($_SESSION['id'])) {

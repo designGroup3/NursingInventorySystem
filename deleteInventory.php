@@ -5,6 +5,8 @@ if(isset($_SESSION['id'])) {
     $serialNumber = $_GET['serialNumber'];
     $item = $_GET['item'];
 
+    //TODO Change item to DB read
+
     echo "<head><Title>Delete Inventory</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div><div class='container'>
         <form action ='includes/deleteInventory.inc.php' class='well form-horizontal' method ='POST'>

@@ -26,12 +26,12 @@ if(isset($_SESSION['id'])) {
 
     echo "<form action ='includes/editUser.inc.php' method ='POST'><br>
             <input type='hidden' name='id' value = $id>
-            &nbsp&nbsp<label>First Name:</label> <br>&nbsp&nbsp<input type='text' name='first' value='".$row['first']."'><br><br>
-            &nbsp&nbsp<label>Last Name:</label> <br>&nbsp&nbsp<input type='text' name='last' value='".$row['last']."'><br><br>
-            &nbsp&nbsp<label>User Name:</label> <br>&nbsp&nbsp<input type='text' name='uid' value='".$row['uid']."'><br><br>
+            &nbsp&nbsp<label>First Name:</label> <br>&nbsp&nbsp<input type='text' name='first' value=\"".$row['first']."\"><br><br>
+            &nbsp&nbsp<label>Last Name:</label> <br>&nbsp&nbsp<input type='text' name='last' value=\"".$row['last']."\"><br><br>
+            &nbsp&nbsp<label>User Name:</label> <br>&nbsp&nbsp<input type='text' name='uid' value=\"".$row['uid']."\"><br><br>
             <input type='hidden' name='originalType' value='".$row['acctType']."'>
-            <input type='hidden' name='originalEmail' value='".$row['email']."'>
-            &nbsp&nbsp<label>Email:</label> <br>&nbsp&nbsp<input type='email' name='email' value='".$row['email']."'><br><br>
+            <input type='hidden' name='originalEmail' value=\"".$row['email']."\">
+            &nbsp&nbsp<label>Email:</label> <br>&nbsp&nbsp<input type='email' name='email' value=\"".$row['email']."\"><br><br>
             &nbsp&nbsp<label>Account Type:</label> <br>&nbsp&nbsp<select name='type'>";
     if($row['acctType'] == "Standard User"){
         echo "<option selected value='Standard User'>Standard User</option><option value='Admin'>Admin</option><option value='Super Admin'>Super Admin</option>";

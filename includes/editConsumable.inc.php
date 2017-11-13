@@ -4,10 +4,15 @@ session_start();
 include '../dbh.php';
 
 $originalItem = $_POST['originalItem'];
+$originalItem = str_replace("%27","\'","$originalItem");
 $originalSubtype = $_POST['originalSubtype'];
+$originalSubtype = str_replace("%27","\'","$originalSubtype");
 $newSubtype = $_POST['Subtype'];
+$newSubtype = str_replace("'","\'","$newSubtype");
 $originalType = $_POST['originalType'];
+$originalType = str_replace("'","\'","$originalType");
 $type = $_POST['type'];
+$type = str_replace("'","\'","$type");
 $consumableColumns = array();
 $consumableValues = array();
 
@@ -54,7 +59,8 @@ if(isset($_SESSION['id'])) {
     while($row = mysqli_fetch_array($result)) {
         array_push($items, $row['Item']);
     }
-
+    echo $consumableValues[0]."<br><br>";
+    $consumableValues[0] = str_replace("'","\'","$consumableValues[0]");
     if(in_array($consumableValues[0], $items) && $consumableValues[0] !== $originalItem){
         header("Location: ../editConsumable.php?edit=$originalItem&error=exists");
         exit();
@@ -62,7 +68,11 @@ if(isset($_SESSION['id'])) {
 
     $sql = "UPDATE consumables SET ";
     for($count = 0; $count< count($consumableColumns); $count++){
-        if ($count < 5) {
+        if($count == 0){
+            $sql .= "`" . $consumableColumns[$count] . "` = '".$consumableValues[$count]."'";
+        }
+        elseif ($count < 5) {
+            $consumableValues[$count] = str_replace("'","\'","$consumableValues[$count]");
             $sql .= "`" . $consumableColumns[$count] . "` = '".$consumableValues[$count]."'";
         }
         elseif($count === 5){
@@ -73,6 +83,7 @@ if(isset($_SESSION['id'])) {
         }
         else {
             if($columnTypes[$count] !== "tinyint"){
+                $consumableValues[$count] = str_replace("'","\'","$consumableValues[$count]");
                 $sql .= "`".$consumableColumns[$count]."` = '".$consumableValues[$count]."'";
             }
             else{

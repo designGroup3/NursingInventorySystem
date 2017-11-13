@@ -55,11 +55,11 @@ if(isset($_SESSION['id'])) {
         }
 
           echo "</select><br><br>
-          &nbsp&nbsp<label>Part<br></label>&nbsp&nbsp<input type='text' name='part' value='".$row['Part']."'><br><br>
+          &nbsp&nbsp<label>Part<br></label>&nbsp&nbsp<input type='text' name='part' value=\"".$row['Part']."\"><br><br>
           &nbsp&nbsp<label>Cost<br></label>&nbsp&nbsp$<input type='number' min='0' step='0.01' name='cost'  value='".$row['Cost']."'><br><br>
           &nbsp&nbsp<label>Date Performed<br></label>&nbsp&nbsp<input type='date' name='date' value='".$row['Date']."'><br><br>
-          &nbsp&nbsp<label>Supplier<br></label>&nbsp&nbsp<input type='text' name='supplier'  value='".$row['Supplier']."'><br><br>
-          &nbsp&nbsp<label>Reason<br></label>&nbsp&nbsp<input type='text' name='reason' value='".$row['Reason']."'><br><br><br>
+          &nbsp&nbsp<label>Supplier<br></label>&nbsp&nbsp<input type='text' name='supplier'  value=\"".$row['Supplier']."\"><br><br>
+          &nbsp&nbsp<label>Reason<br></label>&nbsp&nbsp<input type='text' name='reason' value=\"".$row['Reason']."\"><br><br><br>
           &nbsp&nbsp<button type='submit'>Edit Repair/Update/Upgrade</button></form>";
 }
 else{

@@ -14,9 +14,13 @@ if(isset($_SESSION['id'])) {
     $acctType = $row['acctType'];
 
     $first = $_POST['first'];
+    $first = str_replace("'","\'","$first");
     $last = $_POST['last'];
+    $last = str_replace("'","\'","$last");
     $accountName = $_POST['accountName'];
+    $accountName = str_replace("'","\'","$accountName");
     $email = $_POST['email'];
+    $email = str_replace("'","\'","$email");
     $accountType = $_POST['accountType'];
     $dateAdded = $_POST['dateAdded'];
     $tableHeadNeeded = true;

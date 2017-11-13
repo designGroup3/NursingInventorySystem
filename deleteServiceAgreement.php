@@ -5,6 +5,8 @@ if(isset($_SESSION['id'])) {
     $id = $_GET['id'];
     $name = $_GET['name'];
 
+    //TODO Change item to DB read
+
     echo "<head><Title>Delete Service Agreement</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";
 

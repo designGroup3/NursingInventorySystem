@@ -5,10 +5,13 @@ include '../dbh.php';
 
 $originalSerialNumber = $_POST['originalSerialNumber'];
 $originalSubtype = $_POST['originalSubtype'];
+$originalSubtype = str_replace("%27","\'","$originalSubtype");
 $originalType = $_POST['originalType'];
 $type = $_POST['type'];
+$type = str_replace("'","\'","$type");
 $inventoryColumns = array();
 $inventoryValues = array();
+$subtype;
 
 if(isset($_SESSION['id'])) {
     error_reporting(E_ALL ^ E_NOTICE);
@@ -62,6 +65,7 @@ if(isset($_SESSION['id'])) {
     $sql = "UPDATE inventory SET ";
     for($count = 0; $count< count($inventoryColumns); $count++){
         if ($count < 9) {
+            $inventoryValues[$count] = str_replace("'","\'","$inventoryValues[$count]");
             $sql .= "`" . $inventoryColumns[$count] . "` = '".$inventoryValues[$count]."'";
         }
         elseif($count === 9){
@@ -72,6 +76,7 @@ if(isset($_SESSION['id'])) {
         }
         else {
             if($columnTypes[$count] !== "tinyint"){
+                $inventoryValues[$count] = str_replace("'","\'","$inventoryValues[$count]");
                 $sql .= "`".$inventoryColumns[$count]."` = '".$inventoryValues[$count]."'";
             }
             else{
@@ -87,17 +92,18 @@ if(isset($_SESSION['id'])) {
             $sql .= ", ";
         }
     }
+    $subtype = $inventoryValues[2]; // must change when Id is added
 
     $sql .= " WHERE `Serial Number` = '$originalSerialNumber';";
 
     //Check Subtypes table
-    if($originalSubtype !== $_POST['Subtype'] || $originalType !== $type){
-        if($originalType !== $type && $originalSubtype == $_POST['Subtype']){ //type is changed
+    if($originalSubtype !== $subtype || $originalType !== $type){
+        if($originalType !== $type && $originalSubtype == $subtype){ //type is changed
             $TypeSql = "UPDATE subtypes SET Type = '$type' WHERE Subtype = '$originalSubtype';";
             $TypeResult = mysqli_query($conn, $TypeSql);
         }
-        elseif($originalSubtype !== $_POST['Subtype'] && $originalType == $type){ //subtype is changed
-            $newSubtype = $_POST['Subtype'];
+        elseif($originalSubtype !== $subtype && $originalType == $type){ //subtype is changed
+            $newSubtype = $subtype;
             $typeSQL = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
             $typeResult = mysqli_query($conn, $typeSQL);
             $row = mysqli_fetch_array($typeResult);
@@ -135,8 +141,8 @@ if(isset($_SESSION['id'])) {
                 }
             }
         }
-        elseif($originalSubtype !== $_POST['Subtype'] && $originalType !== $type){
-            $newSubtype = $_POST['Subtype'];
+        elseif($originalSubtype !== $subtype && $originalType !== $type){
+            $newSubtype = $subtype;
 
             $subtypeSql = "SELECT Item FROM inventory WHERE Subtype = '$originalSubtype';";
             $subtypeResult = mysqli_query($conn, $subtypeSql);
@@ -152,7 +158,7 @@ if(isset($_SESSION['id'])) {
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
                 if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
                     $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "', 'Inventory');";
-                    //echo $subtypeSql;
+                    echo $subtypeSql;
                     $subtypeResult = mysqli_query($conn, $subtypeSql);
                 }
             }

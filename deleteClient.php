@@ -6,6 +6,8 @@ if(isset($_SESSION['id'])) {
     $last = $_GET['last'];
     $first = $_GET['first'];
 
+    //TODO change name to db read
+
     echo "<head><Title>Delete Client</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";
 

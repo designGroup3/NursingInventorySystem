@@ -11,6 +11,7 @@ if(isset($_SESSION['id'])) {
     $uid = $row['uid'];
 
     $type = $_POST['type'];
+    $type = str_replace("'","\'","$type");
 
     error_reporting(E_ALL ^ E_NOTICE);
     $columnNames = array();
@@ -72,6 +73,7 @@ if(isset($_SESSION['id'])) {
 
     for ($count = 0; $count < count($columnNames); $count++) {
         if ($count < 9) {
+            $receivedValues[$count] = str_replace("'","\'","$receivedValues[$count]");
             $sql .= "'".$receivedValues[$count]."'";
         }
         elseif($count === 9){
@@ -82,6 +84,7 @@ if(isset($_SESSION['id'])) {
         }
         else {
             if($columnTypes[$count] !== "tinyint"){
+                $receivedValues[$count] = str_replace("'","\'","$receivedValues[$count]");
                 $sql .= "'" . $receivedValues[$count]."'";
             }
             else{

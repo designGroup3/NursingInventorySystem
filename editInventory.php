@@ -13,12 +13,18 @@ if(isset($_SESSION['id'])) {
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){
-        echo "<br>&nbsp&nbspAn item with that serial number already exists.<br>";
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              An item with that serial number already exists.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspAn item with that serial number already exists.<br>";
     }
     elseif(strpos($url, 'error=typeMismatch') !== false){
         $subtype= $_GET['subtype'];
         $type= $_GET['type'];
-        echo "<br>&nbsp&nbspThe subtype $subtype already relates to the type $type. Subtypes can only have one type.<br>";
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              The subtype $subtype already relates to the type $type. Subtypes can only have one type.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspThe subtype $subtype already relates to the type $type. Subtypes can only have one type.<br>";
     }
 
     $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page

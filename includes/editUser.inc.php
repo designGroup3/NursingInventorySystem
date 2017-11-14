@@ -17,7 +17,7 @@ $originalEmail = str_replace("'","\'","$originalEmail");
 $originalType = $_POST['originalType'];
 $type = $_POST['type'];
 
-if($type == "Standard User"){
+if($type == "Standard User" || $type == "Admin" ){
     $sql = "SELECT acctType FROM users WHERE acctType = 'Super Admin'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_num_rows($result);

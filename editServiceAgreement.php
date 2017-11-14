@@ -44,7 +44,7 @@ include 'header.php';
                             maxFiles:1,
                             extension: 'pdf',
                             type: 'application/pdf',
-                            message: 'The selected file is not valid. Only .pdf files are valid'
+                            message: 'The selected file is not valid. Only .pdf files are valid.'
                         }
                     }
                 }
@@ -61,7 +61,10 @@ if(isset($_SESSION['id'])) {
         <i class='fa fa-question'></i></button></div>";
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=wrongType') !== false){
-        echo "<br>&nbsp&nbspApproval forms must a .pdf file.<br>";
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        Approval forms must a .pdf file.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspApproval forms must a .pdf file.<br>";
     }
     $sql="SELECT * FROM serviceAgreements WHERE Id = $id";
     $result = mysqli_query($conn, $sql);
@@ -93,10 +96,8 @@ if(isset($_SESSION['id'])) {
         <span class=\"input-group-addon\"><i class=\"fa fa-calendar-times-o\"></i></span>
         <input type='date' name='date' required value=\"".$row['Expiration Date']."\" class=\"form-control\"></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\"> Approval Form:</label>
-        <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
-        <label for=\"file-upload\" class=\"custom-file-upload\"></label><input type='file' name='file' id='file'
-        style='position:relative; bottom:13px;'></div></div></div>
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Approval Form:</label>
+        <div class=\"col-md-4\"><input type=\"file\" class=\"form-control\" name=\"file\" id='file'/></div></div>
         
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
         <button type='submit' class='btn btn-warning btn-block'>Edit Service Agreement</button></div></div></fieldset></form></div>";

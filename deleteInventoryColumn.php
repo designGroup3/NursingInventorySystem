@@ -9,7 +9,10 @@ if(isset($_SESSION['id'])) {
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'success') !== false){
-        echo "<br>&nbsp&nbspColumn deleted successfully.<br>";
+        echo "<br><div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              Column deleted successfully.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspColumn deleted successfully.<br>";
     }
 
     $columnNames = array();

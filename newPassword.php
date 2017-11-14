@@ -13,11 +13,16 @@ $email = $_GET['email'];
 $sentKey = $_GET['pwdRecoveryKey'];
 $pwdRecoveryKey;
 if(strpos($url, 'error=noMatch') !== false){
-    echo "<br>&nbsp&nbspYour new password does not match.<br><br>";
+    echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        Your new password does not match.</div><br><br><br>";
+    //echo "<br>&nbsp&nbspYour new password does not match.<br><br>";
 }
 if(strpos($url, 'success') !== false){
-    echo "<br>&nbsp&nbspYour password has been changed successfully, please log in with your new password.<br>";
-    exit();
+    echo "<div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        Your password has been changed successfully. Please log in with your new password.</div><br><br><br>";
+    //echo "<br>&nbsp&nbspYour password has been changed successfully, please log in with your new password.<br>";
 }
 $sql = "SELECT pwdRecoveryKey FROM users WHERE email='$email'";
 $result = mysqli_query($conn, $sql);

@@ -44,7 +44,7 @@ include 'header.php';
                                 maxFiles:1,
                                 extension: 'pdf',
                                 type: 'application/pdf',
-                                message: 'The selected file is not valid. Only .pdf files are valid'
+                                message: 'The selected file is not valid. Only .pdf files are valid.'
                             }
                         }
                     }
@@ -97,10 +97,8 @@ if(isset($_SESSION['id'])) {
         <span class=\"input-group-addon\"><i class=\"fa fa-calendar\"></i></span>
         <input type='date' name='date' class=\"form-control\" required></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\"> Approval Form:</label>
-        <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
-        <label for=\"file-upload\" class=\"custom-file-upload\"></label><input type='file' name='file' id='file'
-        style='position:relative; bottom:13px;'></div></div></div>
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Approval Form:</label>
+        <div class=\"col-md-4\"><input type=\"file\" class=\"form-control\" name=\"file\" id='file'/></div></div>
         
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
         <button type='submit' class='btn btn-warning btn-block'>Add Service Agreement</button></div></div></fieldset></form></div>";

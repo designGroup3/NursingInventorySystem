@@ -8,6 +8,14 @@ if(isset($_SESSION['id'])) {
         <i class='fa fa-question'></i></button></div>
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
+    $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    if(strpos($url, 'deleteSuccess') !== false){
+        echo "<div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              Column deleted successfully.</div><br><br><br><br>";
+        //echo "<br>&nbsp&nbspColumn deleted successfully.<br>";
+    }
+
     $columnNames= array();
     $Minimums = array();
 
@@ -24,7 +32,7 @@ if(isset($_SESSION['id'])) {
     $acctType = $row['acctType'];
 
     if ($acctType == "Super Admin") {
-        echo "<table style=\"margin-left:auto; margin-right:auto;\">
+        echo "<h2 style='text-align: center'>Consumables</h2><br><table style=\"margin-left:auto; margin-right:auto;\">
               <td><form action='addConsumableColumn.php'>
                <input class=\"btn btn-warning\" type='submit' value='Add Column'/>
               </form></td>";

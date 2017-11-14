@@ -4,7 +4,7 @@ include 'table.php';
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
     echo "<head><Title>Search Service Agreements Results</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div>
+        <i class='fa fa-question'></i></button></div><br><h2 style='text-align: center'>Service Agreements</h2>
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE);

@@ -9,14 +9,22 @@ if(isset($_SESSION['id'])) {
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=username') !== false){
-        echo "<br>&nbsp&nbspUsername already in use.<br>";
-        exit();
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              Username already in use.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspUsername already in use.<br>";
     }
     elseif(strpos($url, 'error=noAdmin') !== false){
-        echo "<br>&nbsp&nbspThere must be at least 1 Super Admin in the system.<br>";
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              There must be at least 1 Super Admin in the system.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspThere must be at least 1 Super Admin in the system.<br>";
     }
     elseif(strpos($url, 'error=email') !== false){
-        echo "<br>&nbsp&nbspThat email address is already in use.<br>";
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              That e-mail address is already in use.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspThat email address is already in use.<br>";
     }
 
     $id = $_GET['edit'];

@@ -13,7 +13,7 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
-    echo "<table style=\"margin-left:auto; margin-right:auto;\">
+    echo "<h2 style='text-align: center'>Repairs/Updates/Upgrades</h2><br><table style=\"margin-left:auto; margin-right:auto;\">
         <td><form action='addRepairUpdateUpgrade.php'>
            &nbsp&nbsp<input class=\"btn btn-warning\" type='submit' value='Add Repair/Update/Upgrade'/>
           </form></td>";

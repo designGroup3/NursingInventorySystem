@@ -15,15 +15,21 @@ if(isset($_SESSION['id'])) {
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=self') !== false){
-        echo "<br>&nbsp&nbspYou cannot delete yourself.<br>";
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        You cannot delete yourself.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou cannot delete yourself.<br>";
     }
     elseif(strpos($url, 'success') !== false){
-        echo "<br>&nbsp&nbspNew user added successfully.<br>";
+        echo "<div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        New user added successfully.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspNew user added successfully.<br>";
     }
 
     $sql = "SELECT * FROM users";
     $result = mysqli_query($conn, $sql);
-    echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
+    echo "<h2 style='text-align: center'>Users</h2><br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
     <thead><tr><th>First Name</th>
     <th>Last Name</th>
     <th>Account Name</th>

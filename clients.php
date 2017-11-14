@@ -16,7 +16,7 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
-    echo "<table style=\"margin-left:auto; margin-right:auto;\">
+    echo "<h2 style='text-align: center'>Clients</h2><br><table style=\"margin-left:auto; margin-right:auto;\">
             <td><form action='addClient.php'>
                <input class=\"btn btn-warning\" type='submit' value='Add Client'/>
               </form></td>";

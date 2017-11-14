@@ -24,16 +24,28 @@ if(isset($_SESSION['id'])) {
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=over') !== false){
-        echo "<br>&nbsp&nbspThere are not that many of the item in inventory.<br>";
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        There are not that many of the consumable in stock.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspThere are not that many of the item in inventory.<br>";
     }
     elseif(strpos($url, 'error=zero') !== false){
-        echo "<br>&nbsp&nbspYou must consume at least one unit.<br>";
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        You must consume at least one unit.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou must consume at least one unit.<br>";
     }
     elseif(strpos($url, 'error=breakMin') !== false){
-        echo "<br>&nbsp&nbspCannot consume. Consuming that many would go under the minimum stock.<br>";
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        Cannot consume. Consuming that many would go under minimum stock.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspCannot consume. Consuming that many would go under the minimum stock.<br>";
     }
     elseif(strpos($url, 'success') !== false){
-        echo "<br>&nbsp&nbspItem consumed.<br>";
+        echo "<div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        Item consumed.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspItem consumed.<br>";
     }
 
     $sql = "SELECT Type FROM subtypes WHERE `Table` = 'Consumables';";

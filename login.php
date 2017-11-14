@@ -220,8 +220,16 @@ form.login a:hover
     left: 190px;
 }
 
-    </style>
-	<script>
+.help{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    height: 27px;
+    width: 25px
+}
+
+</style>
+<script>
 
 $(document).ready(function() {
     $(document).mousemove(function(event) {
@@ -239,13 +247,15 @@ $(document).ready(function() {
 	<script src="js/bdposlgin.js"></script>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
 <script src="./js/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <body>
+        <body><div class="parent"><button class="help" onclick="window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'">
+                <i class='fa fa-question'></i></button></div>
         <?php
         $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         if(strpos($url, 'error=input') !== false){
-            echo "<div class='alert alert-danger'>Your username or password is incorrect!</div>";
+            echo "<div class='alert alert-danger col-xs-8 col-sm-8 col-md-8 col-xl-8'>Your username or password is incorrect!</div>";
         }
         ?>
             <div class="container" >

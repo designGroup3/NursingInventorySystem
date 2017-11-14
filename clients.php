@@ -2,10 +2,11 @@
 include 'table.php';
 
 if(isset($_SESSION['id'])) {
-    //include 'includes/bootstrap.inc.php';
     include 'dbh.php';
 
-    echo "<head><Title>Clients</Title></head>";
+    echo "<head><Title>Clients</Title></head><body><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>
+<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $columnNames= array();
 
@@ -15,18 +16,23 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
-    echo "<table style=\"margin-left:auto; margin-right:auto;\">
+    echo "<h2 style='text-align: center'>Clients</h2><br><table style=\"margin-left:auto; margin-right:auto;\">
             <td><form action='addClient.php'>
-               <input type='submit' value='Add Client'/>
+               <input class=\"btn btn-warning\" type='submit' value='Add Client'/>
               </form></td>";
 
     echo "<td><form action='searchClientsForm.php'>
-               <input type='submit' value='Search Clients'/>
+               <input class=\"btn btn-warning\" type='submit' value='Search Clients'/>
               </form></td></table>";
 
     echo "<br>
     <table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
-    echo "<th>Last</th><th>First</th><th>Ext</th><th>Email</th><th>Office</th><th>Edit</th><th>Delete</th></thead>";
+    echo "<th>First</th><th>Last</th><th>Ext</th><th>Email</th><th>Office</th><th>Edit</th>";
+
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
+        echo "<th>Delete</th>";
+    }
+    echo "</thead>";
 
 //    $results_per_page = 5; //for pagination
 //
@@ -49,11 +55,11 @@ if(isset($_SESSION['id'])) {
     echo "<tbody>";
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr>";
-        echo '<td> ' . $row['Last'] . '</td>'.'<td> ' . $row['First'] . '</td>'.
+        echo '<td> ' . $row['First'] . '</td>'.'<td> ' . $row['Last'] . '</td>'.
         '<td> ' . $row['Ext'] . '<td> ' . $row['Email'] . '</td>' .'<td> ' . $row['Office'] . '</td>';
+        echo "<td><a href='editClient.php?edit=$row[Number]'>Edit<br></td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td> <a href='editClient.php?edit=$row[Number]'>Edit<br></td>
-              <td> <a href='deleteClient.php?number=$row[Number]&last=$row[Last]&first=$row[First]'>Delete<br></td></tr>";
+            echo "<td><a href='deleteClient.php?number=$row[Number]&last=$row[Last]&first=$row[First]'>Delete<br></td></tr>";
         }
     }
 

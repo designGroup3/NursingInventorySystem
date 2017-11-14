@@ -8,10 +8,14 @@
 <html>
 <head>
     <style>
-      /*  body {
-            background-image: url("https://images.freecreatives.com/wp-content/uploads/2015/12/Plaid-Texture-Seamless-Pattern.jpg");
-            background-size: 100%;
-		}*/
+.parent {
+    position: relative;
+}
+.help {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
 
 .nav-tabs {
   display: inline-block;
@@ -200,10 +204,10 @@
                                 <div class="tab-pane active" id="content-one">
                                     <ul class="nav-list list-inline">
                                <!-- check in check out tables-->
-                                <li><a href="signup.php"><img src="images/placeholder_nvtn.png"><span>Add user</span></a></li>
-                                <li><a href="searchUsersForm.php"><img src="images/placeholder_nvtn.png"><span>Search user</span></a></li>
+                                <li><a href="signup.php"><img src="images/adusr_nvtn.png"><span>Add user</span></a></li>
+                                <li><a href="searchUsersForm.php"><img src="images/srchusr_nvtn.png"><span>Search user</span></a></li>
                                 <!-- This will link to Add inventory page-->
-                                <li><a data-filter=".97" href="usersTable.php"><img src="images/placeholder_nvtn.png "><span>See User List</span></a></li>
+                                <li><a data-filter=".97" href="usersTable.php"><img src="images/usrlst_nvtn.png "><span>See User List</span></a></li>
                             </ul>
                           </div>
                           
@@ -222,15 +226,15 @@
                           <div class="tab-pane active" id="kids">
                             <ul class="nav-list list-inline">
                                <!-- check in check out tables-->
-							   <li><a href="addInventory.php"><img src="images/placeholder_nvtn.png"><span>Add inventory</span></a></li>
-                                <li><a href="checkout.php"><img src="images/placeholder_nvtn.png"><span>Check-out</span></a></li>
+							   <li><a href="addInventory.php"><img src="images/addinvnt_nvtn.png"><span>Add inventory</span></a></li>
+                                <li><a href="checkout.php"><img src="images/checkout_nvtn.png"><span>Check-out</span></a></li>
                                 <!-- This will link to Add inventory page-->
-                                <li><a data-filter=".97" href="inventory.php"><img src="images/placeholder_nvtn.png" width="100px"><span>View/Edit/Delete</span></a></li>
+                                <li><a data-filter=".97" href="inventory.php"><img src="images/editinvntry_nvtn.png" width="100px"><span>View/Edit/Delete</span></a></li>
                                 <!-- view/edit/delete colomns and items types/subtypes in the inventory tables-->
-								<li><a data-filter=".96" href="dailyReports.php"><img src="images/placeholder_nvtn.png" ><span>Daily Reports</span></a></li>
+								<li><a data-filter=".96" href="dailyReports.php"><img src="images/rprtdly_nvtn.png" ><span>Daily Reports</span></a></li>
                                 <!-- Report generation Page-->
-								<li><a data-filter=".96" href="otherReports.php"><img src="images/placeholder_nvtn.png" ><span>Other Reports</span></a></li>
-                                <li><a data-filter=".87" href="searchInventoryForm.php"><img src="images/placeholder_nvtn.png"><span>Search Inventory</span></a></li>
+								<li><a data-filter=".96" href="otherReports.php"><img src="images/othrrprt_nvtn.png" ><span>Other Reports</span></a></li>
+                                <li><a data-filter=".87" href="searchInventoryForm.php"><img src="images/invsrch_nvtn.png"><span>Search Inventory</span></a></li>
                             </ul>
                           </div>
                           
@@ -248,16 +252,16 @@
                           <div class="tab-pane active" id="kids">
                             <ul class="nav-list list-inline">
                                <!-- -->
-                                <li><a href="consume.php"><img src="images/placeholder_nvtn.png" width="100px"><span>Consume</span></a></li>
+                                <li><a href="consume.php"><img src="images/consume_nvtn.png" width="100px"><span>Consume</span></a></li>
                                 <!-- This will link to Add inventory page-->
-                                <li><a data-filter=".97" href="addConsumable.php"><img src="images/placeholder_nvtn.png" width="100px"><span>Add Consumable</span></a></li>
+                                <li><a data-filter=".97" href="addConsumable.php"><img src="images/ALTERaddconsume_nvtn.png" width="100px"><span>Add Consumable</span></a></li>
                                 <!-- view/edit/delete colomns and items types/subtypes in the consumables tables-->
-                                <li><a data-filter=".96" href="consumables.php"><img src="images/placeholder_nvtn.png" width="100px"><span>View/Edit/Delete</span></a></li>
+                                <li><a data-filter=".96" href="consumables.php"><img src="images/ALTEReditcnsm_nvtn.png" width="100px"><span>View/Edit/Delete</span></a></li>
                                 <!-- consumables Report generation Page-->
-                                <li><a data-filter=".87" href="dailyReports.php"><img src="images/placeholder_nvtn.png" width="100px"><span>Daily Reports</span></a></li>
-								 <li><a data-filter=".87" href="otherReports.php"><img src="images/placeholder_nvtn.png" width="100px"><span>Other Reports</span></a></li>
+                                <li><a data-filter=".87" href="dailyReports.php"><img src="images/ALTERdlyrprt_nvtn.png" width="100px"><span>Daily Reports</span></a></li>
+								 <li><a data-filter=".87" href="otherReports.php"><img src="images/ALTERrprtothr_nvtn.png" width="100px"><span>Other Reports</span></a></li>
 								<!-- Goes to  search consumables table-->
-								<li><a data-filter=".87" href="searchConsumablesForm.php"><img src="images/placeholder_nvtn.png" width="100px"><span>Search</span></a></li>
+								<li><a data-filter=".87" href="searchConsumablesForm.php"><img src="images/ALTERcnsmblesrch_nvtn.png" width="100px"><span>Search</span></a></li>
 								
                             </ul>
                           </div>

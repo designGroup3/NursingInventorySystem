@@ -3,7 +3,9 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Search Inventory Results</Title></head>";
+    echo "<head><Title>Search Inventory Results</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div><br><h2 style='text-align: center'>Inventory</h2>
+<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
     $sql = "SELECT acctType FROM users WHERE id='$currentID'";
@@ -35,6 +37,8 @@ if(isset($_SESSION['id'])) {
 
     for($count = 0; $count< count($columnNames); $count++){
         if($receivedValues[$count] !== ""){
+            $receivedValues[$count] = str_replace("'","\'","$receivedValues[$count]");
+            $receivedValues[$count] = str_replace("%27","\'","$receivedValues[$count]");
             $sql .= "`" . $columnNames[$count] . "`" . " LIKE '%" . $receivedValues[$count]. "%' AND ";
             error_reporting(E_ERROR | E_PARSE);
         }
@@ -43,25 +47,28 @@ if(isset($_SESSION['id'])) {
     $sql = chop($sql," AND ");
 
     if($_POST['Type'] !== ""){
-        $sql .= " AND Subtype IN (SELECT Subtype FROM subtypes WHERE type LIKE '%". $_POST['Type']."%')";
+        $type = str_replace("%27","\'","$_POST[Type]");
+        $sql .= " AND Subtype IN (SELECT Subtype FROM subtypes WHERE type LIKE '%". $type."%')";
     }
 
     $sql .= ";";
 
     if($sql == "SELECT * FROM inventory WHERE;"){ // for if no fields are filled in
-        echo "<br> Please fill out at least 1 search field.";
-        echo "<br><br><form action='searchInventoryForm.php'>
-                   <input type='submit' value='Search Inventory'/>
-              </form>";
+        echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchInventoryForm.php';\" class='btn btn-warning' value='Back'></div>";
         exit();
     }
 
     if(strpos($sql, "WHERE AND") !== false){ //for if only type is searched on
         $subtypes = array();
-        $typeSql = "SELECT Subtype FROM subtypes WHERE type = '". $_POST['Type']."';";
+        $type = str_replace("%27","\'","$_POST[Type]");
+        $typeSql = "SELECT Subtype FROM subtypes WHERE type = '". $type."';";
         $typeResult = mysqli_query($conn, $typeSql);
         while($typeRow = mysqli_fetch_array($typeResult)){
             array_push($subtypes, $typeRow['Subtype']);
+        }
+        for($count = 0; $count < count($subtypes); $count++){
+            $subtypes[$count] = str_replace("'","\'","$subtypes[$count]");
         }
         $sql = "SELECT * FROM inventory WHERE Subtype IN (";
         for($count = 0; $count < count($subtypes); $count++){
@@ -89,12 +96,18 @@ if(isset($_SESSION['id'])) {
             for($count = 2; $count< count($columnNames); $count++){
                 echo "<th>$columnNames[$count]</th>";
             }
-            echo "<th>Print QR Code</th><th>Edit</th><th>Delete</th></thead><tbody><tr>";
+            echo "<th>Edit</th>";
+            if ($acctType == "Admin" || $acctType == "Super Admin") {
+                echo"<th>Delete</th>";
+            }
+            echo "</thead><tbody><tr>";
         }
         for($count = 0; $count< count($columnNames); $count++){
             if($count == 1){
                 echo '<td> '.$row[$columnNames[$count]].'</td>';
-                $innerSQL = "SELECT Type FROM subtypes WHERE Subtype = '".$row[$columnNames[$count + 1]]."';";
+                $subtype = $row[$columnNames[$count + 1]];
+                $subtype = str_replace("'","\'","$subtype");
+                $innerSQL = "SELECT Type FROM subtypes WHERE Subtype = '".$subtype."';";
                 $innerResult = mysqli_query($conn, $innerSQL);
                 $innerRow = mysqli_fetch_array($innerResult);
                 echo '<td>'. $innerRow['Type'].'</td>';
@@ -121,8 +134,7 @@ if(isset($_SESSION['id'])) {
                 }
             }
         }
-        echo "<td> <a href='QRPrintPage.php?serialNumber=".$row["Serial Number"]."'>Print QR Code<br></td>
-            <td> <a href='editInventory.php?edit=".$row["Serial Number"]."'>Edit<br></td>";
+        echo "<td> <a href='editInventory.php?edit=".$row["Serial Number"]."'>Edit<br></td>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
                 echo "<td> <a href='deleteInventory.php?serialNumber=".$row["Serial Number"]."&item=$row[Item]'>Delete<br></td>";
                }
@@ -131,7 +143,8 @@ if(isset($_SESSION['id'])) {
     echo "</tbody></table>";
 
     if($outerCount == 0) {
-        echo "&nbsp<br> No Items Found That Match All of Those Criteria.<br>";
+        echo "<h3 style='text-align: center'>No Items Found That Match All of Those Criteria.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchInventoryForm.php';\" class='btn btn-warning' value='Back'></div>";
     }
 }
 else{

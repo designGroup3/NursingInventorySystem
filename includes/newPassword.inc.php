@@ -2,6 +2,8 @@
 session_start();
 include '../dbh.php';
 $email = $_POST['email'];
+$email = str_replace("\\","\\\\","$email");
+$email = str_replace("'","\'","$email");
 $pwdRecoveryKey = $_POST['pwdRecoveryKey'];
 $newPassword = $_POST['newPassword'];
 $confirmNewPassword = $_POST['confirmNewPassword'];

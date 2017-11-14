@@ -4,10 +4,20 @@ session_start();
 include '../dbh.php';
 
 $originalItem = $_POST['originalItem'];
+$originalItem = str_replace("%5C","\\","$originalItem");
+$originalItem = str_replace("%27","\'","$originalItem");
 $originalSubtype = $_POST['originalSubtype'];
+$originalSubtype = str_replace("%5C","\\","$originalSubtype");
+$originalSubtype = str_replace("%27","\'","$originalSubtype");
 $newSubtype = $_POST['Subtype'];
+$newSubtype = str_replace("\\","\\\\","$newSubtype");
+$newSubtype = str_replace("'","\'","$newSubtype");
 $originalType = $_POST['originalType'];
+$originalType = str_replace("\\","\\\\","$originalType");
+$originalType = str_replace("'","\'","$originalType");
 $type = $_POST['type'];
+$type = str_replace("\\","\\\\","$type");
+$type = str_replace("'","\'","$type");
 $consumableColumns = array();
 $consumableValues = array();
 
@@ -18,6 +28,8 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     $uid = $row['uid'];
+
+    $columnTypes = array();
 
     $sql2 = "SELECT CURRENT_TIMESTAMP;"; //gets current time
     $result2 = mysqli_query($conn, $sql2);
@@ -37,6 +49,14 @@ if(isset($_SESSION['id'])) {
         }
     }
 
+    for ($count = 0; $count < count($consumableColumns); $count++) {
+        $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE table_name = 'consumables' AND COLUMN_NAME = '$consumableColumns[$count]';";
+        $result2 = mysqli_query($conn, $sql2);
+        $rowType = mysqli_fetch_array($result2);
+        array_push($columnTypes, $rowType['DATA_TYPE']);
+    }
+
     $items = array();
 
     $sql = "SELECT `Item` FROM consumables";
@@ -44,7 +64,8 @@ if(isset($_SESSION['id'])) {
     while($row = mysqli_fetch_array($result)) {
         array_push($items, $row['Item']);
     }
-
+    $consumableValues[0] = str_replace("\\","\\\\","$consumableValues[0]");
+    $consumableValues[0] = str_replace("'","\'","$consumableValues[0]");
     if(in_array($consumableValues[0], $items) && $consumableValues[0] !== $originalItem){
         header("Location: ../editConsumable.php?edit=$originalItem&error=exists");
         exit();
@@ -52,18 +73,36 @@ if(isset($_SESSION['id'])) {
 
     $sql = "UPDATE consumables SET ";
     for($count = 0; $count< count($consumableColumns); $count++){
-        if($consumableColumns[$count] != "Last Processing Date" && $consumableColumns[$count] != "Last Processing Person") {
-            $sql .= "`" . $consumableColumns[$count] . "`" . " = '" . $consumableValues[$count] . "' ";
+        if($count == 0){
+            $sql .= "`" . $consumableColumns[$count] . "` = '".$consumableValues[$count]."'";
         }
-        if($consumableColumns[$count] == "Last Processing Date"){
+        elseif ($count < 5) {
+            $consumableValues[$count] = str_replace("\\","\\\\","$consumableValues[$count]");
+            $consumableValues[$count] = str_replace("'","\'","$consumableValues[$count]");
+            $sql .= "`" . $consumableColumns[$count] . "` = '".$consumableValues[$count]."'";
+        }
+        elseif($count === 5){
             $sql .= "`Last Processing Date` = '" .$time."'";
         }
-
-        if($consumableColumns[$count] == "Last Processing Person"){
+        elseif($count === 6){
             $sql .= "`Last Processing Person` = '" .$uid."'";
         }
-
-        if ($count !== count($consumableColumns) - 1) {
+        else {
+            if($columnTypes[$count] !== "tinyint"){
+                $consumableValues[$count] = str_replace("\\","\\\\","$consumableValues[$count]");
+                $consumableValues[$count] = str_replace("'","\'","$consumableValues[$count]");
+                $sql .= "`".$consumableColumns[$count]."` = '".$consumableValues[$count]."'";
+            }
+            else{
+                if($consumableValues[$count] !== ""){
+                    $sql .= "`".$consumableColumns[$count]."` = '".$consumableValues[$count]."'";
+                }
+                else{
+                    $sql .= "`".$consumableColumns[$count]."` = NULL";
+                }
+            }
+        }
+        if($count != (count($consumableColumns)-1)){
             $sql .= ", ";
         }
     }
@@ -82,12 +121,18 @@ if(isset($_SESSION['id'])) {
             $typeResult = mysqli_query($conn, $typeSQL);
             $row = mysqli_fetch_array($typeResult);
             if($row['Type'] !== $type){
-                $typeSQL = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
-                $typeResult = mysqli_query($conn, $typeSQL);
-                $row = mysqli_fetch_array($typeResult);
-                $existingType = $row['Type'];
-                header("Location: ../editConsumable.php?edit=$originalItem&error=typeMismatch&subtype=$newSubtype&type=$existingType");
-                exit();
+                if(mysqli_num_rows($typeResult) == 0){
+                    $createSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "', 'Consumables');";
+                    $createResult = mysqli_query($conn, $createSql);
+                }
+                else {
+                    $typeSQL = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+                    $typeResult = mysqli_query($conn, $typeSQL);
+                    $row = mysqli_fetch_array($typeResult);
+                    $existingType = $row['Type'];
+                    header("Location: ../editConsumable.php?edit=$originalItem&error=typeMismatch&subtype=$newSubtype&type=$existingType");
+                    exit();
+                }
             }
 
             $subtypeSql = "SELECT Item FROM consumables WHERE Subtype = '$originalSubtype';";
@@ -103,7 +148,7 @@ if(isset($_SESSION['id'])) {
                 $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
                 if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
-                    $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $newSubtype . "','" . $type . "',0,1);";
+                    $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "','Consumables');";
                     //echo $subtypeSql;
                     $subtypeResult = mysqli_query($conn, $subtypeSql);
                 }
@@ -123,7 +168,7 @@ if(isset($_SESSION['id'])) {
                 $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
                 if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
-                    $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $newSubtype . "','" . $type . "',0,1);";
+                    $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "','Consumables');";
                     //echo $subtypeSql;
                     $subtypeResult = mysqli_query($conn, $subtypeSql);
                 }

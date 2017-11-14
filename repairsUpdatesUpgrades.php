@@ -3,7 +3,9 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Repairs/Updates/Upgrades</Title></head>";
+    echo "<head><Title>Repairs/Updates/Upgrades</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>
+<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
     $sql = "SELECT acctType FROM users WHERE id='$currentID'";
@@ -11,17 +13,17 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
-    echo "<table style=\"margin-left:auto; margin-right:auto;\">
+    echo "<h2 style='text-align: center'>Repairs/Updates/Upgrades</h2><br><table style=\"margin-left:auto; margin-right:auto;\">
         <td><form action='addRepairUpdateUpgrade.php'>
-           &nbsp&nbsp<input type='submit' value='Add Repair/Update/Upgrade'/>
+           &nbsp&nbsp<input class=\"btn btn-warning\" type='submit' value='Add Repair/Update/Upgrade'/>
           </form></td>";
 
     echo "<td><form action='searchRepairsUpdatesUpgradesForm.php'>
-               &nbsp&nbsp<input type='submit' value='Search Repairs/Updates/Upgrades'/>
+               &nbsp&nbsp<input class=\"btn btn-warning\" type='submit' value='Search Repairs/Updates/Upgrades'/>
               </form></td></table>";
 
 
-    $sql = "SELECT * FROM `repairs/updates/upgrades` JOIN inventory ON inventory.`Serial Number` = `repairs/updates/upgrades`. `Serial Number`;";
+    $sql = "SELECT * FROM `repairs/updates/upgrades`;";
     $result = mysqli_query($conn, $sql);
     echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>
     <tr><th>Type</th>
@@ -32,7 +34,11 @@ if(isset($_SESSION['id'])) {
     <th>Date Performed</th>
     <th>Supplier</th>
     <th>Reason</th>
-    <th>Edit</th><th>Delete</th></tr></thead><tbody>";
+    <th>Edit</th>";
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
+        echo "<th>Delete</th>";
+    }
+    echo "</tr></thead><tbody>";
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr>
             <td> " . $row['Type'] . "</td>
@@ -43,10 +49,10 @@ if(isset($_SESSION['id'])) {
             $date = date_create($row['Date']);
             echo "<td> " . date_format($date, 'm/d/Y') . "</td>
             <td> " . $row['Supplier'] . "</td>
-            <td> " . $row['Reason'] . "</td>";
+            <td> " . $row['Reason'] . "</td>
+            <td><a href='editRepairUpdateUpgrade.php?edit=$row[Id]'>Edit</a></td>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td> <a href='editRepairUpdateUpgrade.php?edit=$row[Id]'>Edit</a><br></td>
-            <td> <a href='deleteRepairUpdateUpgrade.php?id=$row[Id]&type=$row[Type]&item=$row[Item]'>Delete<br></td>";
+            echo "<td><a href='deleteRepairUpdateUpgrade.php?id=$row[Id]&type=$row[Type]&item=$row[Item]'>Delete</td>";
             }
         echo "</tr>";
     }

@@ -4,25 +4,25 @@ INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `email`,
 
 INSERT INTO `loginsystem`.`users` (`id`, `first`, `last`, `uid`, `pwd`, `email`, `acctType`, `dateAdded`, `pwdRecoveryKey`) VALUES ('3', 'Craig', 'Johnson', 'Craig', '$2y$10$ECRibQRLCdD6Z/Ra2dq9y.lI78N2XZWesA6kjcXsm3peLZ.Ydq.lO', '2dude10@gmail.com', 'Standard User', '2017-08-22', 'fakeKey');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Still Camera', 'Camera', '1', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Still Camera', 'Camera', 'Inventory');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Apple', 'Software', '1', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Apple', 'Software', 'Inventory');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Brother 2000 Series', 'Printer', '0', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Brother 2000 Series', 'Printer', 'Inventory');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Black Toner', 'Printer Cartridge', '0', '1');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Black Toner', 'Printer Cartridge', 'Consumables');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Flash Drive', 'Storage Device', '0', '1');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Flash Drive', 'Storage Device', 'Consumables');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Digital Camera', 'Camera', '1', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Digital Camera', 'Camera', 'Inventory');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Adobe', 'Software', '1', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Adobe', 'Software', 'Inventory');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('HP Printer', 'Printer', '0', '0');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('HP Printer', 'Printer', 'Inventory');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Color Toner', 'Printer Cartridge', '0', '1');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Color Toner', 'Printer Cartridge', 'Consumables');
 
-INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `IsCheckoutable`, `IsConsumable`) VALUES ('Staples Flash Drive', 'Storage Device', '0', '1');
+INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Staples Flash Drive', 'Storage Device', 'Consumables');
 
 INSERT INTO `loginsystem`.`inventory` (`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES ('XU338026956', 'Canon PowerShot A710 IS', 'Still Camera', 'Joe Johnson', 'Nursing 162', 1, 0, '2017-09-29', 'Tester');
 
@@ -56,7 +56,7 @@ INSERT INTO `loginsystem`.`clients` (`Number`, `Last`, `First`, `Ext`, `Email`, 
 
 INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('1', 'Canon PowerShot A710 IS', 'Still Camera', '1', 'XU338026956', 'Douglas Hughey', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
 
-INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('2', 'Apple MAC OS X 10.4', 'Apple', '1', 'ET474374601', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
+INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('2', 'Apple MAC OS X 10.4', 'Apple', '1', 'ET474374601', 'Mei Bai', 'Temporary', 'Coming Back', '2017-10-31', '2017-10-03', 'admin');
 
 INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('3', 'HP PhotoSmart D7560 Printer', 'HP Printer', '1', 'TM852187346', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
 
@@ -78,11 +78,11 @@ INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `Item`, `Subtype`, `
 
 INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('6', 'Delete consumable', 'Staples 16GB Flash Drive', 'Flash Drive', '1', '2017-10-11 13:14:16', 'admin');
 
-INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('1', 'Repair', 'XU338026956', 'Lens', '29.95', '2017-10-24', 'Canon', 'Replaces broken lens');
+INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Item`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('1', 'Repair', 'XU338026956', 'Canon PowerShot A710 IS', 'Lens', '29.95', '2017-10-24', 'Canon', 'Replaces broken lens');
 
-INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('2', 'Update', 'IP472802749', 'Software', '99.99', '2017-10-25', 'Adobe', 'Annual major update');
+INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Item`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('2', 'Update', 'IP472802749', 'Adobe PhotoShop CS', 'Software', '99.99', '2017-10-25', 'Adobe', 'Annual major update');
 
-INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('3', 'Upgrade', 'YW425757483', 'Spooler', '19.99', '2017-10-20', 'Brother', 'Larger spooler');
+INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Item`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('3', 'Upgrade', 'YW425757483', 'Brother HL-2270DW Printer', 'Spooler', '19.99', '2017-10-20', 'Brother', 'Larger spooler');
 
 INSERT INTO `loginsystem`.`serviceAgreements`(`Id`, `Name`, `Annual Cost`, `Duration`, `Expiration Date`) VALUES ('1', 'Windows Service', '499.99', '1 Year', '2018-10-20');
 

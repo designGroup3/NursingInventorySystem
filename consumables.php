@@ -2,10 +2,19 @@
 include 'table.php';
 
 if(isset($_SESSION['id'])) {
-    //include 'includes/bootstrap.inc.php';
     include 'dbh.php';
 
-    echo "<head><Title>Consumables</Title></head>";
+    echo "<head><Title>Consumables</Title></head><body><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>
+<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
+
+    $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    if(strpos($url, 'deleteSuccess') !== false){
+        echo "<div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              Column deleted successfully.</div><br><br><br><br>";
+        //echo "<br>&nbsp&nbspColumn deleted successfully.<br>";
+    }
 
     $columnNames= array();
     $Minimums = array();
@@ -22,10 +31,10 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
-    if ($acctType == "Admin" || $acctType == "Super Admin") {
-        echo "<table style=\"margin-left:auto; margin-right:auto;\">
+    if ($acctType == "Super Admin") {
+        echo "<h2 style='text-align: center'>Consumables</h2><br><table style=\"margin-left:auto; margin-right:auto;\">
               <td><form action='addConsumableColumn.php'>
-               <input type='submit' value='Add Column'/>
+               <input class=\"btn btn-warning\" type='submit' value='Add Column'/>
               </form></td>";
 
         $columnSql = "SHOW COLUMNS FROM consumables;";
@@ -33,11 +42,11 @@ if(isset($_SESSION['id'])) {
 
         if(mysqli_num_rows($columnResult) > 7) {
             echo "<td><form action='editConsumableColumn.php'>
-               <input type='submit' value='Edit Column'/>
+               <input class=\"btn btn-warning\" type='submit' value='Edit Column'/>
               </form></td>";
 
             echo "<td><form action='deleteConsumableColumn.php'>
-               <input type='submit' value='Delete Column'/>
+               <input class=\"btn btn-warning\" type='submit' value='Delete Column'/>
               </form></td>";
         }
         echo "</table>";
@@ -96,7 +105,11 @@ if(isset($_SESSION['id'])) {
             echo "<th>$columnNames[$count]</th>";
         }
     }
-    echo "<th>Edit</th><th>Delete</th></thead>";
+    echo "<th>Edit</th>";
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
+        echo "<th>Delete</th>";
+    }
+    echo "</thead>";
 
         $sql = "SELECT Item, consumables.Subtype, subtypes.Type FROM consumables JOIN subtypes ON consumables.Subtype = subtypes.Subtype ORDER BY Item;";//display first three columns
         $result = mysqli_query($conn, $sql);
@@ -116,6 +129,8 @@ if(isset($_SESSION['id'])) {
                 echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
             }
 
+            $IDs[$columnNumber] = str_replace("\\","\\\\","$IDs[$columnNumber]");
+            $IDs[$columnNumber] = str_replace("'","\'","$IDs[$columnNumber]");
             $sql2 = "SELECT * FROM consumables WHERE Item = '".$IDs[$columnNumber]."';"; //display later columns
             $result2 = mysqli_query($conn, $sql2);
 
@@ -187,9 +202,12 @@ if(isset($_SESSION['id'])) {
 //            }
 //        }
 //        $namesCount++;
-        echo "<td> <a href='editConsumable.php?edit=$row[Item]'>Edit<br></td>";
+        $item = str_replace("\\","%5C","$row[Item]");
+        $item = str_replace("'","%27","$row[Item]");
+        echo "<td> <a href='editConsumable.php?edit=$item'>Edit<br></td>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
-                echo "<td> <a href='deleteConsumable.php?item=$row[Item]'>Delete<br></td></tr>";
+                //$item = str_replace("'","%27","$row[Item]");
+                echo "<td> <a href='deleteConsumable.php?item=$item'>Delete<br></td></tr>";
             }
             else{
                 echo "</tr>";

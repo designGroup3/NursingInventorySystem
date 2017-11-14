@@ -1,10 +1,18 @@
 <?php
 include 'table.php';
+include 'inputJS.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
-    echo "<head><Title>Checkout</Title></head>";
+    $sql = "SELECT CURDATE();";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $date = $row['CURDATE()'];
+    $date = date_format(date_create($date), "m/d/Y");
+
+    echo "<head><Title>Checkout</Title></head><body><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div><br/>";
 
     error_reporting(E_ALL ^ E_NOTICE);
     $statedTypes = array();
@@ -12,27 +20,50 @@ if(isset($_SESSION['id'])) {
     $getSubtype = $_GET['subtype'];
     $getItem = $_GET['item'];
 
+    $noItem = false;
+
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=over') !== false){
-        echo "<br>&nbsp&nbspThere are not that many of the item in inventory.<br>";
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        There are not that many of the item in inventory.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspThere are not that many of the item in inventory.<br>";
     }
     elseif(strpos($url, 'error=zero') !== false){
-        echo "<br>&nbsp&nbspYou must checkout at least one unit.<br>";
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        You must checkout at least one unit.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou must checkout at least one unit.<br>";
     }
     elseif(strpos($url, 'checkin') !== false){
-        echo "<br>&nbsp&nbspItem checked-in.<br>";
+        echo "<div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        Item checked-in.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspItem checked-in.<br>";
     }
     elseif(strpos($url, 'success') !== false){
-        echo "<br>&nbsp&nbspItem checked-out.<br>";
+        echo "<div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        Item checked-out.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspItem checked-out.<br>";
     }
 
-    $sql = "SELECT Type FROM subtypes WHERE isCheckoutable = '1';";
+    $sql = "SELECT Type FROM subtypes WHERE `Table` = 'Inventory';";
     $result = mysqli_query($conn, $sql);
 
-    echo '<br><p>&nbsp&nbspWhich item would you like to checkout?</p>
-    <form method="POST">
-    <label>
-        <br>&nbsp&nbspType: <select name="type" onchange="this.form.submit()">';
+    echo '<br><div class="container">
+        <form class="well form-horizontal" id="contact_form" method="POST"><fieldset>
+        <h2 align="center">Which item would you like to checkout?</h2><br>
+        <div class="form-group"><label class="col-md-4 control-label">Type:
+        <a style="color:red;" title="This field must be filled">*</a></label>
+        <div class="col-md-4 selectContainer"><div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-th-large"></i></span>';
+        if($getType == NULL){
+            echo '<select required name="type" class="form-control selectpicker" onchange="this.form.submit()">';
+        }
+        else{
+            echo '<select disabled name="type" class="form-control selectpicker" onchange="this.form.submit()">';
+        }
         if($getType == NULL){
             echo '<option selected value=""></option>';
         }
@@ -50,16 +81,23 @@ if(isset($_SESSION['id'])) {
             array_push($statedTypes, $row['Type']);
         }
     }
-    echo '</select></label></form>';
+    echo '</select></div></div></div>';
 
     //start subtype
     if($getType !== NULL && $getType !== ""){
         $sql = "SELECT Subtype FROM subtypes WHERE Type = '".$getType."';";
         $result = mysqli_query($conn, $sql);
-        echo '<form method="POST">
-        <label>
-        <input type="hidden" name="type" value = \''.$getType. '\'>';
-        echo'<br>&nbsp&nbspSubtype: <select name="subtype" onchange="this.form.submit()">';
+        echo '<form class="well form-horizontal" id="contact_form" method="POST">
+        <div class="form-group"><label class="col-md-4 control-label">
+        <input type="hidden" name="type" value = \''.$getType. '\'>
+        Subtype:<a style="color:red;" title="This field must be filled">*</a></label> <div class="col-md-4 selectContainer"><div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>';
+        if($getSubtype == NULL) {
+            echo '<select required name="subtype" class="form-control selectpicker" onchange="this.form.submit()">';
+        }
+        else{
+            echo '<select disabled name="subtype" class="form-control selectpicker" onchange="this.form.submit()">';
+        }
         if($getSubtype == NULL){
             echo '<option selected value=""></option>';
         }
@@ -74,23 +112,41 @@ if(isset($_SESSION['id'])) {
                 echo '<option value = "' . $row['Subtype'] . '">' . $row['Subtype'] . '</option>';
             }
         }
-        echo '</select></label></form>';
+        echo '</select></div></div></div>';
     }
     else{
-        echo '<br>&nbsp&nbspSubtype: <select disabled><option value="">Select a type first</option></select><br>';
+        echo '<div class="form-group"><label class="col-md-4 control-label">Subtype: </label>
+            <div class="col-md-4 selectContainer"><div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <select class="form-control selectpicker" disabled><option value="">Select a type first</option></select>
+            </div></div></div>';
     }
 
     //start item
     if($getSubtype !== NULL && $getSubtype !== ""){
-        $sql = "SELECT Item FROM inventory WHERE Subtype = '".$getSubtype."';";
+        $sql = "SELECT Item FROM inventory WHERE Subtype = '".$getSubtype."' AND Checkoutable = '1';";
         $result = mysqli_query($conn, $sql);
-        echo '<form method="POST">
-        <label>
+
+        echo '<form class="well form-horizontal" id="contact_form" method="POST">
+        <div class="form-group"><label class="col-md-4 control-label">
         <input type="hidden" name="type" value = \''.$getType. '\'>
-        <input type="hidden" name="subtype" value = \''.$getSubtype. '\'>';
-        echo'<br>&nbsp&nbspItem: <select name="item" onchange="this.form.submit()">';
+        <input type="hidden" name="subtype" value = \''.$getSubtype. '\'>
+        Item:<a style="color:red;" title="This field must be filled">*</a></label><div class="col-md-4 selectContainer"><div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>';
+        if(mysqli_num_rows($result) == 0){
+            echo '<select disabled name="item" class="form-control selectpicker" onchange="this.form.submit()">';
+            $noItem = true;
+        }
+        else{
+            echo '<select name="item" class="form-control selectpicker" onchange="this.form.submit()">';
+        }
         if($getItem == NULL){
-            echo '<option selected value=""></option>';
+            if($noItem){
+                echo '<option selected value="">No item with that subtype is checkoutable.</option>';
+            }
+            else{
+                echo '<option selected value=""></option>';
+            }
         }
         else{
             echo '<option value=""></option>';
@@ -103,10 +159,14 @@ if(isset($_SESSION['id'])) {
                 echo '<option value = "' . $row['Item'] . '">' . $row['Item'] . '</option>';
             }
         }
-        echo '</select></label></form>';
+        echo '</select></form></div></div></div>';
     }
     else{
-        echo '<br>&nbsp&nbspItem: <select disabled><option value="">Select a subtype first</option></select><br>';
+        echo '<div class="form-group"><label class="col-md-4 control-label">Item:<a style="color:red;" title="This field must be filled">*</a></label> 
+            <div class="col-md-4 selectContainer"><div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <select class="form-control selectpicker" disabled><option value="">Select a subtype first</option></select>
+            </div></div></div>';
     }
 
     //Number in Stock
@@ -114,33 +174,65 @@ if(isset($_SESSION['id'])) {
         $sql = "SELECT `Number in Stock` FROM inventory WHERE Item = '".$getItem."';";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($result);
-        echo '<form action ="includes/checkout.inc.php" method="POST">
-        <label>
+        echo '<form action ="includes/checkout.inc.php" method="POST"><label>
         <input type="hidden" name="type" value = \''.$getType. '\'>
         <input type="hidden" name="subtype" value = \''.$getSubtype. '\'>
-        <input type="hidden" name="item" value = \''.$getItem. '\'>';
-        echo'<br>&nbsp&nbspNumber in Stock: <input type="number" min="0" name= "stock" value='.$row['Number in Stock'].'>';
+        <input type="hidden" name="item" value = \''.$getItem. '\'>
+        <div class="form-group"><label class="col-md-4 control-label">Number in Stock:<a style="color:red;" title="This field must be filled">*</a></label>   
+        <div class="col-md-4 inputGroupContainer"><div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
+        <input type="number" required class="form-control" min="0" name="stock" value='.$row['Number in Stock'].'></div></div></div>';
     }
     else{
-        echo'<br>&nbsp&nbspNumber in Stock: <input type="number" min="0" name= "stock" value="0">';
+        echo '<div class="form-group"><label class="col-md-4 control-label">Number in Stock:<a style="color:red;" title="This field must be filled">*</a></label>  
+            <div class="col-md-4 inputGroupContainer"><div class="input-group"><span class="input-group-addon">
+            <i class="glyphicon glyphicon-question-sign"></i></span>
+            <input class="form-control" required type="number" name="quantity" min="0" max="100" step="1" value="0">
+            </div></div></div>';
     }
 
     //Person
     $sql = "SELECT First, Last FROM clients;";
     $result = mysqli_query($conn, $sql);
-    echo'<br><br>&nbsp&nbspPerson: <select name="person"><option selected value=""></option>';
+    echo'<div class="form-group"><label class="col-md-4 control-label">Person:<a style="color:red;" title="This field must be filled">*</a></label> 
+    <div class="col-md-4 selectContainer"><div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+    <select name="person" required class="form-control selectpicker"><option selected value=""></option>';
 
     while ($row = mysqli_fetch_array($result)) {
         echo '<option value = "'.$row['First']." ".$row['Last'].'">'.$row['First']." ".$row['Last'].'</option>';
     }
-    echo '</select>';
+    echo '</select></div></div></div>';
 
     //Reason, Notes, Due Date, Checkout Date
-    echo "<br><br>&nbsp&nbspReason: <input type= 'text' name='reason'>
-    <br><br>&nbsp&nbspNotes: <input type= 'text' name='notes'>
-    <br><br>&nbsp&nbspDue Date: <input type= 'date' name='date'>
-    <br><br>&nbsp&nbspCheckout Date: <span>".date('m/d/Y')."</span>
-    <br><br>&nbsp&nbsp<button type='submit'>Checkout</button></form>";
+    echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Reason:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
+    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+    <span class=\"input-group-addon\"><i class=\"fa fa-question\" aria-hidden=\"true\"></i></span>
+    <input type='text' required placeholder='Reason' name='reason' class=\"form-control\"></div></div></div>
+    
+    <div class=\"form-group\"><label class=\"col-md-4 control-label\">Notes:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
+    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
+    <input name=\"notes\" required placeholder=\"Notes\" class=\"form-control\" type=\"text\"></div></div></div>
+
+    <div class=\"form-group\"><label class=\"col-md-4 control-label\">Due Date:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-calendar\"></i></span>
+    <input name=\"date\" required placeholder=\"MM/DD/YY\" class=\"form-control\" type=\"date\"></div></div></div>
+    
+    <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label>
+    <div class=\"col-md-4\">Checkout Date: <span>".$date."</span></div></div>";
+
+    if($noItem){
+        echo "<br><br><div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
+        <button disabled type='submit' class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
+        data-submit=\"...Sending\">Check-out</button></div></div></form></fieldset></form>";
+    }
+    else{
+        echo "<br><br><div class='form-group'><label class='col-md-4 control-label'></label><div class='col-md-4'>
+        <button type='submit' class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
+        data-submit=\"...Sending\">Check-out</button><br><br></div></div></form></fieldset></form>";
+    }
 
     //posts
     if($_SERVER['REQUEST_METHOD'] == 'POST' && $getSubtype == NULL && $getItem == NULL){
@@ -159,47 +251,27 @@ if(isset($_SESSION['id'])) {
         header("Location: ./checkout.php?type=".$type."&subtype=".$subtype."&item=".$item);
     }
 
-    echo "<br><br><h2 style='text-align: center';>Current Checked-Out Inventories</h2><br>";
-    echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
-
-    echo "<th>Print</th><th>Serial Number</th><th>Item</th><th>Type</th><th>Subtype</th><th>Quantity Borrowed</th><th>Person</th>
+    echo "<br><br><h2 style='text-align: center';>Current Checked-Out Inventories</h2><br>
+    <table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead><th>Print</th><th>Serial Number</th><th>Item</th><th>Type</th><th>Subtype</th><th>Quantity Borrowed</th><th>Person</th>
     <th>Update Person</th><th>Checkout Date</th><th>Due Date</th><th>Check-In</th></thead>";
-
-//    $results_per_page = 5; //for pagination
-//
-//    $sql='SELECT * FROM checkouts'; //for pagination
-//    $result = mysqli_query($conn, $sql); //for pagination
-//    $number_of_results = mysqli_num_rows($result); //for pagination
-//
-//    $number_of_pages = ceil($number_of_results/$results_per_page); //for pagination
-//
-//    if (!isset($_GET['page'])) { //for pagination
-//        $page = 1;
-//    } else {
-//        $page = $_GET['page'];
-//    }
-//
-//    $this_page_first_result = ($page-1)*$results_per_page; //for pagination
 
     $sql = "SELECT Id, Item, subtypes.Type, checkouts.Subtype, `Quantity Borrowed`, `Serial Number`, Person, `Update Person`, `Checkout Date`, `Due Date` FROM checkouts JOIN subtypes ON checkouts.Subtype = subtypes.Subtype WHERE `Return Date` IS NULL ORDER BY Id;";
     $result = mysqli_query($conn, $sql);
     $namesCount = 0;
     echo "<tbody>";
     while ($row = mysqli_fetch_array($result)) {
-        echo "<tr><td><a href='printCheckout.php?Id=$row[Id]'>Print<br></td><td>".$row['Serial Number']."</td><td>".$row['Item']."</td><td>".$row['Type']."</td><td>".$row['Subtype']."</td><td>".$row['Quantity Borrowed']."</td>
-        <td>".$row['Person']."</td><td>".$row['Update Person']."</td><td>".$row['Checkout Date']."</td><td>".$row['Due Date']."</td>
+        if(date_create($row['Due Date']) < date_create($date)){
+            echo "<tr style='background: #d6010c!important;'>";
+        }
+        else{
+            echo "<tr>";
+        }
+        echo "<td><a href='printCheckout.php?Id=$row[Id]'>Print<br></td><td>".$row['Serial Number']."</td><td>".$row['Item']."</td><td>".$row['Type']."</td><td>".$row['Subtype']."</td><td>".$row['Quantity Borrowed']."</td>
+        <td>".$row['Person']."</td><td>".$row['Update Person']."</td><td>".date_format(date_create($row['Checkout Date']),'m/d/Y')."</td><td>".date_format(date_create($row['Due Date']),'m/d/Y')."</td>
         <td><a href='includes/checkin.inc.php?serialNumber=".$row['Serial Number']."'>Check-In<br></td></tr>";
     }
 
     echo "</tbody></table>";
-
-//    echo "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-//        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-//        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPage: ";
-//    for ($page=1; $page<=$number_of_pages; $page++) {
-//        echo '<a href="checkout.php?page=' . $page . '">' . $page . '&nbsp</a> ';
-//    }
-//    echo "<br><br><br>";
 }
 else{
     header("Location: ./login.php");

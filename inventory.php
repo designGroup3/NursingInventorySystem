@@ -1,10 +1,19 @@
 <?php
 include 'table.php';
 if(isset($_SESSION['id'])) {
-    //include 'includes/bootstrap.inc.php';
     include 'dbh.php';
 
-    echo "<head><Title>Inventory</Title></head>";
+    echo "<head><Title>Inventory</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>
+<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
+
+    $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    if(strpos($url, 'deleteSuccess') !== false){
+        echo "<div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              Column deleted successfully.</div><br><br><br><br>";
+        //echo "<br>&nbsp&nbspColumn deleted successfully.<br>";
+    }
 
     $columnNames= array();
 
@@ -14,22 +23,22 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['acctType'];
 
-    if ($acctType == "Admin" || $acctType == "Super Admin") {
-        echo "<table style=\"margin-left:auto; margin-right:auto;\">
+    if ($acctType == "Super Admin") {
+        echo "<h2 style='text-align: center'>Inventory</h2><br><table style=\"margin-left:auto; margin-right:auto;\">
         <td><form action='addInventoryColumn.php'>
-                   <input type='submit' value='Add Column'/>
+                   <input class=\"btn btn-warning\" type='submit' value='Add Column'/>
                   </form></td>";
 
         $columnSql = "SHOW COLUMNS FROM inventory;";
         $columnResult = mysqli_query($conn, $columnSql);
 
-        if(mysqli_num_rows($columnResult) > 9){
+        if(mysqli_num_rows($columnResult) > 11){
             echo "<td><form action='editInventoryColumn.php'>
-               <input type='submit' value='Edit Column'/>
+               <input class=\"btn btn-warning\" type='submit' value='Edit Column'/>
               </form></td>";
 
             echo "<td><form action='deleteInventoryColumn.php'>
-               <input type='submit' value='Delete Column'/>
+               <input class=\"btn btn-warning\" type='submit' value='Delete Column'/>
               </form></td>";
         }
         echo "</table>";
@@ -53,7 +62,7 @@ if(isset($_SESSION['id'])) {
         $innerCount = 0;
         while ($row = mysqli_fetch_array($result)) {
             $innerCount++;
-            if ($innerCount > 3 && $innerCount < 8 || $innerCount > 9) {
+            if ($innerCount > 3 && $innerCount < 10 || $innerCount > 11) {
                 array_push($columnNames, $row['Field']);
             }
         }
@@ -79,7 +88,11 @@ if(isset($_SESSION['id'])) {
     for ($count = 0; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
     }
-    echo "<th>Print QR Code</th><th>Edit</th><th>Delete</th></thead><tbody>";
+    echo "<th>Print QR Code</th><th>Edit</th>";
+    if ($acctType == "Admin" || $acctType == "Super Admin") {
+        echo "<th>Delete</th>";
+    }
+    echo "</thead><tbody>";
 
         $sql = "SELECT `Serial Number`, Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY `Serial Number`;"; //display first four columns
         $result = mysqli_query($conn, $sql);

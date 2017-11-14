@@ -3,7 +3,9 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Search Users Results</Title></head>";
+    echo "<head><Title>Search Users Results</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div><br><h2 style='text-align: center'>Users</h2>
+<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
     $sql = "SELECT acctType FROM users WHERE id='$currentID'";
@@ -12,9 +14,13 @@ if(isset($_SESSION['id'])) {
     $acctType = $row['acctType'];
 
     $first = $_POST['first'];
+    $first = str_replace("'","\'","$first");
     $last = $_POST['last'];
+    $last = str_replace("'","\'","$last");
     $accountName = $_POST['accountName'];
+    $accountName = str_replace("'","\'","$accountName");
     $email = $_POST['email'];
+    $email = str_replace("'","\'","$email");
     $accountType = $_POST['accountType'];
     $dateAdded = $_POST['dateAdded'];
     $tableHeadNeeded = true;
@@ -22,10 +28,8 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT * FROM `users` WHERE ";
     $andNeeded = false;
     if($last == "" && $first == "" && $accountName == "" && $accountType == "" && $dateAdded == ""){
-        echo "<br> Please fill out at least 1 search field.";
-        echo "<br><br><form action='searchUsersForm.php'> 
-                   <input type='submit' value='Search Users'/>
-              </form>";
+        echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchUsersForm.php';\" class='btn btn-warning' value='Back'></div>";
         exit();
     }
     if($first !== "")
@@ -122,7 +126,8 @@ if(isset($_SESSION['id'])) {
     echo "</tbody></table>";
 
     if($count == 0) {
-        echo "&nbsp&nbsp No Users Found That Match All of Those Criteria.<br>";
+        echo "<h3 style='text-align: center'>No Users Found That Match All of Those Criteria.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchUsersForm.php';\" class='btn btn-warning' value='Back'></div>";
     }
 }
 else{

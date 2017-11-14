@@ -28,10 +28,8 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT * FROM `users` WHERE ";
     $andNeeded = false;
     if($last == "" && $first == "" && $accountName == "" && $accountType == "" && $dateAdded == ""){
-        echo "<br> Please fill out at least 1 search field.";
-        echo "<br><br><form action='searchUsersForm.php'> 
-                   <input type='submit' value='Search Users'/>
-              </form>";
+        echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchUsersForm.php';\" class='btn btn-warning' value='Back'></div>";
         exit();
     }
     if($first !== "")
@@ -128,7 +126,8 @@ if(isset($_SESSION['id'])) {
     echo "</tbody></table>";
 
     if($count == 0) {
-        echo "&nbsp&nbsp No Users Found That Match All of Those Criteria.<br>";
+        echo "<h3 style='text-align: center'>No Users Found That Match All of Those Criteria.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchUsersForm.php';\" class='btn btn-warning' value='Back'></div>";
     }
 }
 else{

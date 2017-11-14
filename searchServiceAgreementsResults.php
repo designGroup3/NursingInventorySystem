@@ -34,10 +34,8 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT * FROM serviceAgreements WHERE ";
     $andNeeded = false;
     if($name == "" && $cost == "" && $duration == "" && $date == ""){
-        echo "<br> Please fill out at least 1 search field.";
-        echo "<br><br><form action='searchServiceAgreementsForm.php'> 
-                   <input type='submit' value='Search Service Agreements'/>
-              </form>";
+        echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchServiceAgreementsForm.php';\" class='btn btn-warning' value='Back'></div>";
         exit();
     }
     if($name !== "")
@@ -114,7 +112,8 @@ if(isset($_SESSION['id'])) {
     echo "</tbody></table>";
 
     if($count == 0) {
-        echo "<br> No Service Agreements Found That Match All of Those Criteria.<br>";
+        echo "<h3 style='text-align: center'>No Service Agreements Found That Match All of Those Criteria.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchServiceAgreementsForm.php';\" class='btn btn-warning' value='Back'></div>";
     }
 }
 else{

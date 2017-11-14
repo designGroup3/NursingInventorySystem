@@ -27,10 +27,8 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT * FROM clients WHERE ";
     $andNeeded = false;
     if($last == "" && $first == "" && $ext == "" && $email == "" && $office == ""){
-        echo "<br> Please fill out at least 1 search field.";
-        echo "<br><br><form action='searchClientsForm.php'> 
-                   <input type='submit' value='Search Clients'/>
-              </form>";
+        echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchClientsForm.php';\" class='btn btn-warning' value='Back'></div>";
         exit();
     }
     if($last !== "")
@@ -105,7 +103,8 @@ if(isset($_SESSION['id'])) {
     }
     echo "</tbody></table>";
     if($count == 0) {
-        echo "<br> No Clients Found That Match All of Those Criteria.<br>";
+        echo "<h3 style='text-align: center'>No Clients Found That Match All of Those Criteria.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchClientsForm.php';\" class='btn btn-warning' value='Back'></div>";
     }
 }
 else{

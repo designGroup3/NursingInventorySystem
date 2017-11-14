@@ -30,10 +30,8 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT * FROM `repairs/updates/upgrades` WHERE ";
     $andNeeded = false;
     if($type == "" && $serialNumber == "" && $item == "" && $part == "" && $cost == "" && $date == "" && $supplier == "" && $reason == ""){
-        echo "<br> Please fill out at least 1 search field.";
-        echo "<br><br><form action='searchRepairsUpdatesUpgradesForm.php'> 
-                   <input type='submit' value='Search Repairs/Updates/Upgrades'/>
-              </form>";
+        echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchRepairsUpdatesUpgradesForm.php';\" class='btn btn-warning' value='Back'></div>";
         exit();
     }
     if($type !== "")
@@ -150,7 +148,8 @@ if(isset($_SESSION['id'])) {
     echo "</tbody></table>";
 
     if($count == 0) {
-        echo "<br> No Items Found That Match All of Those Criteria.<br>";
+        echo "<h3 style='text-align: center'>No Repairs/Updates/Upgrades Found That Match All of Those Criteria.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchRepairsUpdatesUpgradesForm.php';\" class='btn btn-warning' value='Back'></div>";
     }
 }
 else{

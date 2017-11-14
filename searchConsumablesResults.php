@@ -54,10 +54,8 @@ if(isset($_SESSION['id'])) {
     $sql .= ";";
 
     if($sql == "SELECT * FROM consumables WHERE;"){ // for if no fields are filled in
-        echo "<br> Please fill out at least 1 search field.";
-        echo "<br><br><form action='searchConsumablesForm.php'>
-                   <input type='submit' value='Search Consumables'/>
-              </form>";
+        echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchConsumablesForm.php';\" class='btn btn-warning' value='Back'></div>";;
         exit();
     }
 
@@ -152,7 +150,8 @@ if(isset($_SESSION['id'])) {
     echo "</tbody></table>";
 
     if($outerCount == 0) {
-        echo "&nbsp<br> No Items Found That Match All of Those Criteria.<br>";
+        echo "<h3 style='text-align: center'>No Items Found That Match All of Those Criteria.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchConsumablesForm.php';\" class='btn btn-warning' value='Back'></div>";
     }
 }
 else{

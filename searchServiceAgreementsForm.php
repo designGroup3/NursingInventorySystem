@@ -9,8 +9,7 @@ if(isset($_SESSION['id'])) {
     echo "<div class=\"container\">
         <form action ='searchServiceAgreementsResults.php' class=\"well form-horizontal\" method ='POST'
         id=\"contact_form\" enctype='multipart/form-data'><fieldset><h2 align=\"center\">
-        Enter what criteria you would like to see any matching clients for.
-        <p style=\"color:red; font-size:10px;\">* at least one field must be filled</p></h2><br/>
+        Enter what criteria you would like to see any matching clients for.</h2><br/>
          
         <div class=\"form-group\"><label class=\"col-md-4 control-label\">Agreement Name:</label>
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">

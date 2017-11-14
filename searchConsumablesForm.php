@@ -30,6 +30,7 @@ if(isset($_SESSION['id'])) {
             while($TypeRow = mysqli_fetch_array($result2)){
                 if(!in_array($TypeRow['Type'], $Types)){
                     array_push($Types, $TypeRow['Type']);
+                    $type = str_replace("\\","%5C","$TypeRow[Type]");
                     $type = str_replace("'","%27","$TypeRow[Type]");
                     echo "<option value= '". $type."'>".$TypeRow['Type']."</option>";
                 }
@@ -44,6 +45,7 @@ if(isset($_SESSION['id'])) {
                   <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
                   <select name='Subtype' class=\"form-control selectpicker\"><option value=''></option>";
             while($SubtypeRow = mysqli_fetch_array($result3)){
+                $subtype = str_replace("\\","%5C","$SubtypeRow[Subtype]");
                 $subtype = str_replace("'","%27","$SubtypeRow[Subtype]");
                 echo "<option value= '". $subtype."'>".$SubtypeRow['Subtype']."</option>";
             }

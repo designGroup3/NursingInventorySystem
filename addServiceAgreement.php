@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+include 'decimalInputJS.php';
 
 //approval: {
 //    validators: {
@@ -27,13 +28,43 @@ if(isset($_SESSION['id'])) {
         //echo "<br>&nbsp&nbspApproval forms must a .pdf file.<br>";
     }
 
-    echo "<br><form action='includes/addServiceAgreement.inc.php' method='POST' enctype='multipart/form-data'>
-        &nbsp&nbsp<label>Name<br></label>&nbsp&nbsp<input type='text' name='name'><br><br>
-        &nbsp&nbsp<label>Annual Cost<br></label>&nbsp&nbsp$<input type='number' min='0' step='0.01' name='cost'><br><br>
-        &nbsp&nbsp<label>Duration<br></label>&nbsp&nbsp<input type='text' name='duration'><br><br>
-        &nbsp&nbsp<label>Expiration Date<br></label>&nbsp&nbsp<input type='date' name='date'><br><br>
-        &nbsp&nbsp<label>Approval Form<br></label>&nbsp&nbsp<input type='file' name='file'><br><br><br>
-        &nbsp&nbsp<button type='submit'>Add Service Agreement</button></form>";
+    echo "<div class=\"container\"><form action='includes/addServiceAgreement.inc.php' class=\"well form-horizontal\" 
+          id=\"contact_form\" method='POST' enctype='multipart/form-data'><fieldset>
+          <h2 align=\"center\">Add Service Agreement</h2><br/>
+
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Agreement Name:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
+        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-tag\" ></i></span>
+        <input type='text' class=\"form-control\" name='name' required></div></div></div>
+        
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\" >Annual Cost:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+        <span class=\"input-group-addon\"><i class=\"fa fa-usd\"></i></span>
+        <input name='cost' class='form-control data-fv-numeric-decimalseparator' required 
+        title=\"A valid number should not contain letters or commas or more than one decimal point e.g. 50.50 for fifty dollars and fifty cents\">
+        </div></div></div>
+        
+        <div class=\"form-group\"> <label class=\"col-md-4 control-label\">Duration:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+        <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
+        <span class=\"input-group-addon\"><i class=\"fa fa-clock-o\"></i></span>
+        <input type='text' class=\"form-control\" name='duration' required></div></div></div>
+        
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Expiration Date:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+        <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
+        <span class=\"input-group-addon\"><i class=\"fa fa-calendar\"></i></span>
+        <input type='date' name='date' class=\"form-control\" required></div></div></div>
+        
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\"> Approval Form:</label>
+        <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
+        <label for=\"file-upload\" class=\"custom-file-upload\"></label><input type='file' name='file' id='file'
+        style='position:relative; bottom:13px;'></div></div></div>
+        
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
+        <button type='submit' class='btn btn-warning btn-block'>Add Service Agreement</button></div></div></fieldset></form></div>";
 }
 else{
     header("Location: ./login.php");

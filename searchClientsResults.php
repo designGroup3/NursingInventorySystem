@@ -81,8 +81,8 @@ if(isset($_SESSION['id'])) {
             $tableHeadNeeded = false;
             $count++;
             echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
-            <thead><tr><th>Last</th>
-            <th>First</th>
+            <thead><tr><th>First</th>
+            <th>Last</th>
             <th>Ext</th>
             <th>Email</th>
             <th>Office</th>
@@ -92,8 +92,8 @@ if(isset($_SESSION['id'])) {
             }
             echo "</tr></thead><tbody>";
         }
-        echo "<tr><td> ".$row['Last']."</td>
-              <td> ".$row['First']."</td>
+        echo "<tr><td> ".$row['First']."</td>
+              <td> ".$row['Last']."</td>
               <td> ".$row['Ext']."</td>
               <td> ".$row['Email']."</td>
               <td> ".$row['Office']."</td>

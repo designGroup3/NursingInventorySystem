@@ -27,7 +27,7 @@ if(isset($_SESSION['id'])) {
 
     echo "<br>
     <table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
-    echo "<th>Last</th><th>First</th><th>Ext</th><th>Email</th><th>Office</th><th>Edit</th>";
+    echo "<th>First</th><th>Last</th><th>Ext</th><th>Email</th><th>Office</th><th>Edit</th>";
 
     if ($acctType == "Admin" || $acctType == "Super Admin") {
         echo "<th>Delete</th>";
@@ -55,7 +55,7 @@ if(isset($_SESSION['id'])) {
     echo "<tbody>";
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr>";
-        echo '<td> ' . $row['Last'] . '</td>'.'<td> ' . $row['First'] . '</td>'.
+        echo '<td> ' . $row['First'] . '</td>'.'<td> ' . $row['Last'] . '</td>'.
         '<td> ' . $row['Ext'] . '<td> ' . $row['Email'] . '</td>' .'<td> ' . $row['Office'] . '</td>';
         echo "<td><a href='editClient.php?edit=$row[Number]'>Edit<br></td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {

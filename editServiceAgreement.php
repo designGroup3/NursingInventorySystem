@@ -1,85 +1,8 @@
 <?php
 include 'header.php';
-?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
-<body>
-<script>
-    $(document).ready(function() {
-        $('#contact_form').bootstrapValidator({
-            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-                first_name: {
-                    validators: {
-                        stringLength: {
-                            min: 2,
-                        },
-                        notEmpty: {
-                            message: 'Please supply your first name'
-                        }
-                    }
-                },
-                last_name: {
-                    validators: {
-                        stringLength: {
-                            min: 2,
-                        },
-                        notEmpty: {
-                            message: 'Please supply your last name'
-                        }
-                    }
-                },cost: {
-                    validators: {
-                        numeric:{
-                            decimalSeparator : true,
-                            thousandsSeparator :true,
-                            message: 'Please add a valid Cost'
+include 'decimalInputJS.php';
 
-
-
-                        },
-                        notEmpty: {
-                            message: 'Please add a valid Cost'
-                        }
-                    }
-                },
-                email: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Please supply your email address'
-                        },
-                        emailAddress: {
-                            message: 'Please supply a valid email address'
-                        }
-                    }
-                }
-            }
-        })
-            .on('success.form.bv', function(e) {
-                $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
-                $('#contact_form').data('bootstrapValidator').resetForm();
-
-                // Prevent form submission
-                e.preventDefault();
-
-                // Get the form instance
-                var $form = $(e.target);
-
-                // Get the BootstrapValidator instance
-                var bv = $form.data('bootstrapValidator');
-
-                // Use Ajax to submit form data
-                $.post($form.attr('action'), $form.serialize(), function(result) {
-                    console.log(result);
-                }, 'json');
-            });
-    });
-</script>
-<?php if(isset($_SESSION['id'])) {
+if(isset($_SESSION['id'])) {
     include 'dbh.php';
     $id = $_GET['edit'];
     echo "<head><Title>Edit Service Agreement</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">

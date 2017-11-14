@@ -51,6 +51,7 @@ if(isset($_SESSION['id'])) {
     $subRow = mysqli_fetch_array($resultSubtype);
     $subtype = $subRow['Subtype'];
 
+    $subtype = str_replace("\\","\\\\","$subtype");
     $subtype = str_replace("'","\'","$subtype");
 
     $typeSQL = "SELECT Type FROM subtypes WHERE Subtype = '$subtype'";
@@ -76,6 +77,7 @@ if(isset($_SESSION['id'])) {
             if($rowType['DATA_TYPE'] == "tinyint" || $count == 2){
                 $isSelect = true;
                 if($count == 2) {
+                    $subtype = str_replace("\\\\","\\","$subtype");
                     $subtype = str_replace("\'","'","$subtype");
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:
                     <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>  

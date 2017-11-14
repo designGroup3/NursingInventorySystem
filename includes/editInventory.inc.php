@@ -4,10 +4,14 @@ session_start();
 include '../dbh.php';
 
 $originalSerialNumber = $_POST['originalSerialNumber'];
+$originalSerialNumber = str_replace("\\","\\\\","$originalSerialNumber");
+$originalSerialNumber = str_replace("'","\'","$originalSerialNumber");
 $originalSubtype = $_POST['originalSubtype'];
+$originalSubtype = str_replace("%5C","\\","$originalSubtype");
 $originalSubtype = str_replace("%27","\'","$originalSubtype");
 $originalType = $_POST['originalType'];
 $type = $_POST['type'];
+$type = str_replace("\\","\\\\","$type");
 $type = str_replace("'","\'","$type");
 $inventoryColumns = array();
 $inventoryValues = array();
@@ -65,6 +69,7 @@ if(isset($_SESSION['id'])) {
     $sql = "UPDATE inventory SET ";
     for($count = 0; $count< count($inventoryColumns); $count++){
         if ($count < 9) {
+            $inventoryValues[$count] = str_replace("\\","\\\\","$inventoryValues[$count]");
             $inventoryValues[$count] = str_replace("'","\'","$inventoryValues[$count]");
             $sql .= "`" . $inventoryColumns[$count] . "` = '".$inventoryValues[$count]."'";
         }
@@ -76,6 +81,7 @@ if(isset($_SESSION['id'])) {
         }
         else {
             if($columnTypes[$count] !== "tinyint"){
+                $inventoryValues[$count] = str_replace("\\","\\\\","$inventoryValues[$count]");
                 $inventoryValues[$count] = str_replace("'","\'","$inventoryValues[$count]");
                 $sql .= "`".$inventoryColumns[$count]."` = '".$inventoryValues[$count]."'";
             }

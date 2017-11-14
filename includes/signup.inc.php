@@ -4,13 +4,17 @@ session_start();
 include '../dbh.php';
 
 $first = $_POST['first'];
+$first = str_replace("\\","\\\\","$first");
 $first = str_replace("'","\'","$first");
 $last = $_POST['last'];
+$last = str_replace("\\","\\\\","$last");
 $last = str_replace("'","\'","$last");
 $email = $_POST['email'];
+$email = str_replace("\\","\\\\","$email");
 $email = str_replace("'","\'","$email");
 $acctType = $_POST['acctType'];
 $uid = $_POST['uid'];
+$uid = str_replace("\\","\\\\","$uid");
 $uid = str_replace("'","\'","$uid");
 $pwd = $_POST['pwd'];
 

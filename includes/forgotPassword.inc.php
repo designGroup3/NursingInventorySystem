@@ -2,6 +2,7 @@
 session_start();
 include '../dbh.php';
 $email = mysqli_real_escape_string($conn, $_POST['email']);
+$email = str_replace("\\","\\\\","$email");
 $email = str_replace("'","\'","$email");
 $sql = "SELECT email FROM users WHERE email='$email'";
 $result = mysqli_query($conn, $sql);

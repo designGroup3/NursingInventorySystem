@@ -4,14 +4,19 @@ session_start();
 include '../dbh.php';
 
 $originalItem = $_POST['originalItem'];
+$originalItem = str_replace("%5C","\\","$originalItem");
 $originalItem = str_replace("%27","\'","$originalItem");
 $originalSubtype = $_POST['originalSubtype'];
+$originalSubtype = str_replace("%5C","\\","$originalSubtype");
 $originalSubtype = str_replace("%27","\'","$originalSubtype");
 $newSubtype = $_POST['Subtype'];
+$newSubtype = str_replace("\\","\\\\","$newSubtype");
 $newSubtype = str_replace("'","\'","$newSubtype");
 $originalType = $_POST['originalType'];
+$originalType = str_replace("\\","\\\\","$originalType");
 $originalType = str_replace("'","\'","$originalType");
 $type = $_POST['type'];
+$type = str_replace("\\","\\\\","$type");
 $type = str_replace("'","\'","$type");
 $consumableColumns = array();
 $consumableValues = array();
@@ -59,7 +64,7 @@ if(isset($_SESSION['id'])) {
     while($row = mysqli_fetch_array($result)) {
         array_push($items, $row['Item']);
     }
-    echo $consumableValues[0]."<br><br>";
+    $consumableValues[0] = str_replace("\\","\\\\","$consumableValues[0]");
     $consumableValues[0] = str_replace("'","\'","$consumableValues[0]");
     if(in_array($consumableValues[0], $items) && $consumableValues[0] !== $originalItem){
         header("Location: ../editConsumable.php?edit=$originalItem&error=exists");
@@ -72,6 +77,7 @@ if(isset($_SESSION['id'])) {
             $sql .= "`" . $consumableColumns[$count] . "` = '".$consumableValues[$count]."'";
         }
         elseif ($count < 5) {
+            $consumableValues[$count] = str_replace("\\","\\\\","$consumableValues[$count]");
             $consumableValues[$count] = str_replace("'","\'","$consumableValues[$count]");
             $sql .= "`" . $consumableColumns[$count] . "` = '".$consumableValues[$count]."'";
         }
@@ -83,6 +89,7 @@ if(isset($_SESSION['id'])) {
         }
         else {
             if($columnTypes[$count] !== "tinyint"){
+                $consumableValues[$count] = str_replace("\\","\\\\","$consumableValues[$count]");
                 $consumableValues[$count] = str_replace("'","\'","$consumableValues[$count]");
                 $sql .= "`".$consumableColumns[$count]."` = '".$consumableValues[$count]."'";
             }

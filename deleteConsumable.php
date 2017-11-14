@@ -3,6 +3,8 @@ include 'header.php';
 
 if(isset($_SESSION['id'])) {
     $item = $_GET['item'];
+    $item = str_replace("%5C","\\\\","$item");
+    $item = str_replace("$27","\'","$item");
 
     echo "<head><Title>Delete Consumable</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";

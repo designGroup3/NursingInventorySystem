@@ -2,10 +2,13 @@
 session_start();
 include '../dbh.php';
 $oldPassword = $_POST['oldPassword'];
+$oldPassword = str_replace("\\","\\\\","$oldPassword");
 $oldPassword = str_replace("'","\'","$oldPassword");
 $newPassword = $_POST['newPassword'];
+$newPassword = str_replace("\\","\\\\","$newPassword");
 $newPassword = str_replace("'","\'","$newPassword");
 $confirmNewPassword = $_POST['confirmNewPassword'];
+$confirmNewPassword = str_replace("\\","\\\\","$confirmNewPassword");
 $confirmNewPassword = str_replace("'","\'","$confirmNewPassword");
 $currentID = $_SESSION['id'];
 

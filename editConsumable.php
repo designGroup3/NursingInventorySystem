@@ -6,6 +6,8 @@ if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
     $originalItem = $_GET['edit'];
+    $originalItem = str_replace("%5C","\\","$originalItem");
+    $originalItem = str_replace("\\","\\\\","$originalItem"); //refuses to work in one statement
     $originalItem = str_replace("%27","'","$originalItem");
     $originalItem = str_replace("'","\'","$originalItem"); //refuses to work in one statement
     $columnNames = array();
@@ -53,6 +55,7 @@ if(isset($_SESSION['id'])) {
     $subRow = mysqli_fetch_array($resultSubtype);
     $subtype = $subRow['Subtype'];
 
+    $subtype = str_replace("\\","\\\\","$subtype");
     $subtype = str_replace("'","\'","$subtype");
 
     $typeSQL = "SELECT Type FROM subtypes WHERE Subtype = '$subtype'";
@@ -77,6 +80,7 @@ if(isset($_SESSION['id'])) {
             if ($rowType['DATA_TYPE'] == "tinyint" || $count == 1) {
                 $isSelect = true;
                 if($count == 1) {
+                    $subtype = str_replace("\\\\","\\","$subtype");
                     $subtype = str_replace("\'","'","$subtype");
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">

@@ -3,9 +3,12 @@ include 'header.php';
 
 if(isset($_SESSION['id'])) {
     $serialNumber = $_GET['serialNumber'];
-    $item = $_GET['item'];
+    //$item = $_GET['item'];
 
-    //TODO Change item to DB read
+    $sql = "SELECT * FROM `inventory` WHERE `Serial Number` = '$serialNumber';";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $item = $row['Item'];
 
     echo "<head><Title>Delete Inventory</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div><div class='container'>

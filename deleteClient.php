@@ -3,10 +3,12 @@ include 'header.php';
 
 if(isset($_SESSION['id'])) {
     $number = $_GET['number'];
-    $last = $_GET['last'];
-    $first = $_GET['first'];
 
-    //TODO change name to db read
+    $sql = "SELECT * FROM clients WHERE Number = $number;";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $last = $row['Last'];
+    $first = $row['First'];
 
     echo "<head><Title>Delete Client</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";

@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+include 'inputJS.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -24,15 +25,41 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
 
-    echo "<form action ='includes/editUser.inc.php' method ='POST'><br>
-            <input type='hidden' name='id' value = $id>
-            &nbsp&nbsp<label>First Name:</label> <br>&nbsp&nbsp<input type='text' name='first' value=\"".$row['first']."\"><br><br>
-            &nbsp&nbsp<label>Last Name:</label> <br>&nbsp&nbsp<input type='text' name='last' value=\"".$row['last']."\"><br><br>
-            &nbsp&nbsp<label>User Name:</label> <br>&nbsp&nbsp<input type='text' name='uid' value=\"".$row['uid']."\"><br><br>
+    echo "<div class=\"container\"><form action ='includes/editUser.inc.php' method ='POST'
+          class=\"well form-horizontal\" id=\"contact_form\"><fieldset><h2 align=\"center\">Edit User</h2><br/>
+          <input type='hidden' name='id' value = $id>
+            
+          <div class=\"form-group\"><label class=\"col-md-4 control-label\">First Name:
+          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
+          <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
+          <input type='text' name='first' value=\"".$row['first']."\" class=\"form-control\" required></div></div></div>
+          
+          <div class=\"form-group\"><label class=\"col-md-4 control-label\" >Last Name:
+          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+          <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
+          <input type='text' name='last' value=\"".$row['last']."\" class=\"form-control\" required></div></div></div>
+          
+          <div class=\"form-group\"><label class=\"col-md-4 control-label\">Username:
+          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>  
+          <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
+          <input type='text' name='uid' value=\"".$row['uid']."\" class=\"form-control\" required></div></div></div>
             <input type='hidden' name='originalType' value='".$row['acctType']."'>
             <input type='hidden' name='originalEmail' value=\"".$row['email']."\">
-            &nbsp&nbsp<label>Email:</label> <br>&nbsp&nbsp<input type='email' name='email' value=\"".$row['email']."\"><br><br>
-            &nbsp&nbsp<label>Account Type:</label> <br>&nbsp&nbsp<select name='type'>";
+            
+          <div class=\"form-group\"><label class=\"col-md-4 control-label\">E-Mail:
+          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
+          <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
+          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-envelope\"></i></span>
+          <input type='email' name='email' value=\"".$row['email']."\" class=\"form-control\" required></div></div></div>
+          
+          <div class=\"form-group\"><label class=\"col-md-4 control-label\">Account Type:
+          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+          <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
+          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-list\"></i></span>
+          <select name='type' required class=\"form-control selectpicker\">";
     if($row['acctType'] == "Standard User"){
         echo "<option selected value='Standard User'>Standard User</option><option value='Admin'>Admin</option><option value='Super Admin'>Super Admin</option>";
     }
@@ -42,7 +69,8 @@ if(isset($_SESSION['id'])) {
     elseif($row['acctType'] == "Super Admin"){
         echo "<option value='Standard User'>Standard User</option><option value='Admin'>Admin</option><option selected value='Super Admin'>Super Admin</option>";
     }
-    echo "</select><br><br>&nbsp&nbsp<button type='submit'>Submit</button>";
+    echo "</select></div></div></div><div class=\"form-group\"><label class=\"col-md-4 control-label\"></label>
+          <div class=\"col-md-4\"><button type='submit' class='btn btn-warning btn-block'>Edit User</button></div></div></fieldset></form></div>";
 }
 
 else{

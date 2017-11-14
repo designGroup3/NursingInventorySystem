@@ -1,6 +1,58 @@
 <?php
 include 'header.php';
-include 'decimalInputJS.php';
+?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+<body>
+<script>
+    $(document).ready(function() {
+        $('#contact_form').bootstrapValidator({
+            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                cost: {
+                    validators: {
+                        numeric:{
+                            decimalSeparator : true,
+                            thousandsSeparator :true,
+                            message: 'Please add a valid cost'
+
+
+
+                        },
+                        notEmpty: {
+                            message: 'Please add a valid cost'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please supply your email address'
+                        },
+                        emailAddress: {
+                            message: 'Please supply a valid email address'
+                        }
+                    }
+                },
+                file: {
+                    validators: {
+                        file: {
+                            maxFiles:1,
+                            extension: 'pdf',
+                            type: 'application/pdf',
+                            message: 'The selected file is not valid. Only .pdf files are valid'
+                        }
+                    }
+                }
+            }
+        })
+    });
+</script>
+<?php
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -30,7 +82,8 @@ if(isset($_SESSION['id'])) {
         value='".$row['Annual Cost']."'>
         </div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Duration:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Duration:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
         <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"fa fa-clock-o\"></i></span>
         <input type='text' name='duration' required value=\"".$row['Duration']."\" class=\"form-control\"></div></div></div>

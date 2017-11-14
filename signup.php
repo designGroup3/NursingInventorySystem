@@ -99,24 +99,28 @@ include 'header.php';
     if(isset($_SESSION['id'])){
         echo "<br><class style=\"text-align:center;\"> 
         <div class=\"container\"><form class=\"well form-horizontal\" action='includes/signup.inc.php'
-        method='POST' id=\"contact_form\"><fieldset><h2>Add user page</h2><br/>
+        method='POST' id=\"contact_form\"><fieldset><h2 align=\"center\">Create New User</h2><br/>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\">First Name</label>  
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">First Name:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
         <input name='first' required placeholder='First Name' class=\"form-control\" type=\"text\"></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\" >Last Name</label> 
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\" >Last Name:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
         <input name='last' required placeholder='Last Name' class='form-control' type='text'></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\">E-Mail</label>  
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">E-Mail:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-envelope\"></i></span>
         <input name='email' required placeholder='E-Mail Address' class='form-control' type='email'></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Account Type</label>
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Account Type:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
         <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-list\"></i></span>
         <select required class=\"form-control selectpicker\" name='acctType'>
@@ -134,12 +138,14 @@ include 'header.php';
         }
 
         echo "</select></div></div></div>
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Username</label>  
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Username:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>  
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
         <input type='text' required class='form-control' placeholder='Username' name='uid'></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\" for=\"psw\">Password</label>  
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\" for=\"psw\">Password:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-lock\"></i></span>
         <input name='pwd' placeholder='Password' class='form-control' type='password' id='pwd'
@@ -152,7 +158,7 @@ include 'header.php';
         <p id=\"length\" class=\"invalid\">Minimum <b>8 characters</b></p></div>
         
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-        <button type='submit' class='btn btn-warning btn-block'>Edit Inventory</button></div></div></fieldset></form></div>";
+        <button type='submit' class='btn btn-warning btn-block'>Create User</button></div></div></fieldset></form></div>";
     }else {
         header("Location: ./login.php");
     }

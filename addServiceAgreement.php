@@ -1,19 +1,58 @@
 <?php
 include 'header.php';
-include 'decimalInputJS.php';
+?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+    <body>
+    <script>
+        $(document).ready(function() {
+            $('#contact_form').bootstrapValidator({
+                // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    cost: {
+                        validators: {
+                            numeric:{
+                                decimalSeparator : true,
+                                thousandsSeparator :true,
+                                message: 'Please add a valid cost'
 
-//approval: {
-//    validators: {
-//        file: {
-//            maxFiles:1,
-//                        extension: 'jpeg,jpg,png,pdf',
-//                        type: 'image/jpeg,image/png,application/pdf',
-//                        message: 'The selected file is not valid. Only jpeg,jpg,png,pdf files are valid'
-//
-//                    }
-//    }
-//}
 
+
+                            },
+                            notEmpty: {
+                                message: 'Please add a valid cost'
+                            }
+                        }
+                    },
+                    email: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Please supply your email address'
+                            },
+                            emailAddress: {
+                                message: 'Please supply a valid email address'
+                            }
+                        }
+                    },
+                    file: {
+                        validators: {
+                            file: {
+                                maxFiles:1,
+                                extension: 'pdf',
+                                type: 'application/pdf',
+                                message: 'The selected file is not valid. Only .pdf files are valid'
+                            }
+                        }
+                    }
+                }
+            })
+        });
+    </script>
+<?php
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 

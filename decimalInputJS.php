@@ -16,9 +16,6 @@
                             decimalSeparator : true,
                             thousandsSeparator :true,
                             message: 'Please add a valid cost'
-
-
-
                         },
                         notEmpty: {
                             message: 'Please add a valid cost'

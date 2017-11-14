@@ -1,6 +1,5 @@
 <?php
 include 'header.php';
-include 'decimalInputJS.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
@@ -21,7 +20,7 @@ if(isset($_SESSION['id'])) {
         <div class=\"form-group\"><label class=\"col-md-4 control-label\">Annual Cost:</label>
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"fa fa-usd\"></i></span>
-        <input name='cost' class='form-control' type='number'></div></div></div>
+        <input name='cost' class='form-control' type='number' min='0' step='0.01'></div></div></div>
         
         <div class=\"form-group\"><label class=\"col-md-4 control-label\">Duration:</label>
         <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">

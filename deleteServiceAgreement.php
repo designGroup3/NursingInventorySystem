@@ -12,7 +12,7 @@ if(isset($_SESSION['id'])) {
 
     echo "<div class=\"container\">
         <form action ='includes/deleteServiceAgreement.inc.php' class=\"well form-horizontal\" method ='POST' id=\"contact_form\">
-        <fieldset><h3 align=\"center\">Are you sure you want to delete $name? </h3>
+        <fieldset><h3 align=\"center\">Are you sure you want to delete $name?</h3>
         <p align=\"center\" style=\"color:red;\">*This action cannot be undone.</p><br/>
         <div class=\"form-group\" style='text-align: center;'><label class=\"col-md-4 control-label\"></label>
         <div class=\"col-md-4\"><input type='hidden' name='id' value = $id>

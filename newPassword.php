@@ -1,17 +1,28 @@
 <?php
 include 'header.php';
 include 'dbh.php';
+include 'inputJS.php';
 error_reporting(E_ALL ^ E_NOTICE);
+
+echo "<head><Title>New Password</Title></head><div class=\"parent\">
+<button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+<i class='fa fa-question'></i></button></div>";
+
 $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $email = $_GET['email'];
 $sentKey = $_GET['pwdRecoveryKey'];
 $pwdRecoveryKey;
 if(strpos($url, 'error=noMatch') !== false){
-    echo "<br>&nbsp&nbspYour new password does not match.<br><br>";
+    echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        Your new password does not match.</div><br><br><br>";
+    //echo "<br>&nbsp&nbspYour new password does not match.<br><br>";
 }
 if(strpos($url, 'success') !== false){
-    echo "<br>&nbsp&nbspYour password has been changed successfully, please log in with your new password.<br>";
-    exit();
+    echo "<div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        Your password has been changed successfully. Please log in with your new password.</div><br><br><br>";
+    //echo "<br>&nbsp&nbspYour password has been changed successfully, please log in with your new password.<br>";
 }
 $sql = "SELECT pwdRecoveryKey FROM users WHERE email='$email'";
 $result = mysqli_query($conn, $sql);
@@ -22,12 +33,19 @@ if($row = $result->fetch_assoc()) {
         exit();
     }
 }
-echo "Please type your new password below, and then again to confirm
-<form action ='includes/newPassword.inc.php' method ='POST'><br>
+echo "<div class=\"container\"><form action ='includes/newPassword.inc.php' method ='POST'
+    class=\"well form-horizontal\"id=\"contact_form\"><fieldset><h2 align=\"center\">Change Password</h2><br/>
     <input type='hidden' name='email' value = $email>
     <input type='hidden' name='pwdRecoveryKey' value = $pwdRecoveryKey>
-    &nbsp&nbsp<label>New Password:</label> <br>&nbsp&nbsp<input type='password' name='newPassword'><br><br>
-    &nbsp&nbsp<label>Confirm New Password:</label> <br>&nbsp&nbsp<input type='password' name='confirmNewPassword'><br><br>
-    &nbsp&nbsp<button type='submit'>Submit</button>
- </form>";
+    <div class=\"form-group\"><label class=\"col-md-4 control-label\">New Password:</label>
+    <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
+    <span class=\"input-group-addon\"><i class=\"fa fa-unlock-alt\"></i></span>
+    <input type='password' name='newPassword' class=\"form-control\" required></div></div></div>
+    <div class=\"form-group\"> <label class=\"col-md-4 control-label\">Confirm New Password:</label>
+    <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
+    <span class=\"input-group-addon\"><i class=\"fa fa-lock\"></i></span>
+    <input type='password' name='confirmNewPassword' class='form-control' required></div></div></div>
+    <br/><div class=\"form-group\" align=\"center\"><label class=\"col-md-4 control-label\"></label>
+    <div class=\"col-md-4\"><input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Change Password'>
+    </div></div></fieldset></form></div>";
 ?>

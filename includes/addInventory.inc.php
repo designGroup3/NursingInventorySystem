@@ -11,16 +11,14 @@ if(isset($_SESSION['id'])) {
     $uid = $row['uid'];
 
     $type = $_POST['type'];
+    $type = str_replace("\\","\\\\","$type");
+    $type = str_replace("'","\'","$type");
 
     error_reporting(E_ALL ^ E_NOTICE);
     $columnNames = array();
     $receivedValues = array();
     $serialNumbers = array();
-
-    $sql2 = "SELECT CURRENT_TIMESTAMP;"; //gets current time
-    $result2 = mysqli_query($conn, $sql2);
-    $row2 = $result2->fetch_assoc();
-    $time = $row2['CURRENT_TIMESTAMP'];
+    $columnTypes = array();
 
     $sql = "SHOW COLUMNS FROM inventory";
     $result = mysqli_query($conn, $sql);
@@ -32,6 +30,19 @@ if(isset($_SESSION['id'])) {
         } else {
             array_push($receivedValues, $_POST[$row['Field']]);
         }
+    }
+
+    $sql2 = "SELECT CURRENT_TIMESTAMP;"; //gets current time
+    $result2 = mysqli_query($conn, $sql2);
+    $row2 = $result2->fetch_assoc();
+    $time = $row2['CURRENT_TIMESTAMP'];
+
+    for ($count = 0; $count < count($columnNames); $count++) {
+        $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
+        $result2 = mysqli_query($conn, $sql2);
+        $rowType = mysqli_fetch_array($result2);
+        array_push($columnTypes, $rowType['DATA_TYPE']);
     }
 
     $sql = "SELECT `Serial Number` FROM inventory"; //checks if new item already exists
@@ -62,24 +73,37 @@ if(isset($_SESSION['id'])) {
     $sql .= "VALUES (";
 
     for ($count = 0; $count < count($columnNames); $count++) {
-        if ($count < 7) {
-            $sql .= "'" . $receivedValues[$count];
+        if ($count < 9) {
+            $receivedValues[$count] = str_replace("\\","\\\\","$receivedValues[$count]");
+            $receivedValues[$count] = str_replace("'","\'","$receivedValues[$count]");
+            $sql .= "'".$receivedValues[$count]."'";
         }
-        elseif($count === 7){
-            $sql .= "'" . $time;
+        elseif($count === 9){
+            $sql .= "'" . $time."'";
         }
-        elseif($count === 8){
-            $sql .= "'" . $uid;
+        elseif($count === 10){
+            $sql .= "'" . $uid."'";
         }
         else {
-            $sql .= "'" . $receivedValues[$count];
+            if($columnTypes[$count] !== "tinyint"){
+                $receivedValues[$count] = str_replace("\\","\\\\","$receivedValues[$count]");
+                $receivedValues[$count] = str_replace("'","\'","$receivedValues[$count]");
+                $sql .= "'" . $receivedValues[$count]."'";
+            }
+            else{
+                if($receivedValues[$count] !== ""){
+                    $sql .= $receivedValues[$count];
+                }
+                else{
+                    $sql .= 'NULL';
+                }
+            }
         }
-
         if($count != (count($columnNames)-1)){
-            $sql .= "', ";
+            $sql .= ", ";
         }
         else{
-            $sql .= "');";
+            $sql .= ");";
         }
     }
 
@@ -99,13 +123,13 @@ if(isset($_SESSION['id'])) {
             exit();
         }
         else{
-            $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $receivedValues[2] . "','" . $type . "', $receivedValues[5],0);";
+            $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $receivedValues[2] . "','" . $type . "','Inventory');";
             $result2 = mysqli_query($conn, $sql2);
             $result = mysqli_query($conn, $sql); //add the item
         }
     }
     else{ //subtype not found
-        $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $receivedValues[2] . "','" . $type . "', $receivedValues[5],0);";
+        $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $receivedValues[2] . "','" . $type . "','Inventory');";
         $result2 = mysqli_query($conn, $sql2);
         $result = mysqli_query($conn, $sql); //add the item
     }

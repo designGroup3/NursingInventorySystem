@@ -1,11 +1,12 @@
+<?php
+include 'header.php';
+?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/v2.3.8/angular-strap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+    <body>
 <style>
-    .btn{
-        Background-color:#981e32;
-    }
-    .btn:hover{
-        Background-color:#bc233c;
-    }
-    /* The message box is shown when the user clicks on the password field */
     #message {
         display:none;
         background: #f1f1f1;
@@ -28,7 +29,8 @@
 
     #message p {
         padding: 10px 35px;
-        font-size: 18px;
+        font-size: 15px;
+        text-align:center;
     }
 
     /* Add a green text color and a checkmark when the requirements are right */
@@ -53,175 +55,84 @@
         content: "✖";
     }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
 <script>
-    we probably don't need this js
-   $(document).ready(function() {
-       $('#contact_form').bootstrapValidator({
-           // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-           feedbackIcons: {
-               valid: 'glyphicon glyphicon-ok',
-               invalid: 'glyphicon glyphicon-remove',
-               validating: 'glyphicon glyphicon-refresh'
-           },
-           fields: {
-               \first_name: {
-                   validators: {
-                       stringLength: {
-                           min: 2,
-                       },
-                       notEmpty: {
-                           message: 'Please supply your first name'
-                       }
-                   }
-               },
-               last_name: {
-                   validators: {
-                       stringLength: {
-                           min: 2,
-                       },
-                       notEmpty: {
-                           message: 'Please supply your last name'
-                       }
-                   }
-               },
-               email: {
-                   validators: {
-                       notEmpty: {
-                           message: 'Please supply your email address'
-                       },
-                       emailAddress: {
-                           message: 'Please supply a valid email address'
-                       }
-                   }
-               }
-           }
-       })
-           .on('success.form.bv', function(e) {
-               $('#success_message').slideDown({ opacity: "show" }, "slow"); // Do something ...
-               $('#contact_form').data('bootstrapValidator').resetForm();
-
-               // Prevent form submission
-               e.preventDefault();
-
-               // Get the form instance
-               var $form = $(e.target);
-
-               // Get the BootstrapValidator instance
-               var bv = $form.data('bootstrapValidator');
-
-               // Use Ajax to submit form data
-               $.post($form.attr('action'), $form.serialize(), function(result) {
-                   console.log(result);
-               }, 'json');
-           });
-   });
-    /////////////////////
-    //password rules js//
-    /////////////////////
-    var myInput = document.getElementById("psw");
-    var letter = document.getElementById("letter");
-    var capital = document.getElementById("capital");
-    var number = document.getElementById("number");
-    var length = document.getElementById("length");
-
-    // When the user clicks on the password field, show the message box
-    myInput.onfocus = function() {
-        document.getElementById("message").style.display = "block";
-    };
-
-    // When the user clicks outside of the password field, hide the message box
-    myInput.onblur = function() {
-        document.getElementById("message").style.display = "none";
-    };
-
-    // When the user starts to type something inside the password field
-    myInput.onkeyup = function() {
-        // Validate lowercase letters
-        var lowerCaseLetters = /[a-z]/g;
-        if(myInput.value.match(lowerCaseLetters)) {
-            letter.classList.remove("invalid");
-            letter.classList.add("valid");
-        } else {
-            letter.classList.remove("valid");
-            letter.classList.add("invalid");
-        }
-
-        // Validate capital letters
-        var upperCaseLetters = /[A-Z]/g;
-        if(myInput.value.match(upperCaseLetters)) {
-            capital.classList.remove("invalid");
-            capital.classList.add("valid");
-        } else {
-            capital.classList.remove("valid");
-            capital.classList.add("invalid");
-        }
-
-        // Validate numbers
-        var numbers = /[0-9]/g;
-        if(myInput.value.match(numbers)) {
-            number.classList.remove("invalid");
-            number.classList.add("valid");
-        } else {
-            number.classList.remove("valid");
-            number.classList.add("invalid");
-        }
-
-        // Validate length
-        if(myInput.value.length >= 8) {
-            length.classList.remove("invalid");
-            length.classList.add("valid");
-        } else {
-            length.classList.remove("valid");
-            length.classList.add("invalid");
-        }
-    }
+    $(document).ready(function() {
+        $('#contact_form').bootstrapValidator({
+            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please add an email address'
+                        },
+                        emailAddress: {
+                            message: 'Please supply a valid email address'
+                        }
+                    }
+                }
+            }
+        })
+    });
 </script>
 <?php
     error_reporting(E_ALL ^ E_WARNING);
-	include 'header.php';
 	include './dbh.php';
-    echo "<head><Title>Signup</Title></head>";
+    echo "<head><Title>Signup</Title></head><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=empty') !== false){
-        echo "<br>&nbsp&nbspPlease fill out all fields.<br>";
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              Please fill out all fields.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspPlease fill out all fields.<br>";
     }
     elseif(strpos($url, 'error=username') !== false){
-        echo "<br>&nbsp&nbspUsername already in use.<br>";
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              Username already in use.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspUsername already in use.<br>";
     }
     elseif(strpos($url, 'error=email') !== false){
-        echo "<br>&nbsp&nbspEmail Address already in use.<br>";
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              E-mail address already in use.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspEmail Address already in use.<br>";
     }
 
     if(isset($_SESSION['id'])){
         echo "<br><class style=\"text-align:center;\"> 
         <div class=\"container\"><form class=\"well form-horizontal\" action='includes/signup.inc.php'
-        method='POST' id=\"contact_form\"><fieldset><h2>Add user page</h2><br/>
+        method='POST' id=\"contact_form\"><fieldset><h2 align=\"center\">Create New User</h2><br/>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\">First Name</label>  
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">First Name:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-          <input  name=\"first_name\" placeholder=\"First Name\" class=\"form-control\"  type=\"text\">
-</div></div></div>
+        <input name='first' required placeholder='First Name' class=\"form-control\" type=\"text\"></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\" >Last Name</label> 
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\" >Last Name:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-        <input name='last' placeholder='Last Name' class='form-control'  type='text'></div></div></div>
+        <input name='last' required placeholder='Last Name' class='form-control' type='text'></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\">E-Mail<p style=\"color:red; font-size:10px;\">* Important Field</p></label>  
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">E-Mail:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-envelope\"></i></span>
-        <input name='email' placeholder='E-Mail Address' class='form-control'  type='email' required></div></div></div>
+        <input name='email' required placeholder='E-Mail Address' class='form-control' type='email'></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Account Type</label>
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Account Type:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
         <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-list\"></i></span>
-        <select class=\"form-control selectpicker\" name='acctType'>
+        <select required class=\"form-control selectpicker\" name='acctType'>
         <option value='Standard User'>Standard User</option>";
         $currentID = $_SESSION['id'];
         $sql = "SELECT acctType FROM users WHERE id='$currentID'";
@@ -236,12 +147,14 @@
         }
 
         echo "</select></div></div></div>
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Username<p style=\"color:red; font-size:10px;\">* Important Field</p></label>  
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Username:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>  
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-        <input type='text' class='form-control' placeholder='Username' name='uid'required></div></div></div>
+        <input type='text' required class='form-control' placeholder='Username' name='uid'></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\" for=\"psw\">Password<p style=\"color:red; font-size:10px;\">* Important Field</p></label>  
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\" for=\"psw\">Password:
+        <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-lock\"></i></span>
         <input name='pwd' placeholder='Password' class='form-control' type='password' id='pwd'
@@ -254,8 +167,7 @@
         <p id=\"length\" class=\"invalid\">Minimum <b>8 characters</b></p></div>
         
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-        <button name='submit' type=\"submit\" class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
-        data-submit=\"...Sending\">Add User</button></div></div></fieldset></form></div>";
+        <button type='submit' class='btn btn-warning btn-block'>Create User</button></div></div></fieldset></form></div>";
     }else {
         header("Location: ./login.php");
     }

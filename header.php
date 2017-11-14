@@ -8,10 +8,14 @@
 <html>
 <head>
     <style>
-      /*  body {
-            background-image: url("https://images.freecreatives.com/wp-content/uploads/2015/12/Plaid-Texture-Seamless-Pattern.jpg");
-            background-size: 100%;
-		}*/
+.parent {
+    position: relative;
+}
+.help {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
 
 .nav-tabs {
   display: inline-block;

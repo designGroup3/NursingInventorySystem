@@ -3,18 +3,22 @@ include 'header.php';
 
 if(isset($_SESSION['id'])) {
     $serialNumber = $_GET['serialNumber'];
-    $item = $_GET['item'];
+    //$item = $_GET['item'];
 
-    echo "<head><Title>Delete Inventory</Title></head>";
+    $sql = "SELECT * FROM `inventory` WHERE `Serial Number` = '$serialNumber';";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $item = $row['Item'];
 
-    echo "Are you sure you want to delete ".$item."? This action cannot be undone.
-        <form action ='includes/deleteInventory.inc.php' method ='POST'><br>
-            <input type='hidden' name='serialNumber' value = $serialNumber>
-            <button type='submit'>Delete</button>
-        </form><br>
-        <form action='inventory.php'>
-            <input type='submit' value='Cancel' />
-         </form>";
+    echo "<head><Title>Delete Inventory</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div><div class='container'>
+        <form action ='includes/deleteInventory.inc.php' class='well form-horizontal' method ='POST'>
+        <h2 align='center'>Are you sure you want to delete ".$item."?</h2>
+        <br><div class=\"form-group\" style='text-align: center;'><label class=\"col-md-4 control-label\"></label>
+        <div class=\"col-md-4\"><input type='hidden' name='serialNumber' value = $serialNumber>
+        <input type=\"submit\" class=\"btn btn-danger\" value='Yes'>
+        <input onclick=\"window.location.href='inventory.php';\" class=\"btn btn-warning\" style='width:45px;' value='No'>
+        </span></form></div></div></div>";
 }
 else{
     header("Location: ./login.php");

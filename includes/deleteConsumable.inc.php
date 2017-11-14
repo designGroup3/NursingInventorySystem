@@ -4,6 +4,8 @@ session_start();
 include '../dbh.php';
 
 $item = $_POST['item'];
+$item = str_replace("%5C","\\","$item");
+$item = str_replace("%27","\'","$item");
 
 if(isset($_SESSION['id'])) {
     $currentID = $_SESSION['id'];

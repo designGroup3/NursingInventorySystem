@@ -15,8 +15,7 @@ CREATE TABLE loginsystem.users (
 CREATE TABLE loginsystem.subtypes (
   Subtype VARCHAR(100) NOT NULL,
   Type VARCHAR(100) NOT NULL,
-  IsCheckoutable BOOLEAN NOT NULL,
-  IsConsumable BOOLEAN NOT NULL,
+  `Table` VARCHAR(15) NOT NULL,
   PRIMARY KEY (Subtype));
 
 CREATE TABLE loginsystem.inventory (
@@ -27,6 +26,8 @@ CREATE TABLE loginsystem.inventory (
   Location VARCHAR(100) NOT NULL,
   Checkoutable TINYINT(1) NOT NULL,
   `Number in Stock` INT NOT NULL,
+  `MAC Address` VARCHAR(100),
+  `IP Address` VARCHAR(100),
   `Last Processing Date` DATE,
   `Last Processing Person` VARCHAR(100),
   PRIMARY KEY (`Serial Number`));
@@ -90,6 +91,7 @@ CREATE TABLE `loginsystem`.`repairs/updates/upgrades` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Type` VARCHAR(10) NOT NULL,
   `Serial Number` VARCHAR(100) NOT NULL,
+  `Item` VARCHAR(100) NOT NULL,
   `Part` VARCHAR(100) NOT NULL,
   `Cost` DECIMAL(8,2) NOT NULL,
   `Date` DATE NOT NULL,

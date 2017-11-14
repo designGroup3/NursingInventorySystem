@@ -13,6 +13,11 @@ if(isset($_SESSION['id'])) {
 
     $serialNumber = $_GET['serialNumber'];
 
+    $sql = "SELECT CURDATE();";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $today = $row['CURDATE()'];
+
     $sql = "SELECT Item, `Quantity Borrowed` FROM checkouts WHERE `Serial Number` = '".$serialNumber."';";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
@@ -27,10 +32,10 @@ if(isset($_SESSION['id'])) {
     $stock = $row2['Number in Stock'];
     $newStock = $stock + $Borrowed;
 
-    $sql = "UPDATE inventory SET `Number in Stock` = ".$newStock.", `Last Processing Date` = '" . date('Y/m/d') . "', `Last Processing Person` = '" . $uid . "' WHERE `Serial Number` = '".$serialNumber."';";
+    $sql = "UPDATE inventory SET `Number in Stock` = ".$newStock.", `Last Processing Date` = '".$today."', `Last Processing Person` = '" . $uid . "' WHERE `Serial Number` = '".$serialNumber."';";
     $result = mysqli_query($conn, $sql);
 
-    $sql = "UPDATE checkouts SET `Return Date` = '".date('Y/m/d')."' WHERE `Serial Number` = '".$serialNumber."';";
+    $sql = "UPDATE checkouts SET `Return Date` = '".$today."' WHERE `Serial Number` = '".$serialNumber."';";
     $result = mysqli_query($conn, $sql);
 
     header("Location: ../checkout.php?checkin");

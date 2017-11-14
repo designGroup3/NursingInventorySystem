@@ -1,7 +1,9 @@
 <?php
 session_start();
 include '../dbh.php';
-$email = $_POST['email'];
+$email = mysqli_real_escape_string($conn, $_POST['email']);
+$email = str_replace("\\","\\\\","$email");
+$email = str_replace("'","\'","$email");
 $sql = "SELECT email FROM users WHERE email='$email'";
 $result = mysqli_query($conn, $sql);
 $emailcheck = mysqli_num_rows($result);
@@ -16,7 +18,7 @@ else{
         $pwdRecoveryKey = $row['pwdRecoveryKey'];
         $URL = 'http://' . $_SERVER['HTTP_HOST'];
         $message = "Hello, a request has been made to reset your password for the nursing inventory system. To reset your password, please follow this link: 
-        $URL/nisbeta/newPassword.php?email=$email&pwdRecoveryKey=$pwdRecoveryKey";
+        $URL/nursinginventorysystem/newPassword.php?email=$email&pwdRecoveryKey=$pwdRecoveryKey";
         mail($email, "Password Recovery for Nursing Inventory System", $message, "From: ". 'umslnursingit@gmail.com');
         header("Location: ../forgotPassword.php?sent");
     }

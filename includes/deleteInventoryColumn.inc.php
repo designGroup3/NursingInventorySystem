@@ -11,8 +11,8 @@ $result = mysqli_query($conn, $sql);
 $columnSql = "SHOW COLUMNS FROM inventory;";
 $columnResult = mysqli_query($conn, $columnSql);
 
-if(mysqli_num_rows($columnResult) == 9){
-    header("Location: ../inventory.php");
+if(mysqli_num_rows($columnResult) == 11){
+    header("Location: ../inventory.php?deleteSuccess");
 }
 else{
     header("Location: ../deleteInventoryColumn.php?success");

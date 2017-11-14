@@ -3,7 +3,9 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Search Repairs/Updates/Upgrades Results</Title></head>";
+    echo "<head><Title>Search Repairs/Updates/Upgrades Results</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div><br><h2 style='text-align: center'>Repairs/Updates/Upgrades</h2>
+<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
     $sql = "SELECT acctType FROM users WHERE id='$currentID'";
@@ -14,20 +16,22 @@ if(isset($_SESSION['id'])) {
     $type = $_POST['type'];
     $serialNumber = $_POST['serialNumber'];
     $item = $_POST['item'];
+    $item = str_replace("'","\'","$item");
     $part = $_POST['part'];
+    $part = str_replace("'","\'","$part");
     $cost = $_POST['cost'];
     $date = $_POST['date'];
     $supplier = $_POST['supplier'];
+    $supplier = str_replace("'","\'","$supplier");
     $reason = $_POST['reason'];
+    $reason = str_replace("'","\'","$reason");
     $tableHeadNeeded = true;
     $count = 0;
     $sql = "SELECT * FROM `repairs/updates/upgrades` WHERE ";
     $andNeeded = false;
-    if($type == "" && $serialNumber == "" && $part == "" && $cost == "" && $date == "" && $supplier == "" && $reason == ""){
-        echo "<br> Please fill out at least 1 search field.";
-        echo "<br><br><form action='searchClientsForm.php'> 
-                   <input type='submit' value='Search Clients'/>
-              </form>";
+    if($type == "" && $serialNumber == "" && $item == "" && $part == "" && $cost == "" && $date == "" && $supplier == "" && $reason == ""){
+        echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchRepairsUpdatesUpgradesForm.php';\" class='btn btn-warning' value='Back'></div>";
         exit();
     }
     if($type !== "")
@@ -95,7 +99,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "`Serial Number` IN (SELECT `Serial Number` FROM inventory WHERE Item LIKE '%".$item."%')";
+        $sql .= "Item LIKE '%".$item."%'";
     }
     $sql .=";";
 
@@ -113,20 +117,23 @@ if(isset($_SESSION['id'])) {
             <th>Date Performed</th>
             <th>Supplier</th>
             <th>Reason</th>
-            <th>Edit</th>
-            <th>Delete</th></tr></thead><tbody>";
+            <th>Edit</th>";
+            if ($acctType == "Admin" || $acctType == "Super Admin") {
+                echo "<th>Delete</th>";
+            }
+            echo "</tr></thead><tbody>";
         }
 
-        $sql2 = "SELECT Item FROM inventory WHERE `Serial Number` = '".$row['Serial Number']."';";
-        $result2 = mysqli_query($conn, $sql2);
-        $row2 = mysqli_fetch_array($result2);
-
+//        $sql2 = "SELECT Item FROM inventory WHERE `Serial Number` = '".$row['Serial Number']."';";
+//        $result2 = mysqli_query($conn, $sql2);
+//        $row2 = mysqli_fetch_array($result2);
+//
         $date = date_create($row['Date']);
-        '<td>'.date_format($date, "m/d/Y").'</td>';
+//        '<td>'.date_format($date, "m/d/Y").'</td>';
 
         echo "<tr><td> ".$row['Type']."</td>
               <td> ".$row['Serial Number']."</td>
-              <td> ".$row2['Item']."</td>
+              <td> ".$row['Item']."</td>
               <td> ".$row['Part']."</td>
               <td> ".$row['Cost']."</td>
               <td> ".date_format($date, 'm/d/Y')."</td>
@@ -141,7 +148,8 @@ if(isset($_SESSION['id'])) {
     echo "</tbody></table>";
 
     if($count == 0) {
-        echo "<br> No Items Found That Match All of Those Criteria.<br>";
+        echo "<h3 style='text-align: center'>No Repairs/Updates/Upgrades Found That Match All of Those Criteria.</h3><br>
+      <div style='text-align: center'><input onclick=\"window.location.href='searchRepairsUpdatesUpgradesForm.php';\" class='btn btn-warning' value='Back'></div>";
     }
 }
 else{

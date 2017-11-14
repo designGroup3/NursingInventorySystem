@@ -12,7 +12,7 @@ $columnSql = "SHOW COLUMNS FROM consumables;";
 $columnResult = mysqli_query($conn, $columnSql);
 
 if(mysqli_num_rows($columnResult) == 7){
-    header("Location: ../consumables.php");
+    header("Location: ../consumables.php?deleteSuccess");
 }
 else{
     header("Location: ../deleteConsumableColumn.php?success");

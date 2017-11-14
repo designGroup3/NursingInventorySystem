@@ -4,11 +4,18 @@ session_start();
 include '../dbh.php';
 
 $originalSerialNumber = $_POST['originalSerialNumber'];
+$originalSerialNumber = str_replace("\\","\\\\","$originalSerialNumber");
+$originalSerialNumber = str_replace("'","\'","$originalSerialNumber");
 $originalSubtype = $_POST['originalSubtype'];
+$originalSubtype = str_replace("%5C","\\","$originalSubtype");
+$originalSubtype = str_replace("%27","\'","$originalSubtype");
 $originalType = $_POST['originalType'];
 $type = $_POST['type'];
+$type = str_replace("\\","\\\\","$type");
+$type = str_replace("'","\'","$type");
 $inventoryColumns = array();
 $inventoryValues = array();
+$subtype;
 
 if(isset($_SESSION['id'])) {
     error_reporting(E_ALL ^ E_NOTICE);
@@ -17,6 +24,8 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     $uid = $row['uid'];
+
+    $columnTypes = array();
 
     $sqlTime = "SELECT CURRENT_TIMESTAMP;"; //get current time
     $resultTime = mysqli_query($conn, $sqlTime);
@@ -36,6 +45,14 @@ if(isset($_SESSION['id'])) {
             }
     }
 
+    for ($count = 0; $count < count($inventoryColumns); $count++) {
+        $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE table_name = 'inventory' AND COLUMN_NAME = '$inventoryColumns[$count]';";
+        $result2 = mysqli_query($conn, $sql2);
+        $rowType = mysqli_fetch_array($result2);
+        array_push($columnTypes, $rowType['DATA_TYPE']);
+    }
+
     $serialNumbers = array();
 
     $sql = "SELECT `Serial Number` FROM inventory";
@@ -51,44 +68,64 @@ if(isset($_SESSION['id'])) {
 
     $sql = "UPDATE inventory SET ";
     for($count = 0; $count< count($inventoryColumns); $count++){
-        if($inventoryColumns[$count] != "Last Processing Date" && $inventoryColumns[$count] != "Last Processing Person") {
-            $sql .= "`" . $inventoryColumns[$count] . "`" . " = '" . $inventoryValues[$count] . "'";
-
+        if ($count < 9) {
+            $inventoryValues[$count] = str_replace("\\","\\\\","$inventoryValues[$count]");
+            $inventoryValues[$count] = str_replace("'","\'","$inventoryValues[$count]");
+            $sql .= "`" . $inventoryColumns[$count] . "` = '".$inventoryValues[$count]."'";
         }
-
-        if($inventoryColumns[$count] == "Last Processing Date"){
+        elseif($count === 9){
             $sql .= "`Last Processing Date` = '" .$time."'";
         }
-
-        if($inventoryColumns[$count] == "Last Processing Person"){
+        elseif($count === 10){
             $sql .= "`Last Processing Person` = '" .$uid."'";
         }
-
-        if ($count !== count($inventoryColumns) - 1) {
+        else {
+            if($columnTypes[$count] !== "tinyint"){
+                $inventoryValues[$count] = str_replace("\\","\\\\","$inventoryValues[$count]");
+                $inventoryValues[$count] = str_replace("'","\'","$inventoryValues[$count]");
+                $sql .= "`".$inventoryColumns[$count]."` = '".$inventoryValues[$count]."'";
+            }
+            else{
+                if($inventoryValues[$count] !== ""){
+                    $sql .= "`".$inventoryColumns[$count]."` = '".$inventoryValues[$count]."'";
+                }
+                else{
+                    $sql .= "`".$inventoryColumns[$count]."` = NULL";
+                }
+            }
+        }
+        if($count != (count($inventoryColumns)-1)){
             $sql .= ", ";
         }
     }
+    $subtype = $inventoryValues[2]; // must change when Id is added
 
     $sql .= " WHERE `Serial Number` = '$originalSerialNumber';";
 
     //Check Subtypes table
-    if($originalSubtype !== $_POST['Subtype'] || $originalType !== $type){
-        if($originalType !== $type && $originalSubtype == $_POST['Subtype']){ //type is changed
+    if($originalSubtype !== $subtype || $originalType !== $type){
+        if($originalType !== $type && $originalSubtype == $subtype){ //type is changed
             $TypeSql = "UPDATE subtypes SET Type = '$type' WHERE Subtype = '$originalSubtype';";
             $TypeResult = mysqli_query($conn, $TypeSql);
         }
-        elseif($originalSubtype !== $_POST['Subtype'] && $originalType == $type){ //subtype is changed
-            $newSubtype = $_POST['Subtype'];
+        elseif($originalSubtype !== $subtype && $originalType == $type){ //subtype is changed
+            $newSubtype = $subtype;
             $typeSQL = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
             $typeResult = mysqli_query($conn, $typeSQL);
             $row = mysqli_fetch_array($typeResult);
             if($row['Type'] !== $type){
-                $typeSQL = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
-                $typeResult = mysqli_query($conn, $typeSQL);
-                $row = mysqli_fetch_array($typeResult);
-                $existingType = $row['Type'];
-                header("Location: ../editInventory.php?edit=$originalSerialNumber&error=typeMismatch&subtype=$newSubtype&type=$existingType");
-                exit();
+                if(mysqli_num_rows($typeResult) == 0){
+                    $createSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "', 'Inventory');";
+                    $createResult = mysqli_query($conn, $createSql);
+                }
+                else{
+                    $typeSQL = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+                    $typeResult = mysqli_query($conn, $typeSQL);
+                    $row = mysqli_fetch_array($typeResult);
+                    $existingType = $row['Type'];
+                    header("Location: ../editInventory.php?edit=$originalSerialNumber&error=typeMismatch&subtype=$newSubtype&type=$existingType");
+                    exit();
+                }
             }
 
             $subtypeSql = "SELECT Item FROM inventory WHERE Subtype = '$originalSubtype';";
@@ -104,14 +141,14 @@ if(isset($_SESSION['id'])) {
                 $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
                 if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
-                    $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $newSubtype . "','" . $type . "', $inventoryValues[5],0);";
+                    $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "', 'Inventory');";
                     //echo $subtypeSql;
                     $subtypeResult = mysqli_query($conn, $subtypeSql);
                 }
             }
         }
-        elseif($originalSubtype !== $_POST['Subtype'] && $originalType !== $type){
-            $newSubtype = $_POST['Subtype'];
+        elseif($originalSubtype !== $subtype && $originalType !== $type){
+            $newSubtype = $subtype;
 
             $subtypeSql = "SELECT Item FROM inventory WHERE Subtype = '$originalSubtype';";
             $subtypeResult = mysqli_query($conn, $subtypeSql);
@@ -126,8 +163,8 @@ if(isset($_SESSION['id'])) {
                 $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
                 if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
-                    $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `IsConsumable`, `IsCheckoutable`) VALUES ('" . $newSubtype . "','" . $type . "', $inventoryValues[5],0);";
-                    //echo $subtypeSql;
+                    $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "', 'Inventory');";
+                    echo $subtypeSql;
                     $subtypeResult = mysqli_query($conn, $subtypeSql);
                 }
             }

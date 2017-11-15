@@ -32,18 +32,6 @@ if(isset($_SESSION['id'])) {
     while($row = mysqli_fetch_array($result)) {
         echo '<option value = "'.$row['Serial Number'].'">'.$row['Serial Number'].'</option>';
     }
-    echo "</select></div></div></div><div class=\"form-group\">
-          <label class=\"col-md-4 control-label required\" >Item:
-          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
-          <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
-          <select name='item' required class=\"form-control selectpicker\">
-          <option value=''></option>";
-    $sql = "SELECT `Item` FROM inventory";
-    $result = mysqli_query($conn, $sql);
-    while($row = mysqli_fetch_array($result)) {
-        echo '<option value = "'.$row['Item'].'">'.$row['Item'].'</option>';
-    }
     echo "</select></div></div></div>
 
         <div class=\"form-group\"> <label class=\"col-md-4 control-label\">Part:

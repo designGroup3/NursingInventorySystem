@@ -9,9 +9,6 @@ $type = str_replace("'","\'","$type");
 $serialNumber = $_POST['serialNumber'];
 $serialNumber = str_replace("\\","\\\\","$serialNumber");
 $serialNumber = str_replace("'","\'","$serialNumber");
-$item = $_POST['item'];
-$item = str_replace("\\","\\\\","$item");
-$item = str_replace("'","\'","$item");
 $part = $_POST['part'];
 $part = str_replace("\\","\\\\","$part");
 $part = str_replace("'","\'","$part");
@@ -24,8 +21,8 @@ $reason = $_POST['reason'];
 $reason = str_replace("\\","\\\\","$reason");
 $reason = str_replace("'","\'","$reason");
 
-$sql = "INSERT INTO `repairs/updates/upgrades` (Type, `Serial Number`, Item, Part, Cost, Date, Supplier, Reason) 
-    VALUES ('$type', '$serialNumber', '$item', '$part', '$cost', '$date', '$supplier', '$reason');";
+$sql = "INSERT INTO `repairs/updates/upgrades` (Type, `Serial Number`, Part, Cost, Date, Supplier, Reason) 
+    VALUES ('$type', '$serialNumber', '$part', '$cost', '$date', '$supplier', '$reason');";
 
 echo $sql;
 

@@ -24,12 +24,12 @@ if(isset($_SESSION['id'])) {
           if($row['Type'] == "Repair"){
               echo "<option selected value='Repair'>Repair</option>
               <option value='Update'>Update</option>
-              <option value='Upgrade'>Upgrade</option></select><br><br>";
+              <option value='Upgrade'>Upgrade</option></select></div></div></div>";
           }
           elseif($row['Type'] == "Update"){
               echo "<option value='Repair'>Repair</option>
               <option selected value='Update'>Update</option>
-              <option value='Upgrade'>Upgrade</option></select><br><br>";
+              <option value='Upgrade'>Upgrade</option></select></div></div></div>";
           }
           elseif($row['Type'] == "Upgrade"){
               echo "<option value='Repair'>Repair</option>
@@ -52,24 +52,7 @@ if(isset($_SESSION['id'])) {
                   echo '<option value = "'.$row2['Serial Number'].'">'.$row2['Serial Number'].'</option>';
               }
           }
-        echo "</select></div></div></div><div class=\"form-group\">
-          <label class=\"col-md-4 control-label required\" >Item:
-          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
-          <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
-          <select name='item' required class=\"form-control selectpicker\">";
-        $sql2 = "SELECT `Item` FROM inventory";
-        $result2 = mysqli_query($conn, $sql2);
-        while($row2 = mysqli_fetch_array($result2)) {
-            if($row['Item'] === $row2['Item']){
-                echo '<option selected value = "'.$row2['Item'].'">'.$row2['Item'].'</option>';
-            }
-            else{
-                echo '<option value = "'.$row2['Item'].'">'.$row2['Item'].'</option>';
-            }
-        }
-
-          echo "</select></div></div></div>
+        echo "</select></div></div></div>
 
           <div class=\"form-group\"><label class=\"col-md-4 control-label\">Part:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>

@@ -91,7 +91,6 @@ CREATE TABLE `loginsystem`.`repairs/updates/upgrades` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Type` VARCHAR(10) NOT NULL,
   `Serial Number` VARCHAR(100) NOT NULL,
-  `Item` VARCHAR(100) NOT NULL,
   `Part` VARCHAR(100) NOT NULL,
   `Cost` DECIMAL(8,2) NOT NULL,
   `Date` DATE NOT NULL,

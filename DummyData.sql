@@ -78,11 +78,11 @@ INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `Item`, `Subtype`, `
 
 INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('6', 'Delete consumable', 'Staples 16GB Flash Drive', 'Flash Drive', '1', '2017-10-11 13:14:16', 'admin');
 
-INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Item`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('1', 'Repair', 'XU338026956', 'Canon PowerShot A710 IS', 'Lens', '29.95', '2017-10-24', 'Canon', 'Replaces broken lens');
+INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('1', 'Repair', 'XU338026956', 'Lens', '29.95', '2017-10-24', 'Canon', 'Replaces broken lens');
 
-INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Item`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('2', 'Update', 'IP472802749', 'Adobe PhotoShop CS', 'Software', '99.99', '2017-10-25', 'Adobe', 'Annual major update');
+INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('2', 'Update', 'IP472802749', 'Software', '99.99', '2017-10-25', 'Adobe', 'Annual major update');
 
-INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Item`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('3', 'Upgrade', 'YW425757483', 'Brother HL-2270DW Printer', 'Spooler', '19.99', '2017-10-20', 'Brother', 'Larger spooler');
+INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('3', 'Upgrade', 'YW425757483', 'Spooler', '19.99', '2017-10-20', 'Brother', 'Larger spooler');
 
 INSERT INTO `loginsystem`.`serviceAgreements`(`Id`, `Name`, `Annual Cost`, `Duration`, `Expiration Date`) VALUES ('1', 'Windows Service', '499.99', '1 Year', '2018-10-20');
 

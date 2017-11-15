@@ -24,8 +24,6 @@ $reason = str_replace("'","\'","$reason");
 $sql = "INSERT INTO `repairs/updates/upgrades` (Type, `Serial Number`, Part, Cost, Date, Supplier, Reason) 
     VALUES ('$type', '$serialNumber', '$part', '$cost', '$date', '$supplier', '$reason');";
 
-echo $sql;
-
 $result = mysqli_query($conn, $sql);
 
 header("Location: ../repairsUpdatesUpgrades.php");

@@ -115,7 +115,8 @@ if(isset($_SESSION['id'])) {
         echo '</select></div></div></div>';
     }
     else{
-        echo '<div class="form-group"><label class="col-md-4 control-label">Subtype: </label>
+        echo '<div class="form-group"><label class="col-md-4 control-label">Subtype:
+            <a style="color:red;" title="This field must be filled">*</a></label>
             <div class="col-md-4 selectContainer"><div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
             <select class="form-control selectpicker" disabled><option value="">Select a type first</option></select>

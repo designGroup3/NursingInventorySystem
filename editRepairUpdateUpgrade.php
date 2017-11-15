@@ -18,7 +18,7 @@ if(isset($_SESSION['id'])) {
           <div class=\"form-group\"><label class=\"col-md-4 control-label\">Service Type:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
-          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
+          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-list\"></i></span>
           <select name='type' required class=\"form-control selectpicker\">
           <option value=''></option>";
           if($row['Type'] == "Repair"){

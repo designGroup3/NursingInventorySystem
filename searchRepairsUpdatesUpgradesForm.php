@@ -11,9 +11,9 @@ if(isset($_SESSION['id'])) {
           class=\"well form-horizontal\" id=\"contact_form\"><fieldset><h2 align=\"center\">Search Repairs/Updates/Upgrades</h2>
           <p align=\"center\">Enter what criteria you would like to see any matching repairs/updates/upgrades for.</p><br/>
           
-          <div class=\"form-group\"> <label class=\"col-md-4 control-label\">Type:</label>
+          <div class=\"form-group\"> <label class=\"col-md-4 control-label\">Service Type:</label>
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
-          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
+          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-list\"></i></span>
           <select name='type' class=\"form-control selectpicker\">
           <option value=''></option>
           <option value='Repair'>Repair</option>

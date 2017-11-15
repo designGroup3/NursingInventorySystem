@@ -15,7 +15,7 @@ if(isset($_SESSION['id'])) {
     echo "<div class=\"container\"><form action ='includes/editRepairUpdateUpgrade.inc.php' method ='POST'
           class=\"well form-horizontal\" id=\"contact_form\"><fieldset><h2 align=\"center\">Edit Repair/Update/Upgrade</h2><br/>
           <input type='hidden' name='id' value = $id>
-          <div class=\"form-group\"><label class=\"col-md-4 control-label\">Type:
+          <div class=\"form-group\"><label class=\"col-md-4 control-label\">Service Type:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>

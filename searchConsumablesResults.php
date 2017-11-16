@@ -94,11 +94,11 @@ if(isset($_SESSION['id'])) {
             $outerCount++;
             echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
             <thead>";
-            for($count = 0; $count< 2; $count++){
+            for($count = 0; $count< 1; $count++){
                 echo "<th>$columnNames[$count]</th>";
             }
             echo "<th>Type</th>";
-            for($count = 2; $count< count($columnNames); $count++){
+            for($count = 1; $count< count($columnNames); $count++){
                 if($columnNames[$count] === "Number in Stock"){
                     echo "<th>$columnNames[$count] "."(Minimum)"."</th>";
                 }
@@ -116,7 +116,7 @@ if(isset($_SESSION['id'])) {
             echo"</thead><tbody><tr>";
         }
         for($count = 0; $count< count($columnNames); $count++){
-            if($count == 1){
+            if($count == 0){
                 echo '<td> '.$row[$columnNames[$count]].'</td>';
                 $subtype = $row[$columnNames[$count + 1]];
                 $subtype = str_replace("\\","\\\\\\\\","$subtype");

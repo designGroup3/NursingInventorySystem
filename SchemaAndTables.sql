@@ -19,6 +19,7 @@ CREATE TABLE loginsystem.subtypes (
   PRIMARY KEY (Subtype));
 
 CREATE TABLE loginsystem.inventory (
+  `Id` INT NOT NULL AUTO_INCREMENT,
   `Serial Number` VARCHAR(100),
   Item VARCHAR(100) NOT NULL,
   Subtype VARCHAR(100) NOT NULL,
@@ -30,7 +31,7 @@ CREATE TABLE loginsystem.inventory (
   `IP Address` VARCHAR(100),
   `Last Processing Date` DATE,
   `Last Processing Person` VARCHAR(100),
-  PRIMARY KEY (`Serial Number`));
+  PRIMARY KEY (`Id`));
 
 CREATE TABLE loginsystem.consumables (
   Item VARCHAR(100) NOT NULL,

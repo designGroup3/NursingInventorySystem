@@ -3,7 +3,7 @@ session_start();
 
 include '../dbh.php';
 
-$serialNumber = $_POST['serialNumber'];
+$id = $_POST['id'];
 
 if(isset($_SESSION['id'])) {
     $currentID = $_SESSION['id'];
@@ -12,12 +12,12 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $uid = $row['uid'];
 
-    $sql = "DELETE FROM inventory WHERE `Serial Number` = '$serialNumber';";
+    $sql = "DELETE FROM inventory WHERE `Id` = '$id';";
 
     //Reports
     $reportSql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Inventory',";
 
-    $sql2 = "SELECT Item, Subtype, `Number in Stock` FROM inventory WHERE `Serial Number` = '". $serialNumber."';";
+    $sql2 = "SELECT Item, Subtype, `Number in Stock` FROM inventory WHERE `Id` = '". $id."';";
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();
 

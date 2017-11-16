@@ -20,12 +20,12 @@ if(isset($_SESSION['id'])) {
         <fieldset><h2 align='center'>Enter what criteria you would like to see any matching consumables for.</h2><br>";
     for($count = 0; $count < 3; $count++){
         $columnName = $columnNames[$count];
-        if($count == 1){
+        if($count == 2){
             echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Type:</label>
                   <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
                   <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
                   <select name='Type' class=\"form-control selectpicker\"><option value=''></option>";
-            $sql2 = "SELECT Type FROM subtypes;";
+            $sql2 = "SELECT Type FROM subtypes WHERE `Table` = 'Consumables';";
             $result2 = mysqli_query($conn, $sql2);
             while($TypeRow = mysqli_fetch_array($result2)){
                 if(!in_array($TypeRow['Type'], $Types)){
@@ -37,8 +37,8 @@ if(isset($_SESSION['id'])) {
             }
             echo "</select></div></div></div>";
         }
-        elseif($count == 2){
-            $sql3 = "SELECT Subtype FROM subtypes";
+        elseif($count == 1){
+            $sql3 = "SELECT Subtype FROM subtypes WHERE `Table` = 'Consumables';";
             $result3 = mysqli_query($conn, $sql3);
             echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:</label>
                   <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">

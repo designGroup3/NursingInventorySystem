@@ -35,7 +35,7 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT * FROM inventory WHERE ";
     $andNeeded = false;
 
-    for($count = 0; $count< count($columnNames); $count++){
+    for($count = 1; $count< count($columnNames); $count++){
         if($receivedValues[$count] !== ""){
             $receivedValues[$count] = str_replace("\\","\\\\\\\\","$receivedValues[$count]");
             $receivedValues[$count] = str_replace("%5C","\\\\\\\\","$receivedValues[$count]");
@@ -94,11 +94,11 @@ if(isset($_SESSION['id'])) {
             $outerCount++;
             echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
             <thead>";
-            for($count = 0; $count< 2; $count++){
+            for($count = 1; $count< 3; $count++){
                 echo "<th>$columnNames[$count]</th>";
             }
             echo "<th>Type</th>";
-            for($count = 2; $count< count($columnNames); $count++){
+            for($count = 3; $count< count($columnNames); $count++){
                 echo "<th>$columnNames[$count]</th>";
             }
             echo "<th>Edit</th>";
@@ -107,8 +107,8 @@ if(isset($_SESSION['id'])) {
             }
             echo "</thead><tbody><tr>";
         }
-        for($count = 0; $count< count($columnNames); $count++){
-            if($count == 1){
+        for($count = 1; $count< count($columnNames); $count++){
+            if($count == 2){
                 echo '<td> '.$row[$columnNames[$count]].'</td>';
                 $subtype = $row[$columnNames[$count + 1]];
                 $subtype = str_replace("\\","\\\\\\\\","$subtype");

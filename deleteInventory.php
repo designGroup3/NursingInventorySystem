@@ -2,10 +2,9 @@
 include 'header.php';
 
 if(isset($_SESSION['id'])) {
-    $serialNumber = $_GET['serialNumber'];
-    //$item = $_GET['item'];
+    $id = $_GET['delete'];
 
-    $sql = "SELECT * FROM `inventory` WHERE `Serial Number` = '$serialNumber';";
+    $sql = "SELECT * FROM `inventory` WHERE `Id` = '$id';";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
     $item = $row['Item'];
@@ -15,7 +14,7 @@ if(isset($_SESSION['id'])) {
         <form action ='includes/deleteInventory.inc.php' class='well form-horizontal' method ='POST'>
         <h2 align='center'>Are you sure you want to delete ".$item."?</h2>
         <br><div class=\"form-group\" style='text-align: center;'><label class=\"col-md-4 control-label\"></label>
-        <div class=\"col-md-4\"><input type='hidden' name='serialNumber' value = $serialNumber>
+        <div class=\"col-md-4\"><input type='hidden' name='id' value = $id>
         <input type=\"submit\" class=\"btn btn-danger\" value='Yes'>
         <input onclick=\"window.location.href='inventory.php';\" class=\"btn btn-warning\" style='width:45px;' value='No'>
         </span></form></div></div></div>";

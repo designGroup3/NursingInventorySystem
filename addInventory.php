@@ -41,7 +41,7 @@ if(isset($_SESSION['id'])) {
     echo "<div class='container'><form class='well form-horizontal' action ='includes/addInventory.inc.php'
     method = 'POST' id='contact_form'><br><fieldset><h1 align=\"center\">Add Item to Inventory</h1>
     <p style=\"color:red; font-size:10px;\" align=\"center\">* required field</p><br>";
-    for($count = 0; $count< count($columnNames); $count++){
+    for($count = 1; $count< count($columnNames); $count++){
         if($columnNames[$count] != "Last Processing Date" && $columnNames[$count] != "Last Processing Person") { //Last processing date & person should not be editable
             $isSelect = false;
             $columnName = $columnNames[$count];
@@ -49,16 +49,16 @@ if(isset($_SESSION['id'])) {
             WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
             $result2 = mysqli_query($conn, $sql2);
             $rowType = mysqli_fetch_array($result2);
-            if ($rowType['DATA_TYPE'] == "tinyint" || $count == 2){
+            if ($rowType['DATA_TYPE'] == "tinyint" || $count == 3){
                 $isSelect = true;
-                if($count == 2){
+                if($count == 3){
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:
                     <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>  
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
                     <input style='height:30px; width:100%;' list='Subtypes' required placeholder='   Subtype' name=";
                 }
-                elseif($count == 5){
+                elseif($count == 6){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">Checkoutable?
                     <a style="color:red;" title="This field must be filled">*</a></label>
                     <div class="col-md-4 inputGroupContainer"><div class="input-group">
@@ -71,41 +71,41 @@ if(isset($_SESSION['id'])) {
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-list\"></i></span>
                     <select class=\"form-control selectpicker\" name=";
                 }
-            } elseif ($rowType['DATA_TYPE'] == "int") {
+            } elseif($rowType['DATA_TYPE'] == "int") {
                 $inputs = '<div class="form-group"><label class="col-md-4 control-label">Number in Stock:
                 <a style="color:red;" title="This field must be filled">*</a></label>
                 <div class="col-md-4 inputGroupContainer"><div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
                 <input type="number" required placeholder="Number in Stock" min="0" class="form-control" name=';
             } else {
-                if($count == 0){
+                if($count == 1){
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Serial Number:</label>
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-tag\"></i></span>
                     <input type='text' placeholder='Serial Number' class=\"form-control\" name=";
                 }
-                elseif($count == 1){
+                elseif($count == 2){
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label required\" >Item:
                     <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
                     <input type='text' required placeholder=\"Item Name\" class=\"form-control\" name=";
                 }
-                elseif($count == 3){
+                elseif($count == 4){
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Assigned to:
                     <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
                     <input type='text' required placeholder=\"Assignee's Name\" class='form-control' name=";
                 }
-                elseif($count == 4){
+                elseif($count == 5){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">Location:
                     <a style="color:red;" title="This field must be filled">*</a></label>
                     <div class="col-md-4 inputGroupContainer"><div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
                     <input type="text" required placeholder="Item\'s Location" class=\'form-control\' name=';
                 }
-                elseif($count == 7){
+                elseif($count == 8){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">MAC Address:
                     <p style="color:red; font-size:10px;">to view an example, hover over the field</p></label> 
                     <div class="col-md-4 inputGroupContainer"><div class="input-group">
@@ -113,7 +113,7 @@ if(isset($_SESSION['id'])) {
                     <input placeholder="MAC Address" title="MAC address should look like 00-15-E9-2B-99-3C"
                     class="form-control" type="text" name="MACAddress" data-fv-mac="true"></div></div></div>';
                 }
-                elseif($count == 8){
+                elseif($count == 9){
                     $inputs = '<div class="form-group"><label class="col-md-4 control-label">IP Address:
                     <p style="color:red; font-size:10px;">to view an example, hover over the field</p></label>   
                     <div class="col-md-4 inputGroupContainer"><div class="input-group">
@@ -133,7 +133,7 @@ if(isset($_SESSION['id'])) {
             }
             if ($isSelect) {
                 $inputs .= $columnName."><datalist id=\"Subtypes\">";
-                if ($count == 2) {
+                if ($count == 3) {
                     $sql3 = "SELECT Subtype FROM subtypes WHERE `Table` = 'Inventory'";
                     $result3 = mysqli_query($conn, $sql3);
                     while ($SubtypeRow = mysqli_fetch_array($result3)) {

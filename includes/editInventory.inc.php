@@ -3,9 +3,9 @@ session_start();
 
 include '../dbh.php';
 
-$originalSerialNumber = $_POST['originalSerialNumber'];
-$originalSerialNumber = str_replace("\\","\\\\","$originalSerialNumber");
-$originalSerialNumber = str_replace("'","\'","$originalSerialNumber");
+$id = $_POST['id'];
+//$originalSerialNumber = str_replace("\\","\\\\","$originalSerialNumber");
+//$originalSerialNumber = str_replace("'","\'","$originalSerialNumber");
 $originalSubtype = $_POST['originalSubtype'];
 $originalSubtype = str_replace("%5C","\\","$originalSubtype");
 $originalSubtype = str_replace("%27","\'","$originalSubtype");
@@ -61,22 +61,22 @@ if(isset($_SESSION['id'])) {
         array_push($serialNumbers, $row['Serial Number']);
     }
 
-    if(in_array($inventoryValues[0], $serialNumbers) && $inventoryValues[0] !== $originalSerialNumber){
+    if(in_array($inventoryValues[1], $serialNumbers) && $inventoryValues[1] !== $originalSerialNumber){
         header("Location: ../editInventory.php?edit=$originalSerialNumber&error=exists");
         exit();
     }
 
     $sql = "UPDATE inventory SET ";
-    for($count = 0; $count< count($inventoryColumns); $count++){
-        if ($count < 9) {
+    for($count = 1; $count< count($inventoryColumns); $count++){
+        if ($count < 10) {
             $inventoryValues[$count] = str_replace("\\","\\\\","$inventoryValues[$count]");
             $inventoryValues[$count] = str_replace("'","\'","$inventoryValues[$count]");
             $sql .= "`" . $inventoryColumns[$count] . "` = '".$inventoryValues[$count]."'";
         }
-        elseif($count === 9){
+        elseif($count === 10){
             $sql .= "`Last Processing Date` = '" .$time."'";
         }
-        elseif($count === 10){
+        elseif($count === 11){
             $sql .= "`Last Processing Person` = '" .$uid."'";
         }
         else {
@@ -98,9 +98,9 @@ if(isset($_SESSION['id'])) {
             $sql .= ", ";
         }
     }
-    $subtype = $inventoryValues[2]; // must change when Id is added
+    $subtype = $inventoryValues[3];
 
-    $sql .= " WHERE `Serial Number` = '$originalSerialNumber';";
+    $sql .= " WHERE `Id` = '$id';";
 
     //Check Subtypes table
     if($originalSubtype !== $subtype || $originalType !== $type){
@@ -176,16 +176,16 @@ if(isset($_SESSION['id'])) {
     //Reports
     $reportSql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Inventory',";
 
-    $reportSql .= "'" . $inventoryValues[1] . "'" . ", ";
     $reportSql .= "'" . $inventoryValues[2] . "'" . ", ";
+    $reportSql .= "'" . $inventoryValues[3] . "'" . ", ";
 
     //Get old quantity
-    $sql2 = "SELECT `Number in Stock` FROM inventory WHERE `Item` = '".$inventoryValues[1]."';";
+    $sql2 = "SELECT `Number in Stock` FROM inventory WHERE `Item` = '".$inventoryValues[2]."';";
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();
     $current_quantity = $row2['Number in Stock'];
 
-    $quantity = $inventoryValues[6] - $current_quantity;
+    $quantity = $inventoryValues[7] - $current_quantity;
     $reportSql .= $quantity .", ";
 
     $reportSql .= "'" . $time . "'" . ", ";

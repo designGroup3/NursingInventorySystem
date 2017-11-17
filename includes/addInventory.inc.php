@@ -51,7 +51,17 @@ if(isset($_SESSION['id'])) {
         array_push($serialNumbers, $row['Serial Number']);
     }
 
-    if(in_array($receivedValues[1], $serialNumbers)){
+    if($receivedValues[0] !== "" && $receivedValues[7] > 1){
+        header("Location: ../addInventory.php?error=manySerial");
+        exit();
+    }
+
+    if($receivedValues[1] == "" && $receivedValues[6] == 1){
+        header("Location: ../addInventory.php?error=noSerial");
+        exit();
+    }
+
+    if(in_array($receivedValues[1], $serialNumbers) && $receivedValues[1] !== ""){
         header("Location: ../addInventory.php?error=exists");
         exit();
     }

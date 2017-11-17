@@ -101,7 +101,7 @@ if(isset($_SESSION['id'])) {
             for($count = 3; $count< count($columnNames); $count++){
                 echo "<th>$columnNames[$count]</th>";
             }
-            echo "<th>Edit</th>";
+            echo "<th>Print QR Code</th><th>Edit</th>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
                 echo"<th>Delete</th>";
             }
@@ -140,11 +140,14 @@ if(isset($_SESSION['id'])) {
                 }
             }
         }
-        echo "<td> <a href='editInventory.php?edit=".$row["Serial Number"]."'>Edit<br></td>";
-            if ($acctType == "Admin" || $acctType == "Super Admin") {
-                echo "<td> <a href='deleteInventory.php?serialNumber=".$row["Serial Number"]."&item=$row[Item]'>Delete<br></td>";
-               }
+        echo "<td><a href='QRPrintPage.php?id=".$row["Id"]."'>Print QR Code<br></td>
+                <td> <a href='editInventory.php?edit=".$row["Id"]."'>Edit<br></td>";
+        if ($acctType == "Admin" || $acctType == "Super Admin") {
+            echo "<td><a href='deleteInventory.php?delete=".$row["Id"]."'>Delete<br></td></tr>";
+        }
+        else{
             echo "</tr>";
+        }
     }
     echo "</tbody></table>";
 

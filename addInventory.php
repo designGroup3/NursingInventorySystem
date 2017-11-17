@@ -31,6 +31,18 @@ if(isset($_SESSION['id'])) {
               You must name the item.</div><br><br><br>";
         //echo "<br>&nbsp&nbspYou must name the item.<br>";
     }
+    elseif(strpos($url, 'noSerial') !== false){
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              An item must have a serial number to be checkoutable.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou must name the item.<br>";
+    }
+    elseif(strpos($url, 'manySerial') !== false){
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              There can only be 0 or 1 of an item with a serial number.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou must name the item.<br>";
+    }
 
     $sql="SHOW COLUMNS FROM inventory";
     $result = mysqli_query($conn, $sql);

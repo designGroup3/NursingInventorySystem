@@ -26,6 +26,24 @@ if(isset($_SESSION['id'])) {
               The subtype $subtype already relates to the type $type. Subtypes can only have one type.</div><br><br><br>";
         //echo "<br>&nbsp&nbspThe subtype $subtype already relates to the type $type. Subtypes can only have one type.<br>";
     }
+    elseif(strpos($url, 'noSerial') !== false){
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              An item must have a serial number to be checkoutable.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou must name the item.<br>";
+    }
+    elseif(strpos($url, 'manySerial') !== false){
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              There can only be 0 or 1 of an item with a serial number.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou must name the item.<br>";
+    }
+    elseif(strpos($url, 'checkoutSerial') !== false){
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              You cannot change an item's serial number while it is checked-out.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou must name the item.<br>";
+    }
 
     $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page
     $result = mysqli_query($conn, $sql);

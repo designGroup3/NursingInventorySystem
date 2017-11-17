@@ -25,6 +25,11 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $uid = $row['uid'];
 
+    $sql = "SELECT * FROM inventory WHERE Id = '$id';";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+    $originalSerialNumber = $row['Serial Number'];
+
     $columnTypes = array();
 
     $sqlTime = "SELECT CURRENT_TIMESTAMP;"; //get current time
@@ -61,8 +66,28 @@ if(isset($_SESSION['id'])) {
         array_push($serialNumbers, $row['Serial Number']);
     }
 
-    if(in_array($inventoryValues[1], $serialNumbers) && $inventoryValues[1] !== $originalSerialNumber){
-        header("Location: ../editInventory.php?edit=$originalSerialNumber&error=exists");
+    $checkoutSql = "SELECT * FROM Checkouts WHERE `Serial Number` = '$originalSerialNumber' AND `Return Date` IS NULL;";
+    $checkoutResult = mysqli_query($conn, $checkoutSql);
+    $checkoutRow = mysqli_fetch_array($checkoutResult);
+    $checkoutSerial = $checkoutRow['Serial Number'];
+
+    if($inventoryValues[1] !== $originalSerialNumber && $originalSerialNumber == $checkoutSerial){
+        header("Location: ../editInventory.php?edit=$id&error=checkoutSerial");
+        exit();
+    }
+
+    if(in_array($inventoryValues[1], $serialNumbers) && $inventoryValues[1] !== $originalSerialNumber && $inventoryValues[1] !== ""){
+        header("Location: ../editInventory.php?edit=$id&error=exists");
+        exit();
+    }
+
+    if($inventoryValues[0] !== "" && $inventoryValues[7] > 1){
+        header("Location: ../editInventory.php?edit=$id&error=manySerial");
+        exit();
+    }
+
+    if($inventoryValues[1] == "" && $inventoryValues[6] == 1){
+        header("Location: ../editInventory.php?edit=$id&error=noSerial");
         exit();
     }
 
@@ -123,7 +148,7 @@ if(isset($_SESSION['id'])) {
                     $typeResult = mysqli_query($conn, $typeSQL);
                     $row = mysqli_fetch_array($typeResult);
                     $existingType = $row['Type'];
-                    header("Location: ../editInventory.php?edit=$originalSerialNumber&error=typeMismatch&subtype=$newSubtype&type=$existingType");
+                    header("Location: ../editInventory.php?edit=$id&error=typeMismatch&subtype=$newSubtype&type=$existingType");
                     exit();
                 }
             }

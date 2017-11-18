@@ -24,17 +24,17 @@ INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Color
 
 INSERT INTO `loginsystem`.`subtypes` (`Subtype`, `Type`, `Table`) VALUES ('Staples Flash Drive', 'Storage Device', 'Consumables');
 
-INSERT INTO `loginsystem`.`inventory` (`Id`,`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (1, 'XU338026956', 'Canon PowerShot A710 IS', 'Still Camera', 'Joe Johnson', 'Nursing 162', 1, 0, '2017-09-29', 'Tester');
+INSERT INTO `loginsystem`.`inventory` (`Inv Id`,`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (1, 'XU338026956', 'Canon PowerShot A710 IS', 'Still Camera', 'Joe Johnson', 'Nursing 162', 1, 0, '2017-09-29', 'Tester');
 
-INSERT INTO `loginsystem`.`inventory` (`Id`,`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (2, 'ET474374601', 'Apple MAC OS X 10.4', 'Apple', 'Drew Hills', 'Nursing 161', 1, 0, '2017-09-20', 'Tester');
+INSERT INTO `loginsystem`.`inventory` (`Inv Id`,`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (2, 'ET474374601', 'Apple MAC OS X 10.4', 'Apple', 'Drew Hills', 'Nursing 161', 1, 0, '2017-09-20', 'Tester');
 
-INSERT INTO `loginsystem`.`inventory` (`Id`,`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (3, 'YW425757483', 'Brother HL-2270DW Printer', 'Brother 2000 Series', 'Mary Sue', 'Checkout', 0, 1, '2017-09-30', 'John');
+INSERT INTO `loginsystem`.`inventory` (`Inv Id`,`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (3, 'YW425757483', 'Brother HL-2270DW Printer', 'Brother 2000 Series', 'Mary Sue', 'Checkout', 0, 1, '2017-09-30', 'John');
 
-INSERT INTO `loginsystem`.`inventory` (`Id`,`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (4, 'CJ763287594', 'Canon Rebel EOS T5i', 'Digital Camera', 'Joe Johnson', 'Nursing 162', 0, 1, '2017-08-29', 'Frank');
+INSERT INTO `loginsystem`.`inventory` (`Inv Id`,`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (4, 'CJ763287594', 'Canon Rebel EOS T5i', 'Digital Camera', 'Joe Johnson', 'Nursing 162', 0, 1, '2017-08-29', 'Frank');
 
-INSERT INTO `loginsystem`.`inventory` (`Id`,`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (5, 'IP472802749', 'Adobe PhotoShop CS', 'Adobe', 'Drew Hills', 'Checkout', 1, 1, '2016-09-29', 'Bob');
+INSERT INTO `loginsystem`.`inventory` (`Inv Id`,`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (5, 'IP472802749', 'Adobe PhotoShop CS', 'Adobe', 'Drew Hills', 'Checkout', 1, 1, '2016-09-29', 'Bob');
 
-INSERT INTO `loginsystem`.`inventory` (`Id`,`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (6, 'TM852187346', 'HP PhotoSmart D7560 Printer', 'HP Printer', 'Mary Sue', 'Nursing 162', 0, 0, '2012-02-22', 'Joe');
+INSERT INTO `loginsystem`.`inventory` (`Inv Id`,`Serial Number`, `Item`, `Subtype`, `Assigned to`, `Location`, `Checkoutable`, `Number in Stock`, `Last Processing Date`, `Last Processing Person`) VALUES (6, 'TM852187346', 'HP PhotoSmart D7560 Printer', 'HP Printer', 'Mary Sue', 'Nursing 162', 0, 0, '2012-02-22', 'Joe');
 
 INSERT INTO `loginsystem`.`consumables`(`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES ('HP LaserJet 1012,1018,1022 Toner', 'Black Toner', 'Surplus', 4, 1);
 

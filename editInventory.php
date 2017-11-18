@@ -44,6 +44,13 @@ if(isset($_SESSION['id'])) {
               You cannot change an item's serial number while it is checked-out.</div><br><br><br>";
         //echo "<br>&nbsp&nbspYou must name the item.<br>";
     }
+    elseif(strpos($url, 'sameType') !== false){
+        $subtype = $_GET['subtype'];
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              The subtype $subtype is used in the consumables table. Subtypes can only be used in one table.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou must name the item.<br>";
+    }
 
     $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page
     $result = mysqli_query($conn, $sql);
@@ -64,7 +71,7 @@ if(isset($_SESSION['id'])) {
         }
     }
 
-    $sqlSubtype = "SELECT Subtype FROM inventory WHERE `Id` = '". $id."';";
+    $sqlSubtype = "SELECT Subtype FROM inventory WHERE `Inv Id` = '". $id."';";
     $resultSubtype = mysqli_query($conn, $sqlSubtype);
     $subRow = mysqli_fetch_array($resultSubtype);
     $subtype = $subRow['Subtype'];
@@ -81,7 +88,7 @@ if(isset($_SESSION['id'])) {
         id=\"contact_form\" method ='POST'><fieldset><h2 align=\"center\">Edit Inventory Item</h2>
         <p style=\"color:red; font-size:10px;\" align=\"center\">* required field</p><br>";
 
-    $sql = "SELECT * FROM inventory WHERE `Id` = '".$id."';";
+    $sql = "SELECT * FROM inventory WHERE `Inv Id` = '".$id."';";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
     for($count = 1; $count < (count($columnNames)); $count++){
@@ -223,14 +230,14 @@ if(isset($_SESSION['id'])) {
             echo $inputs;
         }
     }
-    echo '<input type="hidden" name="id" value = \''.$row['Id']. '\'>
+    echo '<input type="hidden" name="id" value = \''.$row['Inv Id']. '\'>
           <input type="hidden" name="originalSubtype" value = \''.$row['Subtype']. '\'>
           <input type="hidden" name="originalType" value = \''.$type. '\'>
           <div class="form-group"><label class="col-md-4 control-label"></label><div class="col-md-4">
           <button type="submit" class="btn btn-warning btn-block">Edit Inventory</button></div></div></fieldset>
           </form></div>';
 
-    $retrievedData = $row['Id'];
+    $retrievedData = $row['Inv Id'];
 
     echo '<br><img style="display:block; margin:auto;" src=QRCode.php?text='.$retrievedData.' width="135" height="125" 
         title="QR Code" alt="QR Code"></fieldset></form></div>';

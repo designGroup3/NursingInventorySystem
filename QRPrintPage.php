@@ -19,7 +19,7 @@ include 'header.php';
 
 $id = $_GET['id'];
 
-$sql = "SELECT * FROM inventory WHERE Id = $id;";
+$sql = "SELECT * FROM inventory WHERE `Inv Id` = $id;";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_array($result);
 $serialNumber = $row['Serial Number'];

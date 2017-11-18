@@ -8,7 +8,7 @@ if(isset($_SESSION['id'])) {
     echo "<head><Title>Edit Repair/Update/Upgrade</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";
 
-    $sql="SELECT * FROM `repairs/updates/upgrades` WHERE Id = $id";
+    $sql="SELECT * FROM `repairs/updates/upgrades` WHERE Id = '$id';";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
 

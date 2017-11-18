@@ -30,6 +30,13 @@ if(isset($_SESSION['id'])) {
               The subtype $subtype already relates to the type $type. Subtypes can only have one type.</div><br><br><br>";
         //echo "<br>&nbsp&nbspThe subtype $subtype already relates to the type $type. Subtypes can only have one type.<br>";
     }
+    elseif(strpos($url, 'sameType') !== false){
+        $subtype = $_GET['subtype'];
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              The subtype $subtype is used in the inventory table. Subtypes can only be used in one table.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou must name the item.<br>";
+    }
 
     $sql = "SHOW COLUMNS FROM consumables"; //gets first headers for page
     $result = mysqli_query($conn, $sql);

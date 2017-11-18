@@ -6,7 +6,7 @@ include '../dbh.php';
 if(isset($_SESSION['id'])) {
     $id = $_GET['Id'];
 
-    $sql = "SELECT `Serial Number`, Item, subtypes.Type, inventory.Subtype FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE `Id` = '" . $id."';";
+    $sql = "SELECT `Serial Number`, Item, subtypes.Type, inventory.Subtype FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE `Inv Id` = '" . $id."';";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
 

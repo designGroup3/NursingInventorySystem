@@ -48,18 +48,20 @@ if(isset($_SESSION['id'])) {
         echo "<th>$columnNames[$count]</th>";
     }
 
-    $sql2 = "SELECT `Number in Stock`, Checkoutable FROM inventory WHERE `Id` = '".$id."';";
+    $sql2 = "SELECT `Number in Stock`, Checkoutable FROM inventory WHERE `Inv Id` = '".$id."';";
     $result2 = mysqli_query($conn, $sql2);
     $row2 = mysqli_fetch_array($result2);
     if($row2['Number in Stock'] > 0 && $row2['Checkoutable'] == 1){
         echo "<th>Check-out</th>";
     }
 
-    $serialSql = "SELECT `Serial Number` FROM inventory WHERE Id = '$id';";
+    $serialSql = "SELECT `Serial Number` FROM inventory WHERE `Inv Id` = '$id';";
     $serialResult = mysqli_query($conn, $serialSql);
     $serialRow = mysqli_fetch_array($serialResult);
 
     $serialNumber = $serialRow['Serial Number'];
+    $serialNumber = str_replace("\\","\\\\","$serialNumber");
+    $serialNumber = str_replace("'","\'","$serialNumber");
     $sql3 = "SELECT `Serial Number` FROM checkouts WHERE `Serial Number` = '".$serialNumber."' AND `Return Date` IS NULL;";
     $result3 = mysqli_query($conn, $sql3);
     $row3 = mysqli_num_rows($result3);
@@ -85,7 +87,7 @@ if(isset($_SESSION['id'])) {
             $sql .= "inventory.`".$columnNames[$count] ."`";
         }
     }
-    $sql .= " FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE `Id` = '".$id."';";
+    $sql .= " FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE `Inv Id` = '".$id."';";
 
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_array($result)) {
@@ -109,24 +111,24 @@ if(isset($_SESSION['id'])) {
             }
         }
 
-        $sql2 = "SELECT `Number in Stock`, Checkoutable FROM inventory WHERE `Id` = '".$id."';";
+        $sql2 = "SELECT `Number in Stock`, Checkoutable FROM inventory WHERE `Inv Id` = '".$id."';";
         $result2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_array($result2);
         if($row2['Number in Stock'] > 0 && $row2['Checkoutable'] == 1){
-            echo "<td><a href='includes/QRcheckout.inc.php?Id=".$row['Id']."'>Check-out<br></td>";
+            echo "<td><a href='includes/QRcheckout.inc.php?Id=".$row['Inv Id']."'>Check-out<br></td>";
         }
 
         $sql3 = "SELECT `Serial Number` FROM checkouts WHERE `Serial Number` = '".$serialNumber."' AND `Return Date` IS NULL;";
         $result3 = mysqli_query($conn, $sql3);
         $row3 = mysqli_num_rows($result3);
         if($row3 > 0 && $row2['Checkoutable'] == 1){
-            echo "<td><a href='includes/checkin.inc.php?Id=".$row['Id']."'>Check-in<br></td>";
+            echo "<td><a href='includes/checkin.inc.php?Id=".$row['Inv Id']."'>Check-in<br></td>";
         }
 
-        echo "<td><a href='QRPrintPage.php?id=".$row["Id"]."'>Print QR Code<br></td>
-                <td> <a href='editInventory.php?edit=".$row["Id"]."'>Edit<br></td>";
+        echo "<td><a href='QRPrintPage.php?id=".$row["Inv Id"]."'>Print QR Code<br></td>
+                <td> <a href='editInventory.php?edit=".$row["Inv Id"]."'>Edit<br></td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td><a href='deleteInventory.php?delete=".$row["Id"]."'>Delete<br></td></tr>";
+            echo "<td><a href='deleteInventory.php?delete=".$row["Inv Id"]."'>Delete<br></td></tr>";
         }
         else{
             echo "</tr>";

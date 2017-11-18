@@ -94,14 +94,14 @@ if(isset($_SESSION['id'])) {
     }
     echo "</thead><tbody>";
 
-        $sql = "SELECT Id, `Serial Number`, Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY `Id`;"; //display first four columns
+        $sql = "SELECT `Inv Id`, `Serial Number`, Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY `Inv Id`;"; //display first four columns
         $result = mysqli_query($conn, $sql);
 
         $IDs = array();
-        $sqlColumns = "SELECT `Id` FROM inventory;";
+        $sqlColumns = "SELECT `Inv Id` FROM inventory;";
         $columnResult = mysqli_query($conn, $sqlColumns);
         while($columnRow = mysqli_fetch_array($columnResult)){
-            array_push($IDs, $columnRow['Id']);
+            array_push($IDs, $columnRow['Inv Id']);
         }
 
         $columnNumber = 0;
@@ -112,7 +112,7 @@ if(isset($_SESSION['id'])) {
                 echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
             }
 
-            $sql2 = "SELECT * FROM inventory WHERE `Id` = '" . $IDs[$columnNumber]."';"; //display later columns
+            $sql2 = "SELECT * FROM inventory WHERE `Inv Id` = '" . $IDs[$columnNumber]."';"; //display later columns
             $result2 = mysqli_query($conn, $sql2);
 
             while ($row2 = mysqli_fetch_array($result2)) {
@@ -134,10 +134,10 @@ if(isset($_SESSION['id'])) {
                     }
                 }
 //              echo "<td><a href='QRCode.php?text=".$row["Serial Number"]."'>Show QR Code<br></td>
-                echo "<td><a href='QRPrintPage.php?id=".$row["Id"]."'>Print QR Code<br></td>
-                <td> <a href='editInventory.php?edit=".$row["Id"]."'>Edit<br></td>";
+                echo "<td><a href='QRPrintPage.php?id=".$row["Inv Id"]."'>Print QR Code<br></td>
+                <td> <a href='editInventory.php?edit=".$row["Inv Id"]."'>Edit<br></td>";
                 if ($acctType == "Admin" || $acctType == "Super Admin") {
-                    echo "<td><a href='deleteInventory.php?delete=".$row["Id"]."'>Delete<br></td></tr>";
+                    echo "<td><a href='deleteInventory.php?delete=".$row["Inv Id"]."'>Delete<br></td></tr>";
                 }
                 else{
                     echo "</tr>";

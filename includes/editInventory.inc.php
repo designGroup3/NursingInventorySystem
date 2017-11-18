@@ -25,7 +25,7 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $uid = $row['uid'];
 
-    $sql = "SELECT * FROM inventory WHERE Id = '$id';";
+    $sql = "SELECT * FROM inventory WHERE `Inv Id` = '$id';";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     $originalSerialNumber = $row['Serial Number'];
@@ -81,7 +81,7 @@ if(isset($_SESSION['id'])) {
         exit();
     }
 
-    if($inventoryValues[0] !== "" && $inventoryValues[7] > 1){
+    if($inventoryValues[1] !== "" && $inventoryValues[7] > 1){
         header("Location: ../editInventory.php?edit=$id&error=manySerial");
         exit();
     }
@@ -125,7 +125,7 @@ if(isset($_SESSION['id'])) {
     }
     $subtype = $inventoryValues[3];
 
-    $sql .= " WHERE `Id` = '$id';";
+    $sql .= " WHERE `Inv Id` = '$id';";
 
     //Check Subtypes table
     if($originalSubtype !== $subtype || $originalType !== $type){
@@ -140,6 +140,12 @@ if(isset($_SESSION['id'])) {
             $row = mysqli_fetch_array($typeResult);
             if($row['Type'] !== $type){
                 if(mysqli_num_rows($typeResult) == 0){
+                    $subSql = "SELECT Subtype FROM subtypes WHERE Subtype = '$newSubtype' AND `Table` = 'Consumables';";
+                    $subResult2 = mysqli_query($conn, $subSql);
+                    if(mysqli_num_rows($subResult2) > 0){
+                        header("Location: ../editInventory.php?edit=$id&error=sameType&subtype=$newSubtype");
+                        exit();
+                    }
                     $createSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "', 'Inventory');";
                     $createResult = mysqli_query($conn, $createSql);
                 }
@@ -175,21 +181,23 @@ if(isset($_SESSION['id'])) {
         elseif($originalSubtype !== $subtype && $originalType !== $type){
             $newSubtype = $subtype;
 
-            $subtypeSql = "SELECT Item FROM inventory WHERE Subtype = '$originalSubtype';";
+            $subtypeSql = "SELECT Item FROM inventory WHERE Subtype = '$originalSubtype' AND `Table` = 'Inventory';";
             $subtypeResult = mysqli_query($conn, $subtypeSql);
             if(mysqli_num_rows($subtypeResult) == 1){ //If the only item with that subtype has its subtype changed, change the subtype in the subtypes table.
-//                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
-//                $subtypeResult = mysqli_query($conn, $subtypeSql);
                 $subtypeSql = "UPDATE subtypes SET Subtype = '$newSubtype' WHERE Subtype = '$originalSubtype';";
-                //echo $subtypeSql;
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
             }
             else{
-                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
+                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype' AND `TABLE` = 'Inventory';";
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
                 if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
+                    $subSql = "SELECT Subtype FROM subtypes WHERE Subtype = '$newSubtype' AND `Table` = 'Consumables';";
+                    $subResult2 = mysqli_query($conn, $subSql);
+                    if(mysqli_num_rows($subResult2) > 0){
+                        header("Location: ../editInventory.php?edit=$id&error=sameType&subtype=$newSubtype");
+                        exit();
+                    }
                     $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "', 'Inventory');";
-                    echo $subtypeSql;
                     $subtypeResult = mysqli_query($conn, $subtypeSql);
                 }
             }
@@ -205,7 +213,7 @@ if(isset($_SESSION['id'])) {
     $reportSql .= "'" . $inventoryValues[3] . "'" . ", ";
 
     //Get old quantity
-    $sql2 = "SELECT `Number in Stock` FROM inventory WHERE `Item` = '".$inventoryValues[2]."';";
+    $sql2 = "SELECT `Number in Stock` FROM inventory WHERE `Inv Id` = '".$id."';";
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();
     $current_quantity = $row2['Number in Stock'];

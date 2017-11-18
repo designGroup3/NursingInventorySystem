@@ -6,9 +6,9 @@ include '../dbh.php';
 $type = $_POST['type'];
 $type = str_replace("\\","\\\\","$type");
 $type = str_replace("'","\'","$type");
-$serialNumber = $_POST['serialNumber'];
-$serialNumber = str_replace("\\","\\\\","$serialNumber");
-$serialNumber = str_replace("'","\'","$serialNumber");
+$serialNumber = $_POST['serial'];
+$serialNumber = str_replace("%5C","\\\\","$serialNumber");
+$serialNumber = str_replace("%27","\'","$serialNumber");
 $part = $_POST['part'];
 $part = str_replace("\\","\\\\","$part");
 $part = str_replace("'","\'","$part");
@@ -27,5 +27,4 @@ $sql = "INSERT INTO `repairs/updates/upgrades` (Type, `Serial Number`, Part, Cos
 $result = mysqli_query($conn, $sql);
 
 header("Location: ../repairsUpdatesUpgrades.php");
-
 ?>

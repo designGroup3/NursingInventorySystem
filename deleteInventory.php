@@ -4,7 +4,7 @@ include 'header.php';
 if(isset($_SESSION['id'])) {
     $id = $_GET['delete'];
 
-    $sql = "SELECT * FROM `inventory` WHERE `Id` = '$id';";
+    $sql = "SELECT * FROM `inventory` WHERE `Inv Id` = '$id';";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
     $item = $row['Item'];

@@ -9,6 +9,8 @@ if(isset($_SESSION['id'])) {
     $row = mysqli_fetch_array($result);
     $type = $row['Type'];
     $serialnumber = $row['Serial Number'];
+    $serialnumber = str_replace("\\","\\\\","$serialnumber");
+    $serialnumber = str_replace("'","\'","$serialnumber");
 
     $sql2 = "SELECT * FROM inventory WHERE `Serial Number` = '$serialnumber';";
     $result2 = mysqli_query($conn, $sql2);

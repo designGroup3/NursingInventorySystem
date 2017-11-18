@@ -43,6 +43,13 @@ if(isset($_SESSION['id'])) {
               There can only be 0 or 1 of an item with a serial number.</div><br><br><br>";
         //echo "<br>&nbsp&nbspYou must name the item.<br>";
     }
+    elseif(strpos($url, 'sameType') !== false){
+        $subtype= $_GET['subtype'];
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              The subtype $subtype is used in the consumables table. Subtypes can only be used in one table.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou must name the item.<br>";
+    }
 
     $sql="SHOW COLUMNS FROM inventory";
     $result = mysqli_query($conn, $sql);

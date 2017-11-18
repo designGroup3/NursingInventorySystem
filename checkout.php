@@ -17,9 +17,17 @@ if(isset($_SESSION['id'])) {
     error_reporting(E_ALL ^ E_NOTICE);
     $statedTypes = array();
     $getType = $_GET['type'];
+    $getType = str_replace("%5C","\\","$getType");
+    $getType = str_replace("%27","'","$getType");
     $getSubtype = $_GET['subtype'];
+    $getSubtype = str_replace("%5C","\\","$getSubtype");
+    $getSubtype = str_replace("%27","'","$getSubtype");
     $getItem = $_GET['item'];
+    $getItem = str_replace("%5C","\\","$getItem");
+    $getItem = str_replace("%27","'","$getItem");
     $getSerial = $_GET['serial'];
+    $getSerial = str_replace("%5C","\\","$getSerial");
+    $getSerial = str_replace("%27","'","$getSerial");
 
     $noItem = false;
 
@@ -86,7 +94,11 @@ if(isset($_SESSION['id'])) {
 
     //start subtype
     if($getType !== NULL && $getType !== ""){
+        $getType = str_replace("\\","\\\\","$getType");
+        $getType = str_replace("'","\'","$getType");
         $sql = "SELECT Subtype FROM subtypes WHERE Type = '".$getType."';";
+        $getType = str_replace("\'","%27","$getType");
+        $getType = str_replace("\\\\","%5C","$getType");
         $result = mysqli_query($conn, $sql);
         echo '<form class="well form-horizontal" id="contact_form" method="POST">
         <div class="form-group"><label class="col-md-4 control-label">
@@ -126,7 +138,11 @@ if(isset($_SESSION['id'])) {
 
     //start item
     if($getSubtype !== NULL && $getSubtype !== ""){
+        $getSubtype = str_replace("\\","\\\\","$getSubtype");
+        $getSubtype = str_replace("'","\'","$getSubtype");
         $sql = "SELECT DISTINCT Item FROM inventory WHERE Subtype = '".$getSubtype."' AND Checkoutable = '1';";
+        $getSubtype = str_replace("\'","%27","$getSubtype");
+        $getSubtype = str_replace("\\\\","%5C","$getSubtype");
         $result = mysqli_query($conn, $sql);
 
         echo '<form class="well form-horizontal" id="contact_form" method="POST">
@@ -185,7 +201,11 @@ if(isset($_SESSION['id'])) {
 
     //start Serial
     if($getItem !== NULL && $getItem !== ""){
+        $getItem = str_replace("\\","\\\\","$getItem");
+        $getItem = str_replace("'","\'","$getItem");
         $sql = "SELECT `Serial Number` FROM inventory WHERE Item = '".$getItem."' AND Checkoutable = '1';";
+        $getItem = str_replace("\'","%27","$getItem");
+        $getItem = str_replace("\\\\","%5C","$getItem");
         $result = mysqli_query($conn, $sql);
 
         echo '<form class="well form-horizontal" id="contact_form" method="POST">
@@ -217,8 +237,12 @@ if(isset($_SESSION['id'])) {
     }
 
     //Number in Stock
-    if($getItem !== NULL && $getItem !== ""){
+    if($getSerial !== NULL && $getSerial !== ""){
+        $getSerial = str_replace("\\","\\\\","$getSerial");
+        $getSerial = str_replace("'","\'","$getSerial");
         $sql = "SELECT `Number in Stock` FROM inventory WHERE `Serial Number` = '".$getSerial."';";
+        $getSerial = str_replace("\'","%27","$getSerial");
+        $getSerial = str_replace("\\\\","%5C","$getSerial");
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($result);
         echo '<form action ="includes/checkout.inc.php" method="POST"><label>
@@ -226,7 +250,8 @@ if(isset($_SESSION['id'])) {
         <input type="hidden" name="subtype" value = \''.$getSubtype. '\'>
         <input type="hidden" name="item" value = \''.$getItem. '\'>
         <input type="hidden" name="serial" value = \''.$getSerial. '\'>
-        <div class="form-group"><label class="col-md-4 control-label">Number in Stock:<a style="color:red;" title="This field must be filled">*</a></label>   
+        <div class="form-group"><label class="col-md-4 control-label">Number in Stock:
+        <a style="color:red;" title="This field must be filled">*</a></label>   
         <div class="col-md-4 inputGroupContainer"><div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
         <input type="number" required class="form-control" min="0" name="stock" value='.$row['Number in Stock'].'></div></div></div>';
@@ -316,7 +341,10 @@ if(isset($_SESSION['id'])) {
     echo "<tbody>";
     while ($row = mysqli_fetch_array($result)) {
         $serial2 = $row['Serial Number'];
-        $sql2 = "SELECT Id FROM inventory WHERE `Serial Number` = '$serial2';";
+        $serial2 = str_replace("\\","\\\\","$serial2");
+        $serial2 = str_replace("'","\'","$serial2");
+
+        $sql2 = "SELECT `Inv Id` FROM inventory WHERE `Serial Number` = '$serial2';";
         $result2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_array($result2);
 
@@ -328,7 +356,7 @@ if(isset($_SESSION['id'])) {
         }
         echo "<td><a href='printCheckout.php?Id=$row[Id]'>Print<br></td><td>".$row['Serial Number']."</td><td>".$row['Item']."</td><td>".$row['Type']."</td><td>".$row['Subtype']."</td><td>".$row['Quantity Borrowed']."</td>
         <td>".$row['Person']."</td><td>".$row['Update Person']."</td><td>".date_format(date_create($row['Checkout Date']),'m/d/Y')."</td><td>".date_format(date_create($row['Due Date']),'m/d/Y')."</td>
-        <td><a href='includes/checkin.inc.php?Id=".$row2['Id']."'>Check-In<br></td></tr>";
+        <td><a href='includes/checkin.inc.php?Id=".$row2['Inv Id']."'>Check-In<br></td></tr>";
     }
 
     echo "</tbody></table>";

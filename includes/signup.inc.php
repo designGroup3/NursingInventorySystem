@@ -64,9 +64,13 @@ else{
         exit();
     }
 
+    $pwdRecoverKey = rand();
+    $pwdRecoverKey *= 1000000;
+    $pwdRecoverKey = floor($pwdRecoverKey);
+
     $encrypted_password = password_hash($pwd, PASSWORD_DEFAULT);
     $sql = "INSERT INTO users (first, last, uid, pwd, email, acctType, dateAdded, pwdRecoveryKey) 
-    VALUES ('$first', '$last', '$uid', '$encrypted_password', '$email', '$acctType', '".$date."', rand());";
+    VALUES ('$first', '$last', '$uid', '$encrypted_password', '$email', '$acctType', '".$date."', $pwdRecoverKey);";
 
     $result = mysqli_query($conn, $sql);
 

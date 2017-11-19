@@ -14,6 +14,18 @@ if(isset($_SESSION['id'])) {
               Column deleted successfully.</div><br><br><br><br>";
         //echo "<br>&nbsp&nbspColumn deleted successfully.<br>";
     }
+    elseif(strpos($url, 'editCheckout') !== false){
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              You cannot edit an item that is currently checked-out.</div><br><br><br><br>";
+        //echo "<br>&nbsp&nbspColumn deleted successfully.<br>";
+    }
+    elseif(strpos($url, 'deleteCheckout') !== false){
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              You cannot delete an item that is currently checked-out.</div><br><br><br><br>";
+        //echo "<br>&nbsp&nbspColumn deleted successfully.<br>";
+    }
 
     $columnNames= array();
 

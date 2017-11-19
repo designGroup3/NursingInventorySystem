@@ -4,6 +4,19 @@ include 'header.php';
 if(isset($_SESSION['id'])) {
     $id = $_GET['delete'];
 
+    $serialSql = "SELECT `Serial Number` FROM inventory WHERE `Inv Id` = '$id';";
+    $serialResult = mysqli_query($conn, $serialSql);
+    $serialRow = mysqli_fetch_array($serialResult);
+    $serialNumber = $serialRow['Serial Number'];
+
+    $checkoutSql = "SELECT * FROM checkouts WHERE `Serial Number` = '$serialNumber' AND `Return Date` IS NULL;";
+    $checkoutResult = mysqli_query($conn, $checkoutSql);
+    $checkoutRow = mysqli_num_rows($checkoutResult);
+    if($checkoutRow > 0){
+        header("Location: ./inventory.php?error=deleteCheckout");
+        exit();
+    }
+
     $sql = "SELECT * FROM `inventory` WHERE `Inv Id` = '$id';";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);

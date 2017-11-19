@@ -16,6 +16,7 @@ include './dbh.php';
             position: absolute;
             right: 10px;
             top: 5px;
+            height:27px;
         }
     </style>
     <meta charset="UTF-8">
@@ -44,10 +45,10 @@ if(strpos($url, 'success') !== false){
         Your password has been changed successfully. Please log in with your new password.</div><br><br><br>";
     //echo "<br>&nbsp&nbspYour password has been changed successfully, please log in with your new password.<br>";
 }
-$sql = "SELECT pwdRecoveryKey FROM users WHERE email='$email'";
+$sql = "SELECT `Pwd Recovery Key` FROM users WHERE email='$email'";
 $result = mysqli_query($conn, $sql);
 if($row = $result->fetch_assoc()) {
-    $pwdRecoveryKey = $row['pwdRecoveryKey'];
+    $pwdRecoveryKey = $row['Pwd Recovery Key'];
     if($sentKey !== $pwdRecoveryKey){
         echo "Wrong recovery key sent back. Please contact administrator.";
         exit();
@@ -78,5 +79,7 @@ echo "<div class=\"container\"><form action ='includes/newPassword.inc.php' meth
     
     <br/><div class=\"form-group\" align=\"center\"><label class=\"col-md-4 control-label\"></label>
     <div class=\"col-md-4\"><input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Change Password'>
-    </div></div></fieldset></form></div>";
+    </div></div><br><div style='text-align: center'>
+    <input onclick=\"window.location.href='login.php';\" class=\"btn btn-warning\" style='width: 100px;' value='Login Page'>
+    </div></fieldset></form></div>";
 ?>

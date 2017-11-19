@@ -30,10 +30,10 @@ if(isset($_SESSION['id'])) {
     $columnNames= array();
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     if ($acctType == "Super Admin") {
         echo "<h2 style='text-align: center'>Inventory</h2><br><table style=\"margin-left:auto; margin-right:auto;\">

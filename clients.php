@@ -11,10 +11,10 @@ if(isset($_SESSION['id'])) {
     $columnNames= array();
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     echo "<h2 style='text-align: center'>Clients</h2><br><table style=\"margin-left:auto; margin-right:auto;\">
             <td><form action='addClient.php'>

@@ -30,10 +30,10 @@ $date = $_POST['date'];
 if(isset($_SESSION['id'])) {
     //get update person
     $id = $_SESSION['id'];
-    $sql = "SELECT uid FROM users WHERE id = ". $id.";";
+    $sql = "SELECT Uid FROM users WHERE id = ". $id.";";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
-    $uid = $row['uid'];
+    $uid = $row['Uid'];
 
     $sql = "SELECT CURDATE();";
     $result = mysqli_query($conn, $sql);

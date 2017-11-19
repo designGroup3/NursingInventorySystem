@@ -41,40 +41,40 @@ if(isset($_SESSION['id'])) {
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
           <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-          <input type='text' name='first' value=\"".$row['first']."\" class=\"form-control\" required></div></div></div>
+          <input type='text' name='first' value=\"".$row['First']."\" class=\"form-control\" required></div></div></div>
           
           <div class=\"form-group\"><label class=\"col-md-4 control-label\" >Last Name:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-          <input type='text' name='last' value=\"".$row['last']."\" class=\"form-control\" required></div></div></div>
+          <input type='text' name='last' value=\"".$row['Last']."\" class=\"form-control\" required></div></div></div>
           
           <div class=\"form-group\"><label class=\"col-md-4 control-label\">Username:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>  
           <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-          <input type='text' name='uid' value=\"".$row['uid']."\" class=\"form-control\" required></div></div></div>
-            <input type='hidden' name='originalType' value='".$row['acctType']."'>
-            <input type='hidden' name='originalEmail' value=\"".$row['email']."\">
+          <input type='text' name='uid' value=\"".$row['Uid']."\" class=\"form-control\" required></div></div></div>
+            <input type='hidden' name='originalType' value='".$row['Account Type']."'>
+            <input type='hidden' name='originalEmail' value=\"".$row['Email']."\">
             
           <div class=\"form-group\"><label class=\"col-md-4 control-label\">E-Mail:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
           <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-envelope\"></i></span>
-          <input type='email' name='email' value=\"".$row['email']."\" class=\"form-control\" required></div></div></div>
+          <input type='email' name='email' value=\"".$row['Email']."\" class=\"form-control\" required></div></div></div>
           
           <div class=\"form-group\"><label class=\"col-md-4 control-label\">Account Type:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-list\"></i></span>
           <select name='type' required class=\"form-control selectpicker\">";
-    if($row['acctType'] == "Standard User"){
+    if($row['Account Type'] == "Standard User"){
         echo "<option selected value='Standard User'>Standard User</option><option value='Admin'>Admin</option><option value='Super Admin'>Super Admin</option>";
     }
-    elseif($row['acctType'] == "Admin"){
+    elseif($row['Account Type'] == "Admin"){
         echo "<option value='Standard User'>Standard User</option><option selected value='Admin'>Admin</option><option value='Super Admin'>Super Admin</option>";
     }
-    elseif($row['acctType'] == "Super Admin"){
+    elseif($row['Account Type'] == "Super Admin"){
         echo "<option value='Standard User'>Standard User</option><option value='Admin'>Admin</option><option selected value='Super Admin'>Super Admin</option>";
     }
     echo "</select></div></div></div><div class=\"form-group\"><label class=\"col-md-4 control-label\"></label>

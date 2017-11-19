@@ -23,7 +23,7 @@ $originalType = $_POST['originalType'];
 $type = $_POST['type'];
 
 if($type == "Standard User" || $type == "Admin" ){
-    $sql = "SELECT acctType FROM users WHERE acctType = 'Super Admin'";
+    $sql = "SELECT `Account Type` FROM users WHERE `Account Type` = 'Super Admin'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_num_rows($result);
 
@@ -33,21 +33,21 @@ if($type == "Standard User" || $type == "Admin" ){
     }
 }
 
-$sql = "SELECT uid FROM users WHERE uid='$uid'";
+$sql = "SELECT Uid FROM users WHERE Uid='$uid'";
 $result = mysqli_query($conn, $sql);
 $uidcheck = mysqli_num_rows($result);
 if($uidcheck > 0) {
-    $sql = "SELECT uid FROM users WHERE id='$id'";
+    $sql = "SELECT Uid FROM users WHERE id='$id'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
 
-    if($uid != $row['uid']) {
+    if($uid != $row['Uid']) {
         header("Location: ../editUser.php?edit=".$id."&error=username");
         exit();
     }
 }
 
-$sql = "SELECT email FROM users WHERE email = '$email'";
+$sql = "SELECT Email FROM users WHERE Email = '$email'";
 $result = mysqli_query($conn, $sql);
 $emailCheck = mysqli_num_rows($result);
 if($emailCheck > 0 && $email !== $originalEmail) {
@@ -55,7 +55,7 @@ if($emailCheck > 0 && $email !== $originalEmail) {
     exit();
 }
 
-$sql = "UPDATE users SET first = '$first', last = '$last', uid = '$uid', acctType = '$type', email = '$email' WHERE id ='$id';";
+$sql = "UPDATE users SET First = '$first', Last = '$last', Uid = '$uid', `Account Type` = '$type', Email = '$email' WHERE id ='$id';";
 
 $result = mysqli_query($conn, $sql);
 

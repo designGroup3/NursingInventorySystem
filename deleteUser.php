@@ -7,7 +7,7 @@ if(isset($_SESSION['id'])) {
     $sql = "SELECT * FROM users WHERE id = $id;";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
-    $uid = $row['uid'];
+    $uid = $row['Uid'];
 
     echo "<head><Title>Delete User</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";

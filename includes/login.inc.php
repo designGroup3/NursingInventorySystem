@@ -7,10 +7,10 @@ $uid = str_replace("\\","\\\\","$uid");
 $uid = str_replace("'","\'","$uid");
 $pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
 
-$sql = "SELECT * FROM users WHERE uid = '$uid'";
+$sql = "SELECT * FROM users WHERE Uid = '$uid'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
-$hash_pwd = $row['pwd'];
+$hash_pwd = $row['Pwd'];
 $hash = password_verify($pwd, $hash_pwd);
 
 if($hash == 0){
@@ -18,7 +18,7 @@ if($hash == 0){
     exit();
 
 } else {
-    $stmt = $conn->prepare("SELECT * FROM users WHERE uid= ? AND pwd = ?");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE Uid= ? AND Pwd = ?");
     $stmt->bind_param("ss", $username, $password);
 
     $username = $uid;
@@ -29,7 +29,8 @@ if($hash == 0){
 
     $stmt->close();
 
-    $_SESSION['id'] = $row['id'];
+    $_SESSION['id'] = $row['Id'];
+
     header("Location: ../index.php");
 }
 ?>

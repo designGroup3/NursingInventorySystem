@@ -135,10 +135,10 @@ include 'header.php';
         <select required class=\"form-control selectpicker\" name='acctType'>
         <option value='Standard User'>Standard User</option>";
         $currentID = $_SESSION['id'];
-        $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+        $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
         $result = mysqli_query($conn, $sql);
         $row = $result->fetch_assoc();
-        $acctType = $row['acctType'];
+        $acctType = $row['Account Type'];
         if($acctType == "Admin" || $acctType == "Super Admin"){
             echo "<option value='Admin'>Admin</option>";
         }

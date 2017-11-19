@@ -20,10 +20,10 @@ $subtype;
 if(isset($_SESSION['id'])) {
     error_reporting(E_ALL ^ E_NOTICE);
     $currentID = $_SESSION['id'];
-    $sql = "SELECT uid FROM users WHERE id='$currentID'";
+    $sql = "SELECT Uid FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $uid = $row['uid'];
+    $uid = $row['Uid'];
 
     $sql = "SELECT * FROM inventory WHERE `Inv Id` = '$id';";
     $result = mysqli_query($conn, $sql);

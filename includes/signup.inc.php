@@ -48,7 +48,7 @@ if(empty($pwd)){
     exit();
 }
 else{
-    $sql="SELECT uid FROM users WHERE uid='$uid'";
+    $sql="SELECT Uid FROM users WHERE Uid='$uid'";
     $result = mysqli_query($conn, $sql);
     $uidcheck = mysqli_num_rows($result);
     if($uidcheck > 0){
@@ -56,7 +56,7 @@ else{
         exit();
     }
 
-    $sql="SELECT email FROM users WHERE email='$email'";
+    $sql="SELECT Email FROM users WHERE Email='$email'";
     $result = mysqli_query($conn, $sql);
     $emailcheck = mysqli_num_rows($result);
     if($emailcheck > 0){
@@ -69,7 +69,7 @@ else{
     $pwdRecoverKey = floor($pwdRecoverKey);
 
     $encrypted_password = password_hash($pwd, PASSWORD_DEFAULT);
-    $sql = "INSERT INTO users (first, last, uid, pwd, email, acctType, dateAdded, pwdRecoveryKey) 
+    $sql = "INSERT INTO users (First, Last, Uid, Pwd, Email, `Account Type`, `Date Added`, `Pwd Recovery Key`) 
     VALUES ('$first', '$last', '$uid', '$encrypted_password', '$email', '$acctType', '".$date."', $pwdRecoverKey);";
 
     $result = mysqli_query($conn, $sql);

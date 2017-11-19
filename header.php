@@ -286,10 +286,10 @@
                         <span class="glyphicon glyphicon-user"></span>
                         <?php
                         $currentID = $_SESSION['id'];
-                        $sql = "SELECT acctType, uid FROM users WHERE id='$currentID'";
+                        $sql = "SELECT `Account Type`, uid FROM users WHERE id='$currentID'";
                         $result = mysqli_query($conn, $sql);
                         $row = $result->fetch_assoc();
-                        $acctType = $row['acctType'];
+                        $acctType = $row['Account Type'];
                         $uid = $row['uid'];
 
                         echo "<strong>$uid</strong>";

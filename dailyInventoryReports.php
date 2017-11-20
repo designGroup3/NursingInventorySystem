@@ -32,7 +32,7 @@ if(isset($_SESSION['id'])) {
         $resultCheck = mysqli_num_rows($result);
 
         if($resultCheck > 0) {
-            echo "<br><h2 class='center'><b>&nbsp&nbspActivities for ".date_format($dateTitle, 'm/d/Y')."</b></h2>
+            echo "<br><h2 class='center'><b>Activities for ".date_format($dateTitle, 'm/d/Y')."</b></h2>
 
             <br><form class='center' action='dailyInventoryReportsExcel.php' method ='post'>
                 <input type='hidden' name='date' value = " .$date.">
@@ -63,7 +63,7 @@ if(isset($_SESSION['id'])) {
             echo "</tbody></table>";
         }
         else{
-            echo "<br><p>&nbsp&nbspThere are no activities at the date you selected.</p>";
+            echo "<br><h2 class='center'><b>There are no activities for the date you selected.";
         }
     }
 }

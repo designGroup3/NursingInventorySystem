@@ -61,7 +61,7 @@ if(isset($_SESSION['id'])) {
             echo "</tbody></table>";
         }
         else{
-            echo "<br><p>&nbsp&nbspThere are no activities at the date you selected.</p>";
+            echo "<br><h2 class='center'><b>There are no activities for the date you selected.";
         }
     }
 }

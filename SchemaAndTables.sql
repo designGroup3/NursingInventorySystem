@@ -57,7 +57,7 @@ CREATE TABLE `loginsystem`.`checkouts` (
   `Item` VARCHAR(100) NOT NULL,
   `Subtype` VARCHAR(100) NOT NULL,
   `Quantity Borrowed` INT NOT NULL,
-  `Serial Number` VARCHAR(100),
+  `Serial Number` VARCHAR(100) NOT NULL,
   `Person` VARCHAR(100) NOT NULL,
   `Reason` VARCHAR(500) NOT NULL,
   `Notes` VARCHAR(1000),

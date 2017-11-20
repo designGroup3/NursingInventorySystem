@@ -9,7 +9,7 @@ CREATE TABLE loginsystem.users (
   Email VARCHAR(200) NOT NULL,
   `Account Type` VARCHAR(20) NOT NULL,
   `Date Added` DATE NOT NULL,
-  `Pwd Recovery Key` VARCHAR(100),
+  `Pwd Recovery Key` VARCHAR(100) NOT NULL,
   PRIMARY KEY (id));
 
 CREATE TABLE loginsystem.subtypes (

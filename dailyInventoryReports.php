@@ -8,7 +8,7 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Daily Consumable Reports</Title></head><body><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+    echo "<head><Title>Daily Inventory Reports</Title></head><body><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
@@ -27,20 +27,21 @@ if(isset($_SESSION['id'])) {
         $date = $_POST['date'];
         $dateTitle = date_create($date);
 
-        $sql = "SELECT `Activity Type`, Item, consumableReports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM consumableReports JOIN subtypes ON subtypes.Subtype = consumableReports.Subtype WHERE Timestamp BETWEEN '".$date." 00:00:00' AND '".$date." 23:59:59';";
+        $sql = "SELECT `Activity Type`, `Serial Number`, Item, inventoryReports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM inventoryReports JOIN subtypes ON subtypes.Subtype = inventoryReports.Subtype WHERE Timestamp BETWEEN '".$date." 00:00:00' AND '".$date." 23:59:59';";
         $result = mysqli_query($conn, $sql);
         $resultCheck = mysqli_num_rows($result);
 
         if($resultCheck > 0) {
             echo "<br><h2 class='center'><b>&nbsp&nbspActivities for ".date_format($dateTitle, 'm/d/Y')."</b></h2>
 
-            <br><form class='center' action='dailyReportsExcel.php' method ='post'>
+            <br><form class='center' action='dailyInventoryReportsExcel.php' method ='post'>
                 <input type='hidden' name='date' value = " .$date.">
                 <input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Export to Excel'>
                 </form>
 
             <br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
             <thead><tr><th>Activity Type</th>
+            <th>Serial Number</th>
             <th>Item</th>
             <th>Type</th>
             <th>Subtype</th>
@@ -50,6 +51,7 @@ if(isset($_SESSION['id'])) {
 
             while ($row = mysqli_fetch_array($result)) {
                 echo "<tr><td> " . $row['Activity Type'] . "</td>
+                <td> " . $row['Serial Number'] . "</td>
                 <td> " . $row['Item'] . "</td>
                 <td> " . $row['Type'] . "</td>
                 <td> " . $row['Subtype'] . "</td>

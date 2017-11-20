@@ -66,17 +66,17 @@ INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `
 
 INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) VALUES ('3', 'HP P3005 Toner', 'Black Toner', '1', 'Roxanne Reid', 'Printer\'s out', '2017-10-10', 'admin');
 
-INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('1', 'Add inventory', 'Canon PowerShot A710 IS', 'Still Camera', '1', '2017-10-10 10:06:10', 'Craig');
+INSERT INTO `loginsystem`.`inventoryReports` (`Id`, `Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('1', 'Add inventory', 'XU338026956', 'Canon PowerShot A710 IS', 'Still Camera', '1', '2017-10-10 10:06:10', 'Craig');
 
-INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('2', 'Edit inventory', 'Apple MAC OS X 10.4', 'Apple', '1', '2017-10-11 12:36:16', 'admin');
+INSERT INTO `loginsystem`.`inventoryReports` (`Id`, `Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('2', 'Edit inventory', 'ET474374601', 'Apple MAC OS X 10.4', 'Apple', '1', '2017-10-11 12:36:16', 'admin');
 
-INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('3', 'Delete inventory', 'Brother HL-2270DW Printer', 'Brother 2000 Series', '1', '2017-10-10 15:05:00', 'admin');
+INSERT INTO `loginsystem`.`inventoryReports` (`Id`, `Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('3', 'Delete inventory', 'YW425757483', 'Brother HL-2270DW Printer', 'Brother 2000 Series', '1', '2017-10-10 15:05:00', 'admin');
 
-INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('4', 'Add consumable', 'HP LaserJet 1012,1018,1022 Toner', 'Black Toner', '5', '2017-10-10 08:51:32', 'admin');
+INSERT INTO `loginsystem`.`consumableReports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('4', 'Add consumable', 'HP LaserJet 1012,1018,1022 Toner', 'Black Toner', '5', '2017-10-10 08:51:32', 'admin');
 
-INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('5', 'Edit consumable', 'Verbatim PinStrip USB Drive', 'Flash Drive', '1', '2017-10-11 17:42:12', 'Craig');
+INSERT INTO `loginsystem`.`consumableReports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('5', 'Edit consumable', 'Verbatim PinStrip USB Drive', 'Flash Drive', '1', '2017-10-11 17:42:12', 'Craig');
 
-INSERT INTO `loginsystem`.`reports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('6', 'Delete consumable', 'Staples 16GB Flash Drive', 'Flash Drive', '1', '2017-10-11 13:14:16', 'admin');
+INSERT INTO `loginsystem`.`consumableReports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('6', 'Delete consumable', 'Staples 16GB Flash Drive', 'Flash Drive', '1', '2017-10-11 13:14:16', 'admin');
 
 INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('1', 'Repair', 'XU338026956', 'Lens', '29.95', '2017-10-24', 'Canon', 'Replaces broken lens');
 

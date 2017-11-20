@@ -78,7 +78,18 @@ CREATE TABLE `loginsystem`.`consumptions` (
   `Update Person` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`Id`));
 
-CREATE TABLE `loginsystem`.`reports` (
+CREATE TABLE `loginsystem`.`inventoryReports` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Activity Type` VARCHAR(100) NOT NULL,
+  `Serial Number` VARCHAR(100) NOT NULL,
+  `Item` VARCHAR(100) NOT NULL,
+  `Subtype` VARCHAR(100) NOT NULL,
+  `Quantity` INT NOT NULL,
+  `Timestamp` VARCHAR(100) NOT NULL,
+  `Update Person` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`Id`));
+
+CREATE TABLE `loginsystem`.`consumableReports` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Activity Type` VARCHAR(100) NOT NULL,
   `Item` VARCHAR(100) NOT NULL,

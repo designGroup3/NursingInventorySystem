@@ -32,6 +32,8 @@ if(isset($_SESSION['id'])) {
         }
     }
 
+    print_r($receivedValues);
+
     $sql2 = "SELECT CURRENT_TIMESTAMP;"; //gets current time
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();
@@ -151,8 +153,9 @@ if(isset($_SESSION['id'])) {
     }
 
     //Reports
-    $sql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Inventory',";
+    $sql = "INSERT INTO inventoryReports (`Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Inventory',";
 
+    $sql .= "'" . $receivedValues[1] . "'" . ", ";
     $sql .= "'" . $receivedValues[2] . "'" . ", ";
     $sql .= "'" . $receivedValues[3] . "'" . ", ";
     $sql .= "'" . $receivedValues[7] . "'" . ", ";

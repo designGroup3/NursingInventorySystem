@@ -15,11 +15,15 @@ if(isset($_SESSION['id'])) {
     $sql = "DELETE FROM inventory WHERE `Inv Id` = '$id';";
 
     //Reports
-    $reportSql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Inventory',";
+    $reportSql = "INSERT INTO inventoryReports (`Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Inventory',";
 
-    $sql2 = "SELECT Item, Subtype, `Number in Stock` FROM inventory WHERE `Inv Id` = '". $id."';";
+    $sql2 = "SELECT `Serial Number`, Item, Subtype, `Number in Stock` FROM inventory WHERE `Inv Id` = '". $id."';";
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();
+
+    $serial = $row2['Serial Number'];
+    $serial = str_replace("\\","\\\\","$serial");
+    $serial = str_replace("'","\'","$serial");
 
     $item = $row2['Item'];
     $item = str_replace("\\","\\\\","$item");
@@ -29,6 +33,7 @@ if(isset($_SESSION['id'])) {
     $subtype = str_replace("\\","\\\\","$subtype");
     $subtype = str_replace("'","\'","$subtype");
 
+    $reportSql .= "'" . $serial . "'" . ", ";
     $reportSql .= "'" . $item . "'" . ", ";
     $reportSql .= "'" . $subtype . "'" . ", ";
     $reportSql .= "'" . $row2['Number in Stock'] . "'" . ", ";

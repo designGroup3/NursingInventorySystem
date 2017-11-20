@@ -231,9 +231,9 @@
                                 <!-- This will link to Add inventory page-->
                                 <li><a data-filter=".97" href="inventory.php"><img src="images/editinvntry_nvtn.png" width="100px"><span>View/Edit/Delete</span></a></li>
                                 <!-- view/edit/delete colomns and items types/subtypes in the inventory tables-->
-								<li><a data-filter=".96" href="dailyReports.php"><img src="images/rprtdly_nvtn.png" ><span>Daily Reports</span></a></li>
+								<li><a data-filter=".96" href="dailyInventoryReports.php"><img src="images/rprtdly_nvtn.png" ><span>Daily Reports</span></a></li>
                                 <!-- Report generation Page-->
-								<li><a data-filter=".96" href="otherReports.php"><img src="images/othrrprt_nvtn.png" ><span>Other Reports</span></a></li>
+								<li><a data-filter=".96" href="otherInventoryReports.php"><img src="images/othrrprt_nvtn.png" ><span>Other Reports</span></a></li>
                                 <li><a data-filter=".87" href="searchInventoryForm.php"><img src="images/invsrch_nvtn.png"><span>Search Inventory</span></a></li>
                             </ul>
                           </div>

@@ -191,7 +191,7 @@ if(isset($_SESSION['id'])) {
     }
 
     //Reports
-    $reportSql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Consumable',";
+    $reportSql = "INSERT INTO consumableReports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Consumable',";
 
     $item = $consumableValues[0];
 

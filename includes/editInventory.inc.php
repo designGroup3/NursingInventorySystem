@@ -207,8 +207,9 @@ if(isset($_SESSION['id'])) {
     }
 
     //Reports
-    $reportSql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Inventory',";
+    $reportSql = "INSERT INTO inventoryReports (`Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Inventory',";
 
+    $reportSql .= "'" . $inventoryValues[1] . "'" . ", ";
     $reportSql .= "'" . $inventoryValues[2] . "'" . ", ";
     $reportSql .= "'" . $inventoryValues[3] . "'" . ", ";
 

@@ -3,8 +3,6 @@ session_start();
 include '../dbh.php';
 
 $uid = mysqli_real_escape_string($conn, $_POST['uid']);
-$uid = str_replace("\\","\\\\","$uid");
-$uid = str_replace("'","\'","$uid");
 $pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
 
 $sql = "SELECT * FROM users WHERE Uid = '$uid'";

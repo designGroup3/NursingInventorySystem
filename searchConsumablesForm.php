@@ -17,7 +17,7 @@ if(isset($_SESSION['id'])) {
 
     echo "<br><div class=\"container\">
         <form class='well form-horizontal' action ='searchConsumablesResults.php' method ='POST' id='contact_form'>
-        <fieldset><h2 align='center'>Enter what criteria you would like to see any matching consumables for.</h2><br>";
+        <fieldset><h2 align='center'>Search Consumables</h2><br>";
     for($count = 0; $count < 3; $count++){
         $columnName = $columnNames[$count];
         if($count == 2){

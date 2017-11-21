@@ -55,7 +55,7 @@ if($row = $result->fetch_assoc()) {
     }
 }
 echo "<div class=\"container\"><form action ='includes/newPassword.inc.php' method ='POST'
-    class=\"well form-horizontal\" id=\"contact_form\"><fieldset><h2 align=\"center\">Change Password</h2><br/>
+    class=\"well form-horizontal\" id=\"contact_form\"><fieldset><h2 align=\"center\">New Password</h2><br/>
     <input type='hidden' name='email' value = $email>
     <input type='hidden' name='pwdRecoveryKey' value = $pwdRecoveryKey>
     

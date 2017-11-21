@@ -8,7 +8,7 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Broad Reports</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+    echo "<head><Title>Broad Reports</Title></head><body><div class=\"parent\"><button class='help' style='height:27px;' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
@@ -26,7 +26,7 @@ if(isset($_SESSION['id'])) {
         <input type='date' class=\"form-control\" name='endDate'></div></div></div>
         
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-        <button name=\"submit\" type=\"submit\" class=\"btn btn-success btn-block\" id=\"contact-submit\" 
+        <button name=\"submit\" type=\"submit\" class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
         data-submit=\"...Sending\">Submit</button></div></div></form>
 
         <form style='text-align:center;' action='consumptionsReportExcel.php' method='post'>

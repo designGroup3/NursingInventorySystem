@@ -18,7 +18,7 @@ if(isset($_SESSION['id'])) {
 
     echo "<br><div class=\"container\">
         <form action ='searchInventoryResults.php' class=\"well form-horizontal\" id=\"contact_form\" method ='POST'>
-        <fieldset><h2 align=\"center\">Enter what criteria you would like to see any matching inventory for</h2><br>";
+        <fieldset><h2 align=\"center\">Search Inventory</h2><br>";
     for($count = 1; $count < 5; $count++){
         $columnName = $columnNames[$count];
         if($count == 4){

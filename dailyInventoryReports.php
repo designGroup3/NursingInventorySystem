@@ -8,7 +8,7 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Daily Inventory Reports</Title></head><body><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+    echo "<head><Title>Daily Inventory Reports</Title></head><body><div class=\"parent\"><button class=\"help\" style='height:27px;' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 

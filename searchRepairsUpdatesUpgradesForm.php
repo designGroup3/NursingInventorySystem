@@ -8,8 +8,7 @@ if(isset($_SESSION['id'])) {
         <i class='fa fa-question'></i></button></div>";
 
     echo "<div class=\"container\"><form action ='searchRepairsUpdatesUpgradesResults.php' method ='POST'
-          class=\"well form-horizontal\" id=\"contact_form\"><fieldset><h2 align=\"center\">Search Repairs/Updates/Upgrades</h2>
-          <p align=\"center\">Enter what criteria you would like to see any matching repairs/updates/upgrades for.</p><br/>
+          class=\"well form-horizontal\" id=\"contact_form\"><fieldset><h2 align=\"center\">Search Repairs/Updates/Upgrades</h2><br/>
           
           <div class=\"form-group\"> <label class=\"col-md-4 control-label\">Service Type:</label>
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
@@ -25,7 +24,7 @@ if(isset($_SESSION['id'])) {
           <span class=\"input-group-addon\"><i class=\"fa fa-hashtag\"></i></span>
           <select name='serialNumber' class=\"form-control selectpicker\">
           <option value=''></option>";
-    $sql = "SELECT `Serial Number` FROM inventory";
+    $sql = "SELECT `Serial Number` FROM `repairs/updates/upgrades`;";
     $result = mysqli_query($conn, $sql);
     while($row = mysqli_fetch_array($result)) {
         echo '<option value = "'.$row['Serial Number'].'">'.$row['Serial Number'].'</option>';

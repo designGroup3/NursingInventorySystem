@@ -3,26 +3,39 @@ session_start();
 
 include '../dbh.php';
 
-$serialNumber = $_POST['serialNumber'];
+$id = $_POST['id'];
 
 if(isset($_SESSION['id'])) {
     $currentID = $_SESSION['id'];
-    $sql = "SELECT uid FROM users WHERE id='$currentID'";
+    $sql = "SELECT Uid FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $uid = $row['uid'];
+    $uid = $row['Uid'];
 
-    $sql = "DELETE FROM inventory WHERE `Serial Number` = '$serialNumber';";
+    $sql = "DELETE FROM inventory WHERE `Inv Id` = '$id';";
 
     //Reports
-    $reportSql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Inventory',";
+    $reportSql = "INSERT INTO inventoryReports (`Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Inventory',";
 
-    $sql2 = "SELECT Item, Subtype, `Number in Stock` FROM inventory WHERE `Serial Number` = '". $serialNumber."';";
+    $sql2 = "SELECT `Serial Number`, Item, Subtype, `Number in Stock` FROM inventory WHERE `Inv Id` = '". $id."';";
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();
 
-    $reportSql .= "'" . $row2['Item'] . "'" . ", ";
-    $reportSql .= "'" . $row2['Subtype'] . "'" . ", ";
+    $serial = $row2['Serial Number'];
+    $serial = str_replace("\\","\\\\","$serial");
+    $serial = str_replace("'","\'","$serial");
+
+    $item = $row2['Item'];
+    $item = str_replace("\\","\\\\","$item");
+    $item = str_replace("'","\'","$item");
+
+    $subtype = $row2['Subtype'];
+    $subtype = str_replace("\\","\\\\","$subtype");
+    $subtype = str_replace("'","\'","$subtype");
+
+    $reportSql .= "'" . $serial . "'" . ", ";
+    $reportSql .= "'" . $item . "'" . ", ";
+    $reportSql .= "'" . $subtype . "'" . ", ";
     $reportSql .= "'" . $row2['Number in Stock'] . "'" . ", ";
 
     $sql3 = "SELECT CURRENT_TIMESTAMP;";

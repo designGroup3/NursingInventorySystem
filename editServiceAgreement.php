@@ -73,11 +73,11 @@ if(isset($_SESSION['id'])) {
         method ='POST' id=\"contact_form\" enctype='multipart/form-data'><fieldset>
         <h2 align=\"center\">Edit Service Agreement</h2><br/>
         <input type='hidden' name='id' value = $id><div class=\"form-group\">
-        <label class=\"col-md-4 control-label\">Name:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label><div class=\"col-md-4 inputGroupContainer\">
+        <label class=\"col-md-4 control-label\">Agreement Name: <a style=\"color:red;\" title=\"This field must be filled\">*</a></label><div class=\"col-md-4 inputGroupContainer\">
         <div class=\"input-group\"><span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-tag\"></i></span>
         <input name=\"name\" class=\"form-control\" required type=\"text\" value=\"".$row['Name']."\"></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\" >Annual Cost:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Annual Cost: <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"fa fa-usd\"></i></span>
         <input name='cost' class='form-control data-fv-numeric-decimalseparator' required 
@@ -91,12 +91,12 @@ if(isset($_SESSION['id'])) {
         <span class=\"input-group-addon\"><i class=\"fa fa-clock-o\"></i></span>
         <input type='text' name='duration' required value=\"".$row['Duration']."\" class=\"form-control\"></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Expiration Date:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Expiration Date: <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
         <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"fa fa-calendar-times-o\"></i></span>
         <input type='date' name='date' required value=\"".$row['Expiration Date']."\" class=\"form-control\"></div></div></div>
         
-        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Approval Form:</label>
+        <div class=\"form-group\"><label class=\"col-md-4 control-label\">Approval Form: </label>
         <div class=\"col-md-4\"><input type=\"file\" class=\"form-control\" name=\"file\" id='file'/></div></div>
         
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">

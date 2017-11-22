@@ -7,11 +7,11 @@ $type = $_POST['type'];
 $type = str_replace("\\","\\\\","$type");
 $type = str_replace("'","\'","$type");
 $subType = $_POST['subtype'];
-$subType = str_replace("\\","\\\\","$subType");
-$subType = str_replace("'","\'","$subType");
+$subType = str_replace("%5C","\\\\","$subType");
+$subType = str_replace("%27","\'","$subType");
 $item = $_POST['item'];
-$item = str_replace("\\","\\\\","$item");
-$item = str_replace("'","\'","$item");
+$item = str_replace("%5C","\\\\","$item");
+$item = str_replace("%27","\'","$item");
 $numBorrowed = $_POST['stock'];
 $person = $_POST['person'];
 $person = str_replace("\\","\\\\","$person");
@@ -23,11 +23,11 @@ $reason = str_replace("'","\'","$reason");
 if(isset($_SESSION['id'])) {
     //get update person
     $id = $_SESSION['id'];
-    $sql = "SELECT uid FROM users WHERE id = ". $id.";";
+    $sql = "SELECT Uid FROM users WHERE id = ". $id.";";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
 
-    $uid = $row['uid'];
+    $uid = $row['Uid'];
 
     $sql = "SELECT CURDATE();";
     $result = mysqli_query($conn, $sql);

@@ -8,28 +8,28 @@ if(isset($_SESSION['id'])) {
     echo "<head><Title>Edit Repair/Update/Upgrade</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";
 
-    $sql="SELECT * FROM `repairs/updates/upgrades` WHERE Id = $id";
+    $sql="SELECT * FROM `repairs/updates/upgrades` WHERE Id = '$id';";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
 
     echo "<div class=\"container\"><form action ='includes/editRepairUpdateUpgrade.inc.php' method ='POST'
           class=\"well form-horizontal\" id=\"contact_form\"><fieldset><h2 align=\"center\">Edit Repair/Update/Upgrade</h2><br/>
           <input type='hidden' name='id' value = $id>
-          <div class=\"form-group\"><label class=\"col-md-4 control-label\">Type:
+          <div class=\"form-group\"><label class=\"col-md-4 control-label\">Service Type:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
-          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
+          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-list\"></i></span>
           <select name='type' required class=\"form-control selectpicker\">
           <option value=''></option>";
           if($row['Type'] == "Repair"){
               echo "<option selected value='Repair'>Repair</option>
               <option value='Update'>Update</option>
-              <option value='Upgrade'>Upgrade</option></select><br><br>";
+              <option value='Upgrade'>Upgrade</option></select></div></div></div>";
           }
           elseif($row['Type'] == "Update"){
               echo "<option value='Repair'>Repair</option>
               <option selected value='Update'>Update</option>
-              <option value='Upgrade'>Upgrade</option></select><br><br>";
+              <option value='Upgrade'>Upgrade</option></select></div></div></div>";
           }
           elseif($row['Type'] == "Upgrade"){
               echo "<option value='Repair'>Repair</option>
@@ -52,24 +52,7 @@ if(isset($_SESSION['id'])) {
                   echo '<option value = "'.$row2['Serial Number'].'">'.$row2['Serial Number'].'</option>';
               }
           }
-        echo "</select></div></div></div><div class=\"form-group\">
-          <label class=\"col-md-4 control-label required\" >Item:
-          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
-          <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-          <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
-          <select name='item' required class=\"form-control selectpicker\">";
-        $sql2 = "SELECT `Item` FROM inventory";
-        $result2 = mysqli_query($conn, $sql2);
-        while($row2 = mysqli_fetch_array($result2)) {
-            if($row['Item'] === $row2['Item']){
-                echo '<option selected value = "'.$row2['Item'].'">'.$row2['Item'].'</option>';
-            }
-            else{
-                echo '<option value = "'.$row2['Item'].'">'.$row2['Item'].'</option>';
-            }
-        }
-
-          echo "</select></div></div></div>
+        echo "</select></div></div></div>
 
           <div class=\"form-group\"><label class=\"col-md-4 control-label\">Part:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>

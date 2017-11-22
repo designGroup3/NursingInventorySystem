@@ -8,18 +8,22 @@ if(isset($_SESSION['id'])) {
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     $first = $_POST['first'];
+    $first = str_replace("\\","\\\\\\\\","$first");
     $first = str_replace("'","\'","$first");
     $last = $_POST['last'];
+    $last = str_replace("\\","\\\\\\\\","$last");
     $last = str_replace("'","\'","$last");
     $accountName = $_POST['accountName'];
+    $accountName = str_replace("\\","\\\\\\\\","$accountName");
     $accountName = str_replace("'","\'","$accountName");
     $email = $_POST['email'];
+    $email = str_replace("\\","\\\\\\\\","$email");
     $email = str_replace("'","\'","$email");
     $accountType = $_POST['accountType'];
     $dateAdded = $_POST['dateAdded'];
@@ -37,7 +41,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "first LIKE '%".$first."%'";
+        $sql .= "First LIKE '%".$first."%'";
         $andNeeded = true;
     }
     if($last !== "")
@@ -45,7 +49,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "last LIKE '%".$last."%'";
+        $sql .= "Last LIKE '%".$last."%'";
         error_reporting(E_ERROR | E_PARSE); //silences warning that comes up if a string is searched for
         $andNeeded = true;
     }
@@ -56,7 +60,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "uid LIKE '%".$accountName."%'";
+        $sql .= "Uid LIKE '%".$accountName."%'";
         $andNeeded = true;
     }
     if($email !== "")
@@ -65,7 +69,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "email LIKE '%".$email."%'";
+        $sql .= "Email LIKE '%".$email."%'";
         $andNeeded = true;
     }
     if($accountType !== "")
@@ -74,7 +78,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "acctType LIKE '%".$accountType."%'";
+        $sql .= "`Account Type` LIKE '%".$accountType."%'";
         $andNeeded = true;
     }
     if($dateAdded !== "")
@@ -83,7 +87,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "dateAdded LIKE '%".$dateAdded."%'";
+        $sql .= "`Date Added` LIKE '%".$dateAdded."%'";
         $andNeeded = true;
     }
     $sql .=";";
@@ -110,16 +114,16 @@ if(isset($_SESSION['id'])) {
             }
             echo "</tr></thead><tbody>";
         }
-        echo "<tr><td> ".$row['first']."</td>
-              <td> ".$row['last']."</td>
-              <td> ".$row['uid']."</td>
-              <td> ".$row['email']."</td>
-              <td> ".$row['acctType']."</td>";
-              $date = date_create($row['dateAdded']);
+        echo "<tr><td> ".$row['First']."</td>
+              <td> ".$row['Last']."</td>
+              <td> ".$row['Uid']."</td>
+              <td> ".$row['Email']."</td>
+              <td> ".$row['Account Type']."</td>";
+              $date = date_create($row['Date Added']);
               echo '<td>'.date_format($date, "m/d/Y").'</td>';
         if ($acctType == "Super Admin") {
-            echo "<td> <a href='editUser.php?edit=$row[id]'>Edit</a><br></td>
-            <td> <a href='deleteUser.php?id=$row[id]&uid=$row[uid]'>Delete</a><br></td>";
+            echo "<td> <a href='editUser.php?edit=$row[Id]'>Edit</a><br></td>
+            <td> <a href='deleteUser.php?id=$row[Id]&uid=$row[Uid]'>Delete</a><br></td>";
         }
         echo "</tr>";
     }

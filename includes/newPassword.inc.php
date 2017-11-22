@@ -12,7 +12,7 @@ if($newPassword !== $confirmNewPassword){
     exit();
 }
 $encrypted_password = password_hash($newPassword, PASSWORD_DEFAULT);
-$sql = "UPDATE users SET pwd = '$encrypted_password' WHERE email ='$email'";
+$sql = "UPDATE users SET Pwd = '$encrypted_password' WHERE Email ='$email'";
 $result = mysqli_query($conn, $sql);
 header("Location: ../newPassword.php?success");
 ?>

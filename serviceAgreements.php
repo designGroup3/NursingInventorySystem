@@ -18,10 +18,10 @@ if(isset($_SESSION['id'])) {
     </table>";
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     $sql = "SELECT * FROM serviceAgreements;";
     $result = mysqli_query($conn, $sql);

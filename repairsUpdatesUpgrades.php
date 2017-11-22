@@ -8,10 +8,10 @@ if(isset($_SESSION['id'])) {
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     echo "<h2 style='text-align: center'>Repairs/Updates/Upgrades</h2><br><table style=\"margin-left:auto; margin-right:auto;\">
         <td><form action='addRepairUpdateUpgrade.php'>
@@ -23,7 +23,7 @@ if(isset($_SESSION['id'])) {
               </form></td></table>";
 
 
-    $sql = "SELECT * FROM `repairs/updates/upgrades`;";
+    $sql = "SELECT * FROM `repairs/updates/upgrades` JOIN inventory ON inventory.`Serial Number` = `repairs/updates/upgrades`.`Serial Number`;";
     $result = mysqli_query($conn, $sql);
     echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>
     <tr><th>Type</th>

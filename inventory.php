@@ -14,14 +14,26 @@ if(isset($_SESSION['id'])) {
               Column deleted successfully.</div><br><br><br><br>";
         //echo "<br>&nbsp&nbspColumn deleted successfully.<br>";
     }
+    elseif(strpos($url, 'editCheckout') !== false){
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              You cannot edit an item that is currently checked-out.</div><br><br><br><br>";
+        //echo "<br>&nbsp&nbspColumn deleted successfully.<br>";
+    }
+    elseif(strpos($url, 'deleteCheckout') !== false){
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              You cannot delete an item that is currently checked-out.</div><br><br><br><br>";
+        //echo "<br>&nbsp&nbspColumn deleted successfully.<br>";
+    }
 
     $columnNames= array();
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     if ($acctType == "Super Admin") {
         echo "<h2 style='text-align: center'>Inventory</h2><br><table style=\"margin-left:auto; margin-right:auto;\">
@@ -32,7 +44,7 @@ if(isset($_SESSION['id'])) {
         $columnSql = "SHOW COLUMNS FROM inventory;";
         $columnResult = mysqli_query($conn, $columnSql);
 
-        if(mysqli_num_rows($columnResult) > 11){
+        if(mysqli_num_rows($columnResult) > 12){
             echo "<td><form action='editInventoryColumn.php'>
                <input class=\"btn btn-warning\" type='submit' value='Edit Column'/>
               </form></td>";
@@ -62,7 +74,7 @@ if(isset($_SESSION['id'])) {
         $innerCount = 0;
         while ($row = mysqli_fetch_array($result)) {
             $innerCount++;
-            if ($innerCount > 3 && $innerCount < 10 || $innerCount > 11) {
+            if ($innerCount > 3 && $innerCount < 11 || $innerCount > 12) {
                 array_push($columnNames, $row['Field']);
             }
         }
@@ -85,7 +97,7 @@ if(isset($_SESSION['id'])) {
 
     //array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock");
 
-    for ($count = 0; $count < count($columnNames); $count++) {
+    for ($count = 1; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
     }
     echo "<th>Print QR Code</th><th>Edit</th>";
@@ -94,29 +106,29 @@ if(isset($_SESSION['id'])) {
     }
     echo "</thead><tbody>";
 
-        $sql = "SELECT `Serial Number`, Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY `Serial Number`;"; //display first four columns
+        $sql = "SELECT `Inv Id`, `Serial Number`, Item, inventory.Subtype, subtypes.Type FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype ORDER BY `Inv Id`;"; //display first four columns
         $result = mysqli_query($conn, $sql);
 
         $IDs = array();
-        $sqlColumns = "SELECT `Serial Number` FROM inventory;"; //needed to show later columns if Serial Number skips
+        $sqlColumns = "SELECT `Inv Id` FROM inventory;";
         $columnResult = mysqli_query($conn, $sqlColumns);
         while($columnRow = mysqli_fetch_array($columnResult)){
-            array_push($IDs, $columnRow['Serial Number']);
+            array_push($IDs, $columnRow['Inv Id']);
         }
 
         $columnNumber = 0;
 
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr>";
-            for ($innerCount = 0; $innerCount < 4; $innerCount++) {
+            for ($innerCount = 1; $innerCount < 5; $innerCount++) {
                 echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
             }
 
-            $sql2 = "SELECT * FROM inventory WHERE `Serial Number` = '" . $IDs[$columnNumber]."';"; //display later columns
+            $sql2 = "SELECT * FROM inventory WHERE `Inv Id` = '" . $IDs[$columnNumber]."';"; //display later columns
             $result2 = mysqli_query($conn, $sql2);
 
             while ($row2 = mysqli_fetch_array($result2)) {
-                for ($whileCount = 4; $whileCount < count($columnNames); $whileCount++) {
+                for ($whileCount = 5; $whileCount < count($columnNames); $whileCount++) {
                     $sql3 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
                     WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$whileCount]';";
                     $result3 = mysqli_query($conn, $sql3);
@@ -133,11 +145,11 @@ if(isset($_SESSION['id'])) {
                         echo '<td> ' . $row2[$columnNames[$whileCount]] . '</td>';
                     }
                 }
-//                echo "<td> <a href='QRCode.php?text=".$row["Serial Number"]."'>Show QR Code<br></td>
-                   echo "<td> <a href='QRPrintPage.php?serialNumber=".$row["Serial Number"]."'>Print QR Code<br></td>
-                    <td> <a href='editInventory.php?edit=".$row["Serial Number"]."'>Edit<br></td>";
+//              echo "<td><a href='QRCode.php?text=".$row["Serial Number"]."'>Show QR Code<br></td>
+                echo "<td><a href='QRPrintPage.php?id=".$row["Inv Id"]."'>Print QR Code<br></td>
+                <td> <a href='editInventory.php?edit=".$row["Inv Id"]."'>Edit<br></td>";
                 if ($acctType == "Admin" || $acctType == "Super Admin") {
-                    echo "<td> <a href='deleteInventory.php?serialNumber=".$row["Serial Number"]."&item=$row[Item]'>Delete<br></td></tr>";
+                    echo "<td><a href='deleteInventory.php?delete=".$row["Inv Id"]."'>Delete<br></td></tr>";
                 }
                 else{
                     echo "</tr>";

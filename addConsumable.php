@@ -31,6 +31,13 @@ if(isset($_SESSION['id'])) {
               You must name the item.</div><br><br><br>";
         //echo "<br>&nbsp&nbspYou must name the item.<br>";
     }
+    elseif(strpos($url, 'sameType') !== false){
+        $subtype= $_GET['subtype'];
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              The subtype $subtype is used in the inventory table. Subtypes can only be used in one table.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou must name the item.<br>";
+    }
 
     $sql="SHOW COLUMNS FROM consumables";
     $result = mysqli_query($conn, $sql);
@@ -136,7 +143,7 @@ if(isset($_SESSION['id'])) {
         }
     }
     echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-          <button type='submit' class='btn btn-warning btn-block'>Add to Inventory</button></div></div></fieldset></form></div>";
+          <button type='submit' class='btn btn-warning btn-block'>Add to Consumables</button></div></div></fieldset></form></div>";
 }
 
 else{

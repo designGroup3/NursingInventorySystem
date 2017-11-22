@@ -5,10 +5,10 @@ include '../dbh.php';
 
 if(isset($_SESSION['id'])) {
     $currentID = $_SESSION['id'];
-    $sql = "SELECT uid FROM users WHERE id='$currentID'";
+    $sql = "SELECT Uid FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $uid = $row['uid'];
+    $uid = $row['Uid'];
 
     $type = $_POST['type'];
     $type = str_replace("\\","\\\\","$type");
@@ -32,6 +32,8 @@ if(isset($_SESSION['id'])) {
         }
     }
 
+    print_r($receivedValues);
+
     $sql2 = "SELECT CURRENT_TIMESTAMP;"; //gets current time
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();
@@ -51,18 +53,28 @@ if(isset($_SESSION['id'])) {
         array_push($serialNumbers, $row['Serial Number']);
     }
 
-    if(in_array($receivedValues[0], $serialNumbers)){
+    if($receivedValues[0] !== "" && $receivedValues[7] > 1){
+        header("Location: ../addInventory.php?error=manySerial");
+        exit();
+    }
+
+    if($receivedValues[1] == "" && $receivedValues[6] == 1){
+        header("Location: ../addInventory.php?error=noSerial");
+        exit();
+    }
+
+    if(in_array($receivedValues[1], $serialNumbers) && $receivedValues[1] !== ""){
         header("Location: ../addInventory.php?error=exists");
         exit();
     }
-    if($receivedValues[1] == ""){
+    if($receivedValues[2] == ""){
         header("Location: ../addInventory.php?error=empty");
         exit();
     }
 
     $sql = "INSERT INTO inventory (";
 
-    for ($count = 0; $count < count($columnNames); $count++) {
+    for ($count = 1; $count < count($columnNames); $count++) {
         if ($count < count($columnNames) - 1) {
             $sql .= "`" . $columnNames[$count] . "`" . ", ";
         } else {
@@ -72,16 +84,16 @@ if(isset($_SESSION['id'])) {
 
     $sql .= "VALUES (";
 
-    for ($count = 0; $count < count($columnNames); $count++) {
-        if ($count < 9) {
+    for ($count = 1; $count < count($columnNames); $count++) {
+        if ($count < 10) {
             $receivedValues[$count] = str_replace("\\","\\\\","$receivedValues[$count]");
             $receivedValues[$count] = str_replace("'","\'","$receivedValues[$count]");
             $sql .= "'".$receivedValues[$count]."'";
         }
-        elseif($count === 9){
+        elseif($count === 10){
             $sql .= "'" . $time."'";
         }
-        elseif($count === 10){
+        elseif($count === 11){
             $sql .= "'" . $uid."'";
         }
         else {
@@ -108,38 +120,45 @@ if(isset($_SESSION['id'])) {
     }
 
     //Check subtypes table
-    $sql2 = "SELECT Subtype FROM subtypes WHERE Subtype = '$receivedValues[2]';";
+    $sql2 = "SELECT Subtype FROM subtypes WHERE Subtype = '$receivedValues[3]' AND `TABLE` = 'Inventory';";
     $result2 = mysqli_query($conn, $sql2);
     if(mysqli_num_rows($result2) !== 0){ //subtype found
-        $sql2 = "SELECT Subtype, Type FROM subtypes WHERE Subtype = '$receivedValues[2]' AND Type = '$type';";
+        $sql2 = "SELECT Subtype, Type FROM subtypes WHERE Subtype = '$receivedValues[3]' AND Type = '$type';";
         $result2 = mysqli_query($conn, $sql2);
         if(mysqli_num_rows($result2) == 0){ // matching type not found
-            $sql2 = "SELECT Type from subtypes WHERE Subtype ='$receivedValues[2]';";
+            $sql2 = "SELECT Type from subtypes WHERE Subtype ='$receivedValues[3]';";
             $result2 = mysqli_query($conn, $sql2);
             while ($row2 = mysqli_fetch_array($result2)) {
                 $type = $row2['Type'];
             }
-            header("Location: ../addInventory.php?error=typeMismatch&subtype=$receivedValues[2]&type=$type");
+            header("Location: ../addInventory.php?error=typeMismatch&subtype=$receivedValues[3]&type=$type");
             exit();
         }
         else{
-            $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $receivedValues[2] . "','" . $type . "','Inventory');";
+            $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $receivedValues[3] . "','" . $type . "','Inventory');";
             $result2 = mysqli_query($conn, $sql2);
             $result = mysqli_query($conn, $sql); //add the item
         }
     }
     else{ //subtype not found
-        $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $receivedValues[2] . "','" . $type . "','Inventory');";
+        $subSql = "SELECT Subtype FROM subtypes WHERE Subtype = '$receivedValues[3]' AND `Table` = 'Consumables';";
+        $subResult2 = mysqli_query($conn, $subSql);
+        if(mysqli_num_rows($subResult2) > 0){
+            header("Location: ../addInventory.php?error=sameType&subtype=$receivedValues[3]");
+            exit();
+        }
+        $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $receivedValues[3] . "','" . $type . "','Inventory');";
         $result2 = mysqli_query($conn, $sql2);
         $result = mysqli_query($conn, $sql); //add the item
     }
 
     //Reports
-    $sql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Inventory',";
+    $sql = "INSERT INTO inventoryReports (`Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Inventory',";
 
     $sql .= "'" . $receivedValues[1] . "'" . ", ";
     $sql .= "'" . $receivedValues[2] . "'" . ", ";
-    $sql .= "'" . $receivedValues[6] . "'" . ", ";
+    $sql .= "'" . $receivedValues[3] . "'" . ", ";
+    $sql .= "'" . $receivedValues[7] . "'" . ", ";
 
     $sql .= "'" . $time . "'" . ", ";
     $sql .= "'" . $uid . "'" . ");";

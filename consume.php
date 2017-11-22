@@ -11,8 +11,14 @@ if(isset($_SESSION['id'])) {
     error_reporting(E_ALL ^ E_NOTICE);
     $statedTypes = array();
     $getType = $_GET['type'];
+    $getType = str_replace("%5C","\\","$getType");
+    $getType = str_replace("%27","'","$getType");
     $getSubtype = $_GET['subtype'];
+    $getSubtype = str_replace("%5C","\\","$getSubtype");
+    $getSubtype = str_replace("%27","'","$getSubtype");
     $getItem = $_GET['item'];
+    $getItem = str_replace("%5C","\\","$getItem");
+    $getItem = str_replace("%27","'","$getItem");
 
     $noItem = false;
 
@@ -84,7 +90,11 @@ if(isset($_SESSION['id'])) {
 
     //start subtype
     if($getType !== NULL && $getType !== ""){
+        $getType = str_replace("\\","\\\\","$getType");
+        $getType = str_replace("'","\'","$getType");
         $sql = "SELECT Subtype FROM subtypes WHERE Type = '".$getType."';";
+        $getType = str_replace("\'","%27","$getType");
+        $getType = str_replace("\\\\","%5C","$getType");
         $result = mysqli_query($conn, $sql);
         echo '<form class="well form-horizontal" id="contact_form" method="POST">
         <div class="form-group"><label class="col-md-4 control-label">
@@ -123,7 +133,11 @@ if(isset($_SESSION['id'])) {
 
     //start item
     if($getSubtype !== NULL && $getSubtype !== ""){
+        $getSubtype = str_replace("\\","\\\\","$getSubtype");
+        $getSubtype = str_replace("'","\'","$getSubtype");
         $sql = "SELECT Item FROM consumables WHERE Subtype = '".$getSubtype."';";
+        $getSubtype = str_replace("\'","%27","$getSubtype");
+        $getSubtype = str_replace("\\\\","%5C","$getSubtype");
         $result = mysqli_query($conn, $sql);
         echo '<form class="well form-horizontal" id="contact_form" method="POST">
         <div class="form-group"><label class="col-md-4 control-label">
@@ -169,7 +183,11 @@ if(isset($_SESSION['id'])) {
 
     //Number in Stock
     if($getItem !== NULL && $getItem !== ""){
+        $getItem = str_replace("\\","\\\\","$getItem");
+        $getItem = str_replace("'","\'","$getItem");
         $sql = "SELECT `Number in Stock` FROM consumables WHERE Item = '".$getItem."';";
+        $getItem = str_replace("\'","%27","$getItem");
+        $getItem = str_replace("\\\\","%5C","$getItem");
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($result);
         echo '<form action ="includes/consume.inc.php" method="POST">

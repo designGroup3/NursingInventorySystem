@@ -8,19 +8,23 @@ if(isset($_SESSION['id'])) {
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     $last = $_POST['last'];
+    $last = str_replace("\\","\\\\\\\\","$last");
     $last = str_replace("'","\'","$last");
     $first = $_POST['first'];
+    $first = str_replace("\\","\\\\\\\\","$first");
     $first = str_replace("'","\'","$first");
     $ext = $_POST['ext'];
     $email = $_POST['email'];
+    $email = str_replace("\\","\\\\\\\\","$email");
     $email = str_replace("'","\'","$email");
     $office = $_POST['office'];
+    $office = str_replace("\\","\\\\\\\\","$office");
     $office = str_replace("'","\'","$office");
     $tableHeadNeeded = true;
     $count = 0;

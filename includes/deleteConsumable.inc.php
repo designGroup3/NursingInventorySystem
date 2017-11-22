@@ -4,8 +4,8 @@ session_start();
 include '../dbh.php';
 
 $item = $_POST['item'];
-$item = str_replace("%5C","\\","$item");
-$item = str_replace("%27","\'","$item");
+$item = str_replace("\\","\\\\","$item");
+$item = str_replace("'","\'","$item");
 
 if(isset($_SESSION['id'])) {
     $currentID = $_SESSION['id'];
@@ -17,14 +17,17 @@ if(isset($_SESSION['id'])) {
     $sql = "DELETE FROM consumables WHERE Item = '".$item."';";
 
     //Reports
-    $reportSql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Consumable',";
+    $reportSql = "INSERT INTO consumableReports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Consumable',";
 
-    $sql2 = "SELECT Item, Subtype, `Number in Stock` FROM consumables WHERE Item = '". $item."';";
+    $sql2 = "SELECT Subtype, `Number in Stock` FROM consumables WHERE Item = '". $item."';";
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();
+    $subtype = $row2['Subtype'];
+    $subtype = str_replace("\\","\\\\","$subtype");
+    $subtype = str_replace("'","\'","$subtype");
 
-    $reportSql .= "'" . $row2['Item'] . "'" . ", ";
-    $reportSql .= "'" . $row2['Subtype'] . "'" . ", ";
+    $reportSql .= "'" . $item . "'" . ", ";
+    $reportSql .= "'" . $subtype . "'" . ", ";
     $reportSql .= "'" . $row2['Number in Stock'] . "'" . ", ";
 
     $sql3 = "SELECT CURRENT_TIMESTAMP;";

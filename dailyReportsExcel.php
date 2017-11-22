@@ -6,7 +6,7 @@ if(isset($_POST["export"]))
 {
     $date = $_POST['date'];
     $dateTitle = date_create($date);
-    $sql = "SELECT `Activity Type`, Item, reports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM reports JOIN subtypes ON subtypes.Subtype = reports.Subtype WHERE Timestamp BETWEEN '".$date." 00:00:00' AND '".$date." 23:59:59';";
+    $sql = "SELECT `Activity Type`, Item, consumableReports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM consumableReports JOIN subtypes ON subtypes.Subtype = consumableReports.Subtype WHERE Timestamp BETWEEN '".$date." 00:00:00' AND '".$date." 23:59:59';";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0)
     {

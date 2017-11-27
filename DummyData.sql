@@ -747,71 +747,130 @@ INSERT INTO `loginsystem`.`inventory` (`Inv Id`, `Serial Number`, `Item`, `Subty
 #
 # INSERT INTO `loginsystem`.`consumables`(`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES ('HP P3005 Toner', 'Black Toner', 'Surplus', 4, 3);
 
-INSERT INTO `loginsystem`.`consumables` (`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`, `Fake`) VALUES
-  ('HP LaserJet 1200 Printer', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('HP LaserJet 1320', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('HP LaserJet 1012,1018,1022 Toner', 'Black Toner', 'Vault', 1, 2, NULL, NULL, NULL),
-  ('HP LaserJet 5P/6P', 'Black Toner', 'Vault', 2, 2, NULL, NULL, NULL),
-  ('HP LaserJet 2100/2200', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('HP LaserJet 2300', 'Black Toner', 'Vault', 2, 1, NULL, NULL, NULL),
-  ('HP LaserJet P1005/P1006 Toner', 'Black Toner', 'Vault', 3, 2, NULL, NULL, NULL),
-  ('HP P3005 Toner', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('HP LaserJet P2055 Toner', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('Sandisk Cruzer 16GB', 'Flash Drive', 'Nursing 162', 0, 0, NULL, NULL, NULL),
-  ('Sandisk Cruzer Glide 8GB', 'Flash Drive', 'Nursing 162', 0, 0, NULL, NULL, NULL),
-  ('Brother HL-3040', 'Black Toner', 'Vault', 4, 4, NULL, NULL, NULL),
-  ('HP LaserJet 4/5', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('Brother HL-2240', 'Black Toner', 'Vault', 3, 3, NULL, NULL, NULL),
-  ('Brother HL-5370', 'Black Toner', 'Vault', 1, 2, NULL, NULL, NULL),
-  ('HP LaserJet P1102W', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('HP LaserJet 1160', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('Verbatim PinStrip USB Drive', 'Flash Drive', 'Nursing 162', 0, 2, NULL, NULL, NULL),
-  ('Staples 16GB Flash Drives', 'Flash Drive', 'Nursing 162', 0, 1, NULL, NULL, NULL),
-  ('16 GB Flash Drive', 'Staples Flash Drives', 'Nursing 162', 0, 0, NULL, NULL, NULL),
-  ('Logitech S-150 USB Digital Speaker', 'Speakers', 'Nursing 162', 6, 0, NULL, NULL, NULL),
-  ('Sandisk 16GB Cruzer Flash Drive', 'Flash Drive', 'Nursing 162', 3, 0, NULL, NULL, NULL),
-  ('Verbatim Swivel USB drive 16GB', 'Flash Drive', 'Nursing 162', 0, 0, NULL, NULL, NULL),
-  ('Staples USB 3.0 16GB Flash Drive', 'Staples Flash Drives', 'Nursing 162', 10, 0, NULL, NULL, NULL);
+INSERT INTO `loginsystem`.`consumables` (`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES
+  ('HP LaserJet 1200 Printer', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('HP LaserJet 1320', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('HP LaserJet 1012,1018,1022 Toner', 'Black Toner', 'Vault', 1, 2, NULL, NULL),
+  ('HP LaserJet 5P/6P', 'Black Toner', 'Vault', 2, 2, NULL, NULL),
+  ('HP LaserJet 2100/2200', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('HP LaserJet 2300', 'Black Toner', 'Vault', 2, 1, NULL, NULL),
+  ('HP LaserJet P1005/P1006 Toner', 'Black Toner', 'Vault', 3, 2, NULL, NULL),
+  ('HP P3005 Toner', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('HP LaserJet P2055 Toner', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('Sandisk Cruzer 16GB', 'Flash Drive', 'Nursing 162', 0, 0, NULL, NULL),
+  ('Sandisk Cruzer Glide 8GB', 'Flash Drive', 'Nursing 162', 0, 0, NULL, NULL),
+  ('Brother HL-3040', 'Black Toner', 'Vault', 4, 4, NULL, NULL),
+  ('HP LaserJet 4/5', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('Brother HL-2240', 'Black Toner', 'Vault', 3, 3, NULL, NULL),
+  ('Brother HL-5370', 'Black Toner', 'Vault', 1, 2, NULL, NULL),
+  ('HP LaserJet P1102W', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('HP LaserJet 1160', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('Verbatim PinStrip USB Drive', 'Flash Drive', 'Nursing 162', 0, 2, NULL, NULL),
+  ('Staples 16GB Flash Drives', 'Flash Drive', 'Nursing 162', 0, 1, NULL, NULL),
+  ('16 GB Flash Drive', 'Staples Flash Drives', 'Nursing 162', 0, 0, NULL, NULL),
+  ('Logitech S-150 USB Digital Speaker', 'Speakers', 'Nursing 162', 6, 0, NULL, NULL),
+  ('Sandisk 16GB Cruzer Flash Drive', 'Flash Drive', 'Nursing 162', 3, 0, NULL, NULL),
+  ('Verbatim Swivel USB drive 16GB', 'Flash Drive', 'Nursing 162', 0, 0, NULL, NULL),
+  ('Staples USB 3.0 16GB Flash Drive', 'Staples Flash Drives', 'Nursing 162', 10, 0, NULL, NULL);
 
 
-INSERT INTO `loginsystem`.`clients` (`Number`, `Last`, `First`, `Ext`, `Email`, `Office`) VALUES ('1', 'Hughey', 'Douglas', '6733', 'hugheyd@umsl.edu', '164');
+INSERT INTO `clients` (`Number`, `Last`, `First`, `Ext`, `Email`, `Office`) VALUES
+  (1, 'Anthony', 'Marnice', 7216, 'anthonyma@umsl.edu', '158'),
+  (2, 'Bai', 'Mei', 6066, 'baimei@umsl.edu', '306 SC'),
+  (3, 'Barrier', 'Michelle', 7177, 'barrierm@umsl.edu', '203 SC'),
+  (4, 'Bender', 'Annah', 6072, 'bendera@umsl.edu', '211'),
+  (5, 'Bertram', 'Julie', 8612, 'bertramje@umsl.edu\r\n', '308 SC'),
+  (6, 'Boyd', 'Jenna', 6073, 'boydjen@umsl.edu\r\n', '219'),
+  (7, 'Bozzette', 'Maryann', 6069, 'bozzettem@umsl.edu\r\n', '217 SC'),
+  (8, 'Brauch', 'Allison', 7075, 'braucha@umsl.edu\r\n', '307 SC'),
+  (9, 'Buchanan', 'Crystal', 7092, 'buchanancr@umsl.edu', '161'),
+  (10, 'Buford', 'Kenya', 6028, 'BufordKR@umsl.edu', '115'),
+  (11, 'Burk', 'Michelle', 7060, 'burkm@umsl.edu\r\n', '206'),
+  (12, 'Calvert', 'Wilma', 7073, 'Calvert@umsl.edu\r\n', '222'),
+  (13, 'Calvin', 'Latrina', 7512, 'calvinlat@umsl.edu', '163'),
+  (14, 'Campbell', 'Julia', 7529, 'campbellju@umsl.edu', '302 SC'),
+  (15, 'Calvin', 'Latrina', 7512, 'calvinlat@umsl.edu\r\n', '163'),
+  (16, 'Connell-Dent', 'Debra', 7657, 'connelld@umsl.edu', '221 SC'),
+  (17, 'Dean-Baar', 'Susan', 7067, 'deanbaars@umsl.edu', '150'),
+  (18, 'Dirie', 'Christine \"Kippy\"', 7218, 'DiRieC@umsl.edu', '116 SC'),
+  (19, 'Dudley', 'Beth', 6090, 'dudleyba@umsl.edu', '216 SC'),
+  (20, 'Ehmke', 'Melissa', 7518, 'ehmkem@umsl.edu', '219 SC'),
+  (21, 'Ekenga', 'Joy', 7026, 'ekengaj@umsl.edu\r\n', '206 SC'),
+  (22, 'Finley', 'Amanda', 7085, 'finleyal@umsl.edu', '203'),
+  (23, 'Fish', 'Anne', 7077, 'FishA@msx.umsl.edu', '231'),
+  (24, 'Frandsen', 'Gary', 7593, 'frandseng@umsl.edu\r\n', '317 SC'),
+  (25, 'Gibson', 'Warren', 7081, 'gibsonwa@umsl.edu', '112'),
+  (26, 'Gillette', 'Pat', 6849, 'gillettem@umsl.edu', '152'),
+  (27, 'Grigsby', 'Sheila', 6691, 'grigsbys@umsl.edu', '221'),
+  (28, 'Hayes', 'Veronica (Ronni)', 7028, 'hayesv@umsl.edu', '118'),
+  (29, 'Haynes', 'Tonya', 4842, 'haynesto@umsl.edu\r\n', '209 SC'),
+  (30, 'Hodgson', 'Kathy', 6251, 'hodgsonk@umsl.edu', '229'),
+  (31, 'Hsueh', 'Kuei-Hsiang (Grace)', 7773, 'hsuehk@umsl.edu', '212'),
+  (32, 'Hughey', 'Douglas', 6733, 'hugheyd@umsl.edu', '164'),
+  (33, 'Hutchings', 'Alicia', 6075, 'hutchingsa@umsl.edu\r\n', '210 SC'),
+  (34, 'Johnson', 'Katie', 7071, 'johnsonkat@umsl.edu', '216'),
+  (35, 'Kuensting', 'Laura', 7129, 'kuenstingl@umsl.edu\r\n', '234'),
+  (36, 'Lavin', 'Roberta', 5049, 'lavinr@umsl.edu', '155'),
+  (37, 'Lilly', 'Angela', 7087, 'lillyan@umsl.edu', '159'),
+  (38, 'Loyd', 'Vanessa', 7513, 'loydv@umsl.edu', '204'),
+  (39, 'Magnuson', 'Nancy', 5669, 'magnusonn@umsl.edu', '122'),
+  (40, 'Manies', 'Shawne', 6249, 'maniess@umsl.edu', '228'),
+  (41, 'Mantych', 'Liz', 7079, 'mantyche@msx.umsl.edu', '233'),
+  (42, 'Mason', 'Julianne', 7193, 'masonju@umsl.edu', '116'),
+  (43, 'McLemore', 'Colette', 7781, 'mclemorecm@umsl.edu', '111'),
+  (44, 'Murphy', 'Natalie', 7075, 'murphyn@umsl.edu', '304 SC'),
+  (45, 'Noland', 'Jaleh', 7215, 'nolandja@umsl.edu', '156'),
+  (46, 'Murphy', 'Natalie', 8611, 'murphyn@umsl.edu', '304 SC'),
+  (47, 'Noland', 'Jaleh', 7215, 'nolandja@umsl.edu', '156'),
+  (48, 'Oliver', 'Theda', 6066, 'olivertr@umsl.edu', 'Lobby'),
+  (49, 'Phillips', 'Brittania', 6070, 'starostkib@umsl.edu\r\n', '224'),
+  (50, 'Prouhet', 'Paula', 6068, 'prouhetp@umsl.edu', '210'),
+  (51, 'Records', 'Kathie', 6076, 'recordsk@umsl.edu', '211 SC'),
+  (52, 'Reid', 'Roxanne', 8610, 'reidr@umsl.edu\r\n', '218 SC'),
+  (53, 'Reeves', 'Judith', 7612, 'reevesju@umsl.edu\r\n', '202 SC'),
+  (54, 'Richardson', 'Jennifer', 6071, 'richardsonjen@umsl.edu', '113'),
+  (55, 'Saleska', 'Diane', 7249, 'saleskad@umsl.edu', '217'),
+  (56, 'Sanner-Stiehr', 'Ericka', 7086, 'sannerstiehre@umsl.edu', '220 SC'),
+  (57, 'Schaeg', 'Lisa', 7084, 'schaege@umsl.edu', '227'),
+  (58, 'Sharpe', 'Mary', 6585, 'sharpeme@umsl.edu', '222 SC'),
+  (59, 'Sinacore', 'Lisa', 6250, 'sinacorem@umsl.edu', '117 SC'),
+  (60, 'Spencer', 'Christine', 4841, 'spencerchr@umsl.edu', '208 SC'),
+  (61, 'Taylor', 'Lisa', 7496, 'taylorli@umsl.edu', '311 SC'),
+  (62, 'Vandermause', 'Roxanne', 6060, 'vandermauserk@umsl.edu', '315 SC'),
+  (63, 'Williams', 'Treacy', 4840, 'thlc5f@umsl.edu', '204 SC');
 
-INSERT INTO `loginsystem`.`clients` (`Number`, `Last`, `First`, `Ext`, `Email`, `Office`) VALUES ('2', 'Bai', 'Mei', '6066', 'baimei@umsl.edu', '306 SC');
-
-INSERT INTO `loginsystem`.`clients` (`Number`, `Last`, `First`, `Ext`, `Email`, `Office`) VALUES ('3', 'Reid', 'Roxanne', '8610', 'reidr@umsl.edu', '218 SC');
-
-INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('1', 'Canon PowerShot A710 IS', 'Still Camera', '1', 'XU338026956', 'Douglas Hughey', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
-
-INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('2', 'Apple MAC OS X 10.4', 'Apple', '1', 'ET474374601', 'Mei Bai', 'Temporary', 'Coming Back', '2017-10-31', '2017-10-03', 'admin');
-
-INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('3', 'HP PhotoSmart D7560 Printer', 'HP Printer', '1', 'TM852187346', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
-
-INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) VALUES ('1', 'HP LaserJet 1012,1018,1022 Toner', 'Black Toner', '1', 'Douglas Hughey', 'Printer\'s out', '2017-10-10', 'admin');
-
-INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) VALUES ('2', 'Sandisk Cruzer 16GB', 'Flash Drive', '2', 'Mei Bai', 'Needed for storage', '2017-10-11', 'admin');
-
-INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) VALUES ('3', 'HP P3005 Toner', 'Black Toner', '1', 'Roxanne Reid', 'Printer\'s out', '2017-10-10', 'admin');
-
-INSERT INTO `loginsystem`.`inventoryReports` (`Id`, `Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('1', 'Add inventory', 'XU338026956', 'Canon PowerShot A710 IS', 'Still Camera', '1', '2017-10-10 10:06:10', 'Craig');
-
-INSERT INTO `loginsystem`.`inventoryReports` (`Id`, `Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('2', 'Edit inventory', 'ET474374601', 'Apple MAC OS X 10.4', 'Apple', '1', '2017-10-11 12:36:16', 'admin');
-
-INSERT INTO `loginsystem`.`inventoryReports` (`Id`, `Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('3', 'Delete inventory', 'YW425757483', 'Brother HL-2270DW Printer', 'Brother 2000 Series', '1', '2017-10-10 15:05:00', 'admin');
-
-INSERT INTO `loginsystem`.`consumableReports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('4', 'Add consumable', 'HP LaserJet 1012,1018,1022 Toner', 'Black Toner', '5', '2017-10-10 08:51:32', 'admin');
-
-INSERT INTO `loginsystem`.`consumableReports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('5', 'Edit consumable', 'Verbatim PinStrip USB Drive', 'Flash Drive', '1', '2017-10-11 17:42:12', 'Craig');
-
-INSERT INTO `loginsystem`.`consumableReports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('6', 'Delete consumable', 'Staples 16GB Flash Drive', 'Flash Drive', '1', '2017-10-11 13:14:16', 'admin');
-
-INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('1', 'Repair', 'XU338026956', 'Lens', '29.95', '2017-10-24', 'Canon', 'Replaces broken lens');
-
-INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('2', 'Update', 'IP472802749', 'Software', '99.99', '2017-10-25', 'Adobe', 'Annual major update');
-
-INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('3', 'Upgrade', 'YW425757483', 'Spooler', '19.99', '2017-10-20', 'Brother', 'Larger spooler');
-
-INSERT INTO `loginsystem`.`serviceAgreements`(`Id`, `Name`, `Annual Cost`, `Duration`, `Expiration Date`) VALUES ('1', 'Windows Service', '499.99', '1 Year', '2018-10-20');
-
-INSERT INTO `loginsystem`.`serviceAgreements`(`Id`, `Name`, `Annual Cost`, `Duration`, `Expiration Date`) VALUES ('2', 'Antivirus Service', '99.99', '1 Year', '2018-02-17');
-
-INSERT INTO `loginsystem`.`serviceAgreements`(`Id`, `Name`, `Annual Cost`, `Duration`, `Expiration Date`) VALUES ('3', 'Mac Service', '199.99', '1 Year', '2018-08-30');
+# INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('1', 'Canon PowerShot A710 IS', 'Still Camera', '1', 'XU338026956', 'Douglas Hughey', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
+#
+# INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('2', 'Apple MAC OS X 10.4', 'Apple', '1', 'ET474374601', 'Mei Bai', 'Temporary', 'Coming Back', '2017-10-31', '2017-10-03', 'admin');
+#
+# INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('3', 'HP PhotoSmart D7560 Printer', 'HP Printer', '1', 'TM852187346', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
+#
+# INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) VALUES ('1', 'HP LaserJet 1012,1018,1022 Toner', 'Black Toner', '1', 'Douglas Hughey', 'Printer\'s out', '2017-10-10', 'admin');
+#
+# INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) VALUES ('2', 'Sandisk Cruzer 16GB', 'Flash Drive', '2', 'Mei Bai', 'Needed for storage', '2017-10-11', 'admin');
+#
+# INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) VALUES ('3', 'HP P3005 Toner', 'Black Toner', '1', 'Roxanne Reid', 'Printer\'s out', '2017-10-10', 'admin');
+#
+# INSERT INTO `loginsystem`.`inventoryReports` (`Id`, `Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('1', 'Add inventory', 'XU338026956', 'Canon PowerShot A710 IS', 'Still Camera', '1', '2017-10-10 10:06:10', 'Craig');
+#
+# INSERT INTO `loginsystem`.`inventoryReports` (`Id`, `Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('2', 'Edit inventory', 'ET474374601', 'Apple MAC OS X 10.4', 'Apple', '1', '2017-10-11 12:36:16', 'admin');
+#
+# INSERT INTO `loginsystem`.`inventoryReports` (`Id`, `Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('3', 'Delete inventory', 'YW425757483', 'Brother HL-2270DW Printer', 'Brother 2000 Series', '1', '2017-10-10 15:05:00', 'admin');
+#
+# INSERT INTO `loginsystem`.`consumableReports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('4', 'Add consumable', 'HP LaserJet 1012,1018,1022 Toner', 'Black Toner', '5', '2017-10-10 08:51:32', 'admin');
+#
+# INSERT INTO `loginsystem`.`consumableReports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('5', 'Edit consumable', 'Verbatim PinStrip USB Drive', 'Flash Drive', '1', '2017-10-11 17:42:12', 'Craig');
+#
+# INSERT INTO `loginsystem`.`consumableReports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('6', 'Delete consumable', 'Staples 16GB Flash Drive', 'Flash Drive', '1', '2017-10-11 13:14:16', 'admin');
+#
+# INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('1', 'Repair', 'XU338026956', 'Lens', '29.95', '2017-10-24', 'Canon', 'Replaces broken lens');
+#
+# INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('2', 'Update', 'IP472802749', 'Software', '99.99', '2017-10-25', 'Adobe', 'Annual major update');
+#
+# INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('3', 'Upgrade', 'YW425757483', 'Spooler', '19.99', '2017-10-20', 'Brother', 'Larger spooler');
+#
+# INSERT INTO `loginsystem`.`serviceAgreements`(`Id`, `Name`, `Annual Cost`, `Duration`, `Expiration Date`) VALUES ('1', 'Windows Service', '499.99', '1 Year', '2018-10-20');
+#
+# INSERT INTO `loginsystem`.`serviceAgreements`(`Id`, `Name`, `Annual Cost`, `Duration`, `Expiration Date`) VALUES ('2', 'Antivirus Service', '99.99', '1 Year', '2018-02-17');
+#
+# INSERT INTO `loginsystem`.`serviceAgreements`(`Id`, `Name`, `Annual Cost`, `Duration`, `Expiration Date`) VALUES ('3', 'Mac Service', '199.99', '1 Year', '2018-08-30');

@@ -19,6 +19,15 @@
                         },
                         notEmpty: {
                             message: 'Please add a valid cost'
+                        },
+                        step:{
+                            step: 0.01,
+                            message: 'Please add a valid cost'
+                        },
+                        greaterThan:{
+                            inclusive: true,
+                            value: -0.01,
+                            message: 'Please add a valid cost'
                         }
                     }
                 },

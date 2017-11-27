@@ -44,7 +44,7 @@ echo "<div class=\"container\"><form action ='includes/newPassword.inc.php' meth
     <div class=\"form-group\"> <label class=\"col-md-4 control-label\">Confirm New Password:</label>
     <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
     <span class=\"input-group-addon\"><i class=\"fa fa-lock\"></i></span>
-    <input type='password' name='confirmNewPassword' class='form-control' required></div></div></div>
+    <input type='password' name='confirmNewPassword' class='form-control' pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,} required></div></div></div>
     <br/><div class=\"form-group\" align=\"center\"><label class=\"col-md-4 control-label\"></label>
     <div class=\"col-md-4\"><input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Change Password'>
     </div></div></fieldset></form></div>";

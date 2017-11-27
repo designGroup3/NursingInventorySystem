@@ -140,7 +140,7 @@ if(isset($_SESSION['id'])) {
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"fa fa-lock\"></i></span>
           <input type='password' name='confirmNewPassword' class=\"form-control\" id='pwd'
-          pattern=\"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
+          pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
           title=\"Must contain at least one number and one uppercase and lowercase letter,
           and at least 8 or more characters\" required></div></div></div>
           

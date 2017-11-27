@@ -7,53 +7,6 @@ include 'header.php';
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
     <body>
 <style>
-    #message {
-        display:none;
-        background: #f1f1f1;
-        color: #000;
-        position: relative;
-        padding: 20px;
-        margin-top: 10px;
-    }
-    /*makes the success message go away*/
-    #success_message{ display: none;}
-    /* The message box is shown when the user clicks on the password field */
-    #message {
-        display:none;
-        background: #f1f1f1;
-        color: #000;
-        position: relative;
-        padding: 20px;
-        margin-top: 10px;
-    }
-
-    #message p {
-        padding: 10px 35px;
-        font-size: 15px;
-        text-align:center;
-    }
-
-    /* Add a green text color and a checkmark when the requirements are right */
-    .valid {
-        color: green;
-    }
-
-    .valid:before {
-        position: relative;
-        left: -35px;
-        content: "✔";
-    }
-
-    /* Add a red text color and an "x" when the requirements are wrong */
-    .invalid {
-        color: red;
-    }
-
-    .invalid:before {
-        position: relative;
-        left: -35px;
-        content: "✖";
-    }
 </style>
 <script>
     $(document).ready(function() {
@@ -79,6 +32,7 @@ include 'header.php';
         })
     });
 </script>
+
 <?php
     error_reporting(E_ALL ^ E_WARNING);
 	include './dbh.php';
@@ -135,10 +89,10 @@ include 'header.php';
         <select required class=\"form-control selectpicker\" name='acctType'>
         <option value='Standard User'>Standard User</option>";
         $currentID = $_SESSION['id'];
-        $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+        $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
         $result = mysqli_query($conn, $sql);
         $row = $result->fetch_assoc();
-        $acctType = $row['acctType'];
+        $acctType = $row['Account Type'];
         if($acctType == "Admin" || $acctType == "Super Admin"){
             echo "<option value='Admin'>Admin</option>";
         }
@@ -158,14 +112,13 @@ include 'header.php';
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-lock\"></i></span>
         <input name='pwd' placeholder='Password' class='form-control' type='password' id='pwd'
-         pattern=\"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
+         pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
          title=\"Must contain at least one number and one uppercase and lowercase letter,
           and at least 8 or more characters\" required></div></div></div><div id=\"message\">
         <h4>Password must contain the following:</h4><p id=\"letter\" class=\"invalid\">A <b>lowercase</b> letter</p>
         <p id=\"capital\" class=\"invalid\">A <b>capital (uppercase)</b> letter</p>
         <p id=\"number\" class=\"invalid\">A <b>number</b></p>
         <p id=\"length\" class=\"invalid\">Minimum <b>8 characters</b></p></div>
-        
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
         <button type='submit' class='btn btn-warning btn-block'>Create User</button></div></div></fieldset></form></div>";
     }else {

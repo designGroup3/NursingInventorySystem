@@ -69,7 +69,7 @@ if(isset($_SESSION['id'])) {
 
     echo "<div class=\"container\"><form action='includes/addServiceAgreement.inc.php' class=\"well form-horizontal\" 
           id=\"contact_form\" method='POST' enctype='multipart/form-data'><fieldset>
-          <h2 align=\"center\">Add Service Agreement</h2><br/>
+          <h2 align=\"center\">Add Service Agreement</h2><p style=\"color:red; font-size:10px;\" align=\"center\">* required field</p><br/><br/>
 
         <div class=\"form-group\"><label class=\"col-md-4 control-label\">Agreement Name:
         <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 

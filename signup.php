@@ -63,8 +63,7 @@ include 'header.php';
     if(isset($_SESSION['id'])){
         echo "<br><class style=\"text-align:center;\"> 
         <div class=\"container\"><form class=\"well form-horizontal\" action='includes/signup.inc.php'
-        method='POST' id=\"contact_form\"><fieldset><h2 align=\"center\">Create New User</h2><br/>
-        
+        method='POST' id=\"contact_form\"><fieldset><h2 align=\"center\">Create New User</h2><p style=\"color:red; font-size:10px;\" align=\"center\">* required field</p><br/>
         <div class=\"form-group\"><label class=\"col-md-4 control-label\">First Name:
         <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">

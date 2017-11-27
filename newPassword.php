@@ -64,18 +64,18 @@ echo "<div class=\"container\"><form action ='includes/newPassword.inc.php' meth
     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-lock\"></i></span>
     <input name='newPassword' placeholder='New Password' class='form-control' type='password' id='pwd'
-     pattern=\"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
+     pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
      title=\"Must contain at least one number and one uppercase and lowercase letter,
-     and at least 8 or more characters\" required></div></div></div>
+and at least 8 or more characters. Passwords cannot contain \ or '.\" required></div></div></div>
      
     <div class=\"form-group\"><label class=\"col-md-4 control-label\" for=\"psw\">Confirm New Password:
     <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-lock\"></i></span>
     <input name='confirmNewPassword' placeholder='Confirm New Password' class='form-control' type='password' id='pwd'
-     pattern=\"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
+     pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
      title=\"Must contain at least one number and one uppercase and lowercase letter,
-     and at least 8 or more characters\" required></div></div></div>
+and at least 8 or more characters. Passwords cannot contain \ or '.\" required></div></div></div>
     
     <br/><div class=\"form-group\" align=\"center\"><label class=\"col-md-4 control-label\"></label>
     <div class=\"col-md-4\"><input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Change Password'>

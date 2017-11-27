@@ -283,10 +283,10 @@ if(isset($_SESSION['id'])) {
     <span class=\"input-group-addon\"><i class=\"fa fa-question\" aria-hidden=\"true\"></i></span>
     <input type='text' required placeholder='Reason' name='reason' class=\"form-control\"></div></div></div>
     
-    <div class=\"form-group\"><label class=\"col-md-4 control-label\">Notes:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
+    <div class=\"form-group\"><label class=\"col-md-4 control-label\">Notes:</label> 
     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
-    <input name=\"notes\" required placeholder=\"Notes\" class=\"form-control\" type=\"text\"></div></div></div>
+    <input name=\"notes\" placeholder=\"Notes\" class=\"form-control\" type=\"text\"></div></div></div>
 
     <div class=\"form-group\"><label class=\"col-md-4 control-label\">Due Date:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">

@@ -31,6 +31,7 @@ include 'header.php';
             }
         })
     });
+	
 </script>
 
 <?php
@@ -115,10 +116,7 @@ include 'header.php';
          pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
          title=\"Must contain at least one number and one uppercase and lowercase letter,
           and at least 8 or more characters\" required></div></div></div><div id=\"message\">
-        <h4>Password must contain the following:</h4><p id=\"letter\" class=\"invalid\">A <b>lowercase</b> letter</p>
-        <p id=\"capital\" class=\"invalid\">A <b>capital (uppercase)</b> letter</p>
-        <p id=\"number\" class=\"invalid\">A <b>number</b></p>
-        <p id=\"length\" class=\"invalid\">Minimum <b>8 characters</b></p></div>
+        </div>
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
         <button type='submit' class='btn btn-warning btn-block'>Create User</button></div></div></fieldset></form></div>";
     }else {

@@ -747,31 +747,31 @@ INSERT INTO `loginsystem`.`inventory` (`Inv Id`, `Serial Number`, `Item`, `Subty
 #
 # INSERT INTO `loginsystem`.`consumables`(`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`) VALUES ('HP P3005 Toner', 'Black Toner', 'Surplus', 4, 3);
 
-INSERT INTO `loginsystem`.`consumables` (`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`, `Fake`) VALUES
-  ('HP LaserJet 1200 Printer', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('HP LaserJet 1320', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('HP LaserJet 1012,1018,1022 Toner', 'Black Toner', 'Vault', 1, 2, NULL, NULL, NULL),
-  ('HP LaserJet 5P/6P', 'Black Toner', 'Vault', 2, 2, NULL, NULL, NULL),
-  ('HP LaserJet 2100/2200', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('HP LaserJet 2300', 'Black Toner', 'Vault', 2, 1, NULL, NULL, NULL),
-  ('HP LaserJet P1005/P1006 Toner', 'Black Toner', 'Vault', 3, 2, NULL, NULL, NULL),
-  ('HP P3005 Toner', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('HP LaserJet P2055 Toner', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('Sandisk Cruzer 16GB', 'Flash Drive', 'Nursing 162', 0, 0, NULL, NULL, NULL),
-  ('Sandisk Cruzer Glide 8GB', 'Flash Drive', 'Nursing 162', 0, 0, NULL, NULL, NULL),
-  ('Brother HL-3040', 'Black Toner', 'Vault', 4, 4, NULL, NULL, NULL),
-  ('HP LaserJet 4/5', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('Brother HL-2240', 'Black Toner', 'Vault', 3, 3, NULL, NULL, NULL),
-  ('Brother HL-5370', 'Black Toner', 'Vault', 1, 2, NULL, NULL, NULL),
-  ('HP LaserJet P1102W', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('HP LaserJet 1160', 'Black Toner', 'Vault', 1, 1, NULL, NULL, NULL),
-  ('Verbatim PinStrip USB Drive', 'Flash Drive', 'Nursing 162', 0, 2, NULL, NULL, NULL),
-  ('Staples 16GB Flash Drives', 'Flash Drive', 'Nursing 162', 0, 1, NULL, NULL, NULL),
-  ('16 GB Flash Drive', 'Staples Flash Drives', 'Nursing 162', 0, 0, NULL, NULL, NULL),
-  ('Logitech S-150 USB Digital Speaker', 'Speakers', 'Nursing 162', 6, 0, NULL, NULL, NULL),
-  ('Sandisk 16GB Cruzer Flash Drive', 'Flash Drive', 'Nursing 162', 3, 0, NULL, NULL, NULL),
-  ('Verbatim Swivel USB drive 16GB', 'Flash Drive', 'Nursing 162', 0, 0, NULL, NULL, NULL),
-  ('Staples USB 3.0 16GB Flash Drive', 'Staples Flash Drives', 'Nursing 162', 10, 0, NULL, NULL, NULL);
+INSERT INTO `loginsystem`.`consumables` (`Item`, `Subtype`, `Location`, `Number in Stock`, `Minimum Stock`, `Last Processing Date`, `Last Processing Person`) VALUES
+  ('HP LaserJet 1200 Printer', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('HP LaserJet 1320', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('HP LaserJet 1012,1018,1022 Toner', 'Black Toner', 'Vault', 1, 2, NULL, NULL),
+  ('HP LaserJet 5P/6P', 'Black Toner', 'Vault', 2, 2, NULL, NULL),
+  ('HP LaserJet 2100/2200', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('HP LaserJet 2300', 'Black Toner', 'Vault', 2, 1, NULL, NULL),
+  ('HP LaserJet P1005/P1006 Toner', 'Black Toner', 'Vault', 3, 2, NULL, NULL),
+  ('HP P3005 Toner', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('HP LaserJet P2055 Toner', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('Sandisk Cruzer 16GB', 'Flash Drive', 'Nursing 162', 0, 0, NULL, NULL),
+  ('Sandisk Cruzer Glide 8GB', 'Flash Drive', 'Nursing 162', 0, 0, NULL, NULL),
+  ('Brother HL-3040', 'Black Toner', 'Vault', 4, 4, NULL, NULL),
+  ('HP LaserJet 4/5', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('Brother HL-2240', 'Black Toner', 'Vault', 3, 3, NULL, NULL),
+  ('Brother HL-5370', 'Black Toner', 'Vault', 1, 2, NULL, NULL),
+  ('HP LaserJet P1102W', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('HP LaserJet 1160', 'Black Toner', 'Vault', 1, 1, NULL, NULL),
+  ('Verbatim PinStrip USB Drive', 'Flash Drive', 'Nursing 162', 0, 2, NULL, NULL),
+  ('Staples 16GB Flash Drives', 'Flash Drive', 'Nursing 162', 0, 1, NULL, NULL),
+  ('16 GB Flash Drive', 'Staples Flash Drives', 'Nursing 162', 0, 0, NULL, NULL),
+  ('Logitech S-150 USB Digital Speaker', 'Speakers', 'Nursing 162', 6, 0, NULL, NULL),
+  ('Sandisk 16GB Cruzer Flash Drive', 'Flash Drive', 'Nursing 162', 3, 0, NULL, NULL),
+  ('Verbatim Swivel USB drive 16GB', 'Flash Drive', 'Nursing 162', 0, 0, NULL, NULL),
+  ('Staples USB 3.0 16GB Flash Drive', 'Staples Flash Drives', 'Nursing 162', 10, 0, NULL, NULL);
 
 
 INSERT INTO `loginsystem`.`clients` (`Number`, `Last`, `First`, `Ext`, `Email`, `Office`) VALUES ('1', 'Hughey', 'Douglas', '6733', 'hugheyd@umsl.edu', '164');

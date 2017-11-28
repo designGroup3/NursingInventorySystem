@@ -111,7 +111,7 @@ h1{
     </div>
   </div>
    <div class="col-md-4 col-lg-4 col-sm-4">
-    <div class="thumbnail text-center"><h3>Repairs/Updates/Upgrades</h3><a href="repairsUpdatesUpgrades.php">
+    <div class="thumbnail text-center"><h3>Services</h3><a href="repairsUpdatesUpgrades.php">
 <img src="images/Upgrade.png"  alt="Thumbnail Image 6"></a>
       <div class="caption">
         <!--<p>Generate QR code</p><br/> -->
@@ -119,6 +119,28 @@ h1{
     </div>
   </div>
 </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">Close</span></button>
+
+      </div>
+      <div class="modal-body">
+
+
+
+       <iframe width="100%" height="700" style="overflow: hidden;" src="randy.pdf" frameborder="0" marginheight="0" marginwidth="0" scrolling="no">Loading&amp;#8230;</iframe>
+
+
+
+      </div>
+
+    </div>
+  </div>
 </div>
 
 </body>

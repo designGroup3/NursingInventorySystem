@@ -839,11 +839,11 @@ INSERT INTO `clients` (`Number`, `Last`, `First`, `Ext`, `Email`, `Office`) VALU
   (62, 'Vandermause', 'Roxanne', 6060, 'vandermauserk@umsl.edu', '315 SC'),
   (63, 'Williams', 'Treacy', 4840, 'thlc5f@umsl.edu', '204 SC');
 
-# INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('1', 'Canon PowerShot A710 IS', 'Still Camera', '1', 'XU338026956', 'Douglas Hughey', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
+# INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('1', 'Canon PowerShot A710 IS', 'Still Camera', '1', '3128212954', 'Douglas Hughey', 'Project', 'Will return soon', '2017-12-31', '2017-10-03', 'admin');
 #
-# INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('2', 'Apple MAC OS X 10.4', 'Apple', '1', 'ET474374601', 'Mei Bai', 'Temporary', 'Coming Back', '2017-10-31', '2017-10-03', 'admin');
+# INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('2', 'Apple MAC OS X 10.4', 'Apple', '1', '547597-536315', 'Mei Bai', 'Temporary', 'Coming Back', '2017-10-31', '2017-10-03', 'admin');
 #
-# INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('3', 'HP PhotoSmart D7560 Printer', 'HP Printer', '1', 'TM852187346', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
+# INSERT INTO `loginsystem`.`checkouts` (`Id`, `Item`, `Subtype`, `Quantity Borrowed`, `Serial Number`, `Person`, `Reason`, `Notes`, `Due Date`, `Checkout Date`, `Update Person`) VALUES ('3', 'HP PhotoSmart D7560 Printer', 'HP Printer', '1', 'MY954990DV', 'Mei Bai', 'Temporary', 'Coming Back', '2017-12-31', '2017-10-03', 'admin');
 #
 # INSERT INTO `loginsystem`.`consumptions` (`Id`, `Item`, `Subtype`, `Quantity`, `Person`, `Reason`, `Consume Date`, `Update Person`) VALUES ('1', 'HP LaserJet 1012,1018,1022 Toner', 'Black Toner', '1', 'Douglas Hughey', 'Printer\'s out', '2017-10-10', 'admin');
 #
@@ -863,11 +863,11 @@ INSERT INTO `clients` (`Number`, `Last`, `First`, `Ext`, `Email`, `Office`) VALU
 #
 # INSERT INTO `loginsystem`.`consumableReports` (`Id`, `Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('6', 'Delete consumable', 'Staples 16GB Flash Drive', 'Flash Drive', '1', '2017-10-11 13:14:16', 'admin');
 #
-# INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('1', 'Repair', 'XU338026956', 'Lens', '29.95', '2017-10-24', 'Canon', 'Replaces broken lens');
+# INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('1', 'Repair', '3128212954', 'Lens', '29.95', '2017-10-24', 'Canon', 'Replaces broken lens');
 #
-# INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('2', 'Update', 'IP472802749', 'Software', '99.99', '2017-10-25', 'Adobe', 'Annual major update');
+# INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('2', 'Update', '1045-1306-8013-4549-5372-5369', 'Software', '99.99', '2017-10-25', 'Adobe', 'Annual major update');
 #
-# INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('3', 'Upgrade', 'YW425757483', 'Spooler', '19.99', '2017-10-20', 'Brother', 'Larger spooler');
+# INSERT INTO `loginsystem`.`repairs/updates/upgrades`(`Id`, `Type`, `Serial Number`, `Part`, `Cost`, `Date`, `Supplier`, `Reason`) VALUES ('3', 'Upgrade', 'U63079M4N895856', 'Spooler', '19.99', '2017-10-20', 'Brother', 'Larger spooler');
 #
 # INSERT INTO `loginsystem`.`serviceAgreements`(`Id`, `Name`, `Annual Cost`, `Duration`, `Expiration Date`) VALUES ('1', 'Windows Service', '499.99', '1 Year', '2018-10-20');
 #

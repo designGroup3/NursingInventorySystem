@@ -32,6 +32,18 @@ echo "<head><Title>New Password</Title></head><div class=\"parent\">
 $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $email = $_GET['email'];
 $sentKey = $_GET['pwdRecoveryKey'];
+
+$checkSql = "SELECT * FROM users WHERE `Email` = '$email' AND `Pwd Recovery Key` = '$sentKey';";
+$checkResult = mysqli_query($conn, $checkSql);
+if(mysqli_num_rows($checkResult) == 0){
+    echo "<br>
+        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+        <div style='text-align: center'>
+            <input onclick=\"window.location.href='login.php';\" class='btn btn-warning' value='Back'>
+        </div>";
+    exit();
+}
+
 $pwdRecoveryKey;
 if(strpos($url, 'error=noMatch') !== false){
     echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 

@@ -23,7 +23,20 @@ if(isset($_SESSION['id'])) {
     $item = $row['Item'];
 
     echo "<head><Title>Delete Inventory</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div><div class='container'>
+        <i class='fa fa-question'></i></button></div>";
+
+    $checkSql = "SELECT * FROM inventory WHERE `Inv Id` = '$id';";
+    $checkResult = mysqli_query($conn, $checkSql);
+    if(mysqli_num_rows($checkResult) == 0){
+        echo "<br>
+        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+        <div style='text-align: center'>
+            <input onclick=\"window.location.href='inventory.php';\" class='btn btn-warning' value='Back'>
+        </div>";
+        exit();
+    }
+
+    echo "<div class='container'>
         <form action ='includes/deleteInventory.inc.php' class='well form-horizontal' method ='POST'>
         <h2 align='center'>Are you sure you want to delete ".$item."?</h2>
         <br><div class=\"form-group\" style='text-align: center;'><label class=\"col-md-4 control-label\"></label>

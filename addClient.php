@@ -9,7 +9,7 @@ if(isset($_SESSION['id'])) {
         <i class='fa fa-question'></i></button></div>";
 
     echo "<div class=\"container\"><form action='includes/addClient.inc.php' class=\"well form-horizontal\" 
-        method='POST' id=\"contact_form\"><fieldset><h2 align=\"center\">Add Client</h2><br/>
+        method='POST' id=\"contact_form\"><fieldset><h2 align=\"center\">Add Client</h2><p style=\"color:red; font-size:10px;\" align=\"center\">* required field</p><br/><br/>
         
         <div class=\"form-group\"><label class=\"col-md-4 control-label\">First Name:
         <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 

@@ -76,7 +76,7 @@ if(isset($_SESSION['id'])) {
 
     echo "<div class=\"container\"><form class=\"well form-horizontal\" id=\"contact_form\"
           action ='includes/addInventoryColumn.inc.php' method = 'POST'><fieldset><h2 align=\"center\">
-          Add Inventory Column</h2><br/><div class=\"form-group\"><label class=\"col-md-4 control-label\">Column Name:
+          Add Inventory Column</h2><p style=\"color:red; font-size:10px;\" align=\"center\">* required field</p><br/><br/><div class=\"form-group\"><label class=\"col-md-4 control-label\">Column Name:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"fa fa-columns\"></i></span>

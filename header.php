@@ -165,21 +165,21 @@
 <!--<title>Nursing Inventory System</title>
 <link rel="stylesheet" type="text/css" href="style.css">-->
 </head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>	
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>	
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <body>
 <header>
-	<nav class="navbar navbar-default" role="navigation">
+	<nav class="navbar navbar-default navbar-static">
+		
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-     
       <!-- goes to home when clicked-->
+	  
       <a style="width: 100px;
     height: 50px;
     background-size: 50px;
@@ -187,10 +187,7 @@
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="navbar-collapse collapse" id="bs-megadropdown-tabs" style="padding-left: 0px;">
         <ul class="nav navbar-nav">
-
-
            <!-- goes to the main menu with the giant thumbnails -->
             <li><a style="color: white;" href="index.php"><i class="fa fa-globe"></i> Main Menu</a></li>
 
@@ -213,7 +210,7 @@
                     </div>                                     
 				</div>				
 			</li>
-             <!--<li><a style="color: white;" href="usersTable.php"><i class="fa fa-users"></i> Users</a></li>-->
+         
            <li class="dropdown mega-dropdown">
 			   <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-gear"></i> Inventory Functions <span class="caret"></span></a>
 				<div id="filters" class="dropdown-menu mega-dropdown-menu">
@@ -269,6 +266,7 @@
 				</div>				
 			</li>
         </ul>
+
        <!-- <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Search">
@@ -294,7 +292,7 @@
                         ?>
                         <span class="glyphicon glyphicon-chevron-down"></span>
                     </a>
-                    <ul style="background-color:white;" class="dropdown-menu">
+                    <ul class="dropdown-menu">
                         <li>
                             <div class="navbar-login">
                                 <div class="row">
@@ -332,11 +330,10 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
+            </ul> 
             <?php
         }
         ?>
-    </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
             

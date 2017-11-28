@@ -46,7 +46,7 @@ if(isset($_SESSION['id'])) {
     }
 
     echo "<div class=\"container\"><form class=\"well form-horizontal\" action ='includes/addConsumable.inc.php'
-        method = 'POST'id=\"contact_form\"><fieldset><h1 align=\"center\">Add Consumable</h1><br>";
+        method = 'POST'id=\"contact_form\"><fieldset><h1 align=\"center\">Add Consumable</h1><p style=\"color:red; font-size:10px;\" align=\"center\">* required field</p><br>";
     for($count = 0; $count< count($columnNames); $count++){
         if($columnNames[$count] != "Last Processing Date" && $columnNames[$count] != "Last Processing Person") { //Last processing date & person should not be editable
             $isSelect = false;

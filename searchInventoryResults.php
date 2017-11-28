@@ -140,10 +140,10 @@ if(isset($_SESSION['id'])) {
                 }
             }
         }
-        echo "<td><a href='QRPrintPage.php?id=".$row["Id"]."'>Print QR Code<br></td>
-                <td> <a href='editInventory.php?edit=".$row["Id"]."'>Edit<br></td>";
+        echo "<td><a href='QRPrintPage.php?id=".$row["Inv Id"]."'>Print QR Code<br></td>
+                <td> <a href='editInventory.php?edit=".$row["Inv Id"]."'>Edit<br></td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td><a href='deleteInventory.php?delete=".$row["Id"]."'>Delete<br></td></tr>";
+            echo "<td><a href='deleteInventory.php?delete=".$row["Inv Id"]."'>Delete<br></td></tr>";
         }
         else{
             echo "</tr>";

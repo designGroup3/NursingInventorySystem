@@ -12,6 +12,17 @@ if(isset($_SESSION['id'])) {
     echo "<head><Title>Delete User</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";
 
+    $checkSql = "SELECT * FROM users WHERE `Id` = '$id';";
+    $checkResult = mysqli_query($conn, $checkSql);
+    if(mysqli_num_rows($checkResult) == 0){
+        echo "<br>
+        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+        <div style='text-align: center'>
+            <input onclick=\"window.location.href='usersTable.php';\" class='btn btn-warning' value='Back'>
+        </div>";
+        exit();
+    }
+
     echo "<div class=\"container\">
           <form action ='includes/deleteUser.inc.php' method ='POST' class=\"well form-horizontal\" id=\"contact_form\">
           <fieldset><h3 align=\"center\">Are you sure you want to delete $uid?</h3>

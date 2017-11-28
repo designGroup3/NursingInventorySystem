@@ -59,7 +59,7 @@ if(isset($_SESSION['id'])) {
             }
             echo "<td><a href='editServiceAgreement.php?edit=$row[Id]'>Edit</a></td>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
-                echo "<td><a href='deleteServiceAgreement.php?id=$row[Id]&name=$row[Name]'>Delete</td>";
+                echo "<td><a href='deleteServiceAgreement.php?id=$row[Id]'>Delete</td>";
             }
         echo "</tr>";
     }

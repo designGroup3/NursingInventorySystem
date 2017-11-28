@@ -51,7 +51,7 @@ if(isset($_SESSION['id'])) {
         echo "<td> " . date_format($date, 'm/d/Y') . "</td>";
         if ($acctType == "Super Admin") {
             echo "<td> <a href='editUser.php?edit=$row[Id]'>Edit</a><br></td>
-            <td> <a href='deleteUser.php?id=$row[Id]&uid=$row[Uid]'>Delete<br></td>";
+            <td> <a href='deleteUser.php?id=$row[Id]'>Delete<br></td>";
         }
         echo "</tr>";
     }

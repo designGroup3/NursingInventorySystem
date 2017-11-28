@@ -17,6 +17,17 @@ if(isset($_SESSION['id'])) {
     $name;
     $columnNames = array();
 
+    $checkSql = "SELECT * FROM inventory WHERE `Inv Id` = '$id';";
+    $checkResult = mysqli_query($conn, $checkSql);
+    if(mysqli_num_rows($checkResult) == 0){
+        echo "<br>
+        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+        <div style='text-align: center'>
+            <input onclick=\"window.location.href='inventory.php';\" class='btn btn-warning' value='Back'>
+        </div>";
+        exit();
+    }
+
     echo "<br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
 //    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock");
 //

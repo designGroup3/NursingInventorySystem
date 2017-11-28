@@ -6,14 +6,27 @@ if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
     $originalItem = $_GET['edit'];
+
+    echo "<head><Title>Edit Consumable</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
+
+    $checkSql = "SELECT * FROM consumables WHERE `Item` = '$originalItem';";
+    $checkResult = mysqli_query($conn, $checkSql);
+    if(mysqli_num_rows($checkResult) == 0){
+        echo "<br>
+        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+        <div style='text-align: center'>
+            <input onclick=\"window.location.href='consumables.php';\" class='btn btn-warning' value='Back'>
+        </div>";
+        exit();
+    }
+
     $originalItem = str_replace("%5C","\\","$originalItem");
     $originalItem = str_replace("\\","\\\\","$originalItem"); //refuses to work in one statement
     $originalItem = str_replace("%27","'","$originalItem");
     $originalItem = str_replace("'","\'","$originalItem"); //refuses to work in one statement
     $columnNames = array();
     $type;
-    echo "<head><Title>Edit Consumable</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){

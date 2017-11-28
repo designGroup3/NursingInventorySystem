@@ -33,6 +33,16 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
 
+    if(mysqli_num_rows($result) == 0){
+        echo "<br>
+        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+        <div style='text-align: center'>
+            <input onclick=\"window.location.href='usersTable.php';\" class='btn btn-warning' value='Back'>
+        </div>";
+        exit();
+    }
+
+
     echo "<div class=\"container\"><form action ='includes/editUser.inc.php' method ='POST'
           class=\"well form-horizontal\" id=\"contact_form\"><fieldset><h2 align=\"center\">Edit User</h2><br/>
           <input type='hidden' name='id' value = $id>

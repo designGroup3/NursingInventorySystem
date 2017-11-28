@@ -17,15 +17,63 @@ if(isset($_SESSION['id'])) {
     error_reporting(E_ALL ^ E_NOTICE);
     $statedTypes = array();
     $getType = $_GET['type'];
+    if($getType !== NULL && $getType !== ""){
+        $checkSql = "SELECT * FROM subtypes WHERE `Type` = '$getType';";
+        $checkResult = mysqli_query($conn, $checkSql);
+        if(mysqli_num_rows($checkResult) == 0){
+            echo "<br>
+        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+        <div style='text-align: center'>
+            <input onclick=\"window.location.href='checkout.php';\" class='btn btn-warning' value='Back'>
+        </div>";
+            exit();
+        }
+    }
     $getType = str_replace("%5C","\\","$getType");
     $getType = str_replace("%27","'","$getType");
     $getSubtype = $_GET['subtype'];
+    if($getSubtype !== NULL && $getSubtype !== ""){
+        $checkSql = "SELECT * FROM subtypes WHERE `Subtype` = '$getSubtype';";
+        $checkResult = mysqli_query($conn, $checkSql);
+        if(mysqli_num_rows($checkResult) == 0){
+            echo "<br>
+        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+        <div style='text-align: center'>
+            <input onclick=\"window.location.href='checkout.php';\" class='btn btn-warning' value='Back'>
+        </div>";
+            exit();
+        }
+    }
     $getSubtype = str_replace("%5C","\\","$getSubtype");
     $getSubtype = str_replace("%27","'","$getSubtype");
     $getItem = $_GET['item'];
+    if($getItem !== NULL && $getItem !== ""){
+        $checkSql = "SELECT * FROM inventory WHERE `Item` = '$getItem';";
+        $checkResult = mysqli_query($conn, $checkSql);
+        if(mysqli_num_rows($checkResult) == 0){
+            echo "<br>
+        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+        <div style='text-align: center'>
+            <input onclick=\"window.location.href='checkout.php';\" class='btn btn-warning' value='Back'>
+        </div>";
+            exit();
+        }
+    }
     $getItem = str_replace("%5C","\\","$getItem");
     $getItem = str_replace("%27","'","$getItem");
     $getSerial = $_GET['serial'];
+    if($getSerial !== NULL && $getSerial !== ""){
+        $checkSql = "SELECT * FROM inventory WHERE `Item` = '$getItem' AND `Serial Number` = '$getSerial';";
+        $checkResult = mysqli_query($conn, $checkSql);
+        if(mysqli_num_rows($checkResult) == 0){
+            echo "<br>
+        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+        <div style='text-align: center'>
+            <input onclick=\"window.location.href='checkout.php';\" class='btn btn-warning' value='Back'>
+        </div>";
+            exit();
+        }
+    }
     $getSerial = str_replace("%5C","\\","$getSerial");
     $getSerial = str_replace("%27","'","$getSerial");
 

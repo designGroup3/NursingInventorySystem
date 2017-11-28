@@ -1,15 +1,15 @@
 CREATE SCHEMA loginsystem;
 
 CREATE TABLE loginsystem.users (
-  id INT NOT NULL AUTO_INCREMENT,
-  first VARCHAR(128) NOT NULL,
-  last VARCHAR(128) NOT NULL,
-  uid VARCHAR(128) UNIQUE NOT NULL,
-  pwd VARCHAR(1000) NOT NULL,
-  email VARCHAR(200) NOT NULL,
-  acctType VARCHAR(20) NOT NULL,
-  dateAdded DATE NOT NULL,
-  pwdRecoveryKey VARCHAR(100),
+  Id INT NOT NULL AUTO_INCREMENT,
+  First VARCHAR(128) NOT NULL,
+  Last VARCHAR(128) NOT NULL,
+  Uid VARCHAR(128) UNIQUE NOT NULL,
+  Pwd VARCHAR(1000) NOT NULL,
+  Email VARCHAR(200) NOT NULL,
+  `Account Type` VARCHAR(20) NOT NULL,
+  `Date Added` DATE NOT NULL,
+  `Pwd Recovery Key` VARCHAR(100) NOT NULL,
   PRIMARY KEY (id));
 
 CREATE TABLE loginsystem.subtypes (
@@ -19,6 +19,7 @@ CREATE TABLE loginsystem.subtypes (
   PRIMARY KEY (Subtype));
 
 CREATE TABLE loginsystem.inventory (
+  `Inv Id` INT NOT NULL AUTO_INCREMENT,
   `Serial Number` VARCHAR(100),
   Item VARCHAR(100) NOT NULL,
   Subtype VARCHAR(100) NOT NULL,
@@ -30,7 +31,7 @@ CREATE TABLE loginsystem.inventory (
   `IP Address` VARCHAR(100),
   `Last Processing Date` DATE,
   `Last Processing Person` VARCHAR(100),
-  PRIMARY KEY (`Serial Number`));
+  PRIMARY KEY (`Inv Id`));
 
 CREATE TABLE loginsystem.consumables (
   Item VARCHAR(100) NOT NULL,
@@ -56,7 +57,7 @@ CREATE TABLE `loginsystem`.`checkouts` (
   `Item` VARCHAR(100) NOT NULL,
   `Subtype` VARCHAR(100) NOT NULL,
   `Quantity Borrowed` INT NOT NULL,
-  `Serial Number` VARCHAR(100),
+  `Serial Number` VARCHAR(100) NOT NULL,
   `Person` VARCHAR(100) NOT NULL,
   `Reason` VARCHAR(500) NOT NULL,
   `Notes` VARCHAR(1000),
@@ -77,7 +78,18 @@ CREATE TABLE `loginsystem`.`consumptions` (
   `Update Person` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`Id`));
 
-CREATE TABLE `loginsystem`.`reports` (
+CREATE TABLE `loginsystem`.`inventoryReports` (
+  `Id` INT NOT NULL AUTO_INCREMENT,
+  `Activity Type` VARCHAR(100) NOT NULL,
+  `Serial Number` VARCHAR(100) NOT NULL,
+  `Item` VARCHAR(100) NOT NULL,
+  `Subtype` VARCHAR(100) NOT NULL,
+  `Quantity` INT NOT NULL,
+  `Timestamp` VARCHAR(100) NOT NULL,
+  `Update Person` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`Id`));
+
+CREATE TABLE `loginsystem`.`consumableReports` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Activity Type` VARCHAR(100) NOT NULL,
   `Item` VARCHAR(100) NOT NULL,
@@ -91,7 +103,6 @@ CREATE TABLE `loginsystem`.`repairs/updates/upgrades` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Type` VARCHAR(10) NOT NULL,
   `Serial Number` VARCHAR(100) NOT NULL,
-  `Item` VARCHAR(100) NOT NULL,
   `Part` VARCHAR(100) NOT NULL,
   `Cost` DECIMAL(8,2) NOT NULL,
   `Date` DATE NOT NULL,

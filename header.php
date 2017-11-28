@@ -200,11 +200,9 @@
                          <div class="tab-content">
                                 <div class="tab-pane active" id="content-one">
                                     <ul class="nav-list list-inline">
-                               <!-- check in check out tables-->
                                 <li><a href="signup.php"><img src="images/adusr_nvtn.png"><span>Add user</span></a></li>
-                                <li><a href="searchUsersForm.php"><img src="images/srchusr_nvtn.png"><span>Search user</span></a></li>
-                                <!-- This will link to Add inventory page-->
                                 <li><a data-filter=".97" href="usersTable.php"><img src="images/usrlst_nvtn.png "><span>See User List</span></a></li>
+                                <li><a href="searchUsersForm.php"><img src="images/srchusr_nvtn.png"><span>Search users</span></a></li>
                             </ul>
                           </div>
                           
@@ -228,9 +226,9 @@
                                 <!-- This will link to Add inventory page-->
                                 <li><a data-filter=".97" href="inventory.php"><img src="images/editinvntry_nvtn.png" width="100px"><span>View/Edit/Delete</span></a></li>
                                 <!-- view/edit/delete colomns and items types/subtypes in the inventory tables-->
-								<li><a data-filter=".96" href="dailyReports.php"><img src="images/rprtdly_nvtn.png" ><span>Daily Reports</span></a></li>
+								<li><a data-filter=".96" href="dailyInventoryReports.php"><img src="images/rprtdly_nvtn.png" ><span>Daily Reports</span></a></li>
                                 <!-- Report generation Page-->
-								<li><a data-filter=".96" href="otherReports.php"><img src="images/othrrprt_nvtn.png" ><span>Other Reports</span></a></li>
+								<li><a data-filter=".96" href="otherInventoryReports.php"><img src="images/othrrprt_nvtn.png" ><span>Other Reports</span></a></li>
                                 <li><a data-filter=".87" href="searchInventoryForm.php"><img src="images/invsrch_nvtn.png"><span>Search Inventory</span></a></li>
                             </ul>
                           </div>
@@ -240,7 +238,7 @@
 				</div>				
 			</li>
          <li class="dropdown mega-dropdown">
-			   <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-usb"></i> Consumables <span class="caret"></span></a>				
+			   <a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-usb"></i> Consumable Functions <span class="caret"></span></a>
 				<div id="filters" class="dropdown-menu mega-dropdown-menu">
                     <div style="text-align: center;" class="container-fluid2">
     				    <!-- Tab panes -->
@@ -249,16 +247,16 @@
                           <div class="tab-pane active" id="kids">
                             <ul class="nav-list list-inline">
                                <!-- -->
-                                <li><a href="consume.php"><img src="images/consume_nvtn.png" width="100px"><span>Consume</span></a></li>
-                                <!-- This will link to Add inventory page-->
                                 <li><a data-filter=".97" href="addConsumable.php"><img src="images/ALTERaddconsume_nvtn.png" width="100px"><span>Add Consumable</span></a></li>
+                                <!-- -->
+                                <li><a href="consume.php"><img src="images/consume_nvtn.png" width="100px"><span>Consume</span></a></li>
                                 <!-- view/edit/delete colomns and items types/subtypes in the consumables tables-->
                                 <li><a data-filter=".96" href="consumables.php"><img src="images/ALTEReditcnsm_nvtn.png" width="100px"><span>View/Edit/Delete</span></a></li>
                                 <!-- consumables Report generation Page-->
                                 <li><a data-filter=".87" href="dailyReports.php"><img src="images/ALTERdlyrprt_nvtn.png" width="100px"><span>Daily Reports</span></a></li>
 								 <li><a data-filter=".87" href="otherReports.php"><img src="images/ALTERrprtothr_nvtn.png" width="100px"><span>Other Reports</span></a></li>
 								<!-- Goes to  search consumables table-->
-								<li><a data-filter=".87" href="searchConsumablesForm.php"><img src="images/ALTERcnsmblesrch_nvtn.png" width="100px"><span>Search</span></a></li>
+								<li><a data-filter=".87" href="searchConsumablesForm.php"><img src="images/ALTERcnsmblesrch_nvtn.png" width="100px"><span>Search Consumables</span></a></li>
 								
                             </ul>
                           </div>
@@ -284,10 +282,10 @@
                         <span class="glyphicon glyphicon-user"></span>
                         <?php
                         $currentID = $_SESSION['id'];
-                        $sql = "SELECT acctType, uid FROM users WHERE id='$currentID'";
+                        $sql = "SELECT `Account Type`, uid FROM users WHERE id='$currentID'";
                         $result = mysqli_query($conn, $sql);
                         $row = $result->fetch_assoc();
-                        $acctType = $row['acctType'];
+                        $acctType = $row['Account Type'];
                         $uid = $row['uid'];
 
                         echo "<strong>$uid</strong>";

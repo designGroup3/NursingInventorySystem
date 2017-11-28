@@ -26,10 +26,10 @@ if(isset($_SESSION['id'])) {
     }
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     if ($acctType == "Super Admin") {
         echo "<h2 style='text-align: center'>Consumables</h2><br><table style=\"margin-left:auto; margin-right:auto;\">
@@ -202,7 +202,7 @@ if(isset($_SESSION['id'])) {
 //            }
 //        }
 //        $namesCount++;
-        $item = str_replace("\\","%5C","$row[Item]");
+        //$item = str_replace("\\","%5C","$row[Item]");
         $item = str_replace("'","%27","$row[Item]");
         echo "<td> <a href='editConsumable.php?edit=$item'>Edit<br></td>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {

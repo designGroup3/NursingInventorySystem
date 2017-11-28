@@ -10,10 +10,10 @@ if(isset($_SESSION['id'])) {
     error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE);
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     $sql = "SELECT * FROM serviceAgreements;";
     $result = mysqli_query($conn, $sql);
@@ -23,9 +23,11 @@ if(isset($_SESSION['id'])) {
     }
 
     $name = $_POST['name'];
+    $name = str_replace("\\","\\\\\\\\","$name");
     $name = str_replace("'","\'","$name");
     $cost = $_POST['cost'];
     $duration = $_POST['duration'];
+    $duration = str_replace("\\","\\\\\\\\","$duration");
     $duration = str_replace("'","\'","$duration");
     $date = $_POST['date'];
 

@@ -1,23 +1,3 @@
-<style>
-    td, th {
-        text-align: left;
-        padding: 8px;
-    }
-
-    th{
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    table.center {
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    body {
-        text-align:center;
-    }
-</style>
-
 <?php
 include 'table.php';
 
@@ -28,14 +8,25 @@ if(isset($_SESSION['id'])) {
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
-    $serialNumber = $_GET['show'];
+    $id = $_GET['show'];
     $name;
     $columnNames = array();
+
+    $checkSql = "SELECT * FROM inventory WHERE `Inv Id` = '$id';";
+    $checkResult = mysqli_query($conn, $checkSql);
+    if(mysqli_num_rows($checkResult) == 0){
+        echo "<br>
+        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+        <div style='text-align: center'>
+            <input onclick=\"window.location.href='inventory.php';\" class='btn btn-warning' value='Back'>
+        </div>";
+        exit();
+    }
 
     echo "<br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
 //    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock");
@@ -59,13 +50,34 @@ if(isset($_SESSION['id'])) {
     $innerCount = 0;
     while ($row = mysqli_fetch_array($result)) {
         $innerCount++;
-        if ($innerCount > 3 && $innerCount < 8 || $innerCount > 9) {
+        if ($innerCount > 3 && $innerCount < 9 || $innerCount > 10) {
             array_push($columnNames, $row['Field']);
         }
     }
 
-    for ($count = 0; $count < count($columnNames); $count++) {
+    for ($count = 1; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
+    }
+
+    $sql2 = "SELECT `Number in Stock`, Checkoutable FROM inventory WHERE `Inv Id` = '".$id."';";
+    $result2 = mysqli_query($conn, $sql2);
+    $row2 = mysqli_fetch_array($result2);
+    if($row2['Number in Stock'] > 0 && $row2['Checkoutable'] == 1){
+        echo "<th>Check-out</th>";
+    }
+
+    $serialSql = "SELECT `Serial Number` FROM inventory WHERE `Inv Id` = '$id';";
+    $serialResult = mysqli_query($conn, $serialSql);
+    $serialRow = mysqli_fetch_array($serialResult);
+
+    $serialNumber = $serialRow['Serial Number'];
+    $serialNumber = str_replace("\\","\\\\","$serialNumber");
+    $serialNumber = str_replace("'","\'","$serialNumber");
+    $sql3 = "SELECT `Serial Number` FROM checkouts WHERE `Serial Number` = '".$serialNumber."' AND `Return Date` IS NULL;";
+    $result3 = mysqli_query($conn, $sql3);
+    $row3 = mysqli_num_rows($result3);
+    if($row3 > 0 && $row2['Checkoutable'] == 1){
+        echo "<th>Check-in</th>";
     }
 
     echo "<th>Show QR Code</th><th>Edit</th>";
@@ -86,13 +98,13 @@ if(isset($_SESSION['id'])) {
             $sql .= "inventory.`".$columnNames[$count] ."`";
         }
     }
-    $sql .= " FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE `Serial Number` = '".$serialNumber."';";
+    $sql .= " FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE `Inv Id` = '".$id."';";
 
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_array($result)) {
         $name = $row['Item'];
         echo "<tr>";
-        for ($whileCount = 0; $whileCount < count($columnNames); $whileCount++) {
+        for ($whileCount = 1; $whileCount < count($columnNames); $whileCount++) {
             $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
                     WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$whileCount]';";
             $result2 = mysqli_query($conn, $sql2);
@@ -110,24 +122,24 @@ if(isset($_SESSION['id'])) {
             }
         }
 
-        $sql2 = "SELECT `Number in Stock`, Checkoutable FROM inventory WHERE `Serial Number` = '".$serialNumber."';";
+        $sql2 = "SELECT `Number in Stock`, Checkoutable FROM inventory WHERE `Inv Id` = '".$id."';";
         $result2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_array($result2);
         if($row2['Number in Stock'] > 0 && $row2['Checkoutable'] == 1){
-            echo "<td><a href='includes/QRcheckout.inc.php?serialNumber=".$row['Serial Number']."'>Check-out<br></td>";
+            echo "<td><a href='includes/QRcheckout.inc.php?Id=".$row['Inv Id']."'>Check-out<br></td>";
         }
 
         $sql3 = "SELECT `Serial Number` FROM checkouts WHERE `Serial Number` = '".$serialNumber."' AND `Return Date` IS NULL;";
         $result3 = mysqli_query($conn, $sql3);
         $row3 = mysqli_num_rows($result3);
         if($row3 > 0 && $row2['Checkoutable'] == 1){
-            echo "<td><a href='includes/checkin.inc.php?serialNumber=".$row['Serial Number']."'>Check-in<br></td>";
+            echo "<td><a href='includes/checkin.inc.php?Id=".$row['Inv Id']."'>Check-in<br></td>";
         }
 
-        echo "<td><a href='QRPrintPage.php?serialNumber=".$row["Serial Number"]."'>Print QR Code<br></td>
-         <td><a href='editInventory.php?edit=".$row['Serial Number']."'>Edit<br></td>";
+        echo "<td><a href='QRPrintPage.php?id=".$row["Inv Id"]."'>Print QR Code<br></td>
+                <td> <a href='editInventory.php?edit=".$row["Inv Id"]."'>Edit<br></td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td><a href='deleteInventory.php?serialNumber=".$row['Serial Number']."&item=$row[Item]'>Delete<br></td></tr>";
+            echo "<td><a href='deleteInventory.php?delete=".$row["Inv Id"]."'>Delete<br></td></tr>";
         }
         else{
             echo "</tr>";

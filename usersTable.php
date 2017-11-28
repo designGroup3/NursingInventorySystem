@@ -8,10 +8,10 @@ if(isset($_SESSION['id'])) {
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=self') !== false){
@@ -42,16 +42,16 @@ if(isset($_SESSION['id'])) {
     echo "</tr></thead><tbody>";
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr>
-    <td> " . $row['first'] . "</td>
-    <td> " . $row['last'] . "</td>
-    <td> " . $row['uid'] . "</td>
-    <td> " . $row['email'] . "</td>
-    <td> " . $row['acctType'] . "</td>";
-        $date = date_create($row['dateAdded']);
+    <td> " . $row['First'] . "</td>
+    <td> " . $row['Last'] . "</td>
+    <td> " . $row['Uid'] . "</td>
+    <td> " . $row['Email'] . "</td>
+    <td> " . $row['Account Type'] . "</td>";
+        $date = date_create($row['Date Added']);
         echo "<td> " . date_format($date, 'm/d/Y') . "</td>";
         if ($acctType == "Super Admin") {
-            echo "<td> <a href='editUser.php?edit=$row[id]'>Edit</a><br></td>
-            <td> <a href='deleteUser.php?id=$row[id]&uid=$row[uid]'>Delete<br></td>";
+            echo "<td> <a href='editUser.php?edit=$row[Id]'>Edit</a><br></td>
+            <td> <a href='deleteUser.php?id=$row[Id]'>Delete<br></td>";
         }
         echo "</tr>";
     }

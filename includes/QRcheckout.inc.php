@@ -4,13 +4,13 @@ session_start();
 include '../dbh.php';
 
 if(isset($_SESSION['id'])) {
-    $serialNumber = $_GET['serialNumber'];
+    $id = $_GET['Id'];
 
-    $sql = "SELECT Item, subtypes.Type, inventory.Subtype FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE `Serial Number` = '" . $serialNumber."';";
+    $sql = "SELECT `Serial Number`, Item, subtypes.Type, inventory.Subtype FROM inventory JOIN subtypes ON inventory.Subtype = subtypes.Subtype WHERE `Inv Id` = '" . $id."';";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
 
-    header("Location: ../checkout.php?type=" . $row['Type'] . "&subtype=" . $row['Subtype'] . "&item=" . $row['Item']);
+    header("Location: ../checkout.php?type=".$row['Type']."&subtype=".$row['Subtype']."&item=".$row['Item']."&serial=".$row['Serial Number']);
 }
 else{
     header("Location: ./login.php");

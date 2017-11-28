@@ -135,10 +135,10 @@ include 'header.php';
         <select required class=\"form-control selectpicker\" name='acctType'>
         <option value='Standard User'>Standard User</option>";
         $currentID = $_SESSION['id'];
-        $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+        $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
         $result = mysqli_query($conn, $sql);
         $row = $result->fetch_assoc();
-        $acctType = $row['acctType'];
+        $acctType = $row['Account Type'];
         if($acctType == "Admin" || $acctType == "Super Admin"){
             echo "<option value='Admin'>Admin</option>";
         }
@@ -158,9 +158,9 @@ include 'header.php';
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-lock\"></i></span>
         <input name='pwd' placeholder='Password' class='form-control' type='password' id='pwd'
-         pattern=\"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
+         pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
          title=\"Must contain at least one number and one uppercase and lowercase letter,
-          and at least 8 or more characters\" required></div></div></div><div id=\"message\">
+and at least 8 or more characters. Passwords cannot contain \ or '.\" required></div></div></div><div id=\"message\">
         <h4>Password must contain the following:</h4><p id=\"letter\" class=\"invalid\">A <b>lowercase</b> letter</p>
         <p id=\"capital\" class=\"invalid\">A <b>capital (uppercase)</b> letter</p>
         <p id=\"number\" class=\"invalid\">A <b>number</b></p>

@@ -235,7 +235,8 @@ if(strpos($url, 'sent') !== false){
 echo "<br><div class=\"container\"><form action ='includes/forgotPassword.inc.php' class=\"well form-horizontal\" 
     method ='POST' id='contact_form'><fieldset><h2 align='center'>Forgot Password? No worries,</h2><p align='center'
     style=\"text-size:13pt;\">Just type in your email address and we will send you a password reset email.</p><br/>
-    <div class=\"form-group\"><label class=\"col-md-4 control-label\">E-Mail</label>  
+    <div class=\"form-group\"><label class=\"col-md-4 control-label\">E-Mail:
+    <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>   
     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-envelope\"></i></span>
     <input type='email' name='email' placeholder='E-Mail Address' class=\"form-control\"></div></div></div>

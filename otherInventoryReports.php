@@ -8,9 +8,8 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Broad Reports</Title></head><body><div class=\"parent\"><button class='help' style='height:27px;' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div>
-<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
+    echo "<head><Title>Broad Inventory Reports</Title></head><body><div class=\"parent\"><button class='help' style='height:27px;' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div><div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     echo "<div class=\"container\"><form class=\"well form-horizontal\" id=\"contact_form\" method='POST'>
         <h2 align=\"center\"> Which dates would you like to report?</h2><br>
@@ -28,17 +27,17 @@ if(isset($_SESSION['id'])) {
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
         <button name=\"submit\" type=\"submit\" class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
         data-submit=\"...Sending\">Submit</button></div></div></form>
-
-        <form style='text-align:center;' action='consumptionsReportExcel.php' method='post'>
+        
+        <form style='text-align:center;' action='checkoutsReportExcel.php' method = 'post'>
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-        <input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Export Consumables History (Excel)'>
+        <input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Export Check-out History (Excel)'>
         </div></div></form><br><br>";
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $startDate = $_POST['startDate'];
         $endDate = $_POST['endDate'];
 
-        $sql = "SELECT `Activity Type`, Item, consumableReports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM consumableReports JOIN subtypes ON subtypes.Subtype = consumableReports.Subtype WHERE Timestamp BETWEEN '".$startDate." 00:00:00' AND '".$endDate." 23:59:59';";
+        $sql = "SELECT `Activity Type`, `Serial Number`, Item, inventoryReports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM inventoryReports JOIN subtypes ON subtypes.Subtype = inventoryReports.Subtype WHERE Timestamp BETWEEN '".$startDate." 00:00:00' AND '".$endDate." 23:59:59';";
         $result = mysqli_query($conn, $sql);
         $resultCheck = mysqli_num_rows($result);
 
@@ -47,12 +46,14 @@ if(isset($_SESSION['id'])) {
             $end = date_create($endDate);
             echo "<br><h2 class='center'><b>&nbsp&nbspActivities for (".date_format($start, 'm/d/Y')." - ".date_format($end, 'm/d/Y').")</b></h2>
 
-            <br><form style='text-align:center;' action='multiDayReportsExcel.php' method = 'post'>
+            <br><form style='text-align:center;' action='multiDayInventoryReportsExcel.php' method = 'post'>
                 <input type='hidden' name='startDate' value = '$startDate'>
                 <input type='hidden' name='endDate' value = '$endDate'>
                 <input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Export to Excel'></form>
             
-            <br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead><tr><th>Activity Type</th>
+            <br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
+            <thead><tr><th>Activity Type</th>
+            <th>Serial Number</th>
             <th>Item</th>
             <th>Type</th>
             <th>Subtype</th>
@@ -62,6 +63,7 @@ if(isset($_SESSION['id'])) {
 
             while ($row = mysqli_fetch_array($result)) {
                 echo "<tr><td> " . $row['Activity Type'] . "</td>
+                <td> " . $row['Serial Number'] . "</td>
                 <td> " . $row['Item'] . "</td>
                 <td> " . $row['Type'] . "</td>
                 <td> " . $row['Subtype'] . "</td>

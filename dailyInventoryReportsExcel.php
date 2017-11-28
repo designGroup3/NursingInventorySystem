@@ -4,17 +4,16 @@ include 'dbh.php';
 
 if(isset($_POST["export"]))
 {
-    $startDate = $_POST['startDate'];
-    $endDate = $_POST['endDate'];
-    $sql = "SELECT `Activity Type`, Item, consumableReports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM consumableReports JOIN subtypes ON subtypes.Subtype = consumableReports.Subtype WHERE Timestamp BETWEEN '".$startDate." 00:00:00' AND '".$endDate." 23:59:59';";
+    $date = $_POST['date'];
+    $dateTitle = date_create($date);
+    $sql = "SELECT `Activity Type`, `Serial Number`, Item, inventoryReports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM inventoryReports JOIN subtypes ON subtypes.Subtype = inventoryReports.Subtype WHERE Timestamp BETWEEN '".$date." 00:00:00' AND '".$date." 23:59:59';";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0)
     {
-        $start = date_create($startDate); //converts string to date
-        $end = date_create($endDate);
-        $output = '<h2><b>Activities for ('.date_format($start, "m/d/Y").' - '.date_format($end, "m/d/Y").')</b></h2>
-            <table class="table" bordered="1">
+        $output = '<h2><b>Activities for '.date_format($dateTitle, "m/d/Y").'</b></h2>
+                    <table class="table" bordered="1">
                     <tr><th>Activity Type</th>
+                        <th>Serial Number</th>
                         <th>Item</th>
                         <th>Type</th>
                         <th>Subtype</th>
@@ -24,6 +23,7 @@ if(isset($_POST["export"]))
         while($row = mysqli_fetch_array($result))
         {
             $output .= '<tr><td>'.$row["Activity Type"].'</td>
+                            <td>'.$row["Serial Number"].'</td>
                             <td>'.$row["Item"].'</td>
                             <td>'.$row["Type"].'</td>
                             <td>'.$row["Subtype"].'</td>
@@ -33,7 +33,7 @@ if(isset($_POST["export"]))
         }
         $output .= '</table>';
 
-        $date = date_create($startDate);
+        $date = date_create($date);
         header('Content-Type: application/xls');
         header('Content-Disposition: attachment; filename=reports_'.date_format($date,"m-d-Y").'.xls');
         echo $output;

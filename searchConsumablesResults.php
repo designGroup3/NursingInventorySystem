@@ -8,10 +8,10 @@ if(isset($_SESSION['id'])) {
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     $columnNames = array();
     $receivedValues = array();
@@ -37,6 +37,8 @@ if(isset($_SESSION['id'])) {
 
     for($count = 0; $count< count($columnNames); $count++){
         if($receivedValues[$count] !== ""){
+            $receivedValues[$count] = str_replace("\\","\\\\\\\\","$receivedValues[$count]");
+            $receivedValues[$count] = str_replace("%5C","\\\\\\\\","$receivedValues[$count]");
             $receivedValues[$count] = str_replace("'","\'","$receivedValues[$count]");
             $receivedValues[$count] = str_replace("%27","\'","$receivedValues[$count]");
             $sql .= "`" . $columnNames[$count] . "`" . " LIKE '%" . $receivedValues[$count]. "%' AND ";
@@ -47,6 +49,7 @@ if(isset($_SESSION['id'])) {
     $sql = chop($sql," AND ");
 
     if($_POST['Type'] !== ""){
+        $type = str_replace("%5C","\\\\\\\\","$_POST[Type]");
         $type = str_replace("%27","\'","$_POST[Type]");
         $sql .= " AND Subtype IN (SELECT Subtype FROM subtypes WHERE type LIKE '%". $type."%')";
     }
@@ -61,6 +64,7 @@ if(isset($_SESSION['id'])) {
 
     if(strpos($sql, "WHERE AND") !== false){ //for if only type is searched on
         $subtypes = array();
+        $type = str_replace("%5C","\\\\\\\\","$_POST[Type]");
         $type = str_replace("%27","\'","$_POST[Type]");
         $typeSql = "SELECT Subtype FROM subtypes WHERE type = '". $type."';";
         $typeResult = mysqli_query($conn, $typeSql);
@@ -68,6 +72,7 @@ if(isset($_SESSION['id'])) {
             array_push($subtypes, $typeRow['Subtype']);
         }
         for($count = 0; $count < count($subtypes); $count++){
+            $subtypes[$count] = str_replace("\\","\\\\\\\\","$subtypes[$count]");
             $subtypes[$count] = str_replace("'","\'","$subtypes[$count]");
         }
         $sql = "SELECT * FROM consumables WHERE Subtype IN (";
@@ -89,11 +94,11 @@ if(isset($_SESSION['id'])) {
             $outerCount++;
             echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
             <thead>";
-            for($count = 0; $count< 2; $count++){
+            for($count = 0; $count< 1; $count++){
                 echo "<th>$columnNames[$count]</th>";
             }
             echo "<th>Type</th>";
-            for($count = 2; $count< count($columnNames); $count++){
+            for($count = 1; $count< count($columnNames); $count++){
                 if($columnNames[$count] === "Number in Stock"){
                     echo "<th>$columnNames[$count] "."(Minimum)"."</th>";
                 }
@@ -111,9 +116,10 @@ if(isset($_SESSION['id'])) {
             echo"</thead><tbody><tr>";
         }
         for($count = 0; $count< count($columnNames); $count++){
-            if($count == 1){
+            if($count == 0){
                 echo '<td> '.$row[$columnNames[$count]].'</td>';
                 $subtype = $row[$columnNames[$count + 1]];
+                $subtype = str_replace("\\","\\\\\\\\","$subtype");
                 $subtype = str_replace("'","\'","$subtype");
                 $innerSQL = "SELECT Type FROM subtypes WHERE Subtype = '".$subtype."';";
                 $innerResult = mysqli_query($conn, $innerSQL);

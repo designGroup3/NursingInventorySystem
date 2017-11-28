@@ -84,7 +84,8 @@ if(isset($_SESSION['id'])) {
 
     echo '<div class="container"><form class="well form-horizontal" id="contact_form" method="post"><fieldset>
           <h2 align="center">Which column would you like to edit?</h2><br>
-          <div class="form-group"><label class="col-md-4 control-label"></label>
+          <div class="form-group"><label class="col-md-4 control-label">
+          Current Column Name:<a style="color:red;" title="This field must be filled">*</a></label>
           <div class="col-md-4 selectContainer"><div  class="input-group">
           <span class="input-group-addon"><i class="fa fa-columns"></i></span>
           <select name="column" onchange="this.form.submit()" class="form-control selectpicker"><option selected value=""></option>';
@@ -118,7 +119,7 @@ if(isset($_SESSION['id'])) {
         }
 
         echo "<br><br><div class=\"form-group\"><label class=\"col-md-4 control-label\">
-        Column Name:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
+        New Column Name:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"fa fa-columns\"></i></span>
         <input type='text' class=\"form-control\" required name='newColumn' value='".$oldColumn."'></div></div></div>

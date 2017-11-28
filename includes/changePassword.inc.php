@@ -15,7 +15,7 @@ $currentID = $_SESSION['id'];
 $sql = "SELECT * FROM users WHERE id = '$currentID'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
-$hash_pwd = $row['pwd'];
+$hash_pwd = $row['Pwd'];
 $hash = password_verify($oldPassword, $hash_pwd);
 
 if($hash == 0) {
@@ -32,8 +32,8 @@ if($newPassword !== $confirmNewPassword){
 }
 else{
     $encrypted_password = password_hash($newPassword, PASSWORD_DEFAULT);
-    //echo "UPDATE users SET pwd = '$newPassword' WHERE id = '$currentID'";
-    $sql = "UPDATE users SET pwd = '$encrypted_password' WHERE id = '$currentID'";
+    //echo "UPDATE users SET Pwd = '$newPassword' WHERE id = '$currentID'";
+    $sql = "UPDATE users SET Pwd = '$encrypted_password' WHERE id = '$currentID'";
     $result = mysqli_query($conn, $sql);
     header("Location: ../changePassword.php?success");
 }

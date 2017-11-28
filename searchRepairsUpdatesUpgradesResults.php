@@ -8,22 +8,28 @@ if(isset($_SESSION['id'])) {
 <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     $type = $_POST['type'];
     $serialNumber = $_POST['serialNumber'];
+    $serialNumber = str_replace("\\","\\\\\\\\","$serialNumber");
+    $serialNumber = str_replace("'","\'","$serialNumber");
     $item = $_POST['item'];
+    $item = str_replace("\\","\\\\\\\\","$item");
     $item = str_replace("'","\'","$item");
     $part = $_POST['part'];
+    $part = str_replace("\\","\\\\\\\\","$part");
     $part = str_replace("'","\'","$part");
     $cost = $_POST['cost'];
     $date = $_POST['date'];
     $supplier = $_POST['supplier'];
+    $supplier = str_replace("\\","\\\\\\\\","$supplier");
     $supplier = str_replace("'","\'","$supplier");
     $reason = $_POST['reason'];
+    $reason = str_replace("\\","\\\\\\\\","$reason");
     $reason = str_replace("'","\'","$reason");
     $tableHeadNeeded = true;
     $count = 0;
@@ -99,7 +105,7 @@ if(isset($_SESSION['id'])) {
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "Item LIKE '%".$item."%'";
+        $sql .= "`Serial Number` IN (SELECT `Serial Number` FROM inventory WHERE Item LIKE '%".$item."%')";
     }
     $sql .=";";
 
@@ -124,16 +130,16 @@ if(isset($_SESSION['id'])) {
             echo "</tr></thead><tbody>";
         }
 
-//        $sql2 = "SELECT Item FROM inventory WHERE `Serial Number` = '".$row['Serial Number']."';";
-//        $result2 = mysqli_query($conn, $sql2);
-//        $row2 = mysqli_fetch_array($result2);
-//
+        $sql2 = "SELECT Item FROM inventory WHERE `Serial Number` = '".$row['Serial Number']."';";
+        $result2 = mysqli_query($conn, $sql2);
+        $row2 = mysqli_fetch_array($result2);
+
         $date = date_create($row['Date']);
-//        '<td>'.date_format($date, "m/d/Y").'</td>';
+        '<td>'.date_format($date, "m/d/Y").'</td>';
 
         echo "<tr><td> ".$row['Type']."</td>
               <td> ".$row['Serial Number']."</td>
-              <td> ".$row['Item']."</td>
+              <td> ".$row2['Item']."</td>
               <td> ".$row['Part']."</td>
               <td> ".$row['Cost']."</td>
               <td> ".date_format($date, 'm/d/Y')."</td>

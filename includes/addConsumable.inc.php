@@ -7,10 +7,10 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 if(isset($_SESSION['id'])) {
     $currentID = $_SESSION['id'];
-    $sql = "SELECT uid FROM users WHERE id='$currentID'";
+    $sql = "SELECT Uid FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $uid = $row['uid'];
+    $uid = $row['Uid'];
     $columnNames = array();
     $receivedValues = array();
     $consumableNames = array();
@@ -106,7 +106,7 @@ if(isset($_SESSION['id'])) {
     }
 
     //Check subtypes table
-    $sql2 = "SELECT Subtype FROM subtypes WHERE Subtype = '$receivedValues[1]';";
+    $sql2 = "SELECT Subtype FROM subtypes WHERE Subtype = '$receivedValues[1]' AND `Table` = 'Consumables';";
     $result2 = mysqli_query($conn, $sql2);
     if(mysqli_num_rows($result2) !== 0){ //subtype found
         $sql2 = "SELECT Subtype, Type FROM subtypes WHERE Subtype = '$receivedValues[1]' AND Type = '$type';";
@@ -127,17 +127,23 @@ if(isset($_SESSION['id'])) {
         }
     }
     else{ //subtype not found
+        $subSql = "SELECT Subtype FROM subtypes WHERE Subtype = '$receivedValues[1]' AND `Table` = 'Inventory';";
+        $subResult2 = mysqli_query($conn, $subSql);
+        if(mysqli_num_rows($subResult2) > 0){
+            header("Location: ../addConsumable.php?error=sameType&subtype=$receivedValues[1]");
+            exit();
+        }
         $sql2 = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $receivedValues[1] . "','" . $type . "','Consumables');";
         $result2 = mysqli_query($conn, $sql2);
         $result = mysqli_query($conn, $sql); //add the item
     }
 
     //Reports
-    $sql = "INSERT INTO reports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Consumable',";
+    $sql = "INSERT INTO consumableReports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Consumable',";
 
+    $sql .= "'" . $receivedValues[0] . "'" . ", ";
     $sql .= "'" . $receivedValues[1] . "'" . ", ";
-    $sql .= "'" . $receivedValues[2] . "'" . ", ";
-    $sql .= "'" . $receivedValues[4] . "'" . ", ";
+    $sql .= "'" . $receivedValues[3] . "'" . ", ";
 
     $sql2 = "SELECT CURRENT_TIMESTAMP;";
     $result2 = mysqli_query($conn, $sql2);

@@ -64,7 +64,7 @@ h1{
 <div class="parent"><button class="help" onclick="window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'">
         <i class='fa fa-question'></i></button></div>
 
-<h1><strong>Welcome to NURSING IT Inventory System! (Beta)</strong></h1>
+<h1><strong>Welcome to NURSING IT Inventory System!</strong></h1>
 <br/><br/>
 <div class="container center">
 <div class="row">
@@ -95,7 +95,7 @@ h1{
 </div>
 <div class="row">
   <div class="col-md-4 col-lg-4 col-sm-4">
-    <div class="thumbnail text-center">        <h3>ServiceAgreements</h3>
+    <div class="thumbnail text-center">        <h3>Service Agreements</h3>
 <a href="serviceAgreements.php"><img src="images/serviceAgreements.png" alt="Thumbnail Image 4" ></a>
       <div class="caption">
         <!--<p>Consumable items such as, USB drives.</p> -->
@@ -103,7 +103,7 @@ h1{
     </div>
   </div>
   <div class="col-md-4 col-lg-4 col-sm-4">
-    <div class="thumbnail text-center"><h3>View Clients List</h3><a href="clients.php"><img src="images/viewClientList.png" alt="Thumbnail Image 5" ></a>
+    <div class="thumbnail text-center"><h3>Clients</h3><a href="clients.php"><img src="images/viewClientList.png" alt="Thumbnail Image 5" ></a>
       <div class="caption">
         
         <!-- <p>Report generation for items, people, and tables.</p> -->

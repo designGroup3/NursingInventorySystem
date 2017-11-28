@@ -4,7 +4,7 @@ include '../dbh.php';
 $email = mysqli_real_escape_string($conn, $_POST['email']);
 $email = str_replace("\\","\\\\","$email");
 $email = str_replace("'","\'","$email");
-$sql = "SELECT email FROM users WHERE email='$email'";
+$sql = "SELECT Email FROM users WHERE Email='$email'";
 $result = mysqli_query($conn, $sql);
 $emailcheck = mysqli_num_rows($result);
 if($emailcheck == 0){
@@ -12,10 +12,10 @@ if($emailcheck == 0){
     exit();
 }
 else{
-    $sql = "SELECT pwdRecoveryKey FROM users WHERE email='$email'";
+    $sql = "SELECT `Pwd Recovery Key` FROM users WHERE Email='$email'";
     $result = mysqli_query($conn, $sql);
     if($row = $result->fetch_assoc()){
-        $pwdRecoveryKey = $row['pwdRecoveryKey'];
+        $pwdRecoveryKey = $row['Pwd Recovery Key'];
         $URL = 'http://' . $_SERVER['HTTP_HOST'];
         $message = "Hello, a request has been made to reset your password for the nursing inventory system. To reset your password, please follow this link: 
         $URL/nursinginventorysystem/newPassword.php?email=$email&pwdRecoveryKey=$pwdRecoveryKey";

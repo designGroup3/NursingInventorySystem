@@ -121,28 +121,28 @@ if(isset($_SESSION['id'])) {
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"fa fa-unlock-alt\"></i></span>
-          <input type='password' name='oldPassword' class=\"form-control\"id='pwd'
-          pattern=\"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
+          <input type='password' name='oldPassword' class=\"form-control\" id='pwd'
+          pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
           title=\"Must contain at least one number and one uppercase and lowercase letter,
-          and at least 8 or more characters\" required></div></div></div>
+and at least 8 or more characters. Passwords cannot contain \ or '.\" required></div></div></div>
           
           <div class=\"form-group\"><label class=\"col-md-4 control-label\">New Password:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"fa fa-lock\"></i></span>
           <input type='password' name='newPassword' class=\"form-control\" id='pwd'
-          pattern=\"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
+          pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
           title=\"Must contain at least one number and one uppercase and lowercase letter,
-          and at least 8 or more characters\" required></div></div></div>
+and at least 8 or more characters. Passwords cannot contain \ or '.\" required></div></div></div>
           
           <div class=\"form-group\"><label class=\"col-md-4 control-label\">Confirm New Password:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"fa fa-lock\"></i></span>
           <input type='password' name='confirmNewPassword' class=\"form-control\" id='pwd'
-          pattern=\"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
+          pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
           title=\"Must contain at least one number and one uppercase and lowercase letter,
-          and at least 8 or more characters\" required></div></div></div>
+and at least 8 or more characters. Passwords cannot contain \ or '.\" required></div></div></div>
           
           <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
           <button type=\"submit\" class=\"btn btn-warning btn-block\">Change Password</button></div></div><br><br></fieldset>

@@ -25,7 +25,8 @@ if(isset($_SESSION['id'])) {
 
     echo '<div class="container"><form method="post" class="well form-horizontal" id="contact_form"><fieldset>
         <h2 align="center">Which column would you like to delete?</h2><br><div class="form-group">
-        <label class="col-md-4 control-label"></label>
+        <label class="col-md-4 control-label">Column Name:
+        <a style="color:red;" title="This field must be filled">*</a></label>
         <div class="col-md-4 selectContainer"><div class="input-group">
         <span class="input-group-addon"><i class="fa fa-columns"></i></span>
         <select name="column" onchange="this.form.submit()" class="form-control selectpicker"><option selected value=""></option>';

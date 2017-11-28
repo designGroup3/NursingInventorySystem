@@ -6,14 +6,27 @@ if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
     $originalItem = $_GET['edit'];
+
+    echo "<head><Title>Edit Consumable</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+        <i class='fa fa-question'></i></button></div>";
+
+    $checkSql = "SELECT * FROM consumables WHERE `Item` = '$originalItem';";
+    $checkResult = mysqli_query($conn, $checkSql);
+    if(mysqli_num_rows($checkResult) == 0){
+        echo "<br>
+        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+        <div style='text-align: center'>
+            <input onclick=\"window.location.href='consumables.php';\" class='btn btn-warning' value='Back'>
+        </div>";
+        exit();
+    }
+
     $originalItem = str_replace("%5C","\\","$originalItem");
     $originalItem = str_replace("\\","\\\\","$originalItem"); //refuses to work in one statement
     $originalItem = str_replace("%27","'","$originalItem");
     $originalItem = str_replace("'","\'","$originalItem"); //refuses to work in one statement
     $columnNames = array();
     $type;
-    echo "<head><Title>Edit Consumable</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){
@@ -29,6 +42,13 @@ if(isset($_SESSION['id'])) {
               col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
               The subtype $subtype already relates to the type $type. Subtypes can only have one type.</div><br><br><br>";
         //echo "<br>&nbsp&nbspThe subtype $subtype already relates to the type $type. Subtypes can only have one type.<br>";
+    }
+    elseif(strpos($url, 'sameType') !== false){
+        $subtype = $_GET['subtype'];
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+              col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+              The subtype $subtype is used in the inventory table. Subtypes can only be used in one table.</div><br><br><br>";
+        //echo "<br>&nbsp&nbspYou must name the item.<br>";
     }
 
     $sql = "SHOW COLUMNS FROM consumables"; //gets first headers for page

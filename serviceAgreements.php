@@ -18,10 +18,10 @@ if(isset($_SESSION['id'])) {
     </table>";
 
     $currentID = $_SESSION['id'];
-    $sql = "SELECT acctType FROM users WHERE id='$currentID'";
+    $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
-    $acctType = $row['acctType'];
+    $acctType = $row['Account Type'];
 
     $sql = "SELECT * FROM serviceAgreements;";
     $result = mysqli_query($conn, $sql);
@@ -59,7 +59,7 @@ if(isset($_SESSION['id'])) {
             }
             echo "<td><a href='editServiceAgreement.php?edit=$row[Id]'>Edit</a></td>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
-                echo "<td><a href='deleteServiceAgreement.php?id=$row[Id]&name=$row[Name]'>Delete</td>";
+                echo "<td><a href='deleteServiceAgreement.php?id=$row[Id]'>Delete</td>";
             }
         echo "</tr>";
     }

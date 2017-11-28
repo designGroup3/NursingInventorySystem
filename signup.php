@@ -7,53 +7,6 @@ include 'header.php';
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
     <body>
 <style>
-    #message {
-        display:none;
-        background: #f1f1f1;
-        color: #000;
-        position: relative;
-        padding: 20px;
-        margin-top: 10px;
-    }
-    /*makes the success message go away*/
-    #success_message{ display: none;}
-    /* The message box is shown when the user clicks on the password field */
-    #message {
-        display:none;
-        background: #f1f1f1;
-        color: #000;
-        position: relative;
-        padding: 20px;
-        margin-top: 10px;
-    }
-
-    #message p {
-        padding: 10px 35px;
-        font-size: 15px;
-        text-align:center;
-    }
-
-    /* Add a green text color and a checkmark when the requirements are right */
-    .valid {
-        color: green;
-    }
-
-    .valid:before {
-        position: relative;
-        left: -35px;
-        content: "✔";
-    }
-
-    /* Add a red text color and an "x" when the requirements are wrong */
-    .invalid {
-        color: red;
-    }
-
-    .invalid:before {
-        position: relative;
-        left: -35px;
-        content: "✖";
-    }
 </style>
 <script>
     $(document).ready(function() {
@@ -108,8 +61,7 @@ include 'header.php';
     if(isset($_SESSION['id'])){
         echo "<br><class style=\"text-align:center;\"> 
         <div class=\"container\"><form class=\"well form-horizontal\" action='includes/signup.inc.php'
-        method='POST' id=\"contact_form\"><fieldset><h2 align=\"center\">Create New User</h2><br/>
-        
+        method='POST' id=\"contact_form\"><fieldset><h2 align=\"center\">Create New User</h2><p style=\"color:red; font-size:10px;\" align=\"center\">* required field</p><br/>
         <div class=\"form-group\"><label class=\"col-md-4 control-label\">First Name:
         <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">

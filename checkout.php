@@ -105,7 +105,7 @@ if(isset($_SESSION['id'])) {
         //echo "<br>&nbsp&nbspItem checked-out.<br>";
     }
 
-    $sql = "SELECT Type FROM subtypes WHERE `Table` = 'Inventory';";
+    $sql = "SELECT Type FROM subtypes WHERE `Table` = 'Inventory' ORDER BY Type;";
     $result = mysqli_query($conn, $sql);
 
     echo '<br><div class="container">
@@ -144,7 +144,7 @@ if(isset($_SESSION['id'])) {
     if($getType !== NULL && $getType !== ""){
         $getType = str_replace("\\","\\\\","$getType");
         $getType = str_replace("'","\'","$getType");
-        $sql = "SELECT Subtype FROM subtypes WHERE Type = '".$getType."';";
+        $sql = "SELECT Subtype FROM subtypes WHERE Type = '".$getType."' ORDER BY Subtype;";
         $getType = str_replace("\'","%27","$getType");
         $getType = str_replace("\\\\","%5C","$getType");
         $result = mysqli_query($conn, $sql);
@@ -188,7 +188,7 @@ if(isset($_SESSION['id'])) {
     if($getSubtype !== NULL && $getSubtype !== ""){
         $getSubtype = str_replace("\\","\\\\","$getSubtype");
         $getSubtype = str_replace("'","\'","$getSubtype");
-        $sql = "SELECT DISTINCT Item FROM inventory WHERE Subtype = '".$getSubtype."' AND Checkoutable = '1';";
+        $sql = "SELECT DISTINCT Item FROM inventory WHERE Subtype = '".$getSubtype."' AND Checkoutable = '1' ORDER BY Item;";
         $getSubtype = str_replace("\'","%27","$getSubtype");
         $getSubtype = str_replace("\\\\","%5C","$getSubtype");
         $result = mysqli_query($conn, $sql);
@@ -251,7 +251,7 @@ if(isset($_SESSION['id'])) {
     if($getItem !== NULL && $getItem !== ""){
         $getItem = str_replace("\\","\\\\","$getItem");
         $getItem = str_replace("'","\'","$getItem");
-        $sql = "SELECT `Serial Number` FROM inventory WHERE Item = '".$getItem."' AND Checkoutable = '1';";
+        $sql = "SELECT `Serial Number` FROM inventory WHERE Item = '".$getItem."' AND Checkoutable = '1' ORDER BY `Serial Number`;";
         $getItem = str_replace("\'","%27","$getItem");
         $getItem = str_replace("\\\\","%5C","$getItem");
         $result = mysqli_query($conn, $sql);

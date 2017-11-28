@@ -90,7 +90,7 @@ if(isset($_SESSION['id'])) {
         //echo "<br>&nbsp&nbspItem consumed.<br>";
     }
 
-    $sql = "SELECT Type FROM subtypes WHERE `Table` = 'Consumables';";
+    $sql = "SELECT Type FROM subtypes WHERE `Table` = 'Consumables' ORDER BY Type;";
     $result = mysqli_query($conn, $sql);
 
     echo '<br><div class="container">
@@ -128,7 +128,7 @@ if(isset($_SESSION['id'])) {
     if($getType !== NULL && $getType !== ""){
         $getType = str_replace("\\","\\\\","$getType");
         $getType = str_replace("'","\'","$getType");
-        $sql = "SELECT Subtype FROM subtypes WHERE Type = '".$getType."';";
+        $sql = "SELECT Subtype FROM subtypes WHERE Type = '".$getType."' ORDER BY Subtype;";
         $getType = str_replace("\'","%27","$getType");
         $getType = str_replace("\\\\","%5C","$getType");
         $result = mysqli_query($conn, $sql);
@@ -171,7 +171,7 @@ if(isset($_SESSION['id'])) {
     if($getSubtype !== NULL && $getSubtype !== ""){
         $getSubtype = str_replace("\\","\\\\","$getSubtype");
         $getSubtype = str_replace("'","\'","$getSubtype");
-        $sql = "SELECT Item FROM consumables WHERE Subtype = '".$getSubtype."';";
+        $sql = "SELECT Item FROM consumables WHERE Subtype = '".$getSubtype."' ORDER BY Item;";
         $getSubtype = str_replace("\'","%27","$getSubtype");
         $getSubtype = str_replace("\\\\","%5C","$getSubtype");
         $result = mysqli_query($conn, $sql);

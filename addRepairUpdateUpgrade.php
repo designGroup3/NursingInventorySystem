@@ -99,7 +99,7 @@ if(isset($_SESSION['id'])) {
     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>";
     if($getType !== NULL && $getType !== ""){
-        $typeSQL = "SELECT DISTINCT Type FROM subtypes WHERE `TABLE` = 'Inventory';";
+        $typeSQL = "SELECT DISTINCT Type FROM subtypes WHERE `TABLE` = 'Inventory' ORDER BY Type;";
         $typeResult = mysqli_query($conn, $typeSQL);
         echo "<input type=\"hidden\" name=\"type\" value = '$getType'>";
         if($getItemType !== NULL && $getItemType !== ""){
@@ -124,7 +124,7 @@ if(isset($_SESSION['id'])) {
     if($getItemType !== NULL && $getItemType !== ""){
         $getItemType = str_replace("\\","\\\\","$getItemType");
         $getItemType = str_replace("'","\'","$getItemType");
-        $subtypeSql = "SELECT Subtype FROM subtypes WHERE Type = '".$getItemType."';";
+        $subtypeSql = "SELECT Subtype FROM subtypes WHERE Type = '".$getItemType."' ORDER BY Subtype;";
         $getItemType = str_replace("\'","%27","$getItemType");
         $getItemType = str_replace("\\\\","%5C","$getItemType");
         $subtypeResult = mysqli_query($conn, $subtypeSql);

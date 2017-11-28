@@ -56,8 +56,8 @@ if(isset($_SESSION['id'])) {
         echo "</table>";
     }
 
-    echo "<br>";
-    echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
+    echo "<br>
+          <table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
 
         $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page
         $result = mysqli_query($conn, $sql);
@@ -97,7 +97,11 @@ if(isset($_SESSION['id'])) {
 
     //array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock");
 
-    for ($count = 1; $count < count($columnNames); $count++) {
+    echo "<th>Item</th>
+          <th>Type</th>
+          <th>Subtype</th>
+          <th>Serial Number</th>";
+    for ($count = 5; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
     }
     echo "<th>Print QR Code</th><th>Edit</th>";
@@ -119,10 +123,15 @@ if(isset($_SESSION['id'])) {
         $columnNumber = 0;
 
         while ($row = mysqli_fetch_array($result)) {
-            echo "<tr>";
-            for ($innerCount = 1; $innerCount < 5; $innerCount++) {
-                echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
-            }
+            echo "<tr>
+                  <td>$row[Item]</td>
+                  <td>$row[Type]</td>
+                  <td>$row[Subtype]</td>
+                  <td>".$row['Serial Number']."</td>";
+//            for ($innerCount = 1; $innerCount < 5; $innerCount++) {
+//                echo '<td> ' . $row[$columnNames[$innerCount]] . '</td>';
+//            }
+
 
             $sql2 = "SELECT * FROM inventory WHERE `Inv Id` = '" . $IDs[$columnNumber]."';"; //display later columns
             $result2 = mysqli_query($conn, $sql2);

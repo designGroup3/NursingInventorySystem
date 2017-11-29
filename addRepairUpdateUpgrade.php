@@ -30,7 +30,11 @@ if(isset($_SESSION['id'])) {
     $getType = str_replace("%5C","\\","$getType");
     $getType = str_replace("%27","'","$getType");
     $getItemType = $_GET['itemType'];
+    $getItemType = str_replace("%5C","\\","$getItemType");
+    $getItemType = str_replace("%27","'","$getItemType");
     if($getItemType !== NULL && $getItemType !== ""){
+        $getItemType = str_replace("\\","\\\\","$getItemType");
+        $getItemType = str_replace("'","\\'","$getItemType");
         $checkSql = "SELECT * FROM subtypes WHERE `Type` = '$getItemType';";
         $checkResult = mysqli_query($conn, $checkSql);
         if(mysqli_num_rows($checkResult) == 0){
@@ -42,10 +46,12 @@ if(isset($_SESSION['id'])) {
             exit();
         }
     }
-    $getItemType = str_replace("%5C","\\","$getItemType");
-    $getItemType = str_replace("%27","'","$getItemType");
     $getSubtype = $_GET['subtype'];
+    $getSubtype = str_replace("%5C","\\","$getSubtype");
+    $getSubtype = str_replace("%27","'","$getSubtype");
     if($getSubtype !== NULL && $getSubtype !== ""){
+        $getSubtype = str_replace("\\","\\\\","$getSubtype");
+        $getSubtype = str_replace("'","\\'","$getSubtype");
         $checkSql = "SELECT * FROM subtypes WHERE `Subtype` = '$getSubtype';";
         $checkResult = mysqli_query($conn, $checkSql);
         if(mysqli_num_rows($checkResult) == 0){
@@ -57,10 +63,17 @@ if(isset($_SESSION['id'])) {
             exit();
         }
     }
-    $getSubtype = str_replace("%5C","\\","$getSubtype");
-    $getSubtype = str_replace("%27","'","$getSubtype");
+
+    $getItem = $_GET['item'];
+    $getItem = str_replace("%5C","\\","$getItem");
+    $getItem = str_replace("%27","'","$getItem");
+
     $getSerial = $_GET['serial'];
+    $getSerial = str_replace("%5C","\\","$getSerial");
+    $getSerial = str_replace("%27","'","$getSerial");
     if($getSerial !== NULL && $getSerial !== ""){
+        $getSerial = str_replace("\\","\\\\","$getSerial");
+        $getSerial = str_replace("'","\\'","$getSerial");
         $checkSql = "SELECT * FROM inventory WHERE `Serial Number` = '$getSerial';";
         $checkResult = mysqli_query($conn, $checkSql);
         if(mysqli_num_rows($checkResult) == 0){
@@ -72,11 +85,6 @@ if(isset($_SESSION['id'])) {
             exit();
         }
     }
-    $getSerial = str_replace("%5C","\\","$getSerial");
-    $getSerial = str_replace("%27","'","$getSerial");
-    $getItem = $_GET['item'];
-    $getItem = str_replace("%5C","\\","$getItem");
-    $getItem = str_replace("%27","'","$getItem");
 
     echo "<div class=\"container\">
               <form class=\"well form-horizontal\" method='POST' id=\"contact_form\">
@@ -123,14 +131,29 @@ if(isset($_SESSION['id'])) {
         $typeResult = mysqli_query($conn, $typeSQL);
         echo "<input type=\"hidden\" name=\"type\" value = '$getType'>";
         if($getItemType !== NULL && $getItemType !== ""){
+            $showItemType = $getItemType;
+            $showItemType = str_replace("\'","'","$showItemType");
+            $showItemType = str_replace("\\\\","\\","$showItemType");
+
             echo "<select name='itemType' disabled class=\"form-control selectpicker\" onchange=\"this.form.submit()\">
-              <option value='$getItemType'>$getItemType</option>";
+              <option value='$getItemType'>$showItemType</option>";
         }
         else{
             echo "<select name='itemType' required class=\"form-control selectpicker\" onchange=\"this.form.submit()\">
               <option value=''></option>";
-            while($typeRow = mysqli_fetch_array($typeResult)) {
-                echo '<option value = "'.$typeRow['Type'].'">'.$typeRow['Type'].'</option>';
+
+            while ($typeRow = mysqli_fetch_array($typeResult)) {
+                if($getItemType !== NULL && $getItemType !== ""){
+                    $showType = $getItemType;
+                    $showType = str_replace("\'","'","$showType");
+                    $showType = str_replace("\\\\","\\","$showType");
+                    echo '<option selected value = "' . $showType . '">' . $showType . '</option>';
+                }
+                else{
+                    $showNoQuotesType = $typeRow['Type']; //Allows "
+                    $showNoQuotesType = str_replace("\"","&quot;","$showNoQuotesType");
+                    echo '<option value = "' . $showNoQuotesType . '">' . $typeRow['Type'] . '</option>';
+                }
             }
         }
     }
@@ -145,17 +168,16 @@ if(isset($_SESSION['id'])) {
 
     //start subtype
     if($getItemType !== NULL && $getItemType !== ""){
-        $getItemType = str_replace("\\","\\\\","$getItemType");
-        $getItemType = str_replace("'","\'","$getItemType");
         $subtypeSql = "SELECT Subtype FROM subtypes WHERE Type = '".$getItemType."' ORDER BY Subtype;";
         $getItemType = str_replace("\'","%27","$getItemType");
         $getItemType = str_replace("\\\\","%5C","$getItemType");
         $subtypeResult = mysqli_query($conn, $subtypeSql);
+        $hiddenItemType = str_replace("\"","&quot;","$getItemType");
         echo '<form class="well form-horizontal" id="contact_form" method="POST">
                   <div class="form-group">
                       <label class="col-md-4 control-label">
                           <input type="hidden" name="type" value = "'.$getType.'">
-                          <input type="hidden" name="itemType" value = "'.$getItemType.'">
+                          <input type="hidden" name="itemType" value = "'.$hiddenItemType.'">
                           Subtype:
                           <a style="color:red;" title="This field must be filled">*</a>
                       </label>
@@ -176,12 +198,17 @@ if(isset($_SESSION['id'])) {
         else{
             echo '<option value=""></option>';
         }
-        while ($subtypeRow = mysqli_fetch_array($subtypeResult)) {
-            if($subtypeRow['Subtype'] == $getSubtype){
-                echo '<option selected value = "' . $subtypeRow['Subtype'] . '">' . $subtypeRow['Subtype'] . '</option>';
+        while ($row = mysqli_fetch_array($subtypeResult)) {
+            if($getSubtype !== NULL && $getSubtype !== ""){
+                $showSubtype = $getSubtype;
+                $showSubtype = str_replace("\'","'","$showSubtype");
+                $showSubtype = str_replace("\\\\","\\","$showSubtype");
+                echo '<option selected value = "' . $showSubtype . '">' . $showSubtype . '</option>';
             }
             else{
-                echo '<option value = "' . $subtypeRow['Subtype'] . '">' . $subtypeRow['Subtype'] . '</option>';
+                $showNoQuotesSubtype = $row['Subtype']; //Allows "
+                $showNoQuotesSubtype = str_replace("\"","&quot;","$showNoQuotesSubtype");
+                echo '<option value = "' . $showNoQuotesSubtype . '">' . $row['Subtype'] . '</option>';
             }
         }
         echo '</select>
@@ -207,39 +234,112 @@ if(isset($_SESSION['id'])) {
               </div>';
     }
 
-    //start serial number
-    echo "<form class=\"well form-horizontal\" id=\"contact_form\" method=\"POST\">
-              <div class=\"form-group\">
-                  <label class=\"col-md-4 control-label\">Serial Number:
-                      <a style=\"color:red;\" title=\"This field must be filled\">*</a>
-                  </label>
-                  <div class=\"col-md-4 selectContainer\">
-                      <div class=\"input-group\">
-                          <span class=\"input-group-addon\">
-                              <i class=\"fa fa-hashtag\"></i>
-                          </span>";
-
+    //Start Item
     if($getSubtype !== NULL && $getSubtype !== ""){
-        $getSubtype = str_replace("'","%27","$getSubtype");
-        $getSubtype = str_replace("\\","%5C","$getSubtype");
-        echo "<input type=\"hidden\" name=\"type\" value = '$getType'>
-        <input type=\"hidden\" name=\"itemType\" value = '$getItemType'>
-        <input type=\"hidden\" name=\"subtype\" value = '$getSubtype'>
-        <select name='serialNumber' required class=\"form-control selectpicker\" onchange=\"this.form.submit()\">
-            <option value=''></option>";
-        if($getSerial !== NULL && $getSerial !== ""){
-            $getSubtype = str_replace("%5C","\\\\","$getSubtype");
-            $getSubtype = str_replace("%27","\'","$getSubtype");
-            $serialSQL = "SELECT * FROM inventory WHERE Subtype = '$getSubtype';";
-            $getSubtype = str_replace("\'","%27","$getSubtype");
-            $getSubtype = str_replace("\\\\","%5C","$getSubtype");
+        $itemSql = "SELECT DISTINCT Item FROM inventory WHERE Subtype = '".$getSubtype."' ORDER BY Item;";
+        $getSubtype = str_replace("\'","%27","$getSubtype");
+        $getSubtype = str_replace("\\\\","%5C","$getSubtype");
+        $itemResult = mysqli_query($conn, $itemSql);
+        $hiddenItemType = str_replace("\"","&quot;","$getItemType");
+        $hiddenSubtype = str_replace("\"","&quot;","$getSubtype");
+        echo '<form class="well form-horizontal" id="contact_form" method="POST">
+                  <div class="form-group">
+                      <label class="col-md-4 control-label">
+                          <input type="hidden" name="type" value = "'.$getType.'">
+                          <input type="hidden" name="itemType" value = "'.$hiddenItemType.'">
+                          <input type="hidden" name="subtype" value = "'.$hiddenSubtype.'">
+                          Item:
+                          <a style="color:red;" title="This field must be filled">*</a>
+                      </label>
+                      <div class="col-md-4 selectContainer">
+                          <div class="input-group">
+                              <span class="input-group-addon">
+                                  <i class="glyphicon glyphicon-info-sign"></i>
+                              </span>';
+        if($getItem == NULL) {
+            echo '<select required name="item" class="form-control selectpicker" onchange="this.form.submit()">';
+        }
+        else{
+            echo '<select disabled name="item" class="form-control selectpicker" onchange="this.form.submit()">';
+        }
+        if($getItem == NULL){
+            echo '<option selected value=""></option>';
+        }
+        else{
+            echo '<option value=""></option>';
+        }
+        while ($row = mysqli_fetch_array($itemResult)) {
+            if($getItem !== NULL && $getItem !== "") {
+                $showItem = $getItem;
+                $showItem = str_replace("\'", "'", "$showItem");
+                $showItem = str_replace("\\\\", "\\", "$showItem");
+                echo '<option selected value = "' . $showItem . '">' . $showItem . '</option>';
+            }
+            else{
+                $showNoQuotesItem = $row['Item']; //Allows "
+                $showNoQuotesItem = str_replace("\"","&quot;","$showNoQuotesItem");
+                echo '<option value = "' . $showNoQuotesItem . '">' . $row['Item'] . '</option>';
+            }
+        }
+        echo '</select>
+          </div>
+      </div>
+  </div>';
+    }
+    else{
+        echo '<div class="form-group">
+                  <label class="col-md-4 control-label">Item:
+                      <a style="color:red;" title="This field must be filled">*</a>
+                  </label>
+                  <div class="col-md-4 selectContainer">
+                      <div class="input-group">
+                          <span class="input-group-addon">
+                              <i class="glyphicon glyphicon-info-sign"></i>
+                          </span>
+                          <select class="form-control selectpicker" disabled>
+                              <option value="">Select a subtype first</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>';
+    }
+
+    //start serial number
+        if($getItem !== NULL && $getItem !== ""){
+            $getItem = str_replace("\\","\\\\","$getItem");
+            $getItem = str_replace("'","\'","$getItem");
+            $serialSQL = "SELECT * FROM inventory WHERE Item = '$getItem' AND `Serial Number` IS NOT NULL;";
+            $getItem = str_replace("\'","%27","$getItem");
+            $getItem = str_replace("\\\\","%5C","$getItem");
             $serialResult = mysqli_query($conn, $serialSQL);
-            while($serialRow = mysqli_fetch_array($serialResult)) {
-                if($serialRow['Serial Number'] == $getSerial){
-                    echo '<option selected value = "'.$serialRow['Serial Number'].'">'.$serialRow['Serial Number'].'</option>';
+            echo "<form class=\"well form-horizontal\" id=\"contact_form\" method=\"POST\">
+                  <div class=\"form-group\">
+                      <label class=\"col-md-4 control-label\">
+                          <input type=\"hidden\" name=\"type\" value = '$getType'>
+                          <input type=\"hidden\" name=\"itemType\" value = '$getItemType'>
+                          <input type=\"hidden\" name=\"subtype\" value = '$getSubtype'>
+                          <input type=\"hidden\" name=\"item\" value = '$getItem'>
+                          Serial Number:
+                          <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                      </label>
+                      <div class=\"col-md-4 selectContainer\">
+                          <div class=\"input-group\">
+                              <span class=\"input-group-addon\">
+                                  <i class=\"glyphicon glyphicon-tag\"></i>
+                              </span>
+                              <select required name='serialNumber' class=\"form-control selectpicker\" onchange=\"this.form.submit()\">
+                                  <option value =''></option>";
+            while ($row = mysqli_fetch_array($serialResult)) {
+                if($getSerial !== NULL && $getSerial !== ""){
+                    $showSerial = $getSerial;
+                    $showSerial = str_replace("\'","'","$showSerial");
+                    $showSerial = str_replace("\\\\","\\","$showSerial");
+                    echo '<option selected value = "' . $showSerial . '">' . $showSerial . '</option>';
                 }
                 else{
-                    echo '<option value = "'.$serialRow['Serial Number'].'">'.$serialRow['Serial Number'].'</option>';
+                    $showNoQuotesSerial = $row['Serial Number']; //Allows "
+                    $showNoQuotesSerial = str_replace("\"","&quot;","$showNoQuotesSerial");
+                    echo '<option value = "' . $showNoQuotesSerial . '">' . $row['Serial Number'] . '</option>';
                 }
             }
             echo "</select>
@@ -248,75 +348,18 @@ if(isset($_SESSION['id'])) {
       </div>
   </div>";
         }
-        else{
-            $getSubtype = str_replace("%5C","\\\\","$getSubtype");
-            $getSubtype = str_replace("%27","\'","$getSubtype");
-            $sql = "SELECT `Serial Number` FROM inventory WHERE Subtype = '$getSubtype'";
-            $getSubtype = str_replace("\'","%27","$getSubtype");
-            $getSubtype = str_replace("\\\\","%5C","$getSubtype");
-            $result = mysqli_query($conn, $sql);
-            while($row = mysqli_fetch_array($result)) {
-                echo '<option value = "'.$row['Serial Number'].'">'.$row['Serial Number'].'</option>';
-            }
-            echo "</select>
-              </div>
-          </div>
-      </div>";
-        }
-    }
-    else{
-        echo "<select name='serialNumber' disabled class=\"form-control selectpicker\" onchange=\"this.form.submit()\">
-                  <option value=''>Select a subtype first</option>
-              </select>
-          </div>
-      </div>
-  </div>";
-    }
-
-    //Start Item
-    if($getSerial !== NULL && $getSerial !== ""){
-        $getSerial = str_replace("\\","\\\\","$getSerial");
-        $getSerial = str_replace("'","\'","$getSerial");
-        $serialSql = "SELECT * FROM inventory WHERE `Serial Number` = '".$getSerial."';";
-        $getSerial = str_replace("\'","%27","$getSerial");
-        $getSerial = str_replace("\\\\","%5C","$getSerial");
-        $serialResult = mysqli_query($conn, $serialSql);
-        $serialRow = mysqli_fetch_array($serialResult);
-        echo "<form action =\"includes/addRepairUpdateUpgrade.inc.php\" method=\"POST\">
-              <label>
-                  <input type='hidden' name='type' value = '$getType'>
-                  <input type='hidden' name='itemType' value = '$getItemType'>
-                  <input type='hidden' name='subtype' value = '$getSubtype'>
-                  <input type='hidden' name='serial' value = '$getSerial'>
-                  <div class=\"form-group\">
-                      <label class=\"col-md-4 control-label\">Item:
-                          <a style=\"color:red;\" title=\"This field must be filled\">*</a>
-                      </label>
-                      <div class=\"col-md-4 inputGroupContainer\">
-                          <div class=\"input-group\">
-                              <span class=\"input-group-addon\">
-                                  <i class=\"glyphicon glyphicon-info-sign\"></i>
-                              </span>
-                              <select name='item' disabled class=\"form-control selectpicker\">";
-
-        $item = $serialRow['Item'];
-
-        echo "<option value='$item'>$item</option></select></div></div></div>";
-        $item = str_replace("\\","\\\\","$item");
-        $item = str_replace("'","\'","$item");
-    }
     else{
         echo "<div class=\"form-group\">
-                  <label class=\"col-md-4 control-label required\">Item:
+                  <label class=\"col-md-4 control-label required\">Serial Number:
                       <a style=\"color:red;\" title=\"This field must be filled\">*</a>
                   </label>
                   <div class=\"col-md-4 inputGroupContainer\">
                       <div class=\"input-group\">
                           <span class=\"input-group-addon\">
-                              <i class=\"glyphicon glyphicon-info-sign\"></i>
+                              <i class=\"glyphicon glyphicon-tag\"></i>
                           </span>
-                          <select name='item' disabled class=\"form-control selectpicker\">
-                              <option value=''></option>
+                          <select name='serialNumber' disabled class=\"form-control selectpicker\">
+                              <option value=''>Select an item first</option>
                           </select>
                       </div>
                   </div>
@@ -324,109 +367,128 @@ if(isset($_SESSION['id'])) {
     }
 
     //Part, Cost, Date, Supplier, Reason
-    echo "<div class=\"form-group\">
-              <label class=\"col-md-4 control-label\">Part:
-                  <a style=\"color:red;\" title=\"This field must be filled\">*</a>
-              </label>
-              <div class=\"col-md-4 selectContainer\">
-                  <div class=\"input-group\">
-                      <span class=\"input-group-addon\">
-                          <i class=\"fa fa-tablet\"></i>
-                      </span>
-                      <input type='text' name='part' class=\"form-control\" required>
+    if($getSerial !== NULL && $getSerial !== ""){
+        $getSerial = str_replace("\'","%27","$getSerial");
+        $getSerial = str_replace("\\\\","%5C","$getSerial");
+        echo "<form action =\"includes/addRepairUpdateUpgrade.inc.php\" method=\"POST\">
+                  <input type=\"hidden\" name=\"type\" value = '$getType'>
+                  <input type=\"hidden\" name=\"itemType\" value = '$getItemType'>
+                  <input type=\"hidden\" name=\"subtype\" value = '$getSubtype'>
+                  <input type=\"hidden\" name=\"item\" value = '$getItem'>
+                  <input type=\"hidden\" name=\"serial\" value = '$getSerial'>";
+    }
+
+        echo "<div class=\"form-group\">
+                  <label class=\"col-md-4 control-label\">Part:
+                      <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                  </label>
+                  <div class=\"col-md-4 selectContainer\">
+                      <div class=\"input-group\">
+                          <span class=\"input-group-addon\">
+                              <i class=\"fa fa-tablet\"></i>
+                          </span>
+                          <input type='text' name='part' class=\"form-control\" required>
+                      </div>
                   </div>
               </div>
-          </div>
-    
-          <div class=\"form-group\">
-              <label class=\"col-md-4 control-label\">Cost:
-                  <a style=\"color:red;\" title=\"This field must be filled\">*</a>
-              </label>
-              <div class=\"col-md-4 inputGroupContainer\">
-                  <div class=\"input-group\">
-                      <span class=\"input-group-addon\">
-                          <i class=\"fa fa-usd\"></i>
-                      </span>
-                      <input name='cost' class='form-control data-fv-numeric-decimalseparator' required 
-                      title=\"A valid number should not contain letters or commas or more than one decimal point e.g. 50.50 for fifty dollars and fifty cents\">
+        
+              <div class=\"form-group\">
+                  <label class=\"col-md-4 control-label\">Cost:
+                      <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                  </label>
+                  <div class=\"col-md-4 inputGroupContainer\">
+                      <div class=\"input-group\">
+                          <span class=\"input-group-addon\">
+                              <i class=\"fa fa-usd\"></i>
+                          </span>
+                          <input name='cost' class='form-control data-fv-numeric-decimalseparator' required 
+                          title=\"A valid number should not contain letters or commas or more than one decimal point e.g. 50.50 for fifty dollars and fifty cents\">
+                      </div>
                   </div>
               </div>
-          </div>
-    
-          <div class=\"form-group\">
-              <label class=\"col-md-4 control-label\">Date Performed:
-                  <a style=\"color:red;\" title=\"This field must be filled\">*</a>
-              </label>
-              <div class=\"col-md-4 selectContainer\">
-                  <div class=\"input-group\">
-                      <span class=\"input-group-addon\">
-                          <i class=\"fa fa-calendar\"></i>
-                      </span>
-                      <input type='date' name='date' class=\"form-control\" required>
+        
+              <div class=\"form-group\">
+                  <label class=\"col-md-4 control-label\">Date Performed:
+                      <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                  </label>
+                  <div class=\"col-md-4 selectContainer\">
+                      <div class=\"input-group\">
+                          <span class=\"input-group-addon\">
+                              <i class=\"fa fa-calendar\"></i>
+                          </span>
+                          <input type='date' name='date' class=\"form-control\" required>
+                      </div>
                   </div>
               </div>
-          </div>
-    
-          <div class=\"form-group\">
-              <label class=\"col-md-4 control-label\">Supplier:
-                  <a style=\"color:red;\" title=\"This field must be filled\">*</a>
-              </label>
-              <div class=\"col-md-4 selectContainer\">
-                  <div class=\"input-group\">
-                      <span class=\"input-group-addon\">
-                          <i class=\"fa fa-shopping-bag\"></i>
-                      </span>
-                      <input type='text' name='supplier' class=\"form-control\" required>
+        
+              <div class=\"form-group\">
+                  <label class=\"col-md-4 control-label\">Supplier:
+                      <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                  </label>
+                  <div class=\"col-md-4 selectContainer\">
+                      <div class=\"input-group\">
+                          <span class=\"input-group-addon\">
+                              <i class=\"fa fa-shopping-bag\"></i>
+                          </span>
+                          <input type='text' name='supplier' class=\"form-control\" required>
+                      </div>
                   </div>
               </div>
-          </div>
-    
-          <div class=\"form-group\">
-              <label class=\"col-md-4 control-label\">Reason:
-                  <a style=\"color:red;\" title=\"This field must be filled\">*</a>
-              </label>
-              <div class=\"col-md-4 selectContainer\">
-                  <div class=\"input-group\">
-                      <span class=\"input-group-addon\">
-                          <i class=\"fa fa-question\"></i>
-                      </span>
-                      <input type='text' name='reason' class=\"form-control\" required>
+        
+              <div class=\"form-group\">
+                  <label class=\"col-md-4 control-label\">Reason:
+                      <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                  </label>
+                  <div class=\"col-md-4 selectContainer\">
+                      <div class=\"input-group\">
+                          <span class=\"input-group-addon\">
+                              <i class=\"fa fa-question\"></i>
+                          </span>
+                          <input type='text' name='reason' class=\"form-control\" required>
+                      </div>
                   </div>
               </div>
-          </div>
-    
-          <div class=\"form-group\">
-              <label class=\"col-md-4 control-label\"></label>
-              <div class=\"col-md-4\">
-                  <button type='submit' class='btn btn-warning btn-block'>Add Repair/Update/Upgrade</button>
+        
+              <div class=\"form-group\">
+                  <label class=\"col-md-4 control-label\"></label>
+                  <div class=\"col-md-4\">
+                      <button type='submit' class='btn btn-warning btn-block'>Add Repair/Update/Upgrade</button>
+                  </div>
               </div>
-          </div>
-      </form>
-  </fieldset>
-</form>";
+          </form>
+      </fieldset>
+    </form>";
 
     //posts
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && $getItemType == NULL && $getSubtype == NULL && $getSerial == NULL){
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && $getItemType == NULL && $getSubtype == NULL && $getItem == NULL && $getSerial == NULL){
         $type = $_POST['type'];
         header("Location: ./addRepairUpdateUpgrade.php?type=".$type);
     }
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && $getSubtype == NULL && $getSerial == NULL){
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && $getSubtype == NULL && $getItem == NULL && $getSerial == NULL){
         $type = $_POST['type'];
         $itemType = $_POST['itemType'];
         header("Location: ./addRepairUpdateUpgrade.php?type=".$type."&itemType=".$itemType);
     }
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && $getSerial == NULL){
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && $getItem == NULL && $getSerial == NULL){
         $type = $_POST['type'];
         $itemType = $_POST['itemType'];
         $subtype = $_POST['subtype'];
         header("Location: ./addRepairUpdateUpgrade.php?type=".$type."&itemType=".$itemType."&subtype=".$subtype);
     }
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && $getSerial == NULL){
+        $type = $_POST['type'];
+        $itemType = $_POST['itemType'];
+        $subtype = $_POST['subtype'];
+        $item = $_POST['item'];
+        header("Location: ./addRepairUpdateUpgrade.php?type=".$type."&itemType=".$itemType."&subtype=".$subtype."&item=".$item);
+    }
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $type = $_POST['type'];
         $itemType = $_POST['itemType'];
         $subtype = $_POST['subtype'];
+        $item = $_POST['item'];
         $serial = $_POST['serialNumber'];
-        header("Location: ./addRepairUpdateUpgrade.php?type=".$type."&itemType=".$itemType."&subtype=".$subtype."&serial=".$serial);
+        header("Location: ./addRepairUpdateUpgrade.php?type=".$type."&itemType=".$itemType."&subtype=".$subtype."&item=".$item."&serial=".$serial);
     }
 }
 else{

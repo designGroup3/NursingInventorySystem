@@ -42,6 +42,12 @@ if(isset($_SESSION['id'])) {
         exit();
     }
 
+    $first = $row['First'];
+    $first = str_replace("\"","&quot;","$first");
+    $last = $row['Last'];
+    $last = str_replace("\"","&quot;","$last");
+    $user = $row['Uid'];
+    $user = str_replace("\"","&quot;","$user");
 
     echo "<div class=\"container\"><form action ='includes/editUser.inc.php' method ='POST'
           class=\"well form-horizontal\" id=\"contact_form\"><fieldset><h2 align=\"center\">Edit User</h2><br/>
@@ -51,19 +57,19 @@ if(isset($_SESSION['id'])) {
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
           <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-          <input type='text' name='first' value=\"".$row['First']."\" class=\"form-control\" required></div></div></div>
+          <input type='text' name='first' value=\"".$first."\" class=\"form-control\" required></div></div></div>
           
           <div class=\"form-group\"><label class=\"col-md-4 control-label\" >Last Name:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-          <input type='text' name='last' value=\"".$row['Last']."\" class=\"form-control\" required></div></div></div>
+          <input type='text' name='last' value=\"".$last."\" class=\"form-control\" required></div></div></div>
           
           <div class=\"form-group\"><label class=\"col-md-4 control-label\">Username:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>  
           <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-          <input type='text' name='uid' value=\"".$row['Uid']."\" class=\"form-control\" required></div></div></div>
+          <input type='text' name='uid' value=\"".$user."\" class=\"form-control\" required></div></div></div>
             <input type='hidden' name='originalType' value='".$row['Account Type']."'>
             <input type='hidden' name='originalEmail' value=\"".$row['Email']."\">
             

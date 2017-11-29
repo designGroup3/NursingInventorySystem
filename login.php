@@ -19,9 +19,6 @@ echo'<style>
     ?>
 		<style>
 		.container{
-			padding-top: 350px;
-		padding-right: 15px;
-  padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 		}

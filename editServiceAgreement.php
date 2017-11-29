@@ -87,13 +87,19 @@ if(isset($_SESSION['id'])) {
     $sql="SELECT * FROM serviceAgreements WHERE Id = $id";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
+
+    $name = $row['Name'];
+    $name = str_replace("\"","&quot;","$name");
+    $duration = $row['Duration'];
+    $duration = str_replace("\"","&quot;","$duration");
+
     echo "<div class=\"container\"><form class=\"well form-horizontal\" action ='includes/editServiceAgreement.inc.php'
         method ='POST' id=\"contact_form\" enctype='multipart/form-data'><fieldset>
         <h2 align=\"center\">Edit Service Agreement</h2><br/>
         <input type='hidden' name='id' value = $id><div class=\"form-group\">
         <label class=\"col-md-4 control-label\">Agreement Name: <a style=\"color:red;\" title=\"This field must be filled\">*</a></label><div class=\"col-md-4 inputGroupContainer\">
         <div class=\"input-group\"><span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-tag\"></i></span>
-        <input name=\"name\" class=\"form-control\" required type=\"text\" value=\"".$row['Name']."\"></div></div></div>
+        <input name=\"name\" class=\"form-control\" required type=\"text\" value=\"".$name."\"></div></div></div>
         
         <div class=\"form-group\"><label class=\"col-md-4 control-label\">Annual Cost: <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
         <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
@@ -107,7 +113,7 @@ if(isset($_SESSION['id'])) {
         <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
         <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
         <span class=\"input-group-addon\"><i class=\"fa fa-clock-o\"></i></span>
-        <input type='text' name='duration' required value=\"".$row['Duration']."\" class=\"form-control\"></div></div></div>
+        <input type='text' name='duration' required value=\"".$duration."\" class=\"form-control\"></div></div></div>
         
         <div class=\"form-group\"><label class=\"col-md-4 control-label\">Expiration Date: <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
         <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">

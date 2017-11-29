@@ -4,8 +4,6 @@ session_start();
 include '../dbh.php';
 
 $id = $_POST['id'];
-//$originalSerialNumber = str_replace("\\","\\\\","$originalSerialNumber");
-//$originalSerialNumber = str_replace("'","\'","$originalSerialNumber");
 $originalSubtype = $_POST['originalSubtype'];
 $originalSubtype = str_replace("%5C","\\","$originalSubtype");
 $originalSubtype = str_replace("%27","\'","$originalSubtype");
@@ -29,6 +27,8 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
     $row = $result->fetch_assoc();
     $originalSerialNumber = $row['Serial Number'];
+    $originalSerialNumber = str_replace("\\","\\\\","$originalSerialNumber");
+    $originalSerialNumber = str_replace("'","\'","$originalSerialNumber");
 
     $columnTypes = array();
 
@@ -236,6 +236,12 @@ if(isset($_SESSION['id'])) {
     }
 
     $result = mysqli_query($conn, $reportSql);
+
+    //Update Repairs/Updates/Upgrades
+    if($inventoryValues[1] !== $originalSerialNumber){
+        $sql = "UPDATE `repairs/updates/upgrades` SET `Serial Number` = '$inventoryValues[1]' WHERE `Serial Number` = '$originalSerialNumber';";
+        $result = mysqli_query($conn, $sql);
+    }
 
     header("Location: ../inventory.php");
 }

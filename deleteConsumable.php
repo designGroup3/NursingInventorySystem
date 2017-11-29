@@ -7,6 +7,8 @@ if(isset($_SESSION['id'])) {
     echo "<head><Title>Delete Consumable</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";
 
+    $item = str_replace("\\","\\\\","$item");
+    $item = str_replace("'","\'","$item");
     $checkSql = "SELECT * FROM consumables WHERE `Item` = '$item';";
     $checkResult = mysqli_query($conn, $checkSql);
     if(mysqli_num_rows($checkResult) == 0){
@@ -18,8 +20,9 @@ if(isset($_SESSION['id'])) {
         exit();
     }
 
-    $itemName = str_replace("%5C","\\\\","$item");
-    $itemName = str_replace("%27","\'","$item");
+    $itemName = str_replace("\\\\","\\","$item");
+    $itemName = str_replace("\'","'","$itemName");
+    $item = str_replace("\"","&quot;","$item");
 
     echo "<div class=\"container\"><form action ='includes/deleteConsumable.inc.php' class=\"well form-horizontal\" method ='POST' id=\"contact_form\">
           <fieldset><h3 align=\"center\">Are you sure you want to delete ".$itemName."?</h3>

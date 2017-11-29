@@ -67,6 +67,7 @@ if(isset($_SESSION['id'])) {
     $serialResult = mysqli_query($conn, $serialSql);
     $serialRow = mysqli_fetch_array($serialResult);
     $serialNumber = $serialRow['Serial Number'];
+    $serialNumber = str_replace("'","\'","$serialNumber");
 
     $checkoutSql = "SELECT * FROM checkouts WHERE `Serial Number` = '$serialNumber' AND `Return Date` IS NULL;";
     $checkoutResult = mysqli_query($conn, $checkoutSql);
@@ -128,6 +129,7 @@ if(isset($_SESSION['id'])) {
                 if($count == 3) {
                     $subtype = str_replace("\\\\","\\","$subtype");
                     $subtype = str_replace("\'","'","$subtype");
+                    $subtype = str_replace("\"","&quot;","$subtype");
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:
                     <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>  
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
@@ -218,6 +220,7 @@ if(isset($_SESSION['id'])) {
                     while ($SubtypeRow = mysqli_fetch_array($result3)) {
                         $inputs .= "<option value= '" . $SubtypeRow['Subtype']."'>".$SubtypeRow['Subtype']."</option>";
                     }
+                    $type = str_replace("\"","&quot;","$type");
 
                     $inputs .= "</datalist></div></div></div><div class=\"form-group\">
                         <label class=\"col-md-4 control-label\">Type:
@@ -248,6 +251,8 @@ if(isset($_SESSION['id'])) {
             }
             else{
                 if($columnName != "MACAddress" && $columnName != "IPAddress"){
+                    $dummy = $row[$columnNames[$count]];
+                    $row[$columnNames[$count]] = str_replace("\"","&quot;","$dummy");
                     $inputs .= $columnName . " value=\"".$row[$columnNames[$count]]."\"></div></div></div>";
                 }
             }

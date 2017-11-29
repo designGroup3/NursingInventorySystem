@@ -10,6 +10,13 @@ if(isset($_SESSION['id'])) {
     echo "<head><Title>Edit Consumable</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
         <i class='fa fa-question'></i></button></div>";
 
+    $originalItem = str_replace("%5C","\\","$originalItem");
+    $originalItem = str_replace("\\","\\\\","$originalItem"); //refuses to work in one statement
+    $originalItem = str_replace("%27","'","$originalItem");
+    $originalItem = str_replace("'","\'","$originalItem"); //refuses to work in one statement
+    $columnNames = array();
+    $type;
+
     $checkSql = "SELECT * FROM consumables WHERE `Item` = '$originalItem';";
     $checkResult = mysqli_query($conn, $checkSql);
     if(mysqli_num_rows($checkResult) == 0){
@@ -20,13 +27,6 @@ if(isset($_SESSION['id'])) {
         </div>";
         exit();
     }
-
-    $originalItem = str_replace("%5C","\\","$originalItem");
-    $originalItem = str_replace("\\","\\\\","$originalItem"); //refuses to work in one statement
-    $originalItem = str_replace("%27","'","$originalItem");
-    $originalItem = str_replace("'","\'","$originalItem"); //refuses to work in one statement
-    $columnNames = array();
-    $type;
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'error=exists') !== false){
@@ -102,6 +102,7 @@ if(isset($_SESSION['id'])) {
                 if($count == 1) {
                     $subtype = str_replace("\\\\","\\","$subtype");
                     $subtype = str_replace("\'","'","$subtype");
+                    $subtype = str_replace("\"","&quot;","$subtype");
                     $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
                     <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
                     <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
@@ -157,6 +158,7 @@ if(isset($_SESSION['id'])) {
                     while ($SubtypeRow = mysqli_fetch_array($result3)) {
                         $inputs .= "<option value= '" . $SubtypeRow['Subtype']."'>".$SubtypeRow['Subtype']."</option>";
                     }
+                    $type = str_replace("\"","&quot;","$type");
 
                     $inputs .= "</datalist></div></div></div><div class=\"form-group\">
                         <label class=\"col-md-4 control-label\">Type:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
@@ -181,6 +183,8 @@ if(isset($_SESSION['id'])) {
                     }
                 }
             } else {
+                $dummy = $row[$columnNames[$count]];
+                $row[$columnNames[$count]] = str_replace("\"","&quot;","$dummy");
                 $inputs .= $columnName . " value=\"" . $row[$columnNames[$count]] . "\"></div></div></div>";
             }
             echo $inputs;
@@ -188,6 +192,7 @@ if(isset($_SESSION['id'])) {
     }
 
     $originalItem = str_replace("\'","%27","$originalItem");
+    $originalItem = str_replace("\"","%22","$originalItem");
 
     echo '<input type=\'hidden\' name=\'originalItem\' value = "'.$originalItem.'">
     <input type="hidden" name="originalSubtype" value = \''.$row['Subtype']. '\'>

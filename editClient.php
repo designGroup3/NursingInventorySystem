@@ -21,6 +21,13 @@ if(isset($_SESSION['id'])) {
         exit();
     }
 
+    $first = $row['First'];
+    $first = str_replace("\"","&quot;","$first");
+    $last = $row['Last'];
+    $last = str_replace("\"","&quot;","$last");
+    $office = $row['Office'];
+    $office = str_replace("\"","&quot;","$office");
+
     echo "<div class=\"container\"><form action ='includes/editClient.inc.php' class=\"well form-horizontal\"
           method ='POST' id=\"contact_form\"><fieldset><h2 align=\"center\">Edit Client</h2><br/>
           <input type='hidden' name='number' value = $number>
@@ -29,13 +36,13 @@ if(isset($_SESSION['id'])) {
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-          <input type='text' name='first' class=\"form-control\" required placeholder='First Name' value=\"".$row['First']."\"></div></div></div>
+          <input type='text' name='first' class=\"form-control\" required placeholder='First Name' value=\"".$first."\"></div></div></div>
             
           <div class=\"form-group\"><label class=\"col-md-4 control-label\">Last Name:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
           <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-user\"></i></span>
-          <input type='text' name='last' class=\"form-control\" required placeholder='Last Name' value=\"".$row['Last']."\"></div></div></div>
+          <input type='text' name='last' class=\"form-control\" required placeholder='Last Name' value=\"".$last."\"></div></div></div>
               
           <div class=\"form-group\"><label class=\"col-md-4 control-label\" >Ext.
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
@@ -53,7 +60,7 @@ if(isset($_SESSION['id'])) {
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label> 
           <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"fa fa-building\"></i></span>
-          <input type='text' name='office' class=\"form-control\" required placeholder='Office' value=\"".$row['Office']."\"></div></div></div>
+          <input type='text' name='office' class=\"form-control\" required placeholder='Office' value=\"".$office."\"></div></div></div>
           
           <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
           <button type='submit' class='btn btn-warning btn-block'>Edit Client</button></div></div></fieldset></form></div>";

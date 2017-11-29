@@ -116,7 +116,8 @@ and at least 8 or more characters. Passwords cannot contain \ or '.\" required><
         <h4>Password must contain the following:</h4><p id=\"letter\" class=\"invalid\">A <b>lowercase</b> letter</p>
         <p id=\"capital\" class=\"invalid\">A <b>capital (uppercase)</b> letter</p>
         <p id=\"number\" class=\"invalid\">A <b>number</b></p>
-        <p id=\"length\" class=\"invalid\">Minimum <b>8 characters</b></p></div>
+        <p id=\"length\" class=\"invalid\">Minimum <b>8 characters</b></p>
+        <p id=\"void\" class=\"invalid\"><b>No</b> ' <b>or</b> \ </p></div>
         
         <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
         <button type='submit' class='btn btn-warning btn-block'>Create User</button></div></div></fieldset></form></div>";

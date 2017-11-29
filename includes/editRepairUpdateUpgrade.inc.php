@@ -23,9 +23,7 @@ $reason = str_replace("\\","\\\\","$reason");
 $reason = str_replace("'","\'","$reason");
 
 $sql = "UPDATE `repairs/updates/upgrades` SET Type = '$type', `Serial Number` = '$serialNumber', Part = '$part', Cost = '$cost', Date = '$date', Supplier = '$supplier', Reason = '$reason' WHERE Id = '$id';";
-
 $result = mysqli_query($conn, $sql);
 
 header("Location: ../repairsUpdatesUpgrades.php");
-
 ?>

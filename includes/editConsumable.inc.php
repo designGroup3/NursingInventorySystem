@@ -6,6 +6,7 @@ include '../dbh.php';
 $originalItem = $_POST['originalItem'];
 $originalItem = str_replace("%5C","\\","$originalItem");
 $originalItem = str_replace("%27","\'","$originalItem");
+$originalItem = str_replace("%22","\"","$originalItem");
 $originalSubtype = $_POST['originalSubtype'];
 $originalSubtype = str_replace("%5C","\\","$originalSubtype");
 $originalSubtype = str_replace("%27","\'","$originalSubtype");

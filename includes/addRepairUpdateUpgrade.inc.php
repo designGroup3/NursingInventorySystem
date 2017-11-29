@@ -7,6 +7,7 @@ $type = $_POST['type'];
 $type = str_replace("\\","\\\\","$type");
 $type = str_replace("'","\'","$type");
 $serialNumber = $_POST['serial'];
+echo $serialNumber."<br><br>";
 $serialNumber = str_replace("%5C","\\\\","$serialNumber");
 $serialNumber = str_replace("%27","\'","$serialNumber");
 $part = $_POST['part'];

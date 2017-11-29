@@ -21,6 +21,13 @@ if(isset($_SESSION['id'])) {
         exit();
     }
 
+    $part = $row['Part'];
+    $part = str_replace("\"","&quot;","$part");
+    $supplier = $row['Supplier'];
+    $supplier = str_replace("\"","&quot;","$supplier");
+    $reason = $row['Reason'];
+    $reason = str_replace("\"","&quot;","$reason");
+
     echo "<div class=\"container\"><form action ='includes/editRepairUpdateUpgrade.inc.php' method ='POST'
           class=\"well form-horizontal\" id=\"contact_form\"><fieldset><h2 align=\"center\">Edit Repair/Update/Upgrade</h2><br/>
           <input type='hidden' name='id' value = $id>
@@ -51,14 +58,16 @@ if(isset($_SESSION['id'])) {
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"fa fa-hashtag\"></i></span>
           <select name='serialNumber' required class=\"form-control selectpicker\">";
-          $sql2 = "SELECT `Serial Number` FROM inventory";
+          $sql2 = "SELECT `Serial Number` FROM inventory WHERE `Serial Number` IS NOT NULL ORDER BY `Serial Number`;";
           $result2 = mysqli_query($conn, $sql2);
           while($row2 = mysqli_fetch_array($result2)) {
+              $showNoQuotesSerial = $row2['Serial Number']; //Allows "
+              $showNoQuotesSerial = str_replace("\"","&quot;","$showNoQuotesSerial");
               if($row['Serial Number'] === $row2['Serial Number']){
-                  echo '<option selected value = "'.$row2['Serial Number'].'">'.$row2['Serial Number'].'</option>';
+                  echo '<option selected value = "'.$showNoQuotesSerial.'">'.$row2['Serial Number'].'</option>';
               }
               else{
-                  echo '<option value = "'.$row2['Serial Number'].'">'.$row2['Serial Number'].'</option>';
+                  echo '<option value = "'.$showNoQuotesSerial.'">'.$row2['Serial Number'].'</option>';
               }
           }
         echo "</select></div></div></div>
@@ -67,7 +76,7 @@ if(isset($_SESSION['id'])) {
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"fa fa-tablet\"></i></span>
-          <input type='text' name='part' value=\"".$row['Part']."\" class=\"form-control\" required></div></div></div>
+          <input type='text' name='part' value=\"".$part."\" class=\"form-control\" required></div></div></div>
           
           <div class=\"form-group\"><label class=\"col-md-4 control-label\">Cost:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
@@ -87,13 +96,13 @@ if(isset($_SESSION['id'])) {
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"fa fa-shopping-bag\"></i></span>
-          <input type='text' name='supplier'  value=\"".$row['Supplier']."\" class=\"form-control\" required></div></div></div>
+          <input type='text' name='supplier'  value=\"".$supplier."\" class=\"form-control\" required></div></div></div>
           
           <div class=\"form-group\"><label class=\"col-md-4 control-label\">Reason:
           <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
           <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
           <span class=\"input-group-addon\"><i class=\"fa fa-question\"></i></span>
-          <input type='text' name='reason' value=\"".$row['Reason']."\" class=\"form-control\" required></div></div></div>
+          <input type='text' name='reason' value=\"".$reason."\" class=\"form-control\" required></div></div></div>
           
           <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
           <button type='submit' class='btn btn-warning btn-block'>Edit Repair/Update/Upgrade</button></div></div></fieldset></form></div>";

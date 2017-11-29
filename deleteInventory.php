@@ -8,6 +8,8 @@ if(isset($_SESSION['id'])) {
     $serialResult = mysqli_query($conn, $serialSql);
     $serialRow = mysqli_fetch_array($serialResult);
     $serialNumber = $serialRow['Serial Number'];
+    $serialNumber = str_replace("\\","\\\\","$serialNumber");
+    $serialNumber = str_replace("'","\'","$serialNumber");
 
     $checkoutSql = "SELECT * FROM checkouts WHERE `Serial Number` = '$serialNumber' AND `Return Date` IS NULL;";
     $checkoutResult = mysqli_query($conn, $checkoutSql);

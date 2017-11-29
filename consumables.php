@@ -202,8 +202,9 @@ if(isset($_SESSION['id'])) {
 //            }
 //        }
 //        $namesCount++;
-        //$item = str_replace("\\","%5C","$row[Item]");
-        $item = str_replace("'","%27","$row[Item]");
+        $item = str_replace("\\","%5C","$row[Item]");
+        $item = str_replace("'","%27","$item");
+        //echo $item."<br><br>";
         echo "<td> <a href='editConsumable.php?edit=$item'>Edit<br></td>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
                 //$item = str_replace("'","%27","$row[Item]");

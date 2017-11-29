@@ -11,7 +11,11 @@ if(isset($_SESSION['id'])) {
     error_reporting(E_ALL ^ E_NOTICE);
     $statedTypes = array();
     $getType = $_GET['type'];
+    $getType = str_replace("%5C","\\","$getType");
+    $getType = str_replace("%27","'","$getType");
     if($getType !== NULL && $getType !== ""){
+        $getType = str_replace("\\","\\\\","$getType");
+        $getType = str_replace("'","\\'","$getType");
         $checkSql = "SELECT * FROM subtypes WHERE `Type` = '$getType';";
         $checkResult = mysqli_query($conn, $checkSql);
         if(mysqli_num_rows($checkResult) == 0){
@@ -23,10 +27,12 @@ if(isset($_SESSION['id'])) {
             exit();
         }
     }
-    $getType = str_replace("%5C","\\","$getType");
-    $getType = str_replace("%27","'","$getType");
     $getSubtype = $_GET['subtype'];
+    $getSubtype = str_replace("%5C","\\","$getSubtype");
+    $getSubtype = str_replace("%27","'","$getSubtype");
     if($getSubtype !== NULL && $getSubtype !== ""){
+        $getSubtype = str_replace("\\","\\\\","$getSubtype");
+        $getSubtype = str_replace("'","\\'","$getSubtype");
         $checkSql = "SELECT * FROM subtypes WHERE `Subtype` = '$getSubtype';";
         $checkResult = mysqli_query($conn, $checkSql);
         if(mysqli_num_rows($checkResult) == 0){
@@ -38,10 +44,12 @@ if(isset($_SESSION['id'])) {
             exit();
         }
     }
-    $getSubtype = str_replace("%5C","\\","$getSubtype");
-    $getSubtype = str_replace("%27","'","$getSubtype");
     $getItem = $_GET['item'];
+    $getItem = str_replace("%5C","\\","$getItem");
+    $getItem = str_replace("%27","'","$getItem");
     if($getItem !== NULL && $getItem !== ""){
+        $getItem = str_replace("\\","\\\\","$getItem");
+        $getItem = str_replace("'","\\'","$getItem");
         $checkSql = "SELECT * FROM consumables WHERE `Item` = '$getItem';";
         $checkResult = mysqli_query($conn, $checkSql);
         if(mysqli_num_rows($checkResult) == 0){
@@ -53,8 +61,6 @@ if(isset($_SESSION['id'])) {
             exit();
         }
     }
-    $getItem = str_replace("%5C","\\","$getItem");
-    $getItem = str_replace("%27","'","$getItem");
 
     $noItem = false;
 
@@ -90,7 +96,7 @@ if(isset($_SESSION['id'])) {
         //echo "<br>&nbsp&nbspItem consumed.<br>";
     }
 
-    $sql = "SELECT Type FROM subtypes WHERE `Table` = 'Consumables' ORDER BY Type;";
+    $sql = "SELECT DISTINCT Type FROM subtypes WHERE `Table` = 'Consumables' ORDER BY Type;";
     $result = mysqli_query($conn, $sql);
 
     echo '<br><div class="container">
@@ -112,22 +118,29 @@ if(isset($_SESSION['id'])) {
         echo '<option value=""></option>';
     }
     while ($row = mysqli_fetch_array($result)) {
-        if (!in_array($row['Type'], $statedTypes)) {
-            if($row['Type'] == $getType){
-                echo '<option selected value = "' . $row['Type'] . '">' . $row['Type'] . '</option>';
-            }
-            else{
-                echo '<option value = "' . $row['Type'] . '">' . $row['Type'] . '</option>';
-            }
-            array_push($statedTypes, $row['Type']);
+//        if (!in_array($row['Type'], $statedTypes)) {
+        //if($row['Type'] == $getType){
+        if($getType !== NULL && $getType !== ""){
+            //echo '<option selected value = "' . $row['Type'] . '">' . $row['Type'] . '</option>';
+            $showType = $getType;
+            $showType = str_replace("\'","'","$showType");
+            $showType = str_replace("\\\\","\\","$showType");
+            echo '<option selected value = "' . $showType . '">' . $showType . '</option>';
         }
+        else{
+            $showNoQuotesType = $row['Type']; //Allows "
+            $showNoQuotesType = str_replace("\"","&quot;","$showNoQuotesType");
+            echo '<option value = "' . $showNoQuotesType . '">' . $row['Type'] . '</option>';
+        }
+//            array_push($statedTypes, $row['Type']);
+//        }
     }
     echo '</select></div></div></div>';
 
     //start subtype
     if($getType !== NULL && $getType !== ""){
-        $getType = str_replace("\\","\\\\","$getType");
-        $getType = str_replace("'","\'","$getType");
+//        $getType = str_replace("\\","\\\\","$getType");
+//        $getType = str_replace("'","\'","$getType");
         $sql = "SELECT Subtype FROM subtypes WHERE Type = '".$getType."' ORDER BY Subtype;";
         $getType = str_replace("\'","%27","$getType");
         $getType = str_replace("\\\\","%5C","$getType");
@@ -150,11 +163,22 @@ if(isset($_SESSION['id'])) {
             echo '<option value=""></option>';
         }
         while ($row = mysqli_fetch_array($result)) {
-            if($row['Subtype'] == $getSubtype){
-                echo '<option selected value = "' . $row['Subtype'] . '">' . $row['Subtype'] . '</option>';
+//            if($row['Subtype'] == $getSubtype){
+//                echo '<option selected value = "' . $row['Subtype'] . '">' . $row['Subtype'] . '</option>';
+//            }
+//            else{
+//                echo '<option value = "' . $row['Subtype'] . '">' . $row['Subtype'] . '</option>';
+//            }
+            if($getSubtype !== NULL && $getSubtype !== ""){
+                $showSubtype = $getSubtype;
+                $showSubtype = str_replace("\'","'","$showSubtype");
+                $showSubtype = str_replace("\\\\","\\","$showSubtype");
+                echo '<option selected value = "' . $showSubtype . '">' . $showSubtype . '</option>';
             }
             else{
-                echo '<option value = "' . $row['Subtype'] . '">' . $row['Subtype'] . '</option>';
+                $showNoQuotesSubtype = $row['Subtype']; //Allows "
+                $showNoQuotesSubtype = str_replace("\"","&quot;","$showNoQuotesSubtype");
+                echo '<option value = "' . $showNoQuotesSubtype . '">' . $row['Subtype'] . '</option>';
             }
         }
         echo '</select></div></div></div>';
@@ -169,8 +193,8 @@ if(isset($_SESSION['id'])) {
 
     //start item
     if($getSubtype !== NULL && $getSubtype !== ""){
-        $getSubtype = str_replace("\\","\\\\","$getSubtype");
-        $getSubtype = str_replace("'","\'","$getSubtype");
+//        $getSubtype = str_replace("\\","\\\\","$getSubtype");
+//        $getSubtype = str_replace("'","\'","$getSubtype");
         $sql = "SELECT Item FROM consumables WHERE Subtype = '".$getSubtype."' ORDER BY Item;";
         $getSubtype = str_replace("\'","%27","$getSubtype");
         $getSubtype = str_replace("\\\\","%5C","$getSubtype");
@@ -200,11 +224,22 @@ if(isset($_SESSION['id'])) {
             echo '<option value=""></option>';
         }
         while ($row = mysqli_fetch_array($result)) {
-            if($row['Item'] == $getItem){
-                echo '<option selected value = "' . $row['Item'] . '">' . $row['Item'] . '</option>';
+//            if($row['Item'] == $getItem){
+//                echo '<option selected value = "' . $row['Item'] . '">' . $row['Item'] . '</option>';
+//            }
+//            else{
+//                echo '<option value = "' . $row['Item'] . '">' . $row['Item'] . '</option>';
+//            }
+            if($getItem !== NULL && $getItem !== "") {
+                $showItem = $getItem;
+                $showItem = str_replace("\'", "'", "$showItem");
+                $showItem = str_replace("\\\\", "\\", "$showItem");
+                echo '<option selected value = "' . $showItem . '">' . $showItem . '</option>';
             }
             else{
-                echo '<option value = "' . $row['Item'] . '">' . $row['Item'] . '</option>';
+                $showNoQuotesItem = $row['Item']; //Allows "
+                $showNoQuotesItem = str_replace("\"","&quot;","$showNoQuotesItem");
+                echo '<option value = "' . $showNoQuotesItem . '">' . $row['Item'] . '</option>';
             }
         }
         echo '</select></form></div></div></div>';
@@ -219,8 +254,8 @@ if(isset($_SESSION['id'])) {
 
     //Number in Stock
     if($getItem !== NULL && $getItem !== ""){
-        $getItem = str_replace("\\","\\\\","$getItem");
-        $getItem = str_replace("'","\'","$getItem");
+//        $getItem = str_replace("\\","\\\\","$getItem");
+//        $getItem = str_replace("'","\'","$getItem");
         $sql = "SELECT `Number in Stock` FROM consumables WHERE Item = '".$getItem."';";
         $getItem = str_replace("\'","%27","$getItem");
         $getItem = str_replace("\\\\","%5C","$getItem");

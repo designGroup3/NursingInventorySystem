@@ -68,6 +68,8 @@ if(isset($_SESSION['id'])) {
     $consumableValues[0] = str_replace("\\","\\\\","$consumableValues[0]");
     $consumableValues[0] = str_replace("'","\'","$consumableValues[0]");
     if(in_array($consumableValues[0], $items) && $consumableValues[0] !== $originalItem){
+        $originalItem = str_replace("\\\\","%5C","$originalItem");
+        $originalItem = str_replace("\'","%27","$originalItem");
         header("Location: ../editConsumable.php?edit=$originalItem&error=exists");
         exit();
     }

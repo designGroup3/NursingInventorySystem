@@ -71,12 +71,15 @@ if(isset($_SESSION['id'])) {
     $checkoutRow = mysqli_fetch_array($checkoutResult);
     $checkoutSerial = $checkoutRow['Serial Number'];
 
-    if($inventoryValues[1] !== $originalSerialNumber && $originalSerialNumber == $checkoutSerial){
+    $testOriginalSerial = $originalSerialNumber;
+    $testOriginalSerial = str_replace("\\\\","\\","$testOriginalSerial");
+    $testOriginalSerial = str_replace("\'","'","$testOriginalSerial");
+    if($inventoryValues[1] !== $testOriginalSerial && $testOriginalSerial == $checkoutSerial){
         header("Location: ../editInventory.php?edit=$id&error=checkoutSerial");
         exit();
     }
 
-    if(in_array($inventoryValues[1], $serialNumbers) && $inventoryValues[1] !== $originalSerialNumber && $inventoryValues[1] !== ""){
+    if(in_array($inventoryValues[1], $serialNumbers) && $inventoryValues[1] !== $testOriginalSerial && $inventoryValues[1] !== ""){
         header("Location: ../editInventory.php?edit=$id&error=exists");
         exit();
     }

@@ -83,8 +83,14 @@ include 'header.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Change Password</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div>";
+    echo "<head>
+              <Title>Change Password</Title>
+          </head>
+          <div class=\"parent\">
+              <button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+                  <i class='fa fa-question'></i>
+              </button>
+          </div>";
 
     error_reporting(E_ALL ^ E_NOTICE);
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
@@ -93,60 +99,85 @@ if(isset($_SESSION['id'])) {
         echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
               col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
               Old password is incorrect.</div><br><br><br>";
-        //echo "<br>&nbsp&nbspOld password is incorrect.<br>";
     }
     if(strpos($url, 'error=noPassword') !== false){
         echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
               col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
               New password cannot be empty.</div><br><br><br>";
-        //echo "<br>&nbsp&nbspNew password cannot be empty.<br>";
     }
     if(strpos($url, 'error=noMatch') !== false){
         echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
               col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
               Your new password does not match.</div><br><br><br>";
-        //echo "<br>&nbsp&nbspYour new password does not match.<br>";
     }
     if(strpos($url, 'success') !== false){
         echo "<div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
               col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
               Your password has been changed successfully. Please log in with your new password.</div><br><br><br>";
-        //echo "<br>&nbsp&nbspYour password has been changed successfully, please log in with your new password.<br>";
     }
 
-    echo "<div class=\"container\"><form action ='includes/changePassword.inc.php' method ='POST'
-          class=\"well form-horizontal\" id=\"contact_form\"><fieldset><h2 align=\"center\">Change Password</h2><br/>
-          
-          <div class=\"form-group\"> <label class=\"col-md-4 control-label\">Old Password:
-          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
-          <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
-          <span class=\"input-group-addon\"><i class=\"fa fa-unlock-alt\"></i></span>
-          <input type='password' name='oldPassword' class=\"form-control\" id='pwd'
-          pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
-          title=\"Must contain at least one number and one uppercase and lowercase letter,
-and at least 8 or more characters. Passwords cannot contain \ or '.\" required></div></div></div>
-          
-          <div class=\"form-group\"><label class=\"col-md-4 control-label\">New Password:
-          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
-          <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
-          <span class=\"input-group-addon\"><i class=\"fa fa-lock\"></i></span>
-          <input type='password' name='newPassword' class=\"form-control\" id='pwd'
-          pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
-          title=\"Must contain at least one number and one uppercase and lowercase letter,
-and at least 8 or more characters. Passwords cannot contain \ or '.\" required></div></div></div>
-          
-          <div class=\"form-group\"><label class=\"col-md-4 control-label\">Confirm New Password:
-          <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
-          <div class=\"col-md-4 selectContainer\"><div class=\"input-group\">
-          <span class=\"input-group-addon\"><i class=\"fa fa-lock\"></i></span>
-          <input type='password' name='confirmNewPassword' class=\"form-control\" id='pwd'
-          pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
-          title=\"Must contain at least one number and one uppercase and lowercase letter,
-and at least 8 or more characters. Passwords cannot contain \ or '.\" required></div></div></div>
-          
-          <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-          <button type=\"submit\" class=\"btn btn-warning btn-block\">Change Password</button></div></div><br><br></fieldset>
-          </form></div>";
+    echo "<div class=\"container\">
+              <form action ='includes/changePassword.inc.php' method ='POST'
+              class=\"well form-horizontal\" id=\"contact_form\">
+                  <fieldset>
+                      <h2 align=\"center\">Change Password</h2><br/>
+                      <div class=\"form-group\">
+                          <label class=\"col-md-4 control-label\">Old Password:
+                              <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                          </label>
+                          <div class=\"col-md-4 selectContainer\">
+                              <div class=\"input-group\">
+                                  <span class=\"input-group-addon\">
+                                      <i class=\"fa fa-unlock-alt\"></i>
+                                  </span>
+                                  <input type='password' name='oldPassword' class=\"form-control\" id='pwd'
+                                  pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
+                                  title=\"Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters. Passwords cannot contain \ or '.\" required>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class=\"form-group\">
+                          <label class=\"col-md-4 control-label\">New Password:
+                              <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                          </label>
+                          <div class=\"col-md-4 selectContainer\">
+                              <div class=\"input-group\">
+                                  <span class=\"input-group-addon\">
+                                      <i class=\"fa fa-lock\"></i>
+                                  </span>
+                                  <input type='password' name='newPassword' class=\"form-control\" id='pwd'
+                                  pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
+                                  title=\"Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters. Passwords cannot contain \ or '.\" required>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class=\"form-group\">
+                          <label class=\"col-md-4 control-label\">Confirm New Password:
+                              <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                          </label>
+                          <div class=\"col-md-4 selectContainer\">
+                              <div class=\"input-group\">
+                                  <span class=\"input-group-addon\">
+                                      <i class=\"fa fa-lock\"></i>
+                                  </span>
+                                  <input type='password' name='confirmNewPassword' class=\"form-control\" id='pwd'
+                                  pattern=\"(?!.*[\\\\])(?!.*[\'])(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}\" 
+                                  title=\"Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters. Passwords cannot contain \ or '.\" required>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class=\"form-group\">
+                          <label class=\"col-md-4 control-label\"></label>
+                          <div class=\"col-md-4\">
+                              <button type=\"submit\" class=\"btn btn-warning btn-block\">Change Password</button>
+                          </div>
+                      </div><br><br>
+                  </fieldset>
+              </form>
+          </div>";
 }
 else{
     header("Location: ./login.php");

@@ -4,16 +4,22 @@ include 'table.php';
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
-    echo "<head><Title>Consumables</Title></head><body><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div>
-<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
+    echo "<head>
+              <Title>Consumables</Title>
+          </head>
+          <body>
+              <div class=\"parent\">
+                  <button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+                      <i class='fa fa-question'></i>
+                  </button>
+              </div>
+              <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     if(strpos($url, 'deleteSuccess') !== false){
         echo "<div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
               col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
               Column deleted successfully.</div><br><br><br><br>";
-        //echo "<br>&nbsp&nbspColumn deleted successfully.<br>";
     }
 
     $columnNames= array();
@@ -32,29 +38,34 @@ if(isset($_SESSION['id'])) {
     $acctType = $row['Account Type'];
 
     if ($acctType == "Super Admin") {
-        echo "<h2 style='text-align: center'>Consumables</h2><br><table style=\"margin-left:auto; margin-right:auto;\">
-              <td><form action='addConsumableColumn.php'>
-               <input class=\"btn btn-warning\" type='submit' value='Add Column'/>
-              </form></td>";
+        echo "<h2 style='text-align: center'>Consumables</h2><br>
+              <table style=\"margin-left:auto; margin-right:auto;\">
+                  <td>
+                      <form action='addConsumableColumn.php'>
+                          <input class=\"btn btn-warning\" type='submit' value='Add Column'/>
+                      </form>
+                  </td>";
 
         $columnSql = "SHOW COLUMNS FROM consumables;";
         $columnResult = mysqli_query($conn, $columnSql);
 
         if(mysqli_num_rows($columnResult) > 7) {
-            echo "<td><form action='editConsumableColumn.php'>
-               <input class=\"btn btn-warning\" type='submit' value='Edit Column'/>
-              </form></td>";
-
-            echo "<td><form action='deleteConsumableColumn.php'>
-               <input class=\"btn btn-warning\" type='submit' value='Delete Column'/>
-              </form></td>";
+            echo "<td>
+                      <form action='editConsumableColumn.php'>
+                          <input class=\"btn btn-warning\" type='submit' value='Edit Column'/>
+                      </form>
+                  </td>
+                  <td>
+                      <form action='deleteConsumableColumn.php'>
+                          <input class=\"btn btn-warning\" type='submit' value='Delete Column'/>
+                      </form>
+                  </td>";
         }
         echo "</table>";
     }
 
-    echo "<br>
-    <table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
-    <thead>";
+    echo "<br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
+                  <thead>";
 
         $sql = "SHOW COLUMNS FROM consumables"; //gets first headers for page
         $result = mysqli_query($conn, $sql);
@@ -75,24 +86,6 @@ if(isset($_SESSION['id'])) {
                 array_push($columnNames, $row['Field']);
             }
         }
-
-//    $results_per_page = 5; //for pagination
-//
-//    $sql='SELECT * FROM consumables'; //for pagination
-//    $result = mysqli_query($conn, $sql); //for pagination
-//    $number_of_results = mysqli_num_rows($result); //for pagination
-//
-//    $number_of_pages = ceil($number_of_results/$results_per_page); //for pagination
-//
-//    if (!isset($_GET['page'])) { //for pagination
-//        $page = 1;
-//    } else {
-//        $page = $_GET['page'];
-//    }
-//
-//    $this_page_first_result = ($page-1)*$results_per_page; //for pagination
-
-    //array_push($columnNames, "Item", "Type", "Subtype", "Number in Stock");
 
     for ($count = 0; $count < count($columnNames); $count++) {
         if($columnNames[$count] === "Number in Stock"){
@@ -140,17 +133,6 @@ if(isset($_SESSION['id'])) {
                     WHERE table_name = 'consumables' AND COLUMN_NAME = '$columnNames[$whileCount]';";
                     $result3 = mysqli_query($conn, $sql3);
                     $rowType = mysqli_fetch_array($result3);
-//                    if($rowType['DATA_TYPE'] == "tinyint"){
-//                        if($row2[$columnNames[$whileCount]] == 0 && $row2[$columnNames[$whileCount]] !== null){
-//                            echo '<td>No</td>';
-//                        }
-//                        elseif($row2[$columnNames[$whileCount]] !== null){
-//                            echo '<td>Yes</td>';
-//                        }
-//                        else{
-//                            echo '<td></td>';
-//                        }
-//                    }
                     if($columnNames[$whileCount] === "Number in Stock"){
                         echo '<td style="text-align:center"> '.$row2[$columnNames[$whileCount]].' ('.$row2['Minimum Stock'].')</td>';
                     }
@@ -174,66 +156,25 @@ if(isset($_SESSION['id'])) {
                 }
             }
 
-//    $sql = "SELECT Item, consumables.Subtype, subtypes.Type, `Number in Stock` FROM consumables JOIN subtypes ON consumables.Subtype = subtypes.Subtype ORDER BY Item LIMIT " . $this_page_first_result . "," .  $results_per_page.";"; //limit rows shown
-//    $result = mysqli_query($conn, $sql);
-//    $namesCount = 0;
-//    while ($row = mysqli_fetch_array($result)) {
-//        echo "<tr>";
-//        for ($whileCount = 0; $whileCount < count($columnNames); $whileCount++) {
-//            $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
-//                    WHERE table_name = 'consumables' AND COLUMN_NAME = '$columnNames[$whileCount]';";
-//            $result2 = mysqli_query($conn, $sql2);
-//            $rowType = mysqli_fetch_array($result2);
-//            if ($rowType['DATA_TYPE'] == "tinyint") {
-//                if ($row[$columnNames[$whileCount]] == 0 && $row[$columnNames[$whileCount]] !== null) {
-//                    echo '<td>No</td>';
-//                } elseif ($row[$columnNames[$whileCount]] !== null) {
-//                    echo '<td>Yes</td>';
-//                } else {
-//                    echo '<td></td>';
-//                }
-//            } else {
-//                if($columnNames[$whileCount] === "Number in Stock"){
-//                    echo '<td> ' . $row[$columnNames[$whileCount]] . ' (' . $Minimums[($namesCount + (($page-1)*$results_per_page))].')</td>';
-//                }
-//                else{
-//                    echo '<td> ' . $row[$columnNames[$whileCount]] . '</td>';
-//                }
-//            }
-//        }
-//        $namesCount++;
         $item = str_replace("\\","%5C","$row[Item]");
         $item = str_replace("'","%27","$item");
-        //echo $item."<br><br>";
-        echo "<td> <a href='editConsumable.php?edit=$item'>Edit<br></td>";
+        echo "<td>
+                  <a href='editConsumable.php?edit=$item'>Edit<br>
+              </td>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
-                //$item = str_replace("'","%27","$row[Item]");
-                echo "<td> <a href='deleteConsumable.php?item=$item'>Delete<br></td></tr>";
+                echo "<td>
+                          <a href='deleteConsumable.php?item=$item'>Delete<br>
+                      </td>
+                  </tr>";
             }
             else{
                 echo "</tr>";
             }
-
             $columnNumber++;
         }
 
-//    echo "&nbsp&nbsp<form action='addConsumable.php'>
-//               <input type='submit' value='Add Consumable'/>
-//              </form>";
-//
-//    echo "&nbsp&nbsp<form action='searchConsumablesForm.php'>
-//               <input type='submit' value='Search Consumables'/>
-//              </form>";
-//
-//    echo "&nbsp&nbsp<form action='consume.php'>
-//                   <input type='submit' value='Consume'/>
-//                  </form>";
-    echo "</tbody></table>";
-
-//    echo "<br>Page: ";
-//    for ($page=1; $page<=$number_of_pages; $page++) {
-//        echo '<a href="consumables.php?page=' . $page . '">' . $page . '&nbsp</a> ';
-//    }
+    echo "</tbody>
+      </table>";
 
 } else {
     header("Location: ./login.php");

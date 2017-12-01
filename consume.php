@@ -25,11 +25,10 @@ if(isset($_SESSION['id'])) {
         $checkSql = "SELECT * FROM subtypes WHERE `Type` = '$getType';";
         $checkResult = mysqli_query($conn, $checkSql);
         if(mysqli_num_rows($checkResult) == 0){
-            echo "<br>
-        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
-        <div style='text-align: center'>
-            <input onclick=\"window.location.href='consume.php';\" class='btn btn-warning' value='Back'>
-        </div>";
+            echo "<br><h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+                  <div style='text-align: center'>
+                      <input onclick=\"window.location.href='consume.php';\" class='btn btn-warning' value='Back'>
+                  </div>";
             exit();
         }
     }
@@ -42,11 +41,10 @@ if(isset($_SESSION['id'])) {
         $checkSql = "SELECT * FROM subtypes WHERE `Subtype` = '$getSubtype';";
         $checkResult = mysqli_query($conn, $checkSql);
         if(mysqli_num_rows($checkResult) == 0){
-            echo "<br>
-        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
-        <div style='text-align: center'>
-            <input onclick=\"window.location.href='consume.php';\" class='btn btn-warning' value='Back'>
-        </div>";
+            echo "<br><h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+                  <div style='text-align: center'>
+                      <input onclick=\"window.location.href='consume.php';\" class='btn btn-warning' value='Back'>
+                  </div>";
             exit();
         }
     }
@@ -59,11 +57,10 @@ if(isset($_SESSION['id'])) {
         $checkSql = "SELECT * FROM consumables WHERE `Item` = '$getItem';";
         $checkResult = mysqli_query($conn, $checkSql);
         if(mysqli_num_rows($checkResult) == 0){
-            echo "<br>
-        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
-        <div style='text-align: center'>
-            <input onclick=\"window.location.href='consume.php';\" class='btn btn-warning' value='Back'>
-        </div>";
+            echo "<br><h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+                  <div style='text-align: center'>
+                      <input onclick=\"window.location.href='consume.php';\" class='btn btn-warning' value='Back'>
+                  </div>";
             exit();
         }
     }
@@ -347,23 +344,50 @@ if(isset($_SESSION['id'])) {
 </div>';
 
     //Reason & Consume Date
-    echo "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Reason:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
-    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-    <span class=\"input-group-addon\"><i class=\"fa fa-question\" aria-hidden=\"true\"></i></span>
-    <input type='text' required placeholder='Reason' name='reason' class=\"form-control\"></div></div></div>
+    echo "<div class=\"form-group\">
+              <label class=\"col-md-4 control-label\">Reason:
+                  <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+              </label>
+              <div class=\"col-md-4 inputGroupContainer\">
+                  <div class=\"input-group\">
+                      <span class=\"input-group-addon\">
+                          <i class=\"fa fa-question\" aria-hidden=\"true\"></i>
+                      </span>
+                      <input type='text' required placeholder='Reason' name='reason' class=\"form-control\">
+                  </div>
+              </div>
+          </div>
     
-    <div class=\"form-group\"><label class=\"col-md-4 control-label\"></label>
-    <div class=\"col-md-4\">Consume Date: <span>".$date."</span></div></div>";
+          <div class=\"form-group\">
+              <label class=\"col-md-4 control-label\"></label>
+              <div class=\"col-md-4\">Consume Date: 
+                  <span>".$date."</span>
+              </div>
+          </div>";
 
     if($noItem){
-        echo "<br><br><div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-        <button disabled type='submit' class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
-        data-submit=\"...Sending\">Consume</button></div></div></form></fieldset></form>";
+        echo "<br><br><div class=\"form-group\">
+                          <label class=\"col-md-4 control-label\"></label>
+                          <div class=\"col-md-4\">
+                              <button disabled type='submit' class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
+                              data-submit=\"...Sending\">Consume</button>
+                          </div>
+                      </div>
+                  </form>
+              </fieldset>
+          </form>";
     }
     else{
-        echo "<br><br><div class=\"form-group\"><label class=\"col-md-4 control-label\"></label><div class=\"col-md-4\">
-        <button type='submit' class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
-        data-submit=\"...Sending\">Consume</button></div></div></form></fieldset></form>";
+        echo "<br><br><div class=\"form-group\">
+                          <label class=\"col-md-4 control-label\"></label>
+                          <div class=\"col-md-4\">
+                              <button type='submit' class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
+                              data-submit=\"...Sending\">Consume</button>
+                          </div>
+                      </div>
+                  </form>
+              </fieldset>
+          </form>";
     }
 
     //posts

@@ -8,22 +8,25 @@ if(isset($_POST["export"]))
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0)
     {
-        $output = '<h2><b>Current Checked-out Inventories</b></h2>
-                <table class="table" bordered="1">
-                    <tr><th>Item</th>
-                        <th>Type</th>
-                        <th>Subtype</th>
-                        <th>Quantity Borrowed</th>
-                        <th>Number in Stock</th>
-                        <th>Borrower</th>
-                        <th>Reason</th>
-                        <th>Checkout Date</th>
-                        <th>Update Person</th>
-                        <th>Due Date</th>
-                        <th>Return Date</th></tr>';
+        $output = '<h2><b>Check-out History</b></h2>
+                   <table class="table" bordered="1">
+                       <tr>
+                           <th>Item</th>
+                           <th>Type</th>
+                           <th>Subtype</th>
+                           <th>Quantity Borrowed</th>
+                           <th>Number in Stock</th>
+                           <th>Borrower</th>
+                           <th>Reason</th>
+                           <th>Checkout Date</th>
+                           <th>Update Person</th>
+                           <th>Due Date</th>
+                           <th>Return Date</th>
+                       </tr>';
         while($row = mysqli_fetch_array($result))
         {
-            $output .= '<tr><td>'.$row["Item"].'</td>
+            $output .= '<tr>
+                            <td>'.$row["Item"].'</td>
                             <td>'.$row["Type"].'</td>
                             <td>'.$row["Subtype"].'</td>
                             <td>'.$row["Quantity Borrowed"].'</td>
@@ -33,7 +36,8 @@ if(isset($_POST["export"]))
                             <td>'.$row["Checkout Date"].'</td>
                             <td>'.$row["Update Person"].'</td>
                             <td>'.$row["Due Date"].'</td>
-                            <td>'.$row["Return Date"].'</td></tr>';
+                            <td>'.$row["Return Date"].'</td>
+                        </tr>';
         }
         $output .= '</table>';
 

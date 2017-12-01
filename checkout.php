@@ -558,7 +558,9 @@ if(isset($_SESSION['id'])) {
         else{
             echo "<tr>";
         }
-        echo "<td><a href='printCheckout.php?Id=$row[Id]'>Print<br></td>
+        echo "<td>
+                  <a href='printCheckout.php?Id=$row[Id]'>Print
+              </td>
               <td>".$row['Serial Number']."</td>
               <td>".$row['Item']."</td>
               <td>".$row['Type']."</td>
@@ -568,7 +570,9 @@ if(isset($_SESSION['id'])) {
               <td>".$row['Update Person']."</td>
               <td>".date_format(date_create($row['Checkout Date']),'m/d/Y')."</td>
               <td>".date_format(date_create($row['Due Date']),'m/d/Y')."</td>
-              <td><a href='includes/checkin.inc.php?Id=".$row2['Inv Id']."'>Check-In<br></td>
+              <td>
+                  <a href='includes/checkin.inc.php?Id=".$row2['Inv Id']."'>Check-In
+              </td>
           </tr>";
     }
     echo "</tbody>

@@ -3,9 +3,17 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Search Users Results</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div><br><h2 style='text-align: center'>Users</h2>
-<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
+    echo "<head>
+              <Title>Search Users Results</Title>
+          </head>
+          <body>
+              <div class=\"parent\">
+                  <button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+                      <i class='fa fa-question'></i>
+                  </button>
+              </div><br>
+              <h2 style='text-align: center'>Users</h2>
+              <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
     $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
@@ -33,7 +41,9 @@ if(isset($_SESSION['id'])) {
     $andNeeded = false;
     if($last == "" && $first == "" && $accountName == "" && $accountType == "" && $dateAdded == ""){
         echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
-      <div style='text-align: center'><input onclick=\"window.location.href='searchUsersForm.php';\" class='btn btn-warning' value='Back'></div>";
+              <div style='text-align: center'>
+                  <input onclick=\"window.location.href='searchUsersForm.php';\" class='btn btn-warning' value='Back'>
+              </div>";
         exit();
     }
     if($first !== "")
@@ -94,49 +104,57 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
     echo "<br>";
 
-//    echo $sql;
-//    echo "Number: " . mysqli_num_rows($result);
-
     while($row = mysqli_fetch_array($result)){
         if($tableHeadNeeded) {
             $tableHeadNeeded = false;
             $count++;
             echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
-            <thead><tr><th>First Name</th>
-            <th>Last Name</th>
-            <th>Account Name</th>
-            <th>Email</th>
-            <th>Account Type</th>
-            <th>Date Added</th>";
+                      <thead>
+                          <tr>
+                              <th>First Name</th>
+                              <th>Last Name</th>
+                              <th>Account Name</th>
+                              <th>Email</th>
+                              <th>Account Type</th>
+                              <th>Date Added</th>";
             if ($acctType == "Super Admin") {
                 echo "<th>Edit</th>
-                <th>Delete</th>";
+                      <th>Delete</th>";
             }
-            echo "</tr></thead><tbody>";
+            echo "</tr>
+              </thead>
+              <tbody>";
         }
-        echo "<tr><td> ".$row['First']."</td>
-              <td> ".$row['Last']."</td>
-              <td> ".$row['Uid']."</td>
-              <td> ".$row['Email']."</td>
-              <td> ".$row['Account Type']."</td>";
-              $date = date_create($row['Date Added']);
-              echo '<td>'.date_format($date, "m/d/Y").'</td>';
+        echo "<tr>
+                  <td>".$row['First']."</td>
+                  <td>".$row['Last']."</td>
+                  <td>".$row['Uid']."</td>
+                  <td>".$row['Email']."</td>
+                  <td>".$row['Account Type']."</td>";
+                  $date = date_create($row['Date Added']);
+        echo '<td>'.date_format($date, "m/d/Y").'</td>';
         if ($acctType == "Super Admin") {
-            echo "<td> <a href='editUser.php?edit=$row[Id]'>Edit</a><br></td>
-            <td> <a href='deleteUser.php?id=$row[Id]&uid=$row[Uid]'>Delete</a><br></td>";
+            echo "<td>
+                      <a href='editUser.php?edit=$row[Id]'>Edit</a>
+                  </td>
+                  <td>
+                      <a href='deleteUser.php?id=$row[Id]&uid=$row[Uid]'>Delete</a>
+                  </td>";
         }
         echo "</tr>";
     }
-    echo "</tbody></table>";
+    echo "</tbody>
+      </table>";
 
     if($count == 0) {
         echo "<h3 style='text-align: center'>No Users Found That Match All of Those Criteria.</h3><br>
-      <div style='text-align: center'><input onclick=\"window.location.href='searchUsersForm.php';\" class='btn btn-warning' value='Back'></div>";
+              <div style='text-align: center'>
+                  <input onclick=\"window.location.href='searchUsersForm.php';\" class='btn btn-warning' value='Back'>
+              </div>";
     }
 }
 else{
     header("Location: ./login.php");
 }
-
 include 'tableFooter.php';
 ?>

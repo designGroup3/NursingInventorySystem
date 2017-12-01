@@ -3,9 +3,17 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Search Consumables Results</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div><br><h2 style='text-align: center'>Consumables</h2>
-<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
+    echo "<head>
+              <Title>Search Consumables Results</Title>
+          </head>
+          <body>
+              <div class=\"parent\">
+                  <button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+                      <i class='fa fa-question'></i>
+                  </button>
+              </div><br>
+              <h2 style='text-align: center'>Consumables</h2>
+              <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
     $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
@@ -58,7 +66,9 @@ if(isset($_SESSION['id'])) {
 
     if($sql == "SELECT * FROM consumables WHERE;"){ // for if no fields are filled in
         echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
-      <div style='text-align: center'><input onclick=\"window.location.href='searchConsumablesForm.php';\" class='btn btn-warning' value='Back'></div>";;
+              <div style='text-align: center'>
+                  <input onclick=\"window.location.href='searchConsumablesForm.php';\" class='btn btn-warning' value='Back'>
+              </div>";
         exit();
     }
 
@@ -93,7 +103,7 @@ if(isset($_SESSION['id'])) {
             $tableHeadNeeded = false;
             $outerCount++;
             echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
-            <thead>";
+                      <thead>";
             for($count = 0; $count< 1; $count++){
                 echo "<th>$columnNames[$count]</th>";
             }
@@ -113,18 +123,20 @@ if(isset($_SESSION['id'])) {
             if ($acctType == "Admin" || $acctType == "Super Admin") {
                 echo "<th>Delete</th>";
             }
-            echo"</thead><tbody><tr>";
+            echo "</thead>
+                  <tbody>
+                      <tr>";
         }
         for($count = 0; $count< count($columnNames); $count++){
             if($count == 0){
-                echo '<td> '.$row[$columnNames[$count]].'</td>';
+                echo '<td>'.$row[$columnNames[$count]].'</td>';
                 $subtype = $row[$columnNames[$count + 1]];
                 $subtype = str_replace("\\","\\\\\\\\","$subtype");
                 $subtype = str_replace("'","\'","$subtype");
                 $innerSQL = "SELECT Type FROM subtypes WHERE Subtype = '".$subtype."';";
                 $innerResult = mysqli_query($conn, $innerSQL);
                 $innerRow = mysqli_fetch_array($innerResult);
-                echo '<td>'. $innerRow['Type'].'</td>';
+                echo '<td>'.$innerRow['Type'].'</td>';
             }
             else{
                 $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
@@ -132,7 +144,7 @@ if(isset($_SESSION['id'])) {
                 $result2 = mysqli_query($conn, $sql2);
                 while($rowType = mysqli_fetch_array($result2)){
                     if($columnNames[$count] === "Number in Stock"){
-                        echo '<td style="text-align:center"> '.$row['Number in Stock'].' ('.$row['Minimum Stock'].')</td>';
+                        echo '<td style="text-align:center">'.$row['Number in Stock'].' ('.$row['Minimum Stock'].')</td>';
                     }
                     elseif($columnNames[$count] === "Minimum Stock"){
                         //Show nothing since the previous column already shows it.
@@ -142,27 +154,33 @@ if(isset($_SESSION['id'])) {
                         echo '<td>'.date_format($date, "m/d/Y").'</td>';
                     }
                     else{
-                        echo '<td> '.$row[$columnNames[$count]].'</td>';
+                        echo '<td>'.$row[$columnNames[$count]].'</td>';
                     }
                 }
             }
         }
-        echo "<td> <a href='editConsumable.php?edit=$row[Item]'>Edit<br></td>";
+        echo "<td>
+                  <a href='editConsumable.php?edit=$row[Item]'>Edit
+              </td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td> <a href='deleteConsumable.php?item=$row[Item]'>Delete<br></td>";
+            echo "<td>
+                      <a href='deleteConsumable.php?item=$row[Item]'>Delete
+                  </td>";
         }
         echo "</tr>";
     }
-    echo "</tbody></table>";
+    echo "</tbody>
+      </table>";
 
     if($outerCount == 0) {
         echo "<h3 style='text-align: center'>No Items Found That Match All of Those Criteria.</h3><br>
-      <div style='text-align: center'><input onclick=\"window.location.href='searchConsumablesForm.php';\" class='btn btn-warning' value='Back'></div>";
+              <div style='text-align: center'>
+                  <input onclick=\"window.location.href='searchConsumablesForm.php';\" class='btn btn-warning' value='Back'>
+              </div>";
     }
 }
 else{
     header("Location: ./login.php");
 }
-
 include 'tableFooter.php';
 ?>

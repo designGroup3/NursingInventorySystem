@@ -3,9 +3,17 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Search Inventory Results</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div><br><h2 style='text-align: center'>Inventory</h2>
-<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
+    echo "<head>
+              <Title>Search Inventory Results</Title>
+          </head>
+          <body>
+              <div class=\"parent\">
+                  <button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+                      <i class='fa fa-question'></i>
+                  </button>
+              </div><br>
+              <h2 style='text-align: center'>Inventory</h2>
+              <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
     $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
@@ -58,7 +66,9 @@ if(isset($_SESSION['id'])) {
 
     if($sql == "SELECT * FROM inventory WHERE;"){ // for if no fields are filled in
         echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
-      <div style='text-align: center'><input onclick=\"window.location.href='searchInventoryForm.php';\" class='btn btn-warning' value='Back'></div>";
+              <div style='text-align: center'>
+                  <input onclick=\"window.location.href='searchInventoryForm.php';\" class='btn btn-warning' value='Back'>
+              </div>";
         exit();
     }
 
@@ -93,72 +103,85 @@ if(isset($_SESSION['id'])) {
             $tableHeadNeeded = false;
             $outerCount++;
             echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
-            <thead>";
-            for($count = 1; $count< 3; $count++){
+                      <thead>";
+            echo "<th>Item</th>
+                  <th>Type</th>
+                  <th>Subtype</th>
+                  <th>Serial Number</th>";
+            for($count = 4; $count< count($columnNames); $count++){
                 echo "<th>$columnNames[$count]</th>";
             }
-            echo "<th>Type</th>";
-            for($count = 3; $count< count($columnNames); $count++){
-                echo "<th>$columnNames[$count]</th>";
-            }
-            echo "<th>Print QR Code</th><th>Edit</th>";
+            echo "<th>Print QR Code</th>
+                  <th>Edit</th>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
                 echo"<th>Delete</th>";
             }
-            echo "</thead><tbody><tr>";
+            echo "</thead>
+                  <tbody>
+                      <tr>";
         }
-        for($count = 1; $count< count($columnNames); $count++){
-            if($count == 2){
-                echo '<td> '.$row[$columnNames[$count]].'</td>';
-                $subtype = $row[$columnNames[$count + 1]];
-                $subtype = str_replace("\\","\\\\\\\\","$subtype");
-                $subtype = str_replace("'","\'","$subtype");
-                $innerSQL = "SELECT Type FROM subtypes WHERE Subtype = '".$subtype."';";
-                $innerResult = mysqli_query($conn, $innerSQL);
-                $innerRow = mysqli_fetch_array($innerResult);
-                echo '<td>'. $innerRow['Type'].'</td>';
+
+        echo '<td>'.$row['Item'].'</td>';
+              $subtype = $row['Subtype'];
+              $subtype = str_replace("\\","\\\\\\\\","$subtype");
+              $subtype = str_replace("'","\'","$subtype");
+              $innerSQL = "SELECT Type FROM subtypes WHERE Subtype = '".$subtype."';";
+              $innerResult = mysqli_query($conn, $innerSQL);
+              $innerRow = mysqli_fetch_array($innerResult);
+              echo '<td>'. $innerRow['Type'].'</td>
+                    <td>'.$row['Subtype'].'</td>
+                    <td>'.$row['Serial Number'].'</td>';
+
+        for($count = 4; $count< count($columnNames); $count++){
+            $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
+            WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
+            $result2 = mysqli_query($conn, $sql2);
+            $rowType = mysqli_fetch_array($result2);
+            if($rowType['DATA_TYPE'] == "tinyint"){
+                if($row[$columnNames[$count]] == 0 && $row[$columnNames[$count]] !== NULL){
+                    echo '<td>No</td>';
+                } elseif ($row[$columnNames[$count]] !== null) {
+                    echo '<td>Yes</td>';
+                } else {
+                    echo '<td></td>';
+                }
+            }
+            elseif($rowType['DATA_TYPE'] == "date"){
+                $date = date_create($row[$columnNames[$count]]);
+                echo '<td>'.date_format($date, "m/d/Y").'</td>';
             }
             else{
-                $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
-                WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$count]';";
-                $result2 = mysqli_query($conn, $sql2);
-                $rowType = mysqli_fetch_array($result2);
-                if($rowType['DATA_TYPE'] == "tinyint"){
-                    if($row[$columnNames[$count]] == 0){
-                        echo '<td>No</td>';
-                    }
-                    else{
-                        echo '<td>Yes</td>';
-                    }
-                }
-                elseif($rowType['DATA_TYPE'] == "date"){
-                    $date = date_create($row[$columnNames[$count]]);
-                    echo '<td>'.date_format($date, "m/d/Y").'</td>';
-                }
-                else{
-                    echo '<td> '.$row[$columnNames[$count]].'</td>';
-                }
+                echo '<td>'.$row[$columnNames[$count]].'</td>';
             }
         }
-        echo "<td><a href='QRPrintPage.php?id=".$row["Inv Id"]."'>Print QR Code<br></td>
-                <td> <a href='editInventory.php?edit=".$row["Inv Id"]."'>Edit<br></td>";
+        echo "<td>
+                  <a href='QRPrintPage.php?id=".$row["Inv Id"]."'>Print QR Code
+              </td>
+              <td>
+                  <a href='editInventory.php?edit=".$row["Inv Id"]."'>Edit
+              </td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td><a href='deleteInventory.php?delete=".$row["Inv Id"]."'>Delete<br></td></tr>";
+            echo "<td>
+                      <a href='deleteInventory.php?delete=".$row["Inv Id"]."'>Delete
+                  </td>
+              </tr>";
         }
         else{
             echo "</tr>";
         }
     }
-    echo "</tbody></table>";
+    echo "</tbody>
+      </table>";
 
     if($outerCount == 0) {
         echo "<h3 style='text-align: center'>No Items Found That Match All of Those Criteria.</h3><br>
-      <div style='text-align: center'><input onclick=\"window.location.href='searchInventoryForm.php';\" class='btn btn-warning' value='Back'></div>";
+              <div style='text-align: center'>
+                  <input onclick=\"window.location.href='searchInventoryForm.php';\" class='btn btn-warning' value='Back'>
+              </div>";
     }
 }
 else{
     header("Location: ./login.php");
 }
-
 include 'tableFooter.php';
 ?>

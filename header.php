@@ -162,8 +162,6 @@
 	}
     </style>
 <meta charset="UTF-8">
-<!--<title>Nursing Inventory System</title>
-<link rel="stylesheet" type="text/css" href="style.css">-->
 </head>
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -267,12 +265,6 @@
 			</li>
         </ul>
 
-       <!-- <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search">
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form> -->
         <?php
         if(isset($_SESSION['id'])) {
             ?>
@@ -336,7 +328,4 @@
         ?>
   </div><!-- /.container-fluid -->
 </nav>
-            
-<!--		</ul> </div></div>-->
-<!--	</nav>-->
 </header>

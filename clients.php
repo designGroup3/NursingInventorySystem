@@ -62,9 +62,14 @@ if(isset($_SESSION['id'])) {
                   <td>'.$row['Ext'].'
                   <td>'.$row['Email'].'</td>'.'
                   <td>'.$row['Office'].'</td>';
-        echo "<td><a href='editClient.php?edit=$row[Number]'>Edit<br></td>";
+        echo "<td>
+                  <a href='editClient.php?edit=$row[Number]'>Edit
+              </td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td><a href='deleteClient.php?number=$row[Number]'>Delete<br></td></tr>";
+            echo "<td>
+                      <a href='deleteClient.php?number=$row[Number]'>Delete
+                  </td>
+              </tr>";
         }
     }
 
@@ -74,6 +79,5 @@ if(isset($_SESSION['id'])) {
 } else {
     header("Location: ./login.php");
 }
-
 include 'tableFooter.php';
 ?>

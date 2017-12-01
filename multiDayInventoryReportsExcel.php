@@ -13,25 +13,29 @@ if(isset($_POST["export"]))
         $start = date_create($startDate); //converts string to date
         $end = date_create($endDate);
         $output = '<h2><b>Activities for ('.date_format($start, "m/d/Y").' - '.date_format($end, "m/d/Y").')</b></h2>
-            <table class="table" bordered="1">
-                    <tr><th>Activity Type</th>
-                        <th>Serial Number</th>
-                        <th>Item</th>
-                        <th>Type</th>
-                        <th>Subtype</th>
-                        <th>Quantity Changed</th>
-                        <th>Timestamp</th>
-                        <th>Update Person</th></tr>';
+                   <table class="table" bordered="1">
+                       <tr>
+                           <th>Activity Type</th>
+                           <th>Item</th>
+                           <th>Type</th>
+                           <th>Subtype</th>
+                           <th>Serial Number</th>
+                           <th>Quantity Changed</th>
+                           <th>Timestamp</th>
+                           <th>Update Person</th>
+                       </tr>';
         while($row = mysqli_fetch_array($result))
         {
-            $output .= '<tr><td>'.$row["Activity Type"].'</td>
-                            <td>'.$row["Serial Number"].'</td>
+            $output .= '<tr>
+                            <td>'.$row["Activity Type"].'</td>
                             <td>'.$row["Item"].'</td>
                             <td>'.$row["Type"].'</td>
                             <td>'.$row["Subtype"].'</td>
+                            <td>'.$row["Serial Number"].'</td>
                             <td>'.$row["Quantity"].'</td>
                             <td>'.$row["Timestamp"].'</td>
-                            <td>'.$row["Update Person"].'</td></tr>';
+                            <td>'.$row["Update Person"].'</td>
+                        </tr>';
         }
         $output .= '</table>';
 

@@ -3,9 +3,16 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>QR Page</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div>
-<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
+    echo "<head>
+              <Title>QR Page</Title>
+          </head>
+          <body>
+              <div class=\"parent\">
+                  <button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+                      <i class='fa fa-question'></i>
+                  </button>
+              </div>
+              <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
     $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
@@ -20,20 +27,15 @@ if(isset($_SESSION['id'])) {
     $checkSql = "SELECT * FROM inventory WHERE `Inv Id` = '$id';";
     $checkResult = mysqli_query($conn, $checkSql);
     if(mysqli_num_rows($checkResult) == 0){
-        echo "<br>
-        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
-        <div style='text-align: center'>
-            <input onclick=\"window.location.href='inventory.php';\" class='btn btn-warning' value='Back'>
-        </div>";
+        echo "<br><h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+                  <div style='text-align: center'>
+                      <input onclick=\"window.location.href='inventory.php';\" class='btn btn-warning' value='Back'>
+                  </div>";
         exit();
     }
 
-    echo "<br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\"><thead>";
-//    array_push($columnNames, "Item", "Type", "Subtype", "Checkoutable", "Number in Stock");
-//
-//    for ($count = 0; $count < count($columnNames); $count++) {
-//        echo "<th>$columnNames[$count]</th>";
-//    }
+    echo "<br><table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
+                  <thead>";
 
     $sql = "SHOW COLUMNS FROM inventory"; //gets first headers for page
     $result = mysqli_query($conn, $sql);
@@ -55,7 +57,11 @@ if(isset($_SESSION['id'])) {
         }
     }
 
-    for ($count = 1; $count < count($columnNames); $count++) {
+    echo "<th>Item</th>
+          <th>Type</th>
+          <th>Subtype</th>
+          <th>Serial Number</th>";
+    for ($count = 5; $count < count($columnNames); $count++) {
         echo "<th>$columnNames[$count]</th>";
     }
 
@@ -80,11 +86,13 @@ if(isset($_SESSION['id'])) {
         echo "<th>Check-in</th>";
     }
 
-    echo "<th>Show QR Code</th><th>Edit</th>";
+    echo "<th>Show QR Code</th>
+          <th>Edit</th>";
      if ($acctType == "Admin" || $acctType == "Super Admin") {
          echo "<th>Delete</th>";
      }
-    echo "</thead><tbody>";
+    echo "</thead>
+          <tbody>";
 
     $sql = "SELECT ";
     for($count = 0; $count < count($columnNames); $count++){
@@ -103,10 +111,14 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_array($result)) {
         $name = $row['Item'];
-        echo "<tr>";
-        for ($whileCount = 1; $whileCount < count($columnNames); $whileCount++) {
+        echo "<tr>
+                  <td>".$row['Item']."</td>
+                  <td>".$row['Type']."</td>
+                  <td>".$row['Subtype']."</td>
+                  <td>".$row['Serial Number']."</td>";
+        for ($whileCount = 5; $whileCount < count($columnNames); $whileCount++) {
             $sql2 = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS
-                    WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$whileCount]';";
+                     WHERE table_name = 'inventory' AND COLUMN_NAME = '$columnNames[$whileCount]';";
             $result2 = mysqli_query($conn, $sql2);
             $rowType = mysqli_fetch_array($result2);
             if ($rowType['DATA_TYPE'] == "tinyint") {
@@ -118,7 +130,7 @@ if(isset($_SESSION['id'])) {
                     echo '<td></td>';
                 }
             } else {
-                echo '<td> ' . $row[$columnNames[$whileCount]] . '</td>';
+                echo '<td>'.$row[$columnNames[$whileCount]].'</td>';
             }
         }
 
@@ -126,25 +138,37 @@ if(isset($_SESSION['id'])) {
         $result2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_array($result2);
         if($row2['Number in Stock'] > 0 && $row2['Checkoutable'] == 1){
-            echo "<td><a href='includes/QRcheckout.inc.php?Id=".$row['Inv Id']."'>Check-out<br></td>";
+            echo "<td>
+                      <a href='includes/QRcheckout.inc.php?Id=".$row['Inv Id']."'>Check-out
+                  </td>";
         }
 
         $sql3 = "SELECT `Serial Number` FROM checkouts WHERE `Serial Number` = '".$serialNumber."' AND `Return Date` IS NULL;";
         $result3 = mysqli_query($conn, $sql3);
         $row3 = mysqli_num_rows($result3);
         if($row3 > 0 && $row2['Checkoutable'] == 1){
-            echo "<td><a href='includes/checkin.inc.php?Id=".$row['Inv Id']."'>Check-in<br></td>";
+            echo "<td>
+                      <a href='includes/checkin.inc.php?Id=".$row['Inv Id']."'>Check-in
+                  </td>";
         }
 
-        echo "<td><a href='QRPrintPage.php?id=".$row["Inv Id"]."'>Print QR Code<br></td>
-                <td> <a href='editInventory.php?edit=".$row["Inv Id"]."'>Edit<br></td>";
+        echo "<td>
+                  <a href='QRPrintPage.php?id=".$row["Inv Id"]."'>Print QR Code
+              </td>
+              <td>
+                  <a href='editInventory.php?edit=".$row["Inv Id"]."'>Edit
+              </td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td><a href='deleteInventory.php?delete=".$row["Inv Id"]."'>Delete<br></td></tr>";
+            echo "<td>
+                      <a href='deleteInventory.php?delete=".$row["Inv Id"]."'>Delete
+                  </td>
+              </tr>";
         }
         else{
             echo "</tr>";
         }
-        echo "</tbody></table>";
+        echo "</tbody>
+          </table>";
     }
 }
 else{

@@ -3,9 +3,17 @@ include 'table.php';
 
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
-    echo "<head><Title>Search Repairs/Updates/Upgrades Results</Title></head><body><div class=\"parent\"><button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div><br><h2 style='text-align: center'>Repairs/Updates/Upgrades</h2>
-<div class=\"container\" style=\"margin: 25px auto;\"><br/>";
+    echo "<head>
+              <Title>Search Repairs/Updates/Upgrades Results</Title>
+          </head>
+          <body>
+              <div class=\"parent\">
+                  <button class='help' onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+                      <i class='fa fa-question'></i>
+                  </button>
+              </div><br>
+              <h2 style='text-align: center'>Repairs/Updates/Upgrades</h2>
+              <div class=\"container\" style=\"margin: 25px auto;\"><br/>";
 
     $currentID = $_SESSION['id'];
     $sql = "SELECT `Account Type` FROM users WHERE id='$currentID'";
@@ -37,7 +45,9 @@ if(isset($_SESSION['id'])) {
     $andNeeded = false;
     if($type == "" && $serialNumber == "" && $item == "" && $part == "" && $cost == "" && $date == "" && $supplier == "" && $reason == ""){
         echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
-      <div style='text-align: center'><input onclick=\"window.location.href='searchRepairsUpdatesUpgradesForm.php';\" class='btn btn-warning' value='Back'></div>";
+              <div style='text-align: center'>
+                  <input onclick=\"window.location.href='searchRepairsUpdatesUpgradesForm.php';\" class='btn btn-warning' value='Back'>
+              </div>";
         exit();
     }
     if($type !== "")
@@ -115,19 +125,23 @@ if(isset($_SESSION['id'])) {
             $tableHeadNeeded = false;
             $count++;
             echo "<table id=\"example\" class=\"table table-striped table-bordered dt-responsive nowrap\" cellspacing=\"0\" width=\"100%\">
-            <thead><tr><th>Type</th>
-            <th>Serial Number</th>
-            <th>Item</th>
-            <th>Part</th>
-            <th>Cost</th>
-            <th>Date Performed</th>
-            <th>Supplier</th>
-            <th>Reason</th>
-            <th>Edit</th>";
+                      <thead>
+                          <tr>
+                              <th>Type</th>
+                              <th>Serial Number</th>
+                              <th>Item</th>
+                              <th>Part</th>
+                              <th>Cost</th>
+                              <th>Date Performed</th>
+                              <th>Supplier</th>
+                              <th>Reason</th>
+                              <th>Edit</th>";
             if ($acctType == "Admin" || $acctType == "Super Admin") {
                 echo "<th>Delete</th>";
             }
-            echo "</tr></thead><tbody>";
+            echo "</tr>
+              </thead>
+              <tbody>";
         }
 
         $sql2 = "SELECT Item FROM inventory WHERE `Serial Number` = '".$row['Serial Number']."';";
@@ -135,32 +149,38 @@ if(isset($_SESSION['id'])) {
         $row2 = mysqli_fetch_array($result2);
 
         $date = date_create($row['Date']);
-        '<td>'.date_format($date, "m/d/Y").'</td>';
 
-        echo "<tr><td> ".$row['Type']."</td>
-              <td> ".$row['Serial Number']."</td>
-              <td> ".$row2['Item']."</td>
-              <td> ".$row['Part']."</td>
-              <td> ".$row['Cost']."</td>
-              <td> ".date_format($date, 'm/d/Y')."</td>
-              <td> ".$row['Supplier']."</td>
-              <td> ".$row['Reason']."</td>
-              <td> <a href='editRepairUpdateUpgrade.php?edit=$row[Id]'>Edit<br></td>";
+        echo "<tr>
+                  <td>".$row['Type']."</td>
+                  <td>".$row['Serial Number']."</td>
+                  <td>".$row2['Item']."</td>
+                  <td>".$row['Part']."</td>
+                  <td>".$row['Cost']."</td>
+                  <td>".date_format($date, 'm/d/Y')."</td>
+                  <td>".$row['Supplier']."</td>
+                  <td>".$row['Reason']."</td>
+                  <td>
+                      <a href='editRepairUpdateUpgrade.php?edit=$row[Id]'>Edit
+                  </td>";
         if ($acctType == "Admin" || $acctType == "Super Admin") {
-            echo "<td> <a href='deleteRepairUpdateUpgrade.php?id=$row[Id]&type=$row[Type]&item=$row[Item]'>Delete<br></td>";
+            echo "<td>
+                      <a href='deleteRepairUpdateUpgrade.php?id=$row[Id]&type=$row[Type]&item=$row[Item]'>Delete
+                  </td>";
         }
-              echo "</tr><br>";
+              echo "</tr>";
     }
-    echo "</tbody></table>";
+    echo "</tbody>
+      </table>";
 
     if($count == 0) {
         echo "<h3 style='text-align: center'>No Repairs/Updates/Upgrades Found That Match All of Those Criteria.</h3><br>
-      <div style='text-align: center'><input onclick=\"window.location.href='searchRepairsUpdatesUpgradesForm.php';\" class='btn btn-warning' value='Back'></div>";
+              <div style='text-align: center'>
+                  <input onclick=\"window.location.href='searchRepairsUpdatesUpgradesForm.php';\" class='btn btn-warning' value='Back'>
+              </div>";
     }
 }
 else{
     header("Location: ./login.php");
 }
-
 include 'tableFooter.php';
 ?>

@@ -79,11 +79,6 @@ include 'header.php'
         color: #FFF;
         border: 1px solid #93CE37;
         border-bottom: 3px solid #9ED929;
-        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#30b3ff+0,00a1ff+100 */
-        /*background: #770000; !* Old browsers *!*/
-        /*background: -moz-linear-gradient(top,  #770000) 0%,#981E32 100%); !* FF3.6-15 *!*/
-        /*background: -webkit-linear-gradient(top,  #770000 0%,#981E32 100%); !* Chrome10-25,Safari5.1-6 *!*/
-        /*background: linear-gradient(to bottom, #770000 0%, #981E32 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!*/
         background: #777777;
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FF5B5E', endColorstr='#FF5B5E',GradientType=0 ); /* IE6-9 */
 
@@ -113,7 +108,6 @@ include 'header.php'
 </style>
 
 <!--the js-->
-<!--<script src="js/bootstrap.js"></script>-->
 <script>
     /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)

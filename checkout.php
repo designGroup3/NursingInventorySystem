@@ -5,6 +5,8 @@ include 'inputJS.php';
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
 
+    $noSerial = false;
+
     $sql = "SELECT CURDATE();";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
@@ -301,7 +303,7 @@ if(isset($_SESSION['id'])) {
 
     //start Serial
     if($getItem !== NULL && $getItem !== ""){
-        $sql = "SELECT `Serial Number` FROM inventory WHERE Item = '".$getItem."' AND Checkoutable = '1' ORDER BY `Serial Number`;";
+        $sql = "SELECT `Serial Number` FROM inventory WHERE Item = '".$getItem."' AND Checkoutable = '1' AND `Serial Number` <> '' ORDER BY `Serial Number`;";
         $getItem = str_replace("\'","%27","$getItem");
         $getItem = str_replace("\\\\","%5C","$getItem");
         $result = mysqli_query($conn, $sql);
@@ -319,23 +321,31 @@ if(isset($_SESSION['id'])) {
                           <div class="input-group">
                               <span class="input-group-addon">
                                   <i class="glyphicon glyphicon-tag"></i>
-                              </span>
-                              <select name="serial" class="form-control selectpicker" onchange="this.form.submit()">
-                                  <option selected value=""></option>';
+                              </span>';
+        if(mysqli_num_rows($result) > 0){
+            echo '<select name="serial" class="form-control selectpicker" onchange="this.form.submit()">
+                    <option selected value=""></option>';
 
-        while ($row = mysqli_fetch_array($result)) {
-            if($getSerial !== NULL && $getSerial !== ""){
-                $showSerial = $getSerial;
-                $showSerial = str_replace("\'","'","$showSerial");
-                $showSerial = str_replace("\\\\","\\","$showSerial");
-                echo '<option selected value = "' . $showSerial . '">' . $showSerial . '</option>';
-            }
-            else{
-                $showNoQuotesSerial = $row['Serial Number']; //Allows "
-                $showNoQuotesSerial = str_replace("\"","&quot;","$showNoQuotesSerial");
-                echo '<option value = "' . $showNoQuotesSerial . '">' . $row['Serial Number'] . '</option>';
+            while ($row = mysqli_fetch_array($result)) {
+                if($getSerial !== NULL && $getSerial !== ""){
+                    $showSerial = $getSerial;
+                    $showSerial = str_replace("\'","'","$showSerial");
+                    $showSerial = str_replace("\\\\","\\","$showSerial");
+                    echo '<option selected value = "' . $showSerial . '">' . $showSerial . '</option>';
+                }
+                else{
+                    $showNoQuotesSerial = $row['Serial Number']; //Allows "
+                    $showNoQuotesSerial = str_replace("\"","&quot;","$showNoQuotesSerial");
+                    echo '<option value = "' . $showNoQuotesSerial . '">' . $row['Serial Number'] . '</option>';
+                }
             }
         }
+        else{
+            echo '<select required disabled name="serial" class="form-control selectpicker" onchange="this.form.submit()">
+                    <option selected value="">Item has no serial number</option>';
+            $noSerial = true;
+        }
+
         echo '</select>
           </form>
       </div>
@@ -474,7 +484,7 @@ if(isset($_SESSION['id'])) {
               </div>
           </div>";
 
-    if($noItem){
+    if($noItem || $noSerial){
         echo "<br><br><div class=\"form-group\">
                           <label class=\"col-md-4 control-label\"></label>
                           <div class=\"col-md-4\">

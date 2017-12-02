@@ -16,6 +16,7 @@ if(isset($_SESSION['id'])) {
 
     error_reporting(E_ALL ^ E_NOTICE);
     $statedTypes = array();
+    $noSerial = false;
     $getType = $_GET['type'];
     if($getType !== NULL && $getType !== ""){
         if($getType != "Repair" && $getType != "Update" && $getType != "Upgrade"){
@@ -304,7 +305,7 @@ if(isset($_SESSION['id'])) {
         if($getItem !== NULL && $getItem !== ""){
             $getItem = str_replace("\\","\\\\","$getItem");
             $getItem = str_replace("'","\'","$getItem");
-            $serialSQL = "SELECT * FROM inventory WHERE Item = '$getItem' AND `Serial Number` IS NOT NULL;";
+            $serialSQL = "SELECT * FROM inventory WHERE Item = '$getItem' AND `Serial Number` <> '' AND `Serial Number` IS NOT NULL;";
             $getItem = str_replace("\'","%27","$getItem");
             $getItem = str_replace("\\\\","%5C","$getItem");
             $serialResult = mysqli_query($conn, $serialSQL);
@@ -322,22 +323,31 @@ if(isset($_SESSION['id'])) {
                           <div class=\"input-group\">
                               <span class=\"input-group-addon\">
                                   <i class=\"glyphicon glyphicon-tag\"></i>
-                              </span>
-                              <select required name='serialNumber' class=\"form-control selectpicker\" onchange=\"this.form.submit()\">
-                                  <option value =''></option>";
-            while ($row = mysqli_fetch_array($serialResult)) {
-                if($getSerial !== NULL && $getSerial !== ""){
-                    $showSerial = $getSerial;
-                    $showSerial = str_replace("\'","'","$showSerial");
-                    $showSerial = str_replace("\\\\","\\","$showSerial");
-                    echo '<option selected value = "' . $showSerial . '">' . $showSerial . '</option>';
-                }
-                else{
-                    $showNoQuotesSerial = $row['Serial Number']; //Allows "
-                    $showNoQuotesSerial = str_replace("\"","&quot;","$showNoQuotesSerial");
-                    echo '<option value = "' . $showNoQuotesSerial . '">' . $row['Serial Number'] . '</option>';
+                              </span>";
+            if(mysqli_num_rows($serialResult) > 0){
+                echo "<select required name='serialNumber' class=\"form-control selectpicker\" onchange=\"this.form.submit()\">
+                      <option value =''></option>";
+
+                while ($row = mysqli_fetch_array($serialResult)) {
+                    if($getSerial !== NULL && $getSerial !== ""){
+                        $showSerial = $getSerial;
+                        $showSerial = str_replace("\'","'","$showSerial");
+                        $showSerial = str_replace("\\\\","\\","$showSerial");
+                        echo '<option selected value = "' . $showSerial . '">' . $showSerial . '</option>';
+                    }
+                    else{
+                        $showNoQuotesSerial = $row['Serial Number']; //Allows "
+                        $showNoQuotesSerial = str_replace("\"","&quot;","$showNoQuotesSerial");
+                        echo '<option value = "' . $showNoQuotesSerial . '">' . $row['Serial Number'] . '</option>';
+                    }
                 }
             }
+            else{
+                echo '<select required disabled name="serial" class="form-control selectpicker" onchange="this.form.submit()">
+                    <option selected value="">Item has no serial number</option>';
+                $noSerial = true;
+            }
+
             echo "</select>
               </form>
           </div>
@@ -443,17 +453,29 @@ if(isset($_SESSION['id'])) {
                           <input type='text' name='reason' class=\"form-control\" required>
                       </div>
                   </div>
-              </div>
-        
-              <div class=\"form-group\">
-                  <label class=\"col-md-4 control-label\"></label>
-                  <div class=\"col-md-4\">
-                      <button type='submit' class='btn btn-warning btn-block'>Add Repair/Update/Upgrade</button>
-                  </div>
-              </div>
-          </form>
-      </fieldset>
-    </form>";
+              </div>";
+
+              if(!$noSerial){
+                  echo "<div class=\"form-group\">
+                        <label class=\"col-md-4 control-label\"></label>
+                        <div class=\"col-md-4\">
+                            <button type='submit' class='btn btn-warning btn-block'>Add Repair/Update/Upgrade</button>
+                        </div>
+                    </div>";
+              }
+              else{
+                  echo "<div class=\"form-group\">
+                            <label class=\"col-md-4 control-label\"></label>
+                            <div class=\"col-md-4\">
+                                <button disabled type='submit' class=\"btn btn-warning btn-block\" id=\"contact-submit\" 
+                                data-submit=\"...Sending\">Add Repair/Update/Upgrade</button>
+                            </div>
+                        </div>";
+              }
+
+         echo "</form>
+           </fieldset>
+       </form>";
 
     //posts
     if($_SERVER['REQUEST_METHOD'] == 'POST' && $getItemType == NULL && $getSubtype == NULL && $getItem == NULL && $getSerial == NULL){

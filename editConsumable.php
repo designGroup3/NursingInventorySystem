@@ -7,8 +7,14 @@ if(isset($_SESSION['id'])) {
 
     $originalItem = $_GET['edit'];
 
-    echo "<head><Title>Edit Consumable</Title></head><div class=\"parent\"><button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-        <i class='fa fa-question'></i></button></div>";
+    echo "<head>
+              <Title>Edit Consumable</Title>
+          </head>
+          <div class=\"parent\">
+              <button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+                  <i class='fa fa-question'></i>
+              </button>
+          </div>";
 
     $originalItem = str_replace("%5C","\\","$originalItem");
     $originalItem = str_replace("\\","\\\\","$originalItem"); //refuses to work in one statement
@@ -20,11 +26,10 @@ if(isset($_SESSION['id'])) {
     $checkSql = "SELECT * FROM consumables WHERE `Item` = '$originalItem';";
     $checkResult = mysqli_query($conn, $checkSql);
     if(mysqli_num_rows($checkResult) == 0){
-        echo "<br>
-        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
-        <div style='text-align: center'>
-            <input onclick=\"window.location.href='consumables.php';\" class='btn btn-warning' value='Back'>
-        </div>";
+        echo "<br><h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+                  <div style='text-align: center'>
+                      <input onclick=\"window.location.href='consumables.php';\" class='btn btn-warning' value='Back'>
+                  </div>";
         exit();
     }
 
@@ -33,7 +38,6 @@ if(isset($_SESSION['id'])) {
         echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
               col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
               A consumable with that name already exists.</div><br><br><br>";
-        //echo "<br>&nbsp&nbspA consumable with that name already exists.<br>";
     }
     elseif(strpos($url, 'error=typeMismatch') !== false){
         $subtype = $_GET['subtype'];
@@ -41,14 +45,12 @@ if(isset($_SESSION['id'])) {
         echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
               col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
               The subtype $subtype already relates to the type $type. Subtypes can only have one type.</div><br><br><br>";
-        //echo "<br>&nbsp&nbspThe subtype $subtype already relates to the type $type. Subtypes can only have one type.<br>";
     }
     elseif(strpos($url, 'sameType') !== false){
         $subtype = $_GET['subtype'];
         echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
               col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
               The subtype $subtype is used in the inventory table. Subtypes can only be used in one table.</div><br><br><br>";
-        //echo "<br>&nbsp&nbspYou must name the item.<br>";
     }
 
     $sql = "SHOW COLUMNS FROM consumables"; //gets first headers for page
@@ -83,8 +85,10 @@ if(isset($_SESSION['id'])) {
     $typeRow = mysqli_fetch_array($typeResult);
     $type = $typeRow['Type'];
 
-    echo "<div class=\"container\"><form class=\"well form-horizontal\" action ='includes/editConsumable.inc.php'
-        id=\"contact_form\" method ='POST'><fieldset><h2 align=\"center\">Edit Consumable Item</h2><br/>";
+    echo "<div class=\"container\">
+              <form class=\"well form-horizontal\" action ='includes/editConsumable.inc.php' id=\"contact_form\" method ='POST'>
+                  <fieldset>
+                      <h2 align=\"center\">Edit Consumable Item</h2><br/>";
 
     $sql="SELECT * FROM consumables WHERE `Item` = '".$originalItem."';";
     $result = mysqli_query($conn, $sql);
@@ -103,48 +107,90 @@ if(isset($_SESSION['id'])) {
                     $subtype = str_replace("\\\\","\\","$subtype");
                     $subtype = str_replace("\'","'","$subtype");
                     $subtype = str_replace("\"","&quot;","$subtype");
-                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">Subtype:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
-                    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-                    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th\"></i></span>
-                    <input style='height:30px; width:100%;' list='Subtypes' required value=\"$subtype\" placeholder='   Subtype' name=";
+                    $inputs = "<div class=\"form-group\">
+                                   <label class=\"col-md-4 control-label\">Subtype:
+                                       <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                                   </label>
+                                   <div class=\"col-md-4 inputGroupContainer\">
+                                       <div class=\"input-group\">
+                                           <span class=\"input-group-addon\">
+                                               <i class=\"glyphicon glyphicon-th\"></i>
+                                           </span>
+                                       <input style='height:30px; width:100%;' list='Subtypes' required value=\"$subtype\" placeholder='   Subtype' name=";
                 }
                 else{
-                    $inputs = "<div class='form-group'><label class='col-md-4 control-label'>$columnNames[$count]:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
-                    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-                    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-list\"></i></span>
-                    <select class=\"form-control selectpicker\" name=";
+                    $inputs = "<div class='form-group'>
+                                   <label class='col-md-4 control-label'>$columnNames[$count]:
+                                       <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                                   </label>
+                                   <div class=\"col-md-4 inputGroupContainer\">
+                                       <div class=\"input-group\">
+                                           <span class=\"input-group-addon\">
+                                               <i class=\"glyphicon glyphicon-th-list\"></i>
+                                           </span>
+                                       <select class=\"form-control selectpicker\" name=";
                 }
             } elseif ($rowType['DATA_TYPE'] == "int") {
                 if($count == 3){
-                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">Number in Stock:
-                    <a style="color:red;" title="This field must be filled">*</a></label><div class="col-md-4 inputGroupContainer"><div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
-                    <input type="number" required placeholder="Number in Stock" min="0" class="form-control" name=';
+                    $inputs = '<div class="form-group">
+                                   <label class="col-md-4 control-label">Number in Stock:
+                                       <a style="color:red;" title="This field must be filled">*</a>
+                                   </label>
+                                   <div class="col-md-4 inputGroupContainer">
+                                       <div class="input-group">
+                                           <span class="input-group-addon">
+                                               <i class="glyphicon glyphicon-question-sign"></i>
+                                           </span>
+                                           <input type="number" required placeholder="Number in Stock" min="0" class="form-control" name=';
                 }
                 elseif($count == 4){
-                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">Minimum Stock:
-                    <a style="color:red;" title="This field must be filled">*</a></label><div class="col-md-4 inputGroupContainer"><div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
-                    <input type="number" required placeholder="Minimum Stock" min="0" class="form-control" name=';
+                    $inputs = '<div class="form-group">
+                                   <label class="col-md-4 control-label">Minimum Stock:
+                                       <a style="color:red;" title="This field must be filled">*</a>
+                                   </label>
+                                   <div class="col-md-4 inputGroupContainer">
+                                       <div class="input-group">
+                                           <span class="input-group-addon">
+                                               <i class="glyphicon glyphicon-question-sign"></i>
+                                           </span>
+                                           <input type="number" required placeholder="Minimum Stock" min="0" class="form-control" name=';
                 }
             } else {
                 if($count == 0){
-                    $inputs ="<div class=\"form-group\"><label class=\"col-md-4 control-label\" >Item:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
-                    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-                    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
-                    <input type='text' required placeholder=\"Item Name\" class=\"form-control\" name=";
+                    $inputs = "<div class=\"form-group\">
+                                   <label class=\"col-md-4 control-label\">Item:
+                                       <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                                   </label>
+                                   <div class=\"col-md-4 inputGroupContainer\">
+                                       <div class=\"input-group\">
+                                           <span class=\"input-group-addon\">
+                                               <i class=\"glyphicon glyphicon-info-sign\"></i>
+                                           </span>
+                                           <input type='text' required placeholder=\"Item Name\" class=\"form-control\" name=";
                 }
                 elseif($count == 2){
-                    $inputs = '<div class="form-group"><label class="col-md-4 control-label">Location:
-                    <a style="color:red;" title="This field must be filled">*</a></label><div class="col-md-4 inputGroupContainer"><div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                    <input type="text" required placeholder="Item\'s Location" class=\'form-control\' name=';
+                    $inputs = '<div class="form-group">
+                                   <label class="col-md-4 control-label">Location:
+                                       <a style="color:red;" title="This field must be filled">*</a>
+                                   </label>
+                                   <div class="col-md-4 inputGroupContainer">
+                                       <div class="input-group">
+                                           <span class="input-group-addon">
+                                               <i class="glyphicon glyphicon-home"></i>
+                                           </span>
+                                           <input type="text" required placeholder="Item\'s Location" class=\'form-control\' name=';
                 }
                 else{
-                    $inputs = "<div class=\"form-group\"><label class=\"col-md-4 control-label\">$columnNames[$count]:
-                    <a style=\"color:red;\" title=\"This field must be filled\">*</a></label><div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-                    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-info-sign\"></i></span>
-                    <input type=\"text\" placeholder='$columnNames[$count]' class='form-control' name=";
+                    $inputs = "<div class=\"form-group\">
+                                   <label class=\"col-md-4 control-label\">$columnNames[$count]:
+                                       <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                                   </label>
+                                   <div class=\"col-md-4 inputGroupContainer\">
+                                       <div class=\"input-group\">
+                                           <span class=\"input-group-addon\">
+                                               <i class=\"glyphicon glyphicon-info-sign\"></i>
+                                           </span>
+                                           <input type=\"text\" placeholder='$columnNames[$count]' class='form-control' name=";
                 }
             }
             if (strpos($columnName, ' ')) {
@@ -160,32 +206,62 @@ if(isset($_SESSION['id'])) {
                     }
                     $type = str_replace("\"","&quot;","$type");
 
-                    $inputs .= "</datalist></div></div></div><div class=\"form-group\">
-                        <label class=\"col-md-4 control-label\">Type:<a style=\"color:red;\" title=\"This field must be filled\">*</a></label>
-                        <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-                        <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-th-large\"></i></span>
-                        <input style='height:30px; width:100%;' list='Types' required value=\"$type\" placeholder='   Type' id='type' name='type'>
-                        <datalist id=\"Types\">";
+                    $inputs .= "</datalist>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=\"form-group\">
+                        <label class=\"col-md-4 control-label\">Type:
+                            <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                        </label>
+                        <div class=\"col-md-4 inputGroupContainer\">
+                            <div class=\"input-group\">
+                                <span class=\"input-group-addon\">
+                                    <i class=\"glyphicon glyphicon-th-large\"></i>
+                                </span>
+                                <input style='height:30px; width:100%;' list='Types' required value=\"$type\" placeholder='   Type' id='type' name='type'>
+                                <datalist id=\"Types\">";
                     $sql4 = "SELECT DISTINCT Type FROM subtypes WHERE `Table` = 'Consumables'";
                     $result4 = mysqli_query($conn, $sql4);
                     while ($row4 = mysqli_fetch_array($result4)) {
-                        $inputs .= "<option value= '" . $row4['Type']."'>".$row4['Type']."</option>";
+                        $inputs .= "<option value= '".$row4['Type']."'>".$row4['Type']."</option>";
                     }
-                    $inputs .= "</datalist></div></div></div>";
+                    $inputs .= "</datalist>
+                            </div>
+                        </div>
+                    </div>";
                 } else {
                     if ($row[$columnNames[$count]] == 0 && $row[$columnNames[$count]] !== null) {
-                        $inputs .= "<option value=0>No</option><option value=1>Yes</option></select></div></div></div>";
+                        $inputs .= "<option value= 0>No</option>
+                                    <option value= 1>Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>";
                     } elseif ($row[$columnNames[$count]] !== null) {
-                        $inputs .= "<option value=1>Yes</option><option value=0>No</option></select></div></div></div>";
+                        $inputs .= "<option value= 1>Yes</option>
+                                    <option value= 0>No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>";
                     } else {
-                        $inputs .= "<option value=''></option><option value=1>Yes</option><option value=0>No</option>
-                        </select></div></div></div>";
+                        $inputs .= "<option value= ''></option>
+                                    <option value= 1>Yes</option>
+                                    <option value= 0>No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>";
                     }
                 }
             } else {
                 $dummy = $row[$columnNames[$count]];
                 $row[$columnNames[$count]] = str_replace("\"","&quot;","$dummy");
-                $inputs .= $columnName . " value=\"" . $row[$columnNames[$count]] . "\"></div></div></div>";
+                $inputs .= $columnName." value=\"".$row[$columnNames[$count]]."\">
+                       </div>
+                   </div>
+               </div>";
             }
             echo $inputs;
         }
@@ -195,12 +271,17 @@ if(isset($_SESSION['id'])) {
     $originalItem = str_replace("\"","%22","$originalItem");
 
     echo '<input type=\'hidden\' name=\'originalItem\' value = "'.$originalItem.'">
-    <input type="hidden" name="originalSubtype" value = \''.$row['Subtype']. '\'>
-          <input type="hidden" name="originalType" value = \''.$type. '\'>
-          <div class="form-group"><label class="col-md-4 control-label"></label><div class="col-md-4">
-          <button type="submit" class="btn btn-warning btn-block">Edit Consumable</button></div></div></fieldset>
-          </form></div>';
-
+          <input type="hidden" name="originalSubtype" value = \''.$row['Subtype'].'\'>
+          <input type="hidden" name="originalType" value = \''.$type.'\'>
+          <div class="form-group">
+              <label class="col-md-4 control-label"></label>
+              <div class="col-md-4">
+                  <button type="submit" class="btn btn-warning btn-block">Edit Consumable</button>
+              </div>
+          </div>
+      </fieldset>
+  </form>
+</div>';
 
     echo "<script>$('document').ready(function() {
    

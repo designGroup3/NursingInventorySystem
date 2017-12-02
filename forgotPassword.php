@@ -56,7 +56,6 @@ include './dbh.php';
             width: 100%;
         }
 
-
         #login-dp{
             min-width: 250px;
             padding: 14px 14px 0;
@@ -162,8 +161,6 @@ include './dbh.php';
         }
     </style>
     <meta charset="UTF-8">
-    <!--<title>Nursing Inventory System</title>
-    <link rel="stylesheet" type="text/css" href="style.css">-->
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
@@ -216,31 +213,53 @@ include './dbh.php';
     });
 </script>
 <?php
-echo"<head><Title>Forgot Password</Title></head><div class=\"parent\">
-<button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
-<i class='fa fa-question'></i></button></div>";
+    echo "<head>
+              <Title>Forgot Password</Title>
+          </head>
+          <div class=\"parent\">
+              <button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+                  <i class='fa fa-question'></i>
+              </button>
+          </div>";
 
-$url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-if(strpos($url, 'error=email') !== false){
-    echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
-    col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
-    There is no account with this email address in the system.</div><br><br><br>";
-}
-if(strpos($url, 'sent') !== false){
-    echo "<br><div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2
-    col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
-    A recovery email has been sent to your email address. Please check your email.</div><br><br><br>";
-    exit();
-}
-echo "<br><div class=\"container\"><form action ='includes/forgotPassword.inc.php' class=\"well form-horizontal\" 
-    method ='POST' id='contact_form'><fieldset><h2 align='center'>Forgot Password? No worries,</h2><p align='center'
-    style=\"text-size:13pt;\">Just type in your email address and we will send you a password reset email.</p><br/>
-    <div class=\"form-group\"><label class=\"col-md-4 control-label\">E-Mail:
-    <a style=\"color:red;\" title=\"This field must be filled\">*</a></label>   
-    <div class=\"col-md-4 inputGroupContainer\"><div class=\"input-group\">
-    <span class=\"input-group-addon\"><i class=\"glyphicon glyphicon-envelope\"></i></span>
-    <input type='email' name='email' placeholder='E-Mail Address' class=\"form-control\"></div></div></div>
-    <br/><div class=\"form-group\" align=\"center\"><label class=\"col-md-4 control-label\"></label>
-    <div class=\"col-md-4\"><input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Send Password Reset Email'>
-    </div></div></fieldset></form></div>";
+    $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    if(strpos($url, 'error=email') !== false){
+        echo "<br><div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        There is no account with this email address in the system.</div><br><br><br>";
+    }
+    if(strpos($url, 'sent') !== false){
+        echo "<br><div class='alert alert-success col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        A recovery email has been sent to your email address. Please check your email.</div><br><br><br>";
+        exit();
+    }
+    echo "<br>
+          <div class=\"container\">
+              <form action='includes/forgotPassword.inc.php' class=\"well form-horizontal\" method='POST' id='contact_form'>
+                  <fieldset>
+                      <h2 align='center'>Forgot Password? No worries,</h2>
+                      <p align='center' style=\"text-size:13pt;\">Just type in your email address and we will send you a password reset email.</p><br/>
+                      <div class=\"form-group\">
+                          <label class=\"col-md-4 control-label\">E-Mail:
+                              <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                          </label>
+                          <div class=\"col-md-4 inputGroupContainer\">
+                              <div class=\"input-group\">
+                                  <span class=\"input-group-addon\">
+                                      <i class=\"glyphicon glyphicon-envelope\"></i>
+                                  </span>
+                                  <input type='email' name='email' placeholder='E-Mail Address' class=\"form-control\">
+                              </div>
+                          </div>
+                      </div><br/>
+                      <div class=\"form-group\" align=\"center\">
+                          <label class=\"col-md-4 control-label\"></label>
+                          <div class=\"col-md-4\">
+                              <input name=\"export\" type=\"submit\" class=\"btn btn-warning\" value='Send Password Reset Email'>
+                          </div>
+                      </div>
+                  </fieldset>
+              </form>
+          </div>";
 ?>

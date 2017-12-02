@@ -11,18 +11,21 @@ if(isset($_POST["export"]))
     if(mysqli_num_rows($result) > 0)
     {
         $output = '<h2><b>Activities for '.date_format($dateTitle, "m/d/Y").'</b></h2>
-                    <table class="table" bordered="1">
-                    <tr><th>Activity Type</th>
-                        <th>Serial Number</th>
-                        <th>Item</th>
-                        <th>Type</th>
-                        <th>Subtype</th>
-                        <th>Quantity Changed</th>
-                        <th>Timestamp</th>
-                        <th>Update Person</th></tr>';
+                   <table class="table" bordered="1">
+                       <tr>
+                           <th>Activity Type</th>
+                           <th>Serial Number</th>
+                           <th>Item</th>
+                           <th>Type</th>
+                           <th>Subtype</th>
+                           <th>Quantity Changed</th>
+                           <th>Timestamp</th>
+                           <th>Update Person</th>
+                       </tr>';
         while($row = mysqli_fetch_array($result))
         {
-            $output .= '<tr><td>'.$row["Activity Type"].'</td>
+            $output .= '<tr>
+                            <td>'.$row["Activity Type"].'</td>
                             <td>'.$row["Serial Number"].'</td>
                             <td>'.$row["Item"].'</td>
                             <td>'.$row["Type"].'</td>

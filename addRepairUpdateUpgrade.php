@@ -19,11 +19,10 @@ if(isset($_SESSION['id'])) {
     $getType = $_GET['type'];
     if($getType !== NULL && $getType !== ""){
         if($getType != "Repair" && $getType != "Update" && $getType != "Upgrade"){
-            echo "<br>
-        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
-        <div style='text-align: center'>
-            <input onclick=\"window.location.href='addRepairUpdateUpgrade.php';\" class='btn btn-warning' value='Back'>
-        </div>";
+            echo "<br><h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+                  <div style='text-align: center'>
+                      <input onclick=\"window.location.href='addRepairUpdateUpgrade.php';\" class='btn btn-warning' value='Back'>
+                  </div>";
             exit();
         }
     }
@@ -38,11 +37,10 @@ if(isset($_SESSION['id'])) {
         $checkSql = "SELECT * FROM subtypes WHERE `Type` = '$getItemType';";
         $checkResult = mysqli_query($conn, $checkSql);
         if(mysqli_num_rows($checkResult) == 0){
-            echo "<br>
-        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
-        <div style='text-align: center'>
-            <input onclick=\"window.location.href='addRepairUpdateUpgrade.php';\" class='btn btn-warning' value='Back'>
-        </div>";
+            echo "<br><h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+                  <div style='text-align: center'>
+                      <input onclick=\"window.location.href='addRepairUpdateUpgrade.php';\" class='btn btn-warning' value='Back'>
+                  </div>";
             exit();
         }
     }
@@ -55,11 +53,10 @@ if(isset($_SESSION['id'])) {
         $checkSql = "SELECT * FROM subtypes WHERE `Subtype` = '$getSubtype';";
         $checkResult = mysqli_query($conn, $checkSql);
         if(mysqli_num_rows($checkResult) == 0){
-            echo "<br>
-        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
-        <div style='text-align: center'>
-            <input onclick=\"window.location.href='addRepairUpdateUpgrade.php';\" class='btn btn-warning' value='Back'>
-        </div>";
+            echo "<br><h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+                  <div style='text-align: center'>
+                      <input onclick=\"window.location.href='addRepairUpdateUpgrade.php';\" class='btn btn-warning' value='Back'>
+                  </div>";
             exit();
         }
     }
@@ -77,11 +74,10 @@ if(isset($_SESSION['id'])) {
         $checkSql = "SELECT * FROM inventory WHERE `Serial Number` = '$getSerial';";
         $checkResult = mysqli_query($conn, $checkSql);
         if(mysqli_num_rows($checkResult) == 0){
-            echo "<br>
-        <h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
-        <div style='text-align: center'>
-            <input onclick=\"window.location.href='addRepairUpdateUpgrade.php';\" class='btn btn-warning' value='Back'>
-        </div>";
+            echo "<br><h3 style='text-align: center'>Sorry, some information got lost along the way. Please go back and try again.</h3><br>
+                  <div style='text-align: center'>
+                      <input onclick=\"window.location.href='addRepairUpdateUpgrade.php';\" class='btn btn-warning' value='Back'>
+                  </div>";
             exit();
         }
     }

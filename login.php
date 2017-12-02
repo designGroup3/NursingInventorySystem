@@ -10,7 +10,7 @@
   $i = rand(0, count($bg)-1); // generate random number size of the array
   $selectedBg = $bg[$i]; // set variable equal to which random filename was chosen
 
-echo'<style>
+echo '<style>
         body {
             background-image: url('.$selectedBg.'); 
             background-size:auto no-repeat;
@@ -224,7 +224,6 @@ form.login a:hover
     height: 27px;
     width: 25px
 }
-
 </style>
 <script>
 
@@ -252,7 +251,7 @@ $(document).ready(function() {
         <?php
         $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         if(strpos($url, 'error=input') !== false){
-            echo "<div class='alert alert-danger col-xs-8 col-sm-8 col-md-8 col-xl-8'>Your username or password is incorrect!</div>";
+            echo "<div class='alert alert-danger col-xs-8 col-sm-8 col-md-8 col-xl-8'>Your username or password is incorrect!</div><br><br><br><br><br><br><br><br>";
         }
         ?>
             <div class="container" >
@@ -285,7 +284,5 @@ $(document).ready(function() {
                     </div>
                 </div>
             </div>
-
         </body>
-            
 </html>

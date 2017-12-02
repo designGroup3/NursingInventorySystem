@@ -42,6 +42,14 @@ if(isset($_SESSION['id'])) {
 
     $result = mysqli_query($conn, $reportSql);
 
+    //Check subtypes table
+    $subSql = "SELECT * FROM consumables WHERE Subtype = '$subtype';";
+    $subResult = mysqli_query($conn, $subSql);
+    if(mysqli_num_rows($subResult) == 0){
+        $subSql = "DELETE FROM subtypes WHERE Subtype = '$subtype';";
+        $subResult = mysqli_query($conn, $subSql);
+    }
+
     header("Location: ../consumables.php");
 }
 else{

@@ -32,7 +32,6 @@ if($newPassword !== $confirmNewPassword){
 }
 else{
     $encrypted_password = password_hash($newPassword, PASSWORD_DEFAULT);
-    //echo "UPDATE users SET Pwd = '$newPassword' WHERE id = '$currentID'";
     $sql = "UPDATE users SET Pwd = '$encrypted_password' WHERE id = '$currentID'";
     $result = mysqli_query($conn, $sql);
     header("Location: ../changePassword.php?success");

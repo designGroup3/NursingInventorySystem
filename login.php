@@ -265,16 +265,23 @@ $(document).ready(function() {
                             	</div>
                             <div class="panel-body">
                                 <?php
-                                echo'<form accept-charset="UTF-8" role="form" class="form-signin" action="includes/login.inc.php" method="POST">
+                                error_reporting(E_ALL ^ E_NOTICE);
+                                $id = $_GET['show'];
+
+                                echo '<form accept-charset="UTF-8" role="form" class="form-signin" action="includes/login.inc.php" method="POST">
                                     <fieldset>
                                         <label class="panel-login">
                                             <div class="login_result"></div>
-                                        </label>
+                                        </label>';
+
+                                if(gettype($id) !== NULL){
+                                    echo '<input class="form-control" type="hidden" name="show" id="show" value="'.$id.'">';
+                                }
                                        
-                                        <input class="form-control" name="uid" placeholder="Username" id="username" type="text"><br>
-                                        <input class="form-control" name="pwd" placeholder="Password" id="password" type="password">
-                                        <br/><br/>
-                                        <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Login" href="index.html"></form>
+                                        echo '<input class="form-control" name="uid" placeholder="Username" id="username" type="text"><br>
+                                        <input class="form-control" name="pwd" placeholder="Password" id="password" type="password"><br/><br/>                                    
+                                        <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Login">
+                                        </form>
                                     </fieldset>
                                 </form>';
                                 ?>

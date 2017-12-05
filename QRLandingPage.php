@@ -1,6 +1,9 @@
 <?php
 include 'table.php';
 
+error_reporting(E_ALL ^ E_NOTICE);
+$id = $_GET['show'];
+
 if(isset($_SESSION['id'])) {
     include 'dbh.php';
     echo "<head>
@@ -20,7 +23,6 @@ if(isset($_SESSION['id'])) {
     $row = $result->fetch_assoc();
     $acctType = $row['Account Type'];
 
-    $id = $_GET['show'];
     $name;
     $columnNames = array();
 
@@ -172,7 +174,7 @@ if(isset($_SESSION['id'])) {
     }
 }
 else{
-    header("Location: ./login.php");
+    header("Location: ./login.php?show=$id");
 }
 include 'tableFooter.php'
 ?>

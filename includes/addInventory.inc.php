@@ -32,8 +32,6 @@ if(isset($_SESSION['id'])) {
         }
     }
 
-    print_r($receivedValues);
-
     $sql2 = "SELECT CURRENT_TIMESTAMP;"; //gets current time
     $result2 = mysqli_query($conn, $sql2);
     $row2 = $result2->fetch_assoc();

@@ -4,6 +4,7 @@ include '../dbh.php';
 
 $uid = mysqli_real_escape_string($conn, $_POST['uid']);
 $pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
+$show = $_POST['show'];
 
 $sql = "SELECT * FROM users WHERE Uid = '$uid'";
 $result = mysqli_query($conn, $sql);
@@ -29,6 +30,11 @@ if($hash == 0){
 
     $_SESSION['id'] = $row['Id'];
 
-    header("Location: ../index.php");
+    if($show !== ""){
+        header("Location: ../QRLandingPage.php?show=$show");
+    }
+    else{
+        header("Location: ../index.php");
+    }
 }
 ?>

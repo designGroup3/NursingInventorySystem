@@ -246,7 +246,7 @@ $(document).ready(function() {
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
 <script src="./js/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <body><div class="parent"><button class="help" onclick="window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'">
+        <body><div class="parent"><button class="help" onclick="window.location.href='./UserManual.pdf#page=4'">
                 <i class='fa fa-question'></i></button></div>
         <?php
         $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
@@ -265,16 +265,23 @@ $(document).ready(function() {
                             	</div>
                             <div class="panel-body">
                                 <?php
-                                echo'<form accept-charset="UTF-8" role="form" class="form-signin" action="includes/login.inc.php" method="POST">
+                                error_reporting(E_ALL ^ E_NOTICE);
+                                $id = $_GET['show'];
+
+                                echo '<form accept-charset="UTF-8" role="form" class="form-signin" action="includes/login.inc.php" method="POST">
                                     <fieldset>
                                         <label class="panel-login">
                                             <div class="login_result"></div>
-                                        </label>
+                                        </label>';
+
+                                if(gettype($id) !== NULL){
+                                    echo '<input class="form-control" type="hidden" name="show" id="show" value="'.$id.'">';
+                                }
                                        
-                                        <input class="form-control" name="uid" placeholder="Username" id="username" type="text"><br>
-                                        <input class="form-control" name="pwd" placeholder="Password" id="password" type="password">
-                                        <br/><br/>
-                                        <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Login" href="index.html"></form>
+                                        echo '<input class="form-control" name="uid" placeholder="Username" id="username" type="text"><br>
+                                        <input class="form-control" name="pwd" placeholder="Password" id="password" type="password"><br/><br/>                                    
+                                        <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Login">
+                                        </form>
                                     </fieldset>
                                 </form>';
                                 ?>

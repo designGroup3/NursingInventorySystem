@@ -10,7 +10,6 @@ if (strpos($oldColumn, '%20')) {
 $oldType = $_POST['oldType'];
 $newColumn = $_POST['newColumn'];
 $newType = $_POST['newType'];
-//$source = $_POST['source'];
 
 if($newType == "Letters & Numbers"  || $newType == "varchar"){
     $newType = "varchar";
@@ -35,15 +34,6 @@ if($newColumn == ""){
     header("Location: ../editConsumableColumn.php?error=empty");
     exit();
 }
-
-//if($oldType != $newType && $source == "editPage") {
-//    header("Location: ../editConsumableColumnConfirm.php?oldColumn=$oldColumn&oldType=$oldType&newColumn=$newColumn&newType=$newType");
-//    exit();
-//}
-//elseif($oldType != $newType && $source == "confirmPage"){
-//    $sql = "UPDATE consumables SET `".$oldColumn. "` = NULL;";
-//    $result = mysqli_query($conn, $sql);
-//} //calls the confirmation page, unused
 
 if($oldType != $newType){
     $sql = "UPDATE consumables SET `".$oldColumn. "` = NULL;";

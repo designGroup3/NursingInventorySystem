@@ -246,7 +246,7 @@ $(document).ready(function() {
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
 <script src="./js/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <body><div class="parent"><button class="help" onclick="window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'">
+        <body><div class="parent"><button class="help" onclick="window.location.href='./UserManual.pdf#page=4'">
                 <i class='fa fa-question'></i></button></div>
         <?php
         $url ="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];

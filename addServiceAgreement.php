@@ -21,26 +21,16 @@ include 'header.php';
                                 message: 'Please add a valid cost'
                             },
                             notEmpty: {
-                                message: 'Please add a valid cost'
+                                message: 'Cost cannot be empty'
                             },
                             step:{
                                 step: 0.01,
-                                message: 'Please add a valid cost'
+                                message: 'Cost cannot be less than 1 cent'
                             },
                             greaterThan:{
                                 inclusive: true,
                                 value: -0.01,
-                                message: 'Please add a valid cost'
-                            }
-                        }
-                    },
-                    email: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Please supply your email address'
-                            },
-                            emailAddress: {
-                                message: 'Please supply a valid email address'
+                                message: 'Cost must be positive'
                             }
                         }
                     },
@@ -76,6 +66,11 @@ if(isset($_SESSION['id'])) {
         echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
         col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
         Approval forms must a .pdf file.</div><br><br><br>";
+    }
+    elseif(strpos($url, 'error=reverseDates') !== false){
+        echo "<div class='alert alert-danger col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xl-offset-2 
+        col-xs-8 col-sm-8 col-md-8 col-xl-8' style='text-align: center'>
+        The start date must be before the end date.</div><br><br><br>";
     }
 
     echo "<div class=\"container\">
@@ -128,15 +123,29 @@ if(isset($_SESSION['id'])) {
                       </div>
                     
                       <div class=\"form-group\">
-                          <label class=\"col-md-4 control-label\">Expiration Date:
+                          <label class=\"col-md-4 control-label\">Start Date:
                               <a style=\"color:red;\" title=\"This field must be filled\">*</a>
                           </label>
-                          <div class=\"col-md-4 selectContainer\">
-                              <div class=\"input-group\">
-                                  <span class=\"input-group-addon\">
-                                      <i class=\"fa fa-calendar\"></i>
+                          <div class=\"col-md-4 dateContainer\">
+                              <div class=\"input-group input-append date\">
+                                  <span class=\"input-group-addon add-on\">
+                                      <span class=\"glyphicon glyphicon-calendar\"></span>
                                   </span>
-                                  <input type='date' name='date' class=\"form-control\" required>
+                                  <input type=\"date\" required class=\"form-control\" name=\"startDate\" />
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class=\"form-group\">
+                          <label class=\"col-md-4 control-label\">End Date:
+                              <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                          </label>
+                          <div class=\"col-md-4 dateContainer\">
+                              <div class=\"input-group input-append date\">
+                                  <span class=\"input-group-addon add-on\">
+                                      <span class=\"glyphicon glyphicon-calendar\"></span>
+                                  </span>
+                                  <input type=\"date\" required class=\"form-control\" name=\"endDate\" />
                               </div>
                           </div>
                       </div>

@@ -139,10 +139,11 @@ if(isset($_SESSION['id'])) {
     }
 
     //Reports
-    $sql = "INSERT INTO consumableReports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Consumable',";
+    $sql = "INSERT INTO consumableReports (`Activity Type`, `Item`, `Subtype`, `Beginning Quantity`, `End Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Consumable',";
 
     $sql .= "'" . $receivedValues[0] . "'" . ", ";
     $sql .= "'" . $receivedValues[1] . "'" . ", ";
+    $sql .= "'0', "; //For beginning quantity
     $sql .= "'" . $receivedValues[3] . "'" . ", ";
 
     $sql2 = "SELECT CURRENT_TIMESTAMP;";

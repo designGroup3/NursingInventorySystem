@@ -13,10 +13,16 @@ $cost = str_replace("'","\'","$cost");
 $duration = $_POST['duration'];
 $duration = str_replace("\\","\\\\","$duration");
 $duration = str_replace("'","\'","$duration");
-$date = $_POST['date'];
+$startDate = $_POST['startDate'];
+$endDate = $_POST['endDate'];
+
+if($startDate > $endDate){
+    header("Location: ../editServiceAgreement.php?edit=$id&error=reverseDates");
+    exit();
+}
 
 if($_FILES["file"]["name"] == "") { // no file uploaded
-    $sql = "UPDATE serviceAgreements SET Name = '$name', `Annual Cost` = '$cost', Duration = '$duration', `Expiration Date` = '$date' WHERE Id = '$id'";
+    $sql = "UPDATE serviceAgreements SET Name = '$name', `Annual Cost` = '$cost', Duration = '$duration', `Start Date` = '$startDate', `End Date` = '$endDate' WHERE Id = '$id'";
     $result = mysqli_query($conn, $sql);
     header("Location: ../serviceAgreements.php");
 }
@@ -30,7 +36,7 @@ else{ //file uploaded
     $mime = finfo_file($finfo, $_FILES['file']['tmp_name']);
 
     if ($mime == 'application/pdf') {
-        $sql = "UPDATE serviceAgreements SET Name = '$name', `Annual Cost` = '$cost', Duration = '$duration', `Expiration Date` = '$date', Approval = '$id' WHERE Id = '$id'";
+        $sql = "UPDATE serviceAgreements SET Name = '$name', `Annual Cost` = '$cost', Duration = '$duration', `Start Date` = '$startDate', `End Date` = '$endDate' WHERE Id = '$id'";
         $result = mysqli_query($conn, $sql);
 
         move_uploaded_file($_FILES["file"]["tmp_name"], "../serviceAgreements/" . $id . ".pdf");

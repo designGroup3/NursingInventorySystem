@@ -84,7 +84,8 @@ CREATE TABLE `loginsystem`.`inventoryReports` (
   `Serial Number` VARCHAR(100) NOT NULL,
   `Item` VARCHAR(100) NOT NULL,
   `Subtype` VARCHAR(100) NOT NULL,
-  `Quantity` INT NOT NULL,
+  `Beginning Quantity` INT NOT NULL,
+  `End Quantity` INT NOT NULL,
   `Timestamp` VARCHAR(100) NOT NULL,
   `Update Person` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`Id`));
@@ -94,7 +95,8 @@ CREATE TABLE `loginsystem`.`consumableReports` (
   `Activity Type` VARCHAR(100) NOT NULL,
   `Item` VARCHAR(100) NOT NULL,
   `Subtype` VARCHAR(100) NOT NULL,
-  `Quantity` INT NOT NULL,
+  `Beginning Quantity` INT NOT NULL,
+  `End Quantity` INT NOT NULL,
   `Timestamp` VARCHAR(100) NOT NULL,
   `Update Person` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`Id`));
@@ -115,6 +117,7 @@ CREATE TABLE `loginsystem`.`serviceAgreements` (
   `Name` VARCHAR(100) NOT NULL,
   `Annual Cost` DECIMAL(8,2) NOT NULL,
   `Duration` VARCHAR(100) NOT NULL,
-  `Expiration Date` DATE NOT NULL,
+  `Start Date` DATE NOT NULL,
+  `End Date` DATE NOT NULL,
   `Approval` VARCHAR(500),
   PRIMARY KEY (`Id`));

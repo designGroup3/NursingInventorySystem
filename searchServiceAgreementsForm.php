@@ -54,13 +54,25 @@ if(isset($_SESSION['id'])) {
                       </div>
         
                       <div class=\"form-group\">
-                          <label class=\"col-md-4 control-label\">Expiration Date:</label>
-                          <div class=\"col-md-4 selectContainer\">
-                              <div class=\"input-group\">
-                                  <span class=\"input-group-addon\">
-                                      <i class=\"fa fa-calendar\"></i>
+                          <label class=\"col-md-4 control-label\">Start Date:</label>
+                          <div class=\"col-md-4 dateContainer\">
+                              <div class=\"input-group input-append date\">
+                                  <span class=\"input-group-addon add-on\">
+                                      <span class=\"glyphicon glyphicon-calendar\"></span>
                                   </span>
-                                  <input type='date' name='date' class=\"form-control\">
+                                  <input type=\"date\" class=\"form-control\" name=\"startDate\" />
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class=\"form-group\">
+                          <label class=\"col-md-4 control-label\">End Date:</label>
+                          <div class=\"col-md-4 dateContainer\">
+                              <div class=\"input-group input-append date\">
+                                  <span class=\"input-group-addon add-on\">
+                                      <span class=\"glyphicon glyphicon-calendar\"></span>
+                                  </span>
+                                  <input type=\"date\" class=\"form-control\" name=\"endDate\" />
                               </div>
                           </div>
                       </div>

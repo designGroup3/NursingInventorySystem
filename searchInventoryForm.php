@@ -192,10 +192,19 @@ if(isset($_SESSION['id'])) {
                                        <span class=\"input-group-addon\">
                                            <i class=\"glyphicon glyphicon-user\"></i>
                                        </span>
-                                       <input name='Assignedto' placeholder=\"Assignee's Name\" class=\"form-control\" type=\"text\">
-                                   </div>
-                               </div>
-                           </div>";
+                                       <select name=\"Assignedto\" class=\"form-control selectpicker\">
+                                               <option selected value=''></option>
+                                               <option value='Surplus'>Surplus</option>";
+
+                    $clientSql = "SELECT First, Last FROM clients;";
+                    $clientResult = mysqli_query($conn, $clientSql);
+                    while ($clientRow = mysqli_fetch_array($clientResult)) {
+                        $inputs .= '<option value = "'.$clientRow['Last'].", ".$clientRow['First'].'">'.$clientRow['Last'].", ".$clientRow['First'].'</option>';
+                    }
+                                    $inputs .= "</select>
+                                      </div>
+                                  </div>
+                              </div>";
             }
             elseif($count == 5){
                 $inputs = "<div class=\"form-group\">

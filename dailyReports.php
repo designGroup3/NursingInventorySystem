@@ -48,7 +48,7 @@ if(isset($_SESSION['id'])) {
         $date = $_POST['date'];
         $dateTitle = date_create($date);
 
-        $sql = "SELECT `Activity Type`, Item, consumableReports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM consumableReports JOIN subtypes ON subtypes.Subtype = consumableReports.Subtype WHERE Timestamp BETWEEN '".$date." 00:00:00' AND '".$date." 23:59:59';";
+        $sql = "SELECT `Activity Type`, Item, consumableReports.Subtype, subtypes.Type, `Beginning Quantity`, `End Quantity`, Timestamp, `Update Person` FROM consumableReports JOIN subtypes ON subtypes.Subtype = consumableReports.Subtype WHERE Timestamp BETWEEN '".$date." 00:00:00' AND '".$date." 23:59:59';";
         $result = mysqli_query($conn, $sql);
         $resultCheck = mysqli_num_rows($result);
 
@@ -67,7 +67,8 @@ if(isset($_SESSION['id'])) {
                                   <th>Item</th>
                                   <th>Type</th>
                                   <th>Subtype</th>
-                                  <th>Quantity Changed</th>
+                                  <th>Beginning Quantity</th>
+                                  <th>End Quantity</th>
                                   <th>Timestamp</th>
                                   <th>Update Person</th>
                               </tr>
@@ -80,7 +81,8 @@ if(isset($_SESSION['id'])) {
                           <td> ".$row['Item']."</td>
                           <td> ".$row['Type']."</td>
                           <td> ".$row['Subtype']."</td>
-                          <td> ".$row['Quantity']."</td>";
+                          <td> ".$row['Beginning Quantity']."</td>
+                          <td> ".$row['End Quantity']."</td>";
                           $date = date_create($row['Timestamp']);
                           echo "<td>".date_format($date, 'm-d-Y H:i:s')."</td>
                           <td> ".$row['Update Person']."</td>

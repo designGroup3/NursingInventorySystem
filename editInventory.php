@@ -211,7 +211,39 @@ if(isset($_SESSION['id'])) {
                                            <span class=\"input-group-addon\">
                                                <i class=\"glyphicon glyphicon-user\"></i>
                                            </span>
-                                           <input type='text' required placeholder=\"Assignee's Name\" class='form-control' name=";
+                                           <select name=\"Assignedto\" required class=\"form-control selectpicker\">
+                                               <option value=''></option>";
+
+                    $clientSql = "SELECT First, Last FROM clients;";
+                    $clientResult = mysqli_query($conn, $clientSql);
+                    $surplusSaid = false;
+                    while ($clientRow = mysqli_fetch_array($clientResult)) {
+                        if($row['Assigned to'] == "Surplus"){
+                            if(!$surplusSaid) {
+                                $inputs .= "<option selected value='Surplus'>Surplus</option>";
+                                $surplusSaid = true;
+                            }
+                            $names = $clientRow['Last'].", ".$clientRow['First'];
+                            $inputs .= '<option value = "'.$names.'">'.$names.'</option>';
+                        }
+                        else{
+                            if(!$surplusSaid){
+                                $inputs .= "<option value='Surplus'>Surplus</option>";
+                                $surplusSaid = true;
+                            }
+                            $names = $clientRow['Last'].", ".$clientRow['First'];
+                            if($names == $row['Assigned to']){
+                                $inputs .= '<option selected value = "'.$names.'">'.$names.'</option>';
+                            }
+                            else{
+                                $inputs .= '<option value = "'.$names.'">'.$names.'</option>';
+                            }
+                        }
+                    }
+                                $inputs .= "</select>
+                                  </div>
+                              </div>
+                          </div>";
                 }
                 elseif($count == 5){
                     $inputs = '<div class="form-group">
@@ -333,7 +365,7 @@ if(isset($_SESSION['id'])) {
                 }
             }
             else{
-                if($columnName != "MACAddress" && $columnName != "IPAddress"){
+                if($columnName != "MACAddress" && $columnName != "IPAddress" &&$columnName != "Assignedto"){
                     $dummy = $row[$columnNames[$count]];
                     $row[$columnNames[$count]] = str_replace("\"","&quot;","$dummy");
                     $inputs .= $columnName . " value=\"".$row[$columnNames[$count]]."\">

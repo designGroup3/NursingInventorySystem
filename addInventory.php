@@ -152,7 +152,19 @@ if(isset($_SESSION['id'])) {
                                            <span class=\"input-group-addon\">
                                                <i class=\"glyphicon glyphicon-user\"></i>
                                            </span>
-                                           <input type='text' required placeholder=\"Assignee's Name\" class='form-control' name=";
+                                           <select name=\"Assignedto\" required class=\"form-control selectpicker\">
+                                               <option selected value=''></option>
+                                               <option value='Surplus'>Surplus</option>";
+
+                    $clientSql = "SELECT First, Last FROM clients;";
+                    $clientResult = mysqli_query($conn, $clientSql);
+                    while ($clientRow = mysqli_fetch_array($clientResult)) {
+                        $inputs .= '<option value = "'.$clientRow['Last'].", ".$clientRow['First'].'">'.$clientRow['Last'].", ".$clientRow['First'].'</option>';
+                    }
+                                    $inputs .= "</select>
+                                      </div>
+                                  </div>
+                              </div>";
                 }
                 elseif($count == 5){
                     $inputs = '<div class="form-group">
@@ -254,7 +266,7 @@ if(isset($_SESSION['id'])) {
                 </div>";
                 }
             } else {
-                if($columnName != "MACAddress" && $columnName != "IPAddress"){
+                if($columnName != "MACAddress" && $columnName != "IPAddress" && $columnName != "Assignedto"){
                     $inputs .= $columnName . " value=" . $row[$columnNames[$count]] . ">
                                </div>
                            </div>

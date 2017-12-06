@@ -37,13 +37,14 @@ if(isset($_SESSION['id'])) {
     $duration = $_POST['duration'];
     $duration = str_replace("\\","\\\\\\\\","$duration");
     $duration = str_replace("'","\'","$duration");
-    $date = $_POST['date'];
+    $startDate = $_POST['startDate'];
+    $endDate = $_POST['endDate'];
 
     $tableHeadNeeded = true;
     $count = 0;
     $sql = "SELECT * FROM serviceAgreements WHERE ";
     $andNeeded = false;
-    if($name == "" && $cost == "" && $duration == "" && $date == ""){
+    if($name == "" && $cost == "" && $duration == "" && $startDate == "" && $endDate == ""){
         echo "<h3 style='text-align: center'>Please fill out at least 1 search field.</h3><br>
               <div style='text-align: center'>
                   <input onclick=\"window.location.href='searchServiceAgreementsForm.php';\" class='btn btn-warning' value='Back'>
@@ -73,13 +74,22 @@ if(isset($_SESSION['id'])) {
         $sql .= "Duration LIKE '%".$duration."%'";
         $andNeeded = true;
     }
-    if($date !== "")
+    if($startDate !== "")
     {
         error_reporting(E_ERROR | E_PARSE);
         if($andNeeded){
             $sql .= " AND ";
         }
-        $sql .= "`Expiration Date` LIKE '%".$date."%'";
+        $sql .= "`Start Date` LIKE '%".$startDate."%'";
+        $andNeeded = true;
+    }
+    if($endDate !== "")
+    {
+        error_reporting(E_ERROR | E_PARSE);
+        if($andNeeded){
+            $sql .= " AND ";
+        }
+        $sql .= "`End Date` LIKE '%".$endDate."%'";
         $andNeeded = true;
     }
     $sql .=";";
@@ -96,7 +106,8 @@ if(isset($_SESSION['id'])) {
                               <th>Name</th>
                               <th>Annual Cost</th>
                               <th>Duration</th>
-                              <th>Expiration Date</th>";
+                              <th>Start Date</th>
+                              <th>End Date</th>";
             if(count($approvals) > 0){
                 echo "<th>Approval Form</th>";
             }
@@ -112,7 +123,9 @@ if(isset($_SESSION['id'])) {
                   <td>".$row['Name']."</td>
                   <td>".$row['Annual Cost']."</td>
                   <td>".$row['Duration']."</td>";
-                  $date = date_create($row['Expiration Date']);
+                  $date = date_create($row['Start Date']);
+        echo "<td>".date_format($date, 'm/d/Y')."</td>";
+                  $date = date_create($row['End Date']);
         echo "<td>".date_format($date, 'm/d/Y')."</td>";
         if($row['Approval'] !== NULL){
             echo "<td>

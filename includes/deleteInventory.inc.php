@@ -15,7 +15,7 @@ if(isset($_SESSION['id'])) {
     $sql = "DELETE FROM inventory WHERE `Inv Id` = '$id';";
 
     //Reports
-    $reportSql = "INSERT INTO inventoryReports (`Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Inventory',";
+    $reportSql = "INSERT INTO inventoryReports (`Activity Type`, `Serial Number`, `Item`, `Subtype`, `Beginning Quantity`, `End Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Inventory',";
 
     $sql2 = "SELECT `Serial Number`, Item, Subtype, `Number in Stock` FROM inventory WHERE `Inv Id` = '". $id."';";
     $result2 = mysqli_query($conn, $sql2);
@@ -36,7 +36,7 @@ if(isset($_SESSION['id'])) {
     $reportSql .= "'" . $serial . "'" . ", ";
     $reportSql .= "'" . $item . "'" . ", ";
     $reportSql .= "'" . $subtype . "'" . ", ";
-    $reportSql .= "'" . $row2['Number in Stock'] . "'" . ", ";
+    $reportSql .= "'" . $row2['Number in Stock'] . "'" . ", 0,";
 
     $sql3 = "SELECT CURRENT_TIMESTAMP;";
     $result3 = mysqli_query($conn, $sql3);
@@ -49,14 +49,6 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql); //Cannot be executed until needed info. is gotten.
 
     $result = mysqli_query($conn, $reportSql);
-
-    //Check subtypes table
-    $subSql = "SELECT * FROM inventory WHERE Subtype = '$subtype';";
-    $subResult = mysqli_query($conn, $subSql);
-    if(mysqli_num_rows($subResult) == 0){
-        $subSql = "DELETE FROM subtypes WHERE Subtype = '$subtype';";
-        $subResult = mysqli_query($conn, $subSql);
-    }
 
     header("Location: ../inventory.php");
 }

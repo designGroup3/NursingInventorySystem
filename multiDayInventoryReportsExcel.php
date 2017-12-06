@@ -6,7 +6,7 @@ if(isset($_POST["export"]))
 {
     $startDate = $_POST['startDate'];
     $endDate = $_POST['endDate'];
-    $sql = "SELECT `Activity Type`, `Serial Number`, Item, inventoryReports.Subtype, subtypes.Type, Quantity, Timestamp, `Update Person` FROM inventoryReports JOIN subtypes ON subtypes.Subtype = inventoryReports.Subtype WHERE Timestamp BETWEEN '".$startDate." 00:00:00' AND '".$endDate." 23:59:59';";
+    $sql = "SELECT `Activity Type`, `Serial Number`, Item, inventoryReports.Subtype, subtypes.Type, `Beginning Quantity`, `End Quantity`, Timestamp, `Update Person` FROM inventoryReports JOIN subtypes ON subtypes.Subtype = inventoryReports.Subtype WHERE Timestamp BETWEEN '".$startDate." 00:00:00' AND '".$endDate." 23:59:59' ORDER BY Timestamp;";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0)
     {
@@ -20,7 +20,8 @@ if(isset($_POST["export"]))
                            <th>Type</th>
                            <th>Subtype</th>
                            <th>Serial Number</th>
-                           <th>Quantity Changed</th>
+                           <th>Beginning Quantity</th>
+                           <th>End Quantity</th>
                            <th>Timestamp</th>
                            <th>Update Person</th>
                        </tr>';
@@ -32,7 +33,8 @@ if(isset($_POST["export"]))
                             <td>'.$row["Type"].'</td>
                             <td>'.$row["Subtype"].'</td>
                             <td>'.$row["Serial Number"].'</td>
-                            <td>'.$row["Quantity"].'</td>
+                            <td>'.$row["Beginning Quantity"].'</td>
+                            <td>'.$row["End Quantity"].'</td>
                             <td>'.$row["Timestamp"].'</td>
                             <td>'.$row["Update Person"].'</td>
                         </tr>';

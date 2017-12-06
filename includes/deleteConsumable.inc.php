@@ -15,7 +15,7 @@ if(isset($_SESSION['id'])) {
     $sql = "DELETE FROM consumables WHERE Item = '".$item."';";
 
     //Reports
-    $reportSql = "INSERT INTO consumableReports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Consumable',";
+    $reportSql = "INSERT INTO consumableReports (`Activity Type`, `Item`, `Subtype`, `Beginning Quantity`, `End Quantity`, `Timestamp`, `Update Person`) VALUES ('Delete Consumable',";
 
     $sql2 = "SELECT Subtype, `Number in Stock` FROM consumables WHERE Item = '". $item."';";
     $result2 = mysqli_query($conn, $sql2);
@@ -26,7 +26,7 @@ if(isset($_SESSION['id'])) {
 
     $reportSql .= "'" . $item . "'" . ", ";
     $reportSql .= "'" . $subtype . "'" . ", ";
-    $reportSql .= "'" . $row2['Number in Stock'] . "'" . ", ";
+    $reportSql .= "'" . $row2['Number in Stock'] . "'" . ", 0,";
 
     $sql3 = "SELECT CURRENT_TIMESTAMP;";
     $result3 = mysqli_query($conn, $sql3);
@@ -39,14 +39,6 @@ if(isset($_SESSION['id'])) {
     $result = mysqli_query($conn, $sql); //Cannot be executed until needed info. is gotten.
 
     $result = mysqli_query($conn, $reportSql);
-
-    //Check subtypes table
-    $subSql = "SELECT * FROM consumables WHERE Subtype = '$subtype';";
-    $subResult = mysqli_query($conn, $subSql);
-    if(mysqli_num_rows($subResult) == 0){
-        $subSql = "DELETE FROM subtypes WHERE Subtype = '$subtype';";
-        $subResult = mysqli_query($conn, $subSql);
-    }
 
     header("Location: ../consumables.php");
 }

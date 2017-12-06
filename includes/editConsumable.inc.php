@@ -148,50 +148,31 @@ if(isset($_SESSION['id'])) {
                     exit();
                 }
             }
-
-            $subtypeSql = "SELECT Item FROM consumables WHERE Subtype = '$originalSubtype';";
+            $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
             $subtypeResult = mysqli_query($conn, $subtypeSql);
-            if(mysqli_num_rows($subtypeResult) == 1){ //If the only item with that subtype has its subtype changed, change the subtype in the subtypes table.
-                $subtypeSql = "UPDATE subtypes SET Subtype = '$newSubtype' WHERE Subtype = '$originalSubtype';";
+            if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
+                $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "','Consumables');";
                 $subtypeResult = mysqli_query($conn, $subtypeSql);
-            }
-            else{
-                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype';";
-                $subtypeResult = mysqli_query($conn, $subtypeSql);
-                if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
-                    $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "','Consumables');";
-                    $subtypeResult = mysqli_query($conn, $subtypeSql);
-                }
             }
         }
         elseif($originalSubtype !== $_POST['Subtype'] && $originalType !== $type){
-            $subtypeSql = "SELECT * FROM consumables WHERE Subtype = '$originalSubtype';";
+            $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype' AND `Table` = 'Consumables';";
             $subtypeResult = mysqli_query($conn, $subtypeSql);
-            if(mysqli_num_rows($subtypeResult) == 1){ //If the only item with that subtype has its subtype changed, change the subtype in the subtypes table.
-                $subtypeSql = "UPDATE subtypes SET Subtype = '$newSubtype' WHERE Subtype = '$originalSubtype';";
-                $subtypeResult = mysqli_query($conn, $subtypeSql);
-            }
-            else{
-                $subtypeSql = "SELECT * FROM subtypes WHERE Subtype = '$newSubtype' AND `Table` = 'Consumables';";
-                $subtypeResult = mysqli_query($conn, $subtypeSql);
-                if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
-                    $subSql = "SELECT Subtype FROM subtypes WHERE Subtype = '$newSubtype' AND `Table` = 'Inventory';";
-                    $subResult2 = mysqli_query($conn, $subSql);
-                    if(mysqli_num_rows($subResult2) > 0){
-                        header("Location: ../editConsumable.php?edit=$originalItem&error=sameType&subtype=$newSubtype");
-                        exit();
-                    }
-                    $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "','Consumables');";
-                    $subtypeResult = mysqli_query($conn, $subtypeSql);
+            if(mysqli_num_rows($subtypeResult) == 0){ //If no subtype exists for the subtype entered
+                $subSql = "SELECT Subtype FROM subtypes WHERE Subtype = '$newSubtype' AND `Table` = 'Inventory';";
+                $subResult2 = mysqli_query($conn, $subSql);
+                if(mysqli_num_rows($subResult2) > 0){
+                    header("Location: ../editConsumable.php?edit=$originalItem&error=sameType&subtype=$newSubtype");
+                    exit();
                 }
+                $subtypeSql = "INSERT INTO subtypes(`Subtype`, `Type`, `Table`) VALUES ('" . $newSubtype . "','" . $type . "','Consumables');";
+                $subtypeResult = mysqli_query($conn, $subtypeSql);
             }
-            $TypeSql = "UPDATE subtypes SET Type = '$type' WHERE Subtype = '$newSubtype';";
-            $TypeResult = mysqli_query($conn, $TypeSql);
         }
     }
 
     //Reports
-    $reportSql = "INSERT INTO consumableReports (`Activity Type`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Consumable',";
+    $reportSql = "INSERT INTO consumableReports (`Activity Type`, `Item`, `Subtype`, `Beginning Quantity`, `End Quantity`, `Timestamp`, `Update Person`) VALUES ('Edit Consumable',";
 
     $item = $consumableValues[0];
 
@@ -206,8 +187,7 @@ if(isset($_SESSION['id'])) {
     $row2 = $result2->fetch_assoc();
     $current_quantity = $row2['Number in Stock'];
 
-    $quantity = $consumableValues[3] - $current_quantity;
-    $reportSql .= $quantity .", ";
+    $reportSql .= $current_quantity .", ". $consumableValues[3].", ";
 
     $sql3 = "SELECT CURRENT_TIMESTAMP;";
     $result3 = mysqli_query($conn, $sql3);
@@ -218,14 +198,6 @@ if(isset($_SESSION['id'])) {
     $reportSql .= "'" . $uid . "'" . ");";
 
     $result = mysqli_query($conn, $sql);
-
-    $subtypeSql = "SELECT * FROM consumables WHERE Subtype = '$originalSubtype';";
-    $subtypeResult = mysqli_query($conn, $subtypeSql);
-    $row = mysqli_fetch_array($subtypeResult);
-    if(mysqli_num_rows($subtypeResult) == 0){
-        $subtypeSql = "DELETE FROM subtypes WHERE Subtype = '$originalSubtype';";
-        $subtypeResult = mysqli_query($conn, $subtypeSql);
-    }
 
     $result = mysqli_query($conn, $reportSql);
 

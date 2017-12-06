@@ -151,11 +151,12 @@ if(isset($_SESSION['id'])) {
     }
 
     //Reports
-    $sql = "INSERT INTO inventoryReports (`Activity Type`, `Serial Number`, `Item`, `Subtype`, `Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Inventory',";
+    $sql = "INSERT INTO inventoryReports (`Activity Type`, `Serial Number`, `Item`, `Subtype`, `Beginning Quantity`, `End Quantity`, `Timestamp`, `Update Person`) VALUES ('Add Inventory',";
 
     $sql .= "'" . $receivedValues[1] . "'" . ", ";
     $sql .= "'" . $receivedValues[2] . "'" . ", ";
     $sql .= "'" . $receivedValues[3] . "'" . ", ";
+    $sql .= "'0', "; //For beginning quantity
     $sql .= "'" . $receivedValues[7] . "'" . ", ";
 
     $sql .= "'" . $time . "'" . ", ";

@@ -138,7 +138,7 @@ if(isset($_SESSION['id'])) {
                       
                       <div class=\"form-group\">
                           <label class=\"col-md-4 control-label\">End Date:
-                              <a style=\"color:red;\" title=\"This field must be filled\">*</a>
+                              <a style=\"color:red;\" title=\"This field must be filled \">*</a><p style=\"color:red;font-size:10px;\">IMPORTANT: End date must be after Start date</p>
                           </label>
                           <div class=\"col-md-4 dateContainer\">
                               <div class=\"input-group input-append date\">

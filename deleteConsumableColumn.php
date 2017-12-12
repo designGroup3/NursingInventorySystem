@@ -28,7 +28,10 @@ if(isset($_SESSION['id'])) {
         array_push($columnNames, $row['Field']);
     }
 
-    echo '<div class="container">
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $column = $_POST['column'];
+
+        echo '<div class="container">
               <form method="post" class="well form-horizontal" id="contact_form">
                   <fieldset>
                       <h2 align="center">Which column would you like to delete?</h2><br>
@@ -41,22 +44,23 @@ if(isset($_SESSION['id'])) {
                                   <span class="input-group-addon">
                                       <i class="fa fa-columns"></i>
                                   </span>
-                                  <select name="column" onchange="this.form.submit()" class="form-control selectpicker">
-                                      <option selected value=""></option>';
+                                  <select name="column" onchange="this.form.submit()" class="form-control selectpicker">';
 
-    for($columnsCount = 0; $columnsCount < count($columnNames); $columnsCount++) {
-        if($columnsCount > 6){
-            echo '<option value = "'.$columnNames[$columnsCount].'">'.$columnNames[$columnsCount].'</option>';
+        for($columnsCount = 0; $columnsCount < count($columnNames); $columnsCount++) {
+            if($columnsCount > 6){
+                if($columnNames[$columnsCount] == $column){
+                    echo '<option selected value = "'.$columnNames[$columnsCount].'">'.$columnNames[$columnsCount].'</option>';
+                }
+                else{
+                    echo '<option value = "'.$columnNames[$columnsCount].'">'.$columnNames[$columnsCount].'</option>';
+                }
+            }
         }
-    }
-    echo '</select>
+        echo '</select>
       </form>
   </div>
 </div>
 </div>';
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $column = $_POST['column'];
 
         echo "<form action ='includes/deleteConsumableColumn.inc.php' method ='POST'>   
                   <fieldset>
@@ -72,6 +76,34 @@ if(isset($_SESSION['id'])) {
                       </div><br><br>
                   </fieldset>
               </form>";
+    }
+    else{
+        echo '<div class="container">
+              <form method="post" class="well form-horizontal" id="contact_form">
+                  <fieldset>
+                      <h2 align="center">Which column would you like to delete?</h2><br>
+                      <div class="form-group">
+                          <label class="col-md-4 control-label">Column Name:
+                              <a style="color:red;" title="This field must be filled">*</a>
+                          </label>
+                          <div class="col-md-4 selectContainer">
+                              <div class="input-group">
+                                  <span class="input-group-addon">
+                                      <i class="fa fa-columns"></i>
+                                  </span>
+                                  <select name="column" onchange="this.form.submit()" class="form-control selectpicker">
+                                      <option selected value=""></option>';
+
+        for($columnsCount = 0; $columnsCount < count($columnNames); $columnsCount++) {
+            if($columnsCount > 6){
+                echo '<option value = "'.$columnNames[$columnsCount].'">'.$columnNames[$columnsCount].'</option>';
+            }
+        }
+        echo '</select>
+      </form>
+  </div>
+</div>
+</div>';
     }
 }
 else{

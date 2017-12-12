@@ -84,33 +84,6 @@ if(isset($_SESSION['id'])) {
         array_push($columnNames, $row['Field']);
     }
 
-    echo '<div class="container">
-              <form class="well form-horizontal" id="contact_form" method="post">
-                  <fieldset>
-                      <h2 align="center">Which column would you like to edit?</h2><br>
-                      <div class="form-group">
-                          <label class="col-md-4 control-label">Current Column Name:
-                              <a style="color:red;" title="This field must be filled">*</a>
-                          </label>
-                          <div class="col-md-4 selectContainer">
-                              <div class="input-group">
-                                  <span class="input-group-addon">
-                                      <i class="fa fa-columns"></i>
-                                  </span>
-                                  <select name="column" onchange="this.form.submit()" class="form-control selectpicker">
-                                      <option selected value=""></option>';
-
-    for($columnsCount = 0; $columnsCount < count($columnNames); $columnsCount++) {
-        if($columnsCount > 6){
-            echo '<option value = "'.$columnNames[$columnsCount].'">'.$columnNames[$columnsCount].'</option>';
-        }
-    }
-    echo '</select>
-      </form>
-  </div>
-</div>
-</div>';
-
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $oldColumn = $_POST['column'];
         $type = "";
@@ -123,6 +96,38 @@ if(isset($_SESSION['id'])) {
         if (strpos($oldColumn, ' ')) {
             $oldColumn = str_replace(" ", "%20", $oldColumn);
         }
+
+        echo '<div class="container">
+              <form class="well form-horizontal" id="contact_form" method="post">
+                  <fieldset>
+                      <h2 align="center">Which column would you like to edit?</h2><br>
+                      <div class="form-group">
+                          <label class="col-md-4 control-label">Current Column Name:
+                              <a style="color:red;" title="This field must be filled">*</a>
+                          </label>
+                          <div class="col-md-4 selectContainer">
+                              <div class="input-group">
+                                  <span class="input-group-addon">
+                                      <i class="fa fa-columns"></i>
+                                  </span>
+                                  <select name="column" onchange="this.form.submit()" class="form-control selectpicker">';
+
+        for($columnsCount = 0; $columnsCount < count($columnNames); $columnsCount++) {
+            if($columnsCount > 6){
+                if($columnNames[$columnsCount] == $oldColumn){
+                    echo '<option selected value = "'.$columnNames[$columnsCount].'">'.$columnNames[$columnsCount].'</option>';
+                }
+                else{
+                    echo '<option value = "'.$columnNames[$columnsCount].'">'.$columnNames[$columnsCount].'</option>';
+                }
+            }
+        }
+        echo '</select>
+      </form>
+  </div>
+</div>
+</div>';
+
         echo "<br><form action ='includes/editConsumableColumn.inc.php' method = 'POST'><br>
                   <input type='hidden' name='oldColumn' value = $oldColumn>
                   <input type='hidden' name='oldType' value = $type>
@@ -187,6 +192,34 @@ if(isset($_SESSION['id'])) {
     });
 
 });</script>";
+    }
+    else{
+        echo '<div class="container">
+              <form class="well form-horizontal" id="contact_form" method="post">
+                  <fieldset>
+                      <h2 align="center">Which column would you like to edit?</h2><br>
+                      <div class="form-group">
+                          <label class="col-md-4 control-label">Current Column Name:
+                              <a style="color:red;" title="This field must be filled">*</a>
+                          </label>
+                          <div class="col-md-4 selectContainer">
+                              <div class="input-group">
+                                  <span class="input-group-addon">
+                                      <i class="fa fa-columns"></i>
+                                  </span>
+                                  <select name="column" onchange="this.form.submit()" class="form-control selectpicker">
+                                      <option selected value=""></option>';
+
+        for($columnsCount = 0; $columnsCount < count($columnNames); $columnsCount++) {
+            if($columnsCount > 6){
+                echo '<option value = "'.$columnNames[$columnsCount].'">'.$columnNames[$columnsCount].'</option>';
+            }
+        }
+        echo '</select>
+      </form>
+  </div>
+</div>
+</div>';
     }
 }
 else{

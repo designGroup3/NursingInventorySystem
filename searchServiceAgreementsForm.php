@@ -7,7 +7,7 @@ if(isset($_SESSION['id'])) {
               <Title>Search Service Agreements</Title>
           </head>
           <div class=\"parent\">
-              <button class='help' onclick=\"window.location.href='./UserManual.pdf#page=19'\">
+              <button class='help' onclick=\"window.location.href='./UserManual.pdf#page=22'\">
                   <i class='fa fa-question'></i>
               </button>
           </div>";

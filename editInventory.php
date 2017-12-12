@@ -12,7 +12,7 @@ if(isset($_SESSION['id'])) {
               <Title>Edit Inventory</Title>
           </head>
           <div class=\"parent\">
-              <button class=\"help\" onclick=\"window.location.href='./UserManual.pdf#page=28'\">
+              <button class=\"help\" onclick=\"window.location.href='./UserManual.pdf#page=37'\">
                   <i class='fa fa-question'></i>
               </button>
           </div>";

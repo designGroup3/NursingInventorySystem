@@ -11,7 +11,7 @@ if(isset($_SESSION['id'])) {
               <Title>Add Consumable</Title>
           </head>
           <div class=\"parent\">
-              <button class=\"help\" onclick=\"window.location.href='./UserManual.pdf#page=37'\">
+              <button class=\"help\" onclick=\"window.location.href='./UserManual.pdf#page=52'\">
                   <i class='fa fa-question'></i>
               </button>
           </div>";

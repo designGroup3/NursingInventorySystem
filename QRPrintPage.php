@@ -36,7 +36,7 @@ echo '<head>
           <Title>Print QR Code</Title>
       </head>
       <div class="parent">
-          <button class=\'help\' style="height:26px;" onclick="window.location.href=\'./UserManual.pdf#page=28\'">
+          <button class=\'help\' style="height:26px;" onclick="window.location.href=\'./UserManual.pdf#page=37\'">
               <i class=\'fa fa-question\'></i>
           </button>
       </div><br><br>

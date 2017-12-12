@@ -18,7 +18,7 @@ if(isset($_SESSION['id'])) {
           </head>
           <body>
               <div class=\"parent\">
-                  <button class=\"help\" onclick=\"window.location.href='./UserManual.pdf#page=12'\">
+                  <button class=\"help\" onclick=\"window.location.href='./UserManual.pdf#page=34'\">
                       <i class='fa fa-question'></i>
                   </button>
               </div><br/>";

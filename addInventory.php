@@ -9,7 +9,7 @@ if(isset($_SESSION['id'])) {
               <Title>Add Inventory</Title>
           </head>
           <div class="parent">
-              <button class="help" onclick="window.location.href=\'./UserManual.pdf#page=26\'">
+              <button class="help" onclick="window.location.href=\'./UserManual.pdf#page=33\'">
                   <i class=\'fa fa-question\'></i>
               </button>
           </div>';

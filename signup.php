@@ -39,7 +39,7 @@ include 'header.php';
               <Title>Signup</Title>
           </head>
           <div class=\"parent\">
-              <button class='help' onclick=\"window.location.href='./UserManual.pdf#page=8'\">
+              <button class='help' onclick=\"window.location.href='./UserManual.pdf#page=9'\">
                   <i class='fa fa-question'></i>
               </button>
           </div>";

@@ -67,7 +67,7 @@ if(isset($_SESSION['id'])) {
               <Title>Edit Service Agreement</Title>
           </head>
           <div class=\"parent\">
-              <button class=\"help\" onclick=\"window.location.href='http://flowtime.be/wp-content/uploads/2016/01/Naamloosdocument.pdf'\">
+              <button class=\"help\" onclick=\"window.location.href='./UserManual.pdf#page=20'\">
                   <i class='fa fa-question'></i>
               </button>
           </div>";

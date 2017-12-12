@@ -13,7 +13,7 @@ if(isset($_SESSION['id'])) {
           </head>
           <body>
               <div class=\"parent\">
-                  <button class=\"help\" style='height:27px;' onclick=\"window.location.href='./UserManual.pdf#page=40'\">
+                  <button class=\"help\" style='height:27px;' onclick=\"window.location.href='./UserManual.pdf#page=64'\">
                       <i class='fa fa-question'></i>
                   </button>
               </div>

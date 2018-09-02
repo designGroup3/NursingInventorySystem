@@ -1,4 +1,4 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+<script src="js/bootstrapvalidator.min.js"></script>
 <body>
 <script>
     $(document).ready(function() {

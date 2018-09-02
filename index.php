@@ -8,9 +8,9 @@ if(isset($_SESSION['id'])) {
 <meta charset="utf-8">
 <title>Nursing Inventory Menu</title>
 </head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>	
+<script src="js/jquery-1.11.1.js"></script>
 	
 <body>
 <style>

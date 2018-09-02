@@ -8,14 +8,14 @@ include 'header.php'
     <meta charset="utf-8">
 
 </head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="js/jquery-1.11.1.js"></script>
 
 <body>
 <style>@charset "utf-8";
     /* CSS Document */
-    @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+    @import url('css/fonts.googleapis.roboto.css');
 
     select.form-control.input-sm {
         background: #FF5B5E !important;

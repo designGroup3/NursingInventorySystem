@@ -242,10 +242,10 @@ $(document).ready(function() {
 </head>
 	<script src="js/bdposlgin.js"></script>
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
 <script src="./js/jquery.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link href="css/fonts.googleapis.opensans.css" rel="stylesheet">
         <body><div class="parent"><button class="help" onclick="window.location.href='./UserManual.pdf#page=4'">
                 <i class='fa fa-question'></i></button></div>
         <?php
